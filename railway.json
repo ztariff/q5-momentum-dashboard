@@ -4,9 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "npm run start -- -p ${PORT:-3000}",
-    "healthcheckPath": "/",
-    "healthcheckTimeout": 300,
+    "startCommand": "npx next start -H 0.0.0.0 -p ${PORT:-3000}",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }

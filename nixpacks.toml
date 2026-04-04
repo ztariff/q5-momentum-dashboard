@@ -8,4 +8,4 @@ cmds = ["npm ci"]
 cmds = ["npm run build"]
 
 [start]
-cmd = "npm run start -- -p ${PORT:-3000}"
+cmd = "npx next start -H 0.0.0.0 -p ${PORT:-3000}"
