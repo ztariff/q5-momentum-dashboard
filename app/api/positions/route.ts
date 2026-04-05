@@ -14,13 +14,24 @@ export async function GET() {
     const TODAY = new Date('2026-04-03');
     const todayStr = TODAY.toISOString().split('T')[0];
 
-    // All positions in the Current Positions tab are treated as live
+    // Take the 50 most recently entered trades as "current open positions"
     const sorted = [...trades].sort((a, b) => b.entry_date.localeCompare(a.entry_date));
     const recent = sorted.slice(0, 50);
 
     const positionsToShow: Position[] = recent.map(t => {
       const isOption = t.instrument?.toUpperCase().includes('OPTION');
       const maxHoldDays = isOption ? 13 : 20;
+
+      // Default unrealized: use (exit_price - entry_price) * shares as proxy
+      // For options multiply by 100 (each contract covers 100 shares)
+      const priceProxy = t.exit_price || t.entry_price;
+      const defaultUnrealized = isOption
+        ? (priceProxy - t.entry_price) * t.shares_or_contracts * 100
+        : (priceProxy - t.entry_price) * t.shares_or_contracts;
+      const defaultUnrealizedPct = t.entry_price > 0
+        ? ((priceProxy / t.entry_price) - 1) * 100
+        : 0;
+
       return {
         ...t,
         days_held: t.hold_days,
@@ -28,9 +39,9 @@ export async function GET() {
         scheduled_exit_date: t.exit_date,
         max_hold_days: maxHoldDays,
         is_open: true,
-        unrealized_pnl: t.net_pnl,
-        unrealized_pnl_pct: t.return_pct,
-        current_price: t.exit_price,
+        unrealized_pnl: defaultUnrealized,
+        unrealized_pnl_pct: defaultUnrealizedPct,
+        current_price: priceProxy,
       } as Position;
     });
 
@@ -42,11 +53,14 @@ export async function GET() {
     const enriched = positionsToShow.map(pos => {
       const livePrice = prices.get(pos.symbol);
       if (livePrice) {
-        const isStock = pos.instrument?.toUpperCase().startsWith('STOCK');
-        const unrealizedPnl = isStock
-          ? (livePrice - pos.entry_price) * pos.shares_or_contracts
+        const isOption = pos.instrument?.toUpperCase().includes('OPTION');
+        // For options: multiply by 100 (contract size); for stocks: plain shares
+        const unrealizedPnl = isOption
+          ? (livePrice - pos.entry_price) * pos.shares_or_contracts * 100
+          : (livePrice - pos.entry_price) * pos.shares_or_contracts;
+        const unrealizedPct = pos.entry_price > 0
+          ? ((livePrice / pos.entry_price) - 1) * 100
           : 0;
-        const unrealizedPct = ((livePrice / pos.entry_price) - 1) * 100;
         return {
           ...pos,
           current_price: livePrice,
@@ -57,19 +71,22 @@ export async function GET() {
       return pos;
     });
 
-    // Compute summary stats across ALL trades
-    const allTrades = trades;
-    const totalPositions = allTrades.length;
+    // Issue 1 fix: total_positions = number of displayed (open/recent) positions, NOT all historical trades
+    const totalPositions = enriched.length;
 
-    // Total unrealized: all shown positions
+    // Issue 3 fix: total_unrealized = sum across ALL displayed positions
     const totalUnrealized = enriched.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
     // Realized P&L: sum net_pnl of all closed trades (exit_price > 0)
+    const allTrades = trades;
     const closedTrades = allTrades.filter(t => t.exit_price > 0 && t.net_pnl !== 0);
     const totalRealized = closedTrades.reduce((s, t) => s + t.net_pnl, 0);
 
     // Current month stats (April 2026)
     const currentMonth = todayStr.substring(0, 7); // "2026-04"
+
+    // Issue 2 fix: month_unrealized = sum of unrealized P&L for positions entered THIS month
+    // Uses live price if available, else exit_price proxy — already computed in enriched.unrealized_pnl
     const monthUnrealized = enriched
       .filter(p => p.entry_date.startsWith(currentMonth))
       .reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
