@@ -5,7 +5,7 @@ import fs from 'fs';
 /**
  * GET /api/positions
  * Pure display layer — reads pre-computed data from live_state.json.
- * All signal computation happens in /api/refresh.
+ * Returns only real positions. Pending signals belong to /api/signals.
  */
 export async function GET() {
   try {
@@ -19,35 +19,11 @@ export async function GET() {
     }
 
     const liveState = JSON.parse(fs.readFileSync(liveStatePath, 'utf-8'));
-
-    const positions = liveState.positions ?? [];
-    const pending = liveState.pending_signals ?? [];
     const summary = liveState.summary ?? {};
 
-    // Merge active + pending for the combined positions table
-    // Pending signals are prepended as they represent tomorrow's entries
-    const allPositions = [
-      ...pending.map((s: Record<string, unknown>) => ({
-        ...s,
-        // Map pending_signal fields to Position shape for table compatibility
-        instrument: 'OPTION',
-        entry_date: liveState.market_date,
-        entry_price: s.estimated_entry,
-        current_price: s.estimated_entry,
-        exit_date: null,
-        unrealized_pnl: 0,
-        unrealized_pct: 0,
-        days_held: 0,
-        days_remaining: null,
-        is_open: false,
-      })),
-      ...positions,
-    ];
-
     return NextResponse.json({
-      positions: allPositions,
-      count: allPositions.length,
-      pending_count: pending.length,
+      positions: liveState.positions ?? [],
+      count: (liveState.positions ?? []).length,
       summary: {
         total_positions: summary.total_positions ?? 0,
         total_unrealized: summary.total_unrealized ?? 0,
