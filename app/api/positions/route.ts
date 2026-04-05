@@ -18,6 +18,24 @@ function scaleSizingRule(rule: string): string {
     .replace(/\$100K/g, '$7K');
 }
 
+/**
+ * Compute the proper exit date for a trade: entry_date + holdDays business days.
+ * Options hold 13 biz days; stocks hold 20 biz days.
+ */
+function computeProperExitDate(entryDate: string, instrument: string): string {
+  const entry = new Date(entryDate);
+  const isOption = instrument?.toUpperCase().includes('OPTION');
+  const holdDays = isOption ? 13 : 20;
+  let bizDays = 0;
+  const d = new Date(entry);
+  while (bizDays < holdDays) {
+    d.setDate(d.getDate() + 1);
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) bizDays++; // skip weekends
+  }
+  return d.toISOString().split('T')[0];
+}
+
 export async function GET() {
   try {
     const csvPath = path.join(process.cwd(), 'public', 'data', 'hybrid_all_trades_calendar.csv');
@@ -49,13 +67,44 @@ export async function GET() {
       return count;
     }
 
-    // A position is "open" if its exit_date has not passed yet.
-    // Treat the backtest as live: positions with exit_date >= today are still open.
-    let openTrades = trades.filter(t => t.exit_date >= today);
-    let isRecentlyClosed = false;
+    // Helper: count business days between two date strings (start exclusive, end inclusive)
+    function bizDaysBetween(startDate: string, endDate: string): number {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      if (end <= start) return 0;
+      let count = 0;
+      const cur = new Date(start);
+      while (cur < end) {
+        cur.setDate(cur.getDate() + 1);
+        const dow = cur.getDay();
+        if (dow !== 0 && dow !== 6) count++;
+      }
+      return count;
+    }
 
-    // Fallback: if zero open positions (all trades have already exited), show
-    // trades from the last 5 trading days as "recently closed"
+    // For each trade, determine whether it was backtest-truncated.
+    // If the proper exit date (entry + hold days) is later than the CSV exit date,
+    // the trade was cut short by the backtest end — it is actually still OPEN.
+    type TradeWithProperExit = (typeof trades)[number] & {
+      proper_exit_date: string;
+      csv_exit_date: string;
+      is_truncated: boolean;
+    };
+
+    const tradesWithProper: TradeWithProperExit[] = trades.map(t => {
+      const proper_exit_date = computeProperExitDate(t.entry_date, t.instrument);
+      const csv_exit_date = t.exit_date;
+      const is_truncated = proper_exit_date > csv_exit_date;
+      return { ...t, proper_exit_date, csv_exit_date, is_truncated };
+    });
+
+    // Open positions: those whose proper exit date is today or in the future
+    const openTrades = tradesWithProper.filter(t => t.proper_exit_date >= today);
+
+    let isRecentlyClosed = false;
+    let positionsSource: TradeWithProperExit[] = openTrades;
+
+    // Fallback: if zero open positions, show recently closed trades
     if (openTrades.length === 0) {
       isRecentlyClosed = true;
 
@@ -69,49 +118,66 @@ export async function GET() {
       }
       const cutoffStr = recentCutoff.toISOString().split('T')[0];
 
-      openTrades = trades.filter(t => t.exit_date >= cutoffStr);
+      // Use proper_exit_date for recently-closed fallback as well
+      positionsSource = tradesWithProper.filter(t => t.proper_exit_date >= cutoffStr);
     }
 
-    function buildPosition(t: ReturnType<typeof parseTrades>[number]): Position {
+    function buildPosition(t: TradeWithProperExit): Position {
       const isOption = t.instrument?.toUpperCase().includes('OPTION');
       const maxHoldDays = isOption ? 13 : 20;
 
-      // Compute days held/remaining from entry date to today
-      const daysHeld = tradingDaysSinceEntry(t.entry_date);
-      const daysRemaining = Math.max(0, maxHoldDays - daysHeld);
+      // Use the proper exit date as the canonical exit date.
+      // For truncated (open) trades this will be in the future.
+      const canonicalExitDate = t.proper_exit_date;
 
-      // Unrealized P&L proxy: use exit_price (or entry_price if not yet set) as current price.
-      // For options: exit_price is the option price at expiry/exit — do NOT use live stock price.
+      // Days held so far (from entry to today)
+      const daysHeld = tradingDaysSinceEntry(t.entry_date);
+
+      // Days remaining = business days from today to proper exit
+      const daysRemaining = isRecentlyClosed
+        ? 0
+        : Math.max(0, bizDaysBetween(today, canonicalExitDate));
+
+      // For truncated/open positions: last known price from the CSV is the
+      // most recent mark-to-market price. For normally-exited trades: use exit_price.
+      const lastKnownPrice = t.exit_price || t.entry_price;
+
+      // Unrealized P&L for open positions (mark-to-market vs entry)
       // shares_or_contracts is already scaled.
-      const exitPriceProxy = t.exit_price || t.entry_price;
-      const defaultUnrealized = isOption
-        ? (exitPriceProxy - t.entry_price) * t.shares_or_contracts * 100
-        : (exitPriceProxy - t.entry_price) * t.shares_or_contracts;
-      const defaultUnrealizedPct = t.entry_price > 0
-        ? ((exitPriceProxy / t.entry_price) - 1) * 100
+      const unrealizedPnl = isOption
+        ? (lastKnownPrice - t.entry_price) * t.shares_or_contracts * 100
+        : (lastKnownPrice - t.entry_price) * t.shares_or_contracts;
+      const unrealizedPnlPct = t.entry_price > 0
+        ? ((lastKnownPrice / t.entry_price) - 1) * 100
         : 0;
 
       // Approximate stop prices:
-      // Stocks: 10% trailing stop below entry (proxy for 3×ATR stop from signal day)
-      // Options: 50% loss stop on option premium (standard risk management)
+      // Options: 50% loss stop on option premium
+      // Stocks: 10% trailing stop below entry (proxy for 3×ATR stop)
       const stopPrice = isOption
         ? t.entry_price * 0.50
         : t.entry_price * 0.90;
 
-      const currentPriceProxy = exitPriceProxy;
+      const currentPriceProxy = lastKnownPrice;
       const distanceToStop = currentPriceProxy > 0
         ? ((currentPriceProxy - stopPrice) / currentPriceProxy) * 100
         : 100;
 
+      const isOpen = !isRecentlyClosed;
+
       return {
         ...t,
+        // Override exit_date with the proper (potentially future) exit date
+        exit_date: canonicalExitDate,
+        // For open positions the exit_price is the last known price (mark to market)
+        exit_price: isOpen && t.is_truncated ? lastKnownPrice : t.exit_price,
         days_held: daysHeld,
         days_remaining: daysRemaining,
-        scheduled_exit_date: t.exit_date,
+        scheduled_exit_date: canonicalExitDate,
         max_hold_days: maxHoldDays,
-        is_open: !isRecentlyClosed,
-        unrealized_pnl: defaultUnrealized,
-        unrealized_pnl_pct: defaultUnrealizedPct,
+        is_open: isOpen,
+        unrealized_pnl: unrealizedPnl,
+        unrealized_pnl_pct: unrealizedPnlPct,
         current_price: currentPriceProxy,
         stop_price: stopPrice,
         distance_to_stop_pct: distanceToStop,
@@ -119,7 +185,7 @@ export async function GET() {
       } as Position;
     }
 
-    const positionsToShow: Position[] = openTrades.map(buildPosition);
+    const positionsToShow: Position[] = positionsSource.map(buildPosition);
 
     // Fetch live stock prices for STOCK positions only.
     // Options use the exit_price from the CSV — applying live stock prices to options
@@ -137,7 +203,7 @@ export async function GET() {
     const enriched = positionsToShow.map(pos => {
       const isOption = pos.instrument?.toUpperCase().includes('OPTION');
 
-      // Options: never update with stock price — P&L stays at exit_price proxy
+      // Options: never update with stock price — P&L stays at last known price proxy
       if (isOption) return pos;
 
       const livePrice = prices.get(pos.symbol);
@@ -172,7 +238,12 @@ export async function GET() {
     const totalUnrealized = enriched.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
     // Realized P&L = sum of net_pnl from ALL historical closed trades (already scaled)
-    const closedTrades = trades.filter(t => t.exit_price > 0 && t.net_pnl !== 0);
+    // Exclude truncated (still-open) trades from realized totals
+    const closedTrades = trades.filter(t => {
+      const proper = computeProperExitDate(t.entry_date, t.instrument);
+      const isTruncated = proper > t.exit_date;
+      return !isTruncated && t.exit_price > 0 && t.net_pnl !== 0;
+    });
     const totalRealized = closedTrades.reduce((s, t) => s + t.net_pnl, 0);
 
     const currentMonth = today.substring(0, 7); // e.g. "2026-04"
@@ -186,9 +257,6 @@ export async function GET() {
     const monthRealized = closedTrades
       .filter(t => (t.exit_date || '').startsWith(currentMonth))
       .reduce((s, t) => s + t.net_pnl, 0);
-
-    // Risk alerts only apply to open positions
-    // (enriched array already contains only open/recently-closed positions)
 
     return NextResponse.json({
       positions: enriched,
