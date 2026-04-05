@@ -135,26 +135,26 @@ export async function GET() {
         const bp = data.body_pct ?? 0;
         let tier = 'C';
         let sizingRule = '';
-        let recommendedSize = 1000000;
+        let recommendedSize = 67000;
         
         if (bp <= -0.53) {
           // Q1 body - SKIP
           continue;
         } else if (bp <= -0.17) {
-          sizingRule = '$500K position (Tier B Q2)';
-          recommendedSize = 500000;
-          tier = 'B';
+          sizingRule = '$33K position (Tier C Q2)';
+          recommendedSize = 33000;
+          tier = 'C';
         } else if (bp <= 0.23) {
-          sizingRule = '$1M position (Tier C Q3)';
-          recommendedSize = 1000000;
+          sizingRule = '$67K position (Tier C Q3)';
+          recommendedSize = 67000;
           tier = 'C';
         } else if (bp <= 0.57) {
-          sizingRule = '$1.5M position (Tier C Q4)';
-          recommendedSize = 1500000;
+          sizingRule = '$100K position (Tier C Q4)';
+          recommendedSize = 100000;
           tier = 'C';
         } else {
-          sizingRule = '$2M position (Tier C Q5)';
-          recommendedSize = 2000000;
+          sizingRule = '$133K position (Tier C Q5)';
+          recommendedSize = 133000;
           tier = 'C';
         }
         
