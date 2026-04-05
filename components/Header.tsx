@@ -1,6 +1,6 @@
 'use client';
 
-import { Activity, TrendingUp, RefreshCw, Database } from 'lucide-react';
+import { Activity, TrendingUp, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeaderProps {
@@ -16,10 +16,9 @@ export default function Header({
   isRefreshing,
   onRefresh,
   onDataRefresh,
-  dataRefreshProgress,
 }: HeaderProps) {
-  const [isDataRefreshing, setIsDataRefreshing] = useState(false);
-  const [dataRefreshStatus, setDataRefreshStatus] = useState<string | null>(null);
+  const [isPriceUpdating, setIsPriceUpdating] = useState(false);
+  const [updateStatus, setUpdateStatus] = useState<string | null>(null);
 
   const now = new Date();
   // Adjust for ET: UTC-5 (EST) or UTC-4 (EDT)
@@ -29,40 +28,35 @@ export default function Header({
   const isMarketHours =
     etHour >= 9 && etHour < 16 && now.getUTCDay() >= 1 && now.getUTCDay() <= 5;
 
-  const handleDataRefresh = async () => {
-    if (isDataRefreshing) return;
-    setIsDataRefreshing(true);
-    setDataRefreshStatus('Fetching 230 symbols from Polygon...');
+  const handleUpdatePrices = async () => {
+    if (isPriceUpdating) return;
+    setIsPriceUpdating(true);
+    setUpdateStatus('Fetching prices...');
 
     try {
       if (onDataRefresh) {
         await onDataRefresh();
-        setDataRefreshStatus('Done');
+        setUpdateStatus('Done');
       } else {
-        // Direct call to /api/refresh
         const resp = await fetch('/api/refresh');
         if (!resp.ok) {
           const err = await resp.json().catch(() => ({ error: resp.statusText }));
-          setDataRefreshStatus(`Error: ${err.error ?? resp.statusText}`);
+          setUpdateStatus(`Error: ${err.error ?? resp.statusText}`);
           return;
         }
         const result = await resp.json();
-        setDataRefreshStatus(
-          `Done — ${result.symbols_processed ?? 0} symbols, ${result.positions ?? 0} positions, ${result.pending_signals ?? 0} signals`
+        setUpdateStatus(
+          `Done — ${result.positions_updated ?? 0} positions updated`
         );
-        // Reload display data
         onRefresh();
       }
     } catch (err) {
-      setDataRefreshStatus(`Error: ${String(err)}`);
+      setUpdateStatus(`Error: ${String(err)}`);
     } finally {
-      setIsDataRefreshing(false);
-      // Clear status after 8 seconds
-      setTimeout(() => setDataRefreshStatus(null), 8000);
+      setIsPriceUpdating(false);
+      setTimeout(() => setUpdateStatus(null), 6000);
     }
   };
-
-  const progress = dataRefreshProgress;
 
   return (
     <header className="border-b" style={{ borderColor: '#2d4a7a', backgroundColor: '#0d1425' }}>
@@ -82,18 +76,10 @@ export default function Header({
 
         {/* Right: Controls */}
         <div className="flex items-center gap-3 flex-wrap justify-end">
-          {/* Data refresh progress / status */}
-          {(isDataRefreshing || dataRefreshStatus) && (
+          {/* Price update status */}
+          {(isPriceUpdating || updateStatus) && (
             <div className="text-xs px-3 py-1 rounded" style={{ backgroundColor: 'rgba(96,165,250,0.1)', color: '#60a5fa', border: '1px solid rgba(96,165,250,0.25)' }}>
-              {isDataRefreshing && progress ? (
-                <span>
-                  Refreshing data... {progress.done}/{progress.total} symbols
-                </span>
-              ) : isDataRefreshing ? (
-                <span>Refreshing data...</span>
-              ) : (
-                <span>{dataRefreshStatus}</span>
-              )}
+              {isPriceUpdating ? 'Updating prices...' : updateStatus}
             </div>
           )}
 
@@ -140,21 +126,21 @@ export default function Header({
             {isRefreshing ? 'Loading...' : 'Reload'}
           </button>
 
-          {/* Data refresh (runs signal engine, calls /api/refresh) */}
+          {/* Update Prices (calls /api/refresh — price update only, ~2-3s) */}
           <button
-            onClick={handleDataRefresh}
-            disabled={isDataRefreshing}
+            onClick={handleUpdatePrices}
+            disabled={isPriceUpdating}
             className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold transition-all"
             style={{
-              backgroundColor: isDataRefreshing ? 'rgba(245,158,11,0.15)' : 'rgba(245,158,11,0.1)',
-              color: '#fbbf24',
-              border: `1px solid ${isDataRefreshing ? 'rgba(245,158,11,0.5)' : 'rgba(245,158,11,0.25)'}`,
-              opacity: isDataRefreshing ? 0.8 : 1,
+              backgroundColor: isPriceUpdating ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.1)',
+              color: '#22c55e',
+              border: `1px solid ${isPriceUpdating ? 'rgba(34,197,94,0.5)' : 'rgba(34,197,94,0.25)'}`,
+              opacity: isPriceUpdating ? 0.8 : 1,
             }}
-            title="Re-run signal computation for all 230 symbols (takes ~2 min)"
+            title="Fetch latest prices for open positions (2-3 seconds)"
           >
-            <Database className={`w-3 h-3 ${isDataRefreshing ? 'animate-pulse' : ''}`} />
-            {isDataRefreshing ? 'Running Engine...' : 'Refresh Data'}
+            <RefreshCw className={`w-3 h-3 ${isPriceUpdating ? 'animate-spin' : ''}`} />
+            {isPriceUpdating ? 'Updating...' : 'Update Prices'}
           </button>
         </div>
       </div>

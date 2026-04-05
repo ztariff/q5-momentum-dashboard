@@ -55,7 +55,6 @@ export default function Dashboard() {
   const [lastRefresh, setLastRefresh] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [summary, setSummary] = useState<Summary | null>(null);
-  const [dataRefreshProgress, setDataRefreshProgress] = useState<{ done: number; total: number } | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoRefreshTriggered = useRef(false);
 
@@ -109,29 +108,12 @@ export default function Dashboard() {
 
   const triggerBackgroundRefresh = useCallback(async () => {
     try {
-      // Poll for progress while refresh runs
-      const pollInterval = setInterval(async () => {
-        try {
-          const resp = await fetch('/api/positions');
-          if (resp.ok) {
-            const data = await resp.json();
-            if (data.refresh_progress) {
-              setDataRefreshProgress(data.refresh_progress);
-            }
-          }
-        } catch { /* ignore */ }
-      }, 3000);
-
       const refreshResp = await fetch('/api/refresh');
-      clearInterval(pollInterval);
-      setDataRefreshProgress(null);
-
       if (refreshResp.ok) {
-        // Reload display after refresh completes
         await loadPositions();
       }
     } catch {
-      setDataRefreshProgress(null);
+      // silently fail — don't block page load
     }
   }, [loadPositions]);
 
@@ -167,7 +149,6 @@ export default function Dashboard() {
         lastRefresh={lastRefresh}
         isRefreshing={isRefreshing}
         onRefresh={loadPositions}
-        dataRefreshProgress={dataRefreshProgress}
       />
 
       <main className="max-w-screen-2xl mx-auto px-4 py-6">
