@@ -118,6 +118,18 @@ export default function SignalScanner() {
         ))}
       </div>
 
+      {/* Note: signals are connected to Current Positions */}
+      <div
+        className="flex items-start gap-2 rounded-lg p-2 mb-3 text-xs"
+        style={{ backgroundColor: 'rgba(245, 158, 11, 0.07)', border: '1px solid rgba(245, 158, 11, 0.25)', color: '#92400e' }}
+      >
+        <span style={{ color: '#fbbf24' }} className="font-semibold">Note:</span>
+        <span style={{ color: '#d97706' }}>
+          Signals detected here are automatically added to <span style={{ color: '#fbbf24' }} className="font-semibold">Current Positions</span> as <span style={{ color: '#fbbf24' }} className="font-semibold">PENDING</span> entries.
+          They will show in the Positions tab with an amber highlight until the next market open.
+        </span>
+      </div>
+
       {/* Option contract sizing note */}
       <div
         className="flex items-start gap-2 rounded-lg p-2 mb-4 text-xs"

@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
-import { parseTrades } from '@/lib/csvParser';
-import { fetchMultiplePrices } from '@/lib/polygon';
-import { Position } from '@/lib/types';
+import { parseTrades, parseUniverse } from '@/lib/csvParser';
+import { fetchMultiplePrices, fetchDailyBars, computeSMA50, computeSlope, computeZScore, computeATR14 } from '@/lib/polygon';
+import { Position, PositionStatus } from '@/lib/types';
 import path from 'path';
 import fs from 'fs';
 
 const SCALE_FACTOR = 0.0666; // Target $40K daily vol = 1/15th of backtest size
+
+// Position size budgets (same as signal scanner)
+const TIER_A_BUDGET = 13000;
+const TIER_B_BUDGET = 7000;
 
 // Scale sizing_rule text to reflect new dollar amounts
 function scaleSizingRule(rule: string): string {
@@ -31,9 +35,225 @@ function computeProperExitDate(entryDate: string, instrument: string): string {
   while (bizDays < holdDays) {
     d.setDate(d.getDate() + 1);
     const dow = d.getDay();
-    if (dow !== 0 && dow !== 6) bizDays++; // skip weekends
+    if (dow !== 0 && dow !== 6) bizDays++;
   }
   return d.toISOString().split('T')[0];
+}
+
+/** Next business day after a given date string */
+function nextBusinessDay(dateStr: string): string {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + 1);
+  while (d.getDay() === 0 || d.getDay() === 6) {
+    d.setDate(d.getDate() + 1);
+  }
+  return d.toISOString().split('T')[0];
+}
+
+/** Recommended contracts for options (min 1) */
+function recommendedContracts(budget: number, optionPrice: number | null): number {
+  if (!optionPrice || optionPrice <= 0) return 1;
+  return Math.max(1, Math.floor(budget / (optionPrice * 100)));
+}
+
+/**
+ * Run the signal scanner logic inline and return pending Position objects.
+ * Scans up to 60 symbols from the universe.
+ */
+async function buildPendingPositions(today: string): Promise<Position[]> {
+  try {
+    const universePath = path.join(process.cwd(), 'public', 'data', 'universe.csv');
+    if (!fs.existsSync(universePath)) return [];
+    const universeText = fs.readFileSync(universePath, 'utf-8');
+    const symbols = parseUniverse(universeText);
+
+    const fromDate = new Date(today);
+    fromDate.setFullYear(fromDate.getFullYear() - 2);
+    const fromStr = fromDate.toISOString().split('T')[0];
+
+    const batchSize = 20;
+    const symbolData: Map<string, {
+      z: number | null;
+      slope: number | null;
+      body_pct: number | null;
+      atr_change: number | null;
+      last_close: number | null;
+      atr14: number | null;
+    }> = new Map();
+
+    for (let i = 0; i < Math.min(symbols.length, 60); i += batchSize) {
+      const batch = symbols.slice(i, i + batchSize);
+      const results = await Promise.all(batch.map(async (symbol) => {
+        try {
+          const bars = await fetchDailyBars(symbol, fromStr, today);
+          if (bars.length < 70) return null;
+
+          const closes = bars.map(b => b.close);
+          const sma = computeSMA50(closes);
+          const slopes = computeSlope(sma);
+          const zScores = computeZScore(slopes);
+          const atrs = computeATR14(bars);
+
+          const lastIdx = bars.length - 1;
+          const bar = bars[lastIdx];
+          const range = bar.high - bar.low;
+          const body_pct = range > 0 ? (bar.close - bar.open) / range : null;
+
+          const atr_now = atrs[lastIdx];
+          const atr_3d = atrs[lastIdx - 3];
+          const atr_change = atr_now !== null && atr_3d !== null && atr_3d > 0
+            ? (atr_now - atr_3d) / atr_3d
+            : null;
+
+          return {
+            symbol,
+            z: zScores[lastIdx],
+            slope: slopes[lastIdx],
+            body_pct,
+            atr_change,
+            last_close: bar.close,
+            atr14: atr_now,
+          };
+        } catch {
+          return null;
+        }
+      }));
+
+      for (const r of results) {
+        if (r) {
+          symbolData.set(r.symbol, {
+            z: r.z ?? null,
+            slope: r.slope ?? null,
+            body_pct: r.body_pct ?? null,
+            atr_change: r.atr_change ?? null,
+            last_close: r.last_close ?? null,
+            atr14: r.atr14 ?? null,
+          });
+        }
+      }
+    }
+
+    // Cross-sectional quintile assignment
+    const validSymbols = Array.from(symbolData.entries())
+      .filter(([, d]) => d.z !== null)
+      .sort((a, b) => (a[1].z || 0) - (b[1].z || 0));
+
+    const n = validSymbols.length;
+    const quintileMap = new Map<string, number>();
+    validSymbols.forEach(([symbol], i) => {
+      const q = Math.min(5, Math.ceil(((i + 1) / n) * 5));
+      quintileMap.set(symbol, q);
+    });
+
+    const entryDate = nextBusinessDay(today);
+    const pending: Position[] = [];
+
+    for (const [symbol, data] of symbolData.entries()) {
+      const q = quintileMap.get(symbol);
+      if (q !== 5 || data.z === null) continue;
+
+      const bp = data.body_pct ?? 0;
+      const atrChg = data.atr_change ?? 0;
+
+      // Skip Q1 body (very bearish candle)
+      if (bp <= -0.53) continue;
+
+      let tier: string;
+      let sizingRule: string;
+      let recommendedSize: number;
+      let recContracts: number | null = null;
+      let instrument: string;
+
+      if (bp > 0.57 && atrChg > 0.10) {
+        tier = 'A';
+        recommendedSize = TIER_A_BUDGET;
+        recContracts = recommendedContracts(TIER_A_BUDGET, null);
+        sizingRule = `$${(TIER_A_BUDGET / 1000).toFixed(0)}K options (Tier A) — Min 1 contract`;
+        instrument = 'OPTION';
+      } else if (bp > 0.23 && atrChg > 0.05) {
+        tier = 'B';
+        recommendedSize = TIER_B_BUDGET;
+        recContracts = recommendedContracts(TIER_B_BUDGET, null);
+        sizingRule = `$${(TIER_B_BUDGET / 1000).toFixed(0)}K options (Tier B) — Min 1 contract`;
+        instrument = 'OPTION';
+      } else {
+        tier = 'C';
+        recContracts = null;
+        instrument = 'STOCK';
+        if (bp <= -0.17) {
+          sizingRule = '$33K position (Tier C Q2)';
+          recommendedSize = 33000;
+        } else if (bp <= 0.23) {
+          sizingRule = '$67K position (Tier C Q3)';
+          recommendedSize = 67000;
+        } else if (bp <= 0.57) {
+          sizingRule = '$100K position (Tier C Q4)';
+          recommendedSize = 100000;
+        } else {
+          sizingRule = '$133K position (Tier C Q5)';
+          recommendedSize = 133000;
+        }
+      }
+
+      const lastClose = data.last_close ?? 0;
+      // ATR-based stop: entry price - 3×ATR14
+      const atr = data.atr14 ?? 0;
+      const stopPrice = instrument === 'OPTION'
+        ? lastClose * 0.50
+        : lastClose - 3 * atr;
+
+      const maxHoldDays = instrument === 'OPTION' ? 13 : 20;
+      const scheduledExit = computeProperExitDate(entryDate, instrument);
+
+      const pendingPos: Position = {
+        // Trade fields
+        symbol,
+        instrument,
+        tier,
+        body_quintile: '',
+        sizing_rule: sizingRule,
+        option_ticker: '',
+        strike: null,
+        expiry: '',
+        signal_date: today,
+        entry_date: entryDate,
+        entry_time: 'open',
+        entry_price: lastClose,
+        exit_date: scheduledExit,
+        exit_time: '',
+        exit_price: 0,
+        exit_type: '',
+        position_size: recommendedSize,
+        shares_or_contracts: recContracts ?? Math.floor(recommendedSize / (lastClose || 1)),
+        hold_days: 0,
+        net_pnl: 0,
+        return_pct: 0,
+        body_pct: bp,
+        atr_change_3d: atrChg,
+        opt_source: '',
+        // Position fields
+        status: 'pending' as PositionStatus,
+        current_price: lastClose,
+        unrealized_pnl: undefined,
+        unrealized_pnl_pct: undefined,
+        stop_price: stopPrice,
+        days_held: 0,
+        days_remaining: maxHoldDays,
+        scheduled_exit_date: scheduledExit,
+        distance_to_stop_pct: lastClose > 0 ? ((lastClose - stopPrice) / lastClose) * 100 : 100,
+        distance_to_stop_dollar: lastClose - stopPrice,
+        max_hold_days: maxHoldDays,
+        is_open: false,
+      };
+
+      pending.push(pendingPos);
+    }
+
+    return pending;
+  } catch (err) {
+    console.error('buildPendingPositions error:', err);
+    return [];
+  }
 }
 
 export async function GET() {
@@ -82,9 +302,6 @@ export async function GET() {
       return count;
     }
 
-    // For each trade, determine whether it was backtest-truncated.
-    // If the proper exit date (entry + hold days) is later than the CSV exit date,
-    // the trade was cut short by the backtest end — it is actually still OPEN.
     type TradeWithProperExit = (typeof trades)[number] & {
       proper_exit_date: string;
       csv_exit_date: string;
@@ -108,7 +325,6 @@ export async function GET() {
     if (openTrades.length === 0) {
       isRecentlyClosed = true;
 
-      // Compute the last 5 trading days before today
       const recentCutoff = new Date(today);
       let tradingDaysBack = 0;
       while (tradingDaysBack < 5) {
@@ -117,8 +333,6 @@ export async function GET() {
         if (day !== 0 && day !== 6) tradingDaysBack++;
       }
       const cutoffStr = recentCutoff.toISOString().split('T')[0];
-
-      // Use proper_exit_date for recently-closed fallback as well
       positionsSource = tradesWithProper.filter(t => t.proper_exit_date >= cutoffStr);
     }
 
@@ -126,24 +340,14 @@ export async function GET() {
       const isOption = t.instrument?.toUpperCase().includes('OPTION');
       const maxHoldDays = isOption ? 13 : 20;
 
-      // Use the proper exit date as the canonical exit date.
-      // For truncated (open) trades this will be in the future.
       const canonicalExitDate = t.proper_exit_date;
-
-      // Days held so far (from entry to today)
       const daysHeld = tradingDaysSinceEntry(t.entry_date);
-
-      // Days remaining = business days from today to proper exit
       const daysRemaining = isRecentlyClosed
         ? 0
         : Math.max(0, bizDaysBetween(today, canonicalExitDate));
 
-      // For truncated/open positions: last known price from the CSV is the
-      // most recent mark-to-market price. For normally-exited trades: use exit_price.
       const lastKnownPrice = t.exit_price || t.entry_price;
 
-      // Unrealized P&L for open positions (mark-to-market vs entry)
-      // shares_or_contracts is already scaled.
       const unrealizedPnl = isOption
         ? (lastKnownPrice - t.entry_price) * t.shares_or_contracts * 100
         : (lastKnownPrice - t.entry_price) * t.shares_or_contracts;
@@ -151,9 +355,6 @@ export async function GET() {
         ? ((lastKnownPrice / t.entry_price) - 1) * 100
         : 0;
 
-      // Approximate stop prices:
-      // Options: 50% loss stop on option premium
-      // Stocks: 10% trailing stop below entry (proxy for 3×ATR stop)
       const stopPrice = isOption
         ? t.entry_price * 0.50
         : t.entry_price * 0.90;
@@ -165,11 +366,15 @@ export async function GET() {
 
       const isOpen = !isRecentlyClosed;
 
+      // Determine status
+      let status: PositionStatus = 'active';
+      if (daysRemaining === 0 && isOpen) {
+        status = 'exit_today';
+      }
+
       return {
         ...t,
-        // Override exit_date with the proper (potentially future) exit date
         exit_date: canonicalExitDate,
-        // For open positions the exit_price is the last known price (mark to market)
         exit_price: isOpen && t.is_truncated ? lastKnownPrice : t.exit_price,
         days_held: daysHeld,
         days_remaining: daysRemaining,
@@ -182,14 +387,13 @@ export async function GET() {
         stop_price: stopPrice,
         distance_to_stop_pct: distanceToStop,
         distance_to_stop_dollar: currentPriceProxy - stopPrice,
+        status,
       } as Position;
     }
 
     const positionsToShow: Position[] = positionsSource.map(buildPosition);
 
-    // Fetch live stock prices for STOCK positions only.
-    // Options use the exit_price from the CSV — applying live stock prices to options
-    // would give wildly inflated P&L (e.g. NFLX stock at $850 vs $4.63 option entry).
+    // Fetch live stock prices for STOCK positions only
     const stockSymbols = [
       ...new Set(
         positionsToShow
@@ -202,20 +406,16 @@ export async function GET() {
     // Enrich STOCK positions with live prices where available
     const enriched = positionsToShow.map(pos => {
       const isOption = pos.instrument?.toUpperCase().includes('OPTION');
-
-      // Options: never update with stock price — P&L stays at last known price proxy
       if (isOption) return pos;
 
       const livePrice = prices.get(pos.symbol);
       if (!livePrice) return pos;
 
-      // shares_or_contracts is already scaled — unrealized P&L reflects scaled size
       const unrealizedPnl = (livePrice - pos.entry_price) * pos.shares_or_contracts;
       const unrealizedPct = pos.entry_price > 0
         ? ((livePrice / pos.entry_price) - 1) * 100
         : 0;
 
-      // Recompute distance to stop with live price
       const stopPrice = pos.stop_price ?? pos.entry_price * 0.90;
       const distanceToStop = livePrice > 0
         ? ((livePrice - stopPrice) / livePrice) * 100
@@ -231,14 +431,15 @@ export async function GET() {
       };
     });
 
-    // summary.total_positions = count of truly open positions
-    const totalPositions = enriched.length;
+    // Build pending positions from signal scanner
+    const pendingPositions = await buildPendingPositions(today);
 
-    // Total unrealized = sum across only these open positions
+    // Merge: pending at top, then active/exit_today positions
+    const allPositions = [...pendingPositions, ...enriched];
+
+    const totalPositions = enriched.length;
     const totalUnrealized = enriched.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
-    // Realized P&L = sum of net_pnl from ALL historical closed trades (already scaled)
-    // Exclude truncated (still-open) trades from realized totals
     const closedTrades = trades.filter(t => {
       const proper = computeProperExitDate(t.entry_date, t.instrument);
       const isTruncated = proper > t.exit_date;
@@ -246,21 +447,20 @@ export async function GET() {
     });
     const totalRealized = closedTrades.reduce((s, t) => s + t.net_pnl, 0);
 
-    const currentMonth = today.substring(0, 7); // e.g. "2026-04"
+    const currentMonth = today.substring(0, 7);
 
-    // Month unrealized: only open positions entered this month
     const monthUnrealized = enriched
       .filter(p => p.entry_date.startsWith(currentMonth))
       .reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
-    // Month realized: closed trades where exit happened this month
     const monthRealized = closedTrades
       .filter(t => (t.exit_date || '').startsWith(currentMonth))
       .reduce((s, t) => s + t.net_pnl, 0);
 
     return NextResponse.json({
-      positions: enriched,
-      count: enriched.length,
+      positions: allPositions,
+      count: allPositions.length,
+      pending_count: pendingPositions.length,
       is_demo: false,
       demo_note: isRecentlyClosed
         ? 'No positions with future exit dates found — showing recently closed positions from the last 5 trading days.'

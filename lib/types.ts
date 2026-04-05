@@ -25,7 +25,14 @@ export interface Trade {
   opt_source: string;
 }
 
+// Position status:
+//   'pending'    — signal fired, awaiting entry at next open (amber highlight)
+//   'active'     — position is open and holding (normal green/red)
+//   'exit_today' — hold period expires today, exit at close (purple highlight)
+export type PositionStatus = 'pending' | 'active' | 'exit_today';
+
 export interface Position extends Trade {
+  status?: PositionStatus;
   current_price?: number;
   unrealized_pnl?: number;
   unrealized_pnl_pct?: number;

@@ -9,17 +9,24 @@ interface PositionsTableProps {
   isLoading: boolean;
 }
 
-type SortKey = 'symbol' | 'unrealized_pnl' | 'net_pnl' | 'return_pct' | 'days_remaining' | 'entry_date' | 'position_size' | 'exit_date';
+type SortKey = 'symbol' | 'unrealized_pnl' | 'net_pnl' | 'return_pct' | 'days_remaining' | 'entry_date' | 'position_size' | 'exit_date' | 'status';
 
 function getRowClass(pos: Position): string {
-  const unrealPnl = pos.unrealized_pnl ?? 0;
+  // Pending: signal fired, not yet entered
+  if (pos.status === 'pending') return 'row-pending';
+
+  // Exit today: hold period expires today
+  if (pos.status === 'exit_today') return 'row-exit-today';
+
+  // Active positions: standard color coding
+  const unrealPct = pos.unrealized_pnl_pct ?? 0;
   const stopDist = pos.distance_to_stop_pct ?? 100;
   const daysRem = pos.days_remaining ?? 99;
-  const unrealPct = pos.unrealized_pnl_pct ?? 0;
+
   if (unrealPct < -50) return 'row-deep-loss';
   if (stopDist < 20) return 'row-near-stop';
   if (daysRem <= 2) return 'row-near-exit';
-  if (unrealPnl > 0) return 'row-profitable';
+  if ((pos.unrealized_pnl ?? 0) > 0) return 'row-profitable';
   return 'row-losing';
 }
 
@@ -37,7 +44,6 @@ function formatSize(val: number): string {
   if (val >= 1000) return `$${(val / 1000).toFixed(0)}K`;
   return `$${val}`;
 }
-
 
 /**
  * Compute recommended contracts for an option trade.
@@ -77,33 +83,46 @@ const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
  */
 function formatOptionTicker(ticker: string): string {
   if (!ticker) return '';
-
-  // Strip leading "O:" prefix
   const raw = ticker.startsWith('O:') ? ticker.slice(2) : ticker;
-
-  // Match: letters (symbol), 6 digits (YYMMDD), C or P, 8 digits (strike * 1000)
   const match = raw.match(/^([A-Z]+)(\d{2})(\d{2})(\d{2})([CP])(\d{8})$/);
-  if (!match) return ticker; // return raw if unparseable
-
+  if (!match) return ticker;
   const [, symbol, yy, mm, dd, cpFlag, strikePadded] = match;
-
   const year = 2000 + parseInt(yy, 10);
   const monthIdx = parseInt(mm, 10) - 1;
   const day = parseInt(dd, 10);
   const strike = parseInt(strikePadded, 10) / 1000;
-
   const monthName = MONTH_ABBR[monthIdx] ?? mm;
   const callPut = cpFlag === 'C' ? 'Call' : 'Put';
-
-  // Format strike: show as integer if whole number, else 2 decimal places
   const strikeStr = strike % 1 === 0 ? strike.toFixed(0) : strike.toFixed(2);
-
   return `${symbol} ${monthName} ${day} ${year} $${strikeStr} ${callPut}`;
 }
 
+/** Render the status badge cell for a position */
+function StatusBadge({ pos }: { pos: Position }) {
+  if (pos.status === 'pending') {
+    return (
+      <span className="badge badge-pending">
+        PENDING
+      </span>
+    );
+  }
+  if (pos.status === 'exit_today') {
+    return (
+      <span className="badge badge-exit-today">
+        EXIT AT CLOSE
+      </span>
+    );
+  }
+  return (
+    <span className="badge badge-active">
+      ACTIVE
+    </span>
+  );
+}
+
 export default function PositionsTable({ positions, isLoading }: PositionsTableProps) {
-  const [sortKey, setSortKey] = useState<SortKey>('entry_date');
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [sortKey, setSortKey] = useState<SortKey>('status');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -114,7 +133,20 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
     }
   };
 
+  // Status sort order: pending first, then exit_today, then active
+  function statusOrder(pos: Position): number {
+    if (pos.status === 'pending') return 0;
+    if (pos.status === 'exit_today') return 1;
+    return 2;
+  }
+
   const sorted = [...positions].sort((a, b) => {
+    // Always sort pending to top regardless of sort key
+    const statusDiff = statusOrder(a) - statusOrder(b);
+    if (sortKey === 'status') {
+      return sortDir === 'asc' ? statusDiff : -statusDiff;
+    }
+
     let av: number | string = 0;
     let bv: number | string = 0;
 
@@ -129,10 +161,15 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
       case 'position_size': av = a.position_size; bv = b.position_size; break;
     }
 
+    let cmp: number;
     if (typeof av === 'string') {
-      return sortDir === 'asc' ? av.localeCompare(bv as string) : (bv as string).localeCompare(av);
+      cmp = sortDir === 'asc' ? av.localeCompare(bv as string) : (bv as string).localeCompare(av);
+    } else {
+      cmp = sortDir === 'asc' ? av - (bv as number) : (bv as number) - av;
     }
-    return sortDir === 'asc' ? av - (bv as number) : (bv as number) - av;
+
+    // Secondary sort: keep pending before others within same primary sort value
+    return cmp !== 0 ? cmp : statusDiff;
   });
 
   const SortIcon = ({ col }: { col: SortKey }) => {
@@ -140,17 +177,24 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
     return sortDir === 'asc' ? <ChevronUp className="inline w-3 h-3 ml-0.5" /> : <ChevronDown className="inline w-3 h-3 ml-0.5" />;
   };
 
-  const totalPnl = positions.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
-  const winners = positions.filter(p => (p.net_pnl ?? 0) > 0).length;
-  const winRate = positions.length > 0 ? (winners / positions.length * 100).toFixed(0) : '0';
+  const activePositions = positions.filter(p => p.status !== 'pending');
+  const pendingPositions = positions.filter(p => p.status === 'pending');
+  const totalPnl = activePositions.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
+  const winners = activePositions.filter(p => (p.net_pnl ?? 0) > 0).length;
+  const winRate = activePositions.length > 0 ? (winners / activePositions.length * 100).toFixed(0) : '0';
 
   return (
     <div>
       {/* Summary bar */}
       <div className="flex flex-wrap items-center gap-5 mb-3 px-1">
         <span className="text-xs" style={{ color: '#64748b' }}>
-          {positions.length} position{positions.length !== 1 ? 's' : ''}
+          {activePositions.length} active position{activePositions.length !== 1 ? 's' : ''}
         </span>
+        {pendingPositions.length > 0 && (
+          <span className="text-xs font-semibold" style={{ color: '#fbbf24' }}>
+            {pendingPositions.length} pending (entry at next open)
+          </span>
+        )}
         <span className="text-xs" style={{ color: '#64748b' }}>
           Unrealized P&L:{' '}
           <span className={totalPnl >= 0 ? 'pnl-positive font-bold' : 'pnl-negative font-bold'}>
@@ -164,6 +208,20 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
           Click column headers to sort
         </span>
       </div>
+
+      {/* Pending positions legend */}
+      {pendingPositions.length > 0 && (
+        <div
+          className="flex items-center gap-2 rounded-lg px-3 py-2 mb-3 text-xs"
+          style={{ backgroundColor: 'rgba(245, 158, 11, 0.08)', border: '1px solid rgba(245, 158, 11, 0.25)', color: '#fbbf24' }}
+        >
+          <span className="font-semibold">PENDING</span>
+          <span style={{ color: '#d97706' }}>—</span>
+          <span style={{ color: '#92400e' }}>
+            Signal fired today. These positions enter at tomorrow&apos;s open (9:30 AM). No P&amp;L yet.
+          </span>
+        </div>
+      )}
 
       <div className="overflow-x-auto rounded-lg border" style={{ borderColor: '#2d4a7a' }}>
         {isLoading ? (
@@ -181,6 +239,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
           <table className="trading-table">
             <thead>
               <tr>
+                <th onClick={() => handleSort('status')}>Status <SortIcon col="status" /></th>
                 <th onClick={() => handleSort('symbol')}>Symbol <SortIcon col="symbol" /></th>
                 <th>Type</th>
                 <th>Tier</th>
@@ -199,7 +258,10 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
             </thead>
             <tbody>
               {sorted.map((pos, i) => {
-                const pnlValue = pos.unrealized_pnl ?? 0;
+                const isPending = pos.status === 'pending';
+                const isExitToday = pos.status === 'exit_today';
+
+                const pnlValue = pos.unrealized_pnl;
                 const pnlPct = pos.unrealized_pnl_pct ?? 0;
                 const daysRem = pos.days_remaining ?? 0;
                 const daysHeld = pos.days_held ?? pos.hold_days ?? 0;
@@ -207,22 +269,52 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 const progressPct = maxDays > 0 ? Math.min(100, (daysHeld / maxDays) * 100) : 0;
 
                 return (
-                  <tr key={`${pos.symbol}-${pos.entry_date}-${i}`} className={getRowClass(pos)}>
+                  <tr key={`${pos.symbol}-${pos.entry_date}-${pos.status}-${i}`} className={getRowClass(pos)}>
+                    {/* Status */}
+                    <td>
+                      <StatusBadge pos={pos} />
+                    </td>
+
+                    {/* Symbol */}
                     <td>
                       <span className="font-bold text-sm" style={{ color: '#f1f5f9' }}>{pos.symbol}</span>
                     </td>
+
+                    {/* Type */}
                     <td>
                       <span className={getInstrumentBadge(pos.instrument)}>
                         {getInstrumentLabel(pos.instrument)}
                       </span>
                     </td>
+
+                    {/* Tier */}
                     <td>
                       <span className={getTierBadge(pos.tier)}>{pos.tier || '?'}</span>
                     </td>
-                    <td style={{ color: '#94a3b8' }}>{pos.entry_date}</td>
-                    <td style={{ color: '#cbd5e1' }}>${pos.entry_price.toFixed(2)}</td>
+
+                    {/* Entry Date */}
+                    <td style={{ color: '#94a3b8' }}>
+                      {isPending ? (
+                        <span style={{ color: '#fbbf24' }}>{pos.entry_date} <span className="text-xs opacity-70">(est.)</span></span>
+                      ) : pos.entry_date}
+                    </td>
+
+                    {/* Entry Price */}
+                    <td style={{ color: '#cbd5e1' }}>
+                      {isPending ? (
+                        <span style={{ color: '#d97706' }}>
+                          Est. ${pos.entry_price.toFixed(2)}
+                        </span>
+                      ) : (
+                        `$${pos.entry_price.toFixed(2)}`
+                      )}
+                    </td>
+
+                    {/* Current Price */}
                     <td>
-                      {pos.current_price ? (
+                      {isPending ? (
+                        <span style={{ color: '#92400e' }} className="text-xs">—</span>
+                      ) : pos.current_price ? (
                         <span style={{ color: pos.current_price >= pos.entry_price ? '#22c55e' : '#ef4444' }}>
                           ${pos.current_price.toFixed(2)}
                         </span>
@@ -230,16 +322,43 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                         <span style={{ color: '#475569' }}>—</span>
                       )}
                     </td>
-                    <td className={pnlValue >= 0 ? 'pnl-positive font-bold' : 'pnl-negative font-bold'}>
-                      {formatPnl(pnlValue)}
+
+                    {/* Unrealized P&L */}
+                    <td>
+                      {isPending ? (
+                        <span style={{ color: '#475569' }}>—</span>
+                      ) : isExitToday ? (
+                        <span className={`font-bold ${(pnlValue ?? 0) >= 0 ? 'pnl-positive' : 'pnl-negative'}`}>
+                          {formatPnl(pnlValue)}
+                          <span className="text-xs ml-1" style={{ color: '#c084fc' }}>(final)</span>
+                        </span>
+                      ) : (
+                        <span className={(pnlValue ?? 0) >= 0 ? 'pnl-positive font-bold' : 'pnl-negative font-bold'}>
+                          {formatPnl(pnlValue)}
+                        </span>
+                      )}
                     </td>
-                    <td className={pnlPct >= 0 ? 'pnl-positive' : 'pnl-negative'}>
-                      {pnlPct >= 0 ? '+' : ''}{pnlPct.toFixed(2)}%
+
+                    {/* Unrealized % */}
+                    <td>
+                      {isPending ? (
+                        <span style={{ color: '#475569' }}>—</span>
+                      ) : (
+                        <span className={pnlPct >= 0 ? 'pnl-positive' : 'pnl-negative'}>
+                          {pnlPct >= 0 ? '+' : ''}{pnlPct.toFixed(2)}%
+                        </span>
+                      )}
                     </td>
+
+                    {/* Size */}
                     <td style={{ color: '#94a3b8' }}>{formatSize(pos.position_size)}</td>
+
+                    {/* Stop Price */}
                     <td style={{ color: '#f59e0b' }}>
                       {pos.stop_price ? `$${pos.stop_price.toFixed(2)}` : '—'}
                     </td>
+
+                    {/* Distance to Stop */}
                     <td>
                       {pos.distance_to_stop_pct !== undefined ? (
                         <span style={{ color: pos.distance_to_stop_pct < 20 ? '#f59e0b' : '#64748b' }}>
@@ -247,17 +366,35 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                         </span>
                       ) : '—'}
                     </td>
+
+                    {/* Days Remaining */}
                     <td>
-                      <div className="flex items-center gap-2">
-                        <span style={{ color: daysRem <= 2 ? '#a855f7' : '#94a3b8' }}>
-                          {daysRem}d / {maxDays}d
+                      {isPending ? (
+                        <span style={{ color: '#fbbf24' }} className="text-xs font-semibold">
+                          Entry at open
                         </span>
-                        <div className="w-16 rounded-full overflow-hidden" style={{ height: '4px', backgroundColor: '#1a2035' }}>
-                          <div className="rounded-full h-full" style={{ width: `${progressPct}%`, backgroundColor: progressPct > 75 ? '#a855f7' : '#3b82f6' }} />
+                      ) : isExitToday ? (
+                        <span style={{ color: '#c084fc' }} className="text-xs font-semibold">
+                          Exit at close
+                        </span>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <span style={{ color: daysRem <= 2 ? '#a855f7' : '#94a3b8' }}>
+                            {daysRem}d / {maxDays}d
+                          </span>
+                          <div className="w-16 rounded-full overflow-hidden" style={{ height: '4px', backgroundColor: '#1a2035' }}>
+                            <div className="rounded-full h-full" style={{ width: `${progressPct}%`, backgroundColor: progressPct > 75 ? '#a855f7' : '#3b82f6' }} />
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </td>
-                    <td style={{ color: '#64748b' }}>{pos.scheduled_exit_date || pos.exit_date}</td>
+
+                    {/* Exit Date */}
+                    <td style={{ color: isExitToday ? '#c084fc' : '#64748b' }}>
+                      {pos.scheduled_exit_date || pos.exit_date}
+                    </td>
+
+                    {/* Option / Contracts */}
                     <td>
                       {pos.option_ticker ? (
                         <div>
@@ -278,6 +415,10 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                             </div>
                           )}
                         </div>
+                      ) : isPending && pos.instrument?.toUpperCase().includes('OPTION') ? (
+                        <span className="text-xs" style={{ color: '#92400e' }}>
+                          Select near-ATM call, {pos.tier === 'A' ? '1–2' : '1'} contract min
+                        </span>
                       ) : (
                         <span style={{ color: '#374151' }}>—</span>
                       )}
