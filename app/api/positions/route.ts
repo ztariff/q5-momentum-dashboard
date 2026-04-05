@@ -60,7 +60,7 @@ function recommendedContracts(budget: number, optionPrice: number | null): numbe
  * Run the signal scanner logic inline and return pending Position objects.
  * Scans up to 60 symbols from the universe.
  */
-async function buildPendingPositions(today: string): Promise<Position[]> {
+async function buildPendingPositions(today: string, openPositions: Position[]): Promise<Position[]> {
   try {
     const universePath = path.join(process.cwd(), 'public', 'data', 'universe.csv');
     if (!fs.existsSync(universePath)) return [];
@@ -148,9 +148,15 @@ async function buildPendingPositions(today: string): Promise<Position[]> {
     const entryDate = nextBusinessDay(today);
     const pending: Position[] = [];
 
+    // No-re-entry rule: skip symbols we already hold an active position in
+    const activeSymbols = new Set(openPositions.map(p => p.symbol));
+
     for (const [symbol, data] of symbolData.entries()) {
       const q = quintileMap.get(symbol);
       if (q !== 5 || data.z === null) continue;
+
+      // No-re-entry rule: skip if already holding this symbol
+      if (activeSymbols.has(symbol)) continue;
 
       const bp = data.body_pct ?? 0;
       const atrChg = data.atr_change ?? 0;
@@ -432,7 +438,7 @@ export async function GET() {
     });
 
     // Build pending positions from signal scanner
-    const pendingPositions = await buildPendingPositions(today);
+    const pendingPositions = await buildPendingPositions(today, enriched);
 
     // Merge: pending at top, then active/exit_today positions
     const allPositions = [...pendingPositions, ...enriched];
