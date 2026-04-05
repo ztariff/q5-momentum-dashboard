@@ -54,6 +54,7 @@ export async function GET() {
         total_realized: summary.realized_pnl ?? 0,
         month_unrealized: summary.month_unrealized ?? 0,
         month_realized: summary.month_realized ?? 0,
+        year_realized: summary.year_realized ?? 0,
         current_month: liveState.market_date?.substring(0, 7) ?? '',
       },
       last_refresh: liveState.last_refresh,

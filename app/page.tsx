@@ -30,6 +30,7 @@ interface Summary {
   total_realized: number;
   month_unrealized: number;
   month_realized: number;
+  year_realized: number;
   current_month: string;
 }
 
@@ -140,6 +141,7 @@ export default function Dashboard() {
   const totalRealized = summary?.total_realized ?? 0;
   const monthUnrealized = summary?.month_unrealized ?? 0;
   const monthRealized = summary?.month_realized ?? 0;
+  const yearRealized = summary?.year_realized ?? 0;
   const currentMonth = summary?.current_month ?? '';
   const monthLabel = formatMonthLabel(currentMonth);
 
@@ -153,7 +155,7 @@ export default function Dashboard() {
 
       <main className="max-w-screen-2xl mx-auto px-4 py-6">
         {/* Top-level stats bar */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
 
           <div className="stat-card flex items-center gap-3">
             <Activity className="w-5 h-5 flex-shrink-0" style={{ color: '#60a5fa' }} />
@@ -207,6 +209,18 @@ export default function Dashboard() {
               </div>
               <div className="text-2xl font-bold" style={{ color: monthRealized >= 0 ? '#22c55e' : '#ef4444' }}>
                 {formatPnlShort(monthRealized)}
+              </div>
+            </div>
+          </div>
+
+          <div className="stat-card flex items-center gap-3">
+            <TrendingUp className="w-5 h-5 flex-shrink-0" style={{ color: yearRealized >= 0 ? '#22c55e' : '#ef4444' }} />
+            <div>
+              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>
+                Total 2026 P&L
+              </div>
+              <div className="text-2xl font-bold" style={{ color: yearRealized >= 0 ? '#22c55e' : '#ef4444' }}>
+                {formatPnlShort(yearRealized)}
               </div>
             </div>
           </div>

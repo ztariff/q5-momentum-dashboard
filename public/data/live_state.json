@@ -30,7 +30,7 @@
       "option_ticker": "O:NFLX260515C00097000",
       "entry_date": "2026-03-31",
       "entry_price": 4.63,
-      "current_price": 6.30,
+      "current_price": 6.3,
       "stop_price": 2.315,
       "exit_date": "2026-04-17",
       "position_size": 6482,
@@ -88,8 +88,8 @@
     {
       "symbol": "SPG",
       "exit_date": "2026-04-02",
-      "entry_price": 178.50,
-      "exit_price": 174.30,
+      "entry_price": 178.5,
+      "exit_price": 174.3,
       "net_pnl": -1868,
       "return_pct": -2.35,
       "exit_type": "TIME"
@@ -124,7 +124,7 @@
     {
       "symbol": "WMT",
       "exit_date": "2026-04-02",
-      "entry_price": 4.00,
+      "entry_price": 4.0,
       "exit_price": 2.41,
       "net_pnl": -2653,
       "return_pct": -39.75,
@@ -139,10 +139,19 @@
     "month_realized": -17544,
     "month_unrealized": 9506,
     "win_rate": 44.0,
-    "profit_factor": 1.77
+    "profit_factor": 1.77,
+    "year_realized": 349038
   },
   "risk_alerts": [
-    {"type": "exit_soon", "symbol": "ARM", "days_remaining": 2},
-    {"type": "near_stop", "symbol": "JD", "distance_pct": 27.9}
+    {
+      "type": "exit_soon",
+      "symbol": "ARM",
+      "days_remaining": 2
+    },
+    {
+      "type": "near_stop",
+      "symbol": "JD",
+      "distance_pct": 27.9
+    }
   ]
 }
