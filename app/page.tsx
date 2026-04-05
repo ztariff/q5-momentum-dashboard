@@ -7,7 +7,7 @@ import RiskAlerts from '@/components/RiskAlerts';
 import SignalScanner from '@/components/SignalScanner';
 import PerformanceSummary from '@/components/PerformanceSummary';
 import { Position } from '@/lib/types';
-import { Activity, TrendingUp, AlertTriangle, Zap, BarChart2, Info, DollarSign, Calendar } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, Zap, BarChart2, DollarSign, Calendar } from 'lucide-react';
 
 type TabId = 'positions' | 'signals' | 'risk' | 'performance';
 
@@ -50,8 +50,6 @@ export default function Dashboard() {
   const [positionsLoading, setPositionsLoading] = useState(true);
   const [lastRefresh, setLastRefresh] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isDemoMode, setIsDemoMode] = useState(false);
-  const [demoNote, setDemoNote] = useState<string | null>(null);
   const [summary, setSummary] = useState<Summary | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -62,8 +60,6 @@ export default function Dashboard() {
       if (!resp.ok) throw new Error(`API error: ${resp.status}`);
       const data = await resp.json();
       setPositions(data.positions || []);
-      setIsDemoMode(data.is_demo || false);
-      setDemoNote(data.demo_note || null);
       setSummary(data.summary || null);
       setLastRefresh(new Date().toLocaleTimeString());
     } catch (err) {
@@ -101,17 +97,6 @@ export default function Dashboard() {
       <Header lastRefresh={lastRefresh} isRefreshing={isRefreshing} onRefresh={loadPositions} />
 
       <main className="max-w-screen-2xl mx-auto px-4 py-6">
-        {/* Demo mode notice */}
-        {isDemoMode && demoNote && (
-          <div
-            className="flex items-start gap-3 rounded-lg px-4 py-3 mb-5 text-sm"
-            style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.3)', color: '#93c5fd' }}
-          >
-            <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
-            <span>{demoNote}</span>
-          </div>
-        )}
-
         {/* Top-level stats bar — 5 boxes */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
 
@@ -183,7 +168,7 @@ export default function Dashboard() {
           {TABS.map(tab => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
-            const badge = tab.id === 'risk' && riskCount > 0 && !isDemoMode ? riskCount : null;
+            const badge = tab.id === 'risk' && riskCount > 0 ? riskCount : null;
 
             return (
               <button
@@ -212,26 +197,19 @@ export default function Dashboard() {
         <div className="rounded-xl p-5" style={{ backgroundColor: '#0d1425', border: '1px solid #1a2035' }}>
           {activeTab === 'positions' && (
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Activity className="w-4 h-4" style={{ color: '#60a5fa' }} />
-                  <h2 className="text-sm font-semibold tracking-wider uppercase" style={{ color: '#64748b' }}>
-                    {isDemoMode ? 'Most Recent 50 Positions (entry date desc)' : 'Current Open Positions'}
-                  </h2>
-                </div>
-                {isDemoMode && (
-                  <span className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
-                    HISTORICAL DATA
-                  </span>
-                )}
+              <div className="flex items-center gap-2 mb-4">
+                <Activity className="w-4 h-4" style={{ color: '#60a5fa' }} />
+                <h2 className="text-sm font-semibold tracking-wider uppercase" style={{ color: '#64748b' }}>
+                  Current Positions
+                </h2>
               </div>
-              <PositionsTable positions={positions} isLoading={positionsLoading} isDemoMode={isDemoMode} />
+              <PositionsTable positions={positions} isLoading={positionsLoading} />
             </div>
           )}
 
           {activeTab === 'risk' && (
             <div>
-              <RiskAlerts positions={positions} isDemoMode={isDemoMode} />
+              <RiskAlerts positions={positions} />
             </div>
           )}
 

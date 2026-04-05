@@ -1,46 +1,13 @@
 'use client';
 
 import { Position } from '@/lib/types';
-import { AlertTriangle, Clock, TrendingDown, Target, Info } from 'lucide-react';
+import { AlertTriangle, Clock, TrendingDown, Target } from 'lucide-react';
 
 interface RiskAlertsProps {
   positions: Position[];
-  isDemoMode?: boolean;
 }
 
-export default function RiskAlerts({ positions, isDemoMode = false }: RiskAlertsProps) {
-  if (isDemoMode) {
-    return (
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <AlertTriangle className="w-4 h-4" style={{ color: '#f59e0b' }} />
-          <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#64748b' }}>Risk Alerts</span>
-        </div>
-        <div className="rounded-lg p-6 text-center" style={{ backgroundColor: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
-          <Info className="w-8 h-8 mx-auto mb-3" style={{ color: '#60a5fa' }} />
-          <p className="text-sm font-medium mb-1" style={{ color: '#93c5fd' }}>No Live Positions</p>
-          <p className="text-xs" style={{ color: '#475569' }}>
-            Risk alerts track live open positions. The backtest data ends on 2026-04-02.
-            When live trading begins, alerts will appear here for:
-          </p>
-          <div className="grid grid-cols-2 gap-3 mt-4 max-w-md mx-auto">
-            {[
-              { icon: <Target className="w-4 h-4" />, label: 'Stop Price Crossings', color: '#ef4444' },
-              { icon: <AlertTriangle className="w-4 h-4" />, label: 'Within 20% of Stop', color: '#f59e0b' },
-              { icon: <Clock className="w-4 h-4" />, label: '2 Days to Exit', color: '#a855f7' },
-              { icon: <TrendingDown className="w-4 h-4" />, label: 'Down More Than 50%', color: '#ef4444' },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-2 px-3 py-2 rounded" style={{ backgroundColor: '#1a2035' }}>
-                <span style={{ color: item.color }}>{item.icon}</span>
-                <span className="text-xs" style={{ color: '#64748b' }}>{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+export default function RiskAlerts({ positions }: RiskAlertsProps) {
   const openPositions = positions.filter(p => p.is_open);
   const nearStop = openPositions.filter(p => (p.distance_to_stop_pct ?? 100) < 20);
   const nearExit = openPositions.filter(p => (p.days_remaining ?? 99) <= 2);

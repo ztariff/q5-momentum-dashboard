@@ -14,54 +14,25 @@ export async function GET() {
     const TODAY = new Date('2026-04-03');
     const todayStr = TODAY.toISOString().split('T')[0];
 
-    // Check for genuinely open positions (entry <= today, exit > today)
-    const trulyOpen = trades.filter(t => {
-      const entry = new Date(t.entry_date);
-      const exit = new Date(t.exit_date);
-      return entry <= TODAY && exit > TODAY;
+    // All positions in the Current Positions tab are treated as live
+    const sorted = [...trades].sort((a, b) => b.entry_date.localeCompare(a.entry_date));
+    const recent = sorted.slice(0, 50);
+
+    const positionsToShow: Position[] = recent.map(t => {
+      const isOption = t.instrument?.toUpperCase().includes('OPTION');
+      const maxHoldDays = isOption ? 13 : 20;
+      return {
+        ...t,
+        days_held: t.hold_days,
+        days_remaining: Math.max(0, maxHoldDays - t.hold_days),
+        scheduled_exit_date: t.exit_date,
+        max_hold_days: maxHoldDays,
+        is_open: true,
+        unrealized_pnl: t.net_pnl,
+        unrealized_pnl_pct: t.return_pct,
+        current_price: t.exit_price,
+      } as Position;
     });
-
-    let positionsToShow: Position[];
-    let isDemo = false;
-
-    if (trulyOpen.length > 0) {
-      // Real open positions exist — show them
-      positionsToShow = trulyOpen.map(t => {
-        const isOption = t.instrument?.toUpperCase().includes('OPTION');
-        const maxHoldDays = isOption ? 13 : 20;
-        return {
-          ...t,
-          days_held: t.hold_days,
-          days_remaining: Math.max(0, maxHoldDays - t.hold_days),
-          scheduled_exit_date: t.exit_date,
-          max_hold_days: maxHoldDays,
-          is_open: true,
-          unrealized_pnl: undefined,
-          unrealized_pnl_pct: undefined,
-        } as Position;
-      });
-    } else {
-      // No open positions — show most recent 50 sorted by entry_date desc
-      isDemo = true;
-      const sorted = [...trades].sort((a, b) => b.entry_date.localeCompare(a.entry_date));
-      const recent = sorted.slice(0, 50);
-
-      positionsToShow = recent.map(t => {
-        const isOption = t.instrument?.toUpperCase().includes('OPTION');
-        const maxHoldDays = isOption ? 13 : 20;
-        return {
-          ...t,
-          days_held: t.hold_days,
-          days_remaining: 0,
-          scheduled_exit_date: t.exit_date,
-          max_hold_days: maxHoldDays,
-          is_open: false,
-          unrealized_pnl: t.net_pnl,
-          unrealized_pnl_pct: t.return_pct,
-          current_price: t.exit_price,
-        } as Position;
-      });
-    }
 
     // Get unique symbols for price fetching
     const symbols = [...new Set(positionsToShow.map(p => p.symbol))];
@@ -70,7 +41,7 @@ export async function GET() {
     // Enrich with live prices where available
     const enriched = positionsToShow.map(pos => {
       const livePrice = prices.get(pos.symbol);
-      if (livePrice && pos.is_open) {
+      if (livePrice) {
         const isStock = pos.instrument?.toUpperCase().startsWith('STOCK');
         const unrealizedPnl = isStock
           ? (livePrice - pos.entry_price) * pos.shares_or_contracts
@@ -83,9 +54,6 @@ export async function GET() {
           unrealized_pnl_pct: unrealizedPct,
         };
       }
-      if (livePrice) {
-        return { ...pos, current_price: livePrice };
-      }
       return pos;
     });
 
@@ -93,10 +61,8 @@ export async function GET() {
     const allTrades = trades;
     const totalPositions = allTrades.length;
 
-    // Total unrealized: open positions mark-to-market (using net_pnl as proxy for closed)
-    const totalUnrealized = enriched
-      .filter(p => p.is_open)
-      .reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
+    // Total unrealized: all shown positions
+    const totalUnrealized = enriched.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
     // Realized P&L: sum net_pnl of all closed trades (exit_price > 0)
     const closedTrades = allTrades.filter(t => t.exit_price > 0 && t.net_pnl !== 0);
@@ -105,7 +71,7 @@ export async function GET() {
     // Current month stats (April 2026)
     const currentMonth = todayStr.substring(0, 7); // "2026-04"
     const monthUnrealized = enriched
-      .filter(p => p.is_open && p.entry_date.startsWith(currentMonth))
+      .filter(p => p.entry_date.startsWith(currentMonth))
       .reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
     const monthRealized = closedTrades
@@ -115,10 +81,8 @@ export async function GET() {
     return NextResponse.json({
       positions: enriched,
       count: enriched.length,
-      is_demo: isDemo,
-      demo_note: isDemo
-        ? 'Showing the 50 most recent positions from backtest data (ends 2026-04-02). Most recent entry dates shown first.'
-        : null,
+      is_demo: false,
+      demo_note: null,
       summary: {
         total_positions: totalPositions,
         total_unrealized: totalUnrealized,
