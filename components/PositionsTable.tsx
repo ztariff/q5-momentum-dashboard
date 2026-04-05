@@ -257,7 +257,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 <th>Current Price</th>
                 <th onClick={() => handleSort('unrealized_pnl')}>Unreal P&L <SortIcon col="unrealized_pnl" /></th>
                 <th>Unreal %</th>
-                <th onClick={() => handleSort('position_size')}>Size <SortIcon col="position_size" /></th>
+                <th onClick={() => handleSort('position_size')}>Size / Shares <SortIcon col="position_size" /></th>
                 <th>Stop Price</th>
                 <th>Dist to Stop</th>
                 <th onClick={() => handleSort('days_remaining')}>Days Rem <SortIcon col="days_remaining" /></th>
@@ -360,7 +360,11 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     </td>
 
                     {/* Size */}
-                    <td style={{ color: '#94a3b8' }}>{formatSize(pos.position_size)}</td>
+                    <td style={{ color: '#94a3b8' }}>
+                      {pos.instrument?.toUpperCase().includes('STOCK')
+                        ? `${Math.round(pos.shares_or_contracts).toLocaleString()} shares`
+                        : formatSize(pos.position_size)}
+                    </td>
 
                     {/* Stop Price */}
                     <td style={{ color: '#f59e0b' }}>
