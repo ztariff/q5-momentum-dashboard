@@ -186,7 +186,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 <th>Tier</th>
                 <th onClick={() => handleSort('entry_date')}>Entry Date <SortIcon col="entry_date" /></th>
                 <th>Entry Price</th>
-                <th>Current/Exit Price</th>
+                <th>Current Price</th>
                 <th onClick={() => handleSort('unrealized_pnl')}>Unreal P&L <SortIcon col="unrealized_pnl" /></th>
                 <th>Unreal %</th>
                 <th onClick={() => handleSort('position_size')}>Size <SortIcon col="position_size" /></th>
@@ -222,9 +222,9 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     <td style={{ color: '#94a3b8' }}>{pos.entry_date}</td>
                     <td style={{ color: '#cbd5e1' }}>${pos.entry_price.toFixed(2)}</td>
                     <td>
-                      {(pos.current_price || pos.exit_price) ? (
-                        <span style={{ color: (pos.current_price || pos.exit_price)! >= pos.entry_price ? '#22c55e' : '#ef4444' }}>
-                          ${(pos.current_price || pos.exit_price)!.toFixed(2)}
+                      {pos.current_price ? (
+                        <span style={{ color: pos.current_price >= pos.entry_price ? '#22c55e' : '#ef4444' }}>
+                          ${pos.current_price.toFixed(2)}
                         </span>
                       ) : (
                         <span style={{ color: '#475569' }}>—</span>
