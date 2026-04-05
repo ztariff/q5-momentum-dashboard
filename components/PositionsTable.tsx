@@ -141,7 +141,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
   };
 
   const totalPnl = positions.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
-  const winners = positions.filter(p => (p.unrealized_pnl ?? 0) > 0).length;
+  const winners = positions.filter(p => (p.net_pnl ?? 0) > 0).length;
   const winRate = positions.length > 0 ? (winners / positions.length * 100).toFixed(0) : '0';
 
   return (

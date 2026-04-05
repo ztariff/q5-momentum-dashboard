@@ -79,9 +79,13 @@ export default function Dashboard() {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [loadPositions]);
 
-  const nearStop = positions.filter(p => p.is_open && (p.distance_to_stop_pct ?? 100) < 20).length;
-  const nearExit = positions.filter(p => p.is_open && (p.days_remaining ?? 99) <= 2).length;
-  const riskCount = nearStop + nearExit;
+  // Mirror RiskAlerts logic: stop crossed, overdue, deep loss, near stop, near exit (1-2d)
+  const stopCrossed = positions.filter(p => p.is_open && p.stop_price != null && p.current_price != null && p.current_price < p.stop_price).length;
+  const overdue = positions.filter(p => p.is_open && (p.days_remaining ?? 99) === 0).length;
+  const deepLoss = positions.filter(p => p.is_open && (p.unrealized_pnl_pct ?? 0) < -50).length;
+  const nearStop = positions.filter(p => p.is_open && (p.distance_to_stop_pct ?? 100) < 20 && (p.distance_to_stop_pct ?? 100) >= 0).length;
+  const nearExit = positions.filter(p => { const rem = p.days_remaining ?? 99; return p.is_open && rem >= 1 && rem <= 2; }).length;
+  const riskCount = stopCrossed + overdue + deepLoss + nearStop + nearExit;
 
   const totalPositions = summary?.total_positions ?? 0;
   const totalUnrealized = summary?.total_unrealized ?? 0;
