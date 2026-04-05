@@ -38,6 +38,17 @@ function formatSize(val: number): string {
   return `$${val}`;
 }
 
+
+/**
+ * Compute recommended contracts for an option trade.
+ * Rule: always buy at least 1 contract regardless of premium.
+ * Formula: max(1, floor(budget / (optionPrice * 100)))
+ */
+function recommendedContracts(budget: number, optionPrice: number): number {
+  if (!optionPrice || optionPrice <= 0) return 1;
+  return Math.max(1, Math.floor(budget / (optionPrice * 100)));
+}
+
 function getInstrumentBadge(instrument: string): string {
   const upper = (instrument || '').toUpperCase();
   if (upper.includes('OPTION')) return 'badge badge-option';
@@ -183,7 +194,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 <th>Dist to Stop</th>
                 <th onClick={() => handleSort('days_remaining')}>Days Rem <SortIcon col="days_remaining" /></th>
                 <th>Exit Date</th>
-                <th>Option</th>
+                <th title="Minimum 1 contract per option trade regardless of premium. Formula: max(1, floor(budget / (price × 100)))">Option / Contracts</th>
               </tr>
             </thead>
             <tbody>
@@ -249,9 +260,24 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     <td style={{ color: '#64748b' }}>{pos.scheduled_exit_date || pos.exit_date}</td>
                     <td>
                       {pos.option_ticker ? (
-                        <span className="text-xs" style={{ color: '#c084fc' }} title={pos.option_ticker}>
-                          {formatOptionTicker(pos.option_ticker)}
-                        </span>
+                        <div>
+                          <span className="text-xs" style={{ color: '#c084fc' }} title={pos.option_ticker}>
+                            {formatOptionTicker(pos.option_ticker)}
+                          </span>
+                          {pos.entry_price > 0 && (
+                            <div
+                              className="text-xs mt-0.5"
+                              style={{ color: '#a78bfa' }}
+                              title="Minimum 1 contract per option trade regardless of premium"
+                            >
+                              {(() => {
+                                const budget = pos.tier === 'A' ? 13000 : 7000;
+                                const contracts = recommendedContracts(budget, pos.entry_price);
+                                return `${contracts} contract${contracts !== 1 ? 's' : ''} (min 1)`;
+                              })()}
+                            </div>
+                          )}
+                        </div>
                       ) : (
                         <span style={{ color: '#374151' }}>—</span>
                       )}

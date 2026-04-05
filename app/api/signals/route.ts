@@ -8,6 +8,21 @@ import fs from 'fs';
 let signalsCache: { data: unknown; timestamp: number } | null = null;
 const SIGNALS_CACHE_TTL = 4 * 60 * 60 * 1000;
 
+// Position size budgets
+const TIER_A_BUDGET = 13000; // Options Tier A
+const TIER_B_BUDGET = 7000;  // Options Tier B
+
+/**
+ * Compute recommended contracts for an option trade.
+ * Rule: always buy at least 1 contract (min 1 contract per option trade regardless of premium).
+ * contracts = max(1, floor(budget / (optionPrice * 100)))
+ * When option price is unknown at scan time we default to 1.
+ */
+function recommendedContracts(budget: number, optionPrice: number | null): number {
+  if (!optionPrice || optionPrice <= 0) return 1;
+  return Math.max(1, Math.floor(budget / (optionPrice * 100)));
+}
+
 export async function GET() {
   if (signalsCache && Date.now() - signalsCache.timestamp < SIGNALS_CACHE_TTL) {
     return NextResponse.json(signalsCache.data);
@@ -113,6 +128,7 @@ export async function GET() {
       tier: string;
       sizing_rule: string;
       recommended_size: number;
+      recommended_contracts: number | null;
       is_new_signal: boolean;
     }> = [];
     
@@ -131,31 +147,50 @@ export async function GET() {
       const isQ4 = data.quintile === 4;
       
       if (isQ5) {
-        // Determine tier from body_pct
         const bp = data.body_pct ?? 0;
-        let tier = 'C';
-        let sizingRule = '';
-        let recommendedSize = 67000;
-        
-        if (bp <= -0.53) {
-          // Q1 body - SKIP
-          continue;
-        } else if (bp <= -0.17) {
-          sizingRule = '$33K position (Tier C Q2)';
-          recommendedSize = 33000;
-          tier = 'C';
-        } else if (bp <= 0.23) {
-          sizingRule = '$67K position (Tier C Q3)';
-          recommendedSize = 67000;
-          tier = 'C';
-        } else if (bp <= 0.57) {
-          sizingRule = '$100K position (Tier C Q4)';
-          recommendedSize = 100000;
-          tier = 'C';
+        const atrChg = data.atr_change ?? 0;
+
+        // Skip Q1 body (very bearish candle)
+        if (bp <= -0.53) continue;
+
+        // Determine tier:
+        //   Tier A (option): strong bullish body (bp > 0.57) AND elevated ATR expansion (atrChg > 0.10)
+        //   Tier B (option): moderate body (bp > 0.23) AND moderate ATR expansion (atrChg > 0.05)
+        //   Tier C (stock): everything else that passes the Q1 body filter
+        let tier: string;
+        let sizingRule: string;
+        let recommendedSize: number;
+        let recContracts: number | null = null;
+
+        if (bp > 0.57 && atrChg > 0.10) {
+          // Tier A — options play, $13K budget, min 1 contract
+          tier = 'A';
+          recommendedSize = TIER_A_BUDGET;
+          recContracts = recommendedContracts(TIER_A_BUDGET, null); // 1 until we have option price
+          sizingRule = `$${(TIER_A_BUDGET / 1000).toFixed(0)}K options (Tier A) — Min 1 contract`;
+        } else if (bp > 0.23 && atrChg > 0.05) {
+          // Tier B — options play, $7K budget, min 1 contract
+          tier = 'B';
+          recommendedSize = TIER_B_BUDGET;
+          recContracts = recommendedContracts(TIER_B_BUDGET, null); // 1 until we have option price
+          sizingRule = `$${(TIER_B_BUDGET / 1000).toFixed(0)}K options (Tier B) — Min 1 contract`;
         } else {
-          sizingRule = '$133K position (Tier C Q5)';
-          recommendedSize = 133000;
+          // Tier C — stock position, scaled by body quintile
           tier = 'C';
+          recContracts = null;
+          if (bp <= -0.17) {
+            sizingRule = '$33K position (Tier C Q2)';
+            recommendedSize = 33000;
+          } else if (bp <= 0.23) {
+            sizingRule = '$67K position (Tier C Q3)';
+            recommendedSize = 67000;
+          } else if (bp <= 0.57) {
+            sizingRule = '$100K position (Tier C Q4)';
+            recommendedSize = 100000;
+          } else {
+            sizingRule = '$133K position (Tier C Q5)';
+            recommendedSize = 133000;
+          }
         }
         
         signals.push({
@@ -164,10 +199,11 @@ export async function GET() {
           slope: data.slope ?? 0,
           quintile: data.quintile,
           body_pct: bp,
-          atr_change: data.atr_change ?? 0,
+          atr_change: atrChg,
           tier,
           sizing_rule: sizingRule,
           recommended_size: recommendedSize,
+          recommended_contracts: recContracts,
           is_new_signal: true,
         });
       } else if (isQ4) {
