@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Zap, RefreshCw } from 'lucide-react';
+import { Zap, RefreshCw, Info } from 'lucide-react';
 
 interface Signal {
   symbol: string;
@@ -13,6 +13,7 @@ interface Signal {
   tier: string;
   sizing_rule: string;
   recommended_size: number;
+  recommended_contracts: number | null;
   is_new_signal: boolean;
 }
 
@@ -117,6 +118,22 @@ export default function SignalScanner() {
         ))}
       </div>
 
+      {/* Option contract sizing note */}
+      <div
+        className="flex items-start gap-2 rounded-lg p-2 mb-4 text-xs"
+        style={{ backgroundColor: 'rgba(96, 165, 250, 0.07)', border: '1px solid rgba(96, 165, 250, 0.2)', color: '#94a3b8' }}
+      >
+        <Info className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: '#60a5fa' }} />
+        <span>
+          <span style={{ color: '#60a5fa' }} className="font-semibold">Sizing:</span>{' '}
+          Tier A options = $13K budget &nbsp;|&nbsp; Tier B options = $7K budget &nbsp;|&nbsp; Tier C stocks scaled $33K–$133K by body quality.{' '}
+          <span style={{ color: '#fbbf24' }} className="font-semibold">
+            Minimum 1 contract per option trade regardless of premium.
+          </span>{' '}
+          Contracts = max(1, floor(budget / (price × 100))).
+        </span>
+      </div>
+
       {isLoading && (
         <div className="flex items-center justify-center py-12" style={{ color: '#475569' }}>
           <div className="text-center">
@@ -154,6 +171,9 @@ export default function SignalScanner() {
                         <th>Tier</th>
                         <th>Sizing Rule</th>
                         <th>Rec Size</th>
+                        <th title="Minimum 1 contract per option trade regardless of premium. Formula: max(1, floor(budget / (price × 100)))">
+                          Contracts
+                        </th>
                         <th>Status</th>
                       </tr>
                     </thead>
@@ -201,6 +221,19 @@ export default function SignalScanner() {
                           <td style={{ color: '#94a3b8', fontSize: '0.7rem' }}>{sig.sizing_rule}</td>
                           <td className="font-bold" style={{ color: '#60a5fa' }}>
                             {formatSize(sig.recommended_size)}
+                          </td>
+                          <td>
+                            {sig.recommended_contracts !== null ? (
+                              <span
+                                className="font-bold"
+                                style={{ color: '#c084fc' }}
+                                title="Minimum 1 contract per option trade regardless of premium"
+                              >
+                                {sig.recommended_contracts}x
+                              </span>
+                            ) : (
+                              <span style={{ color: '#475569' }}>—</span>
+                            )}
                           </td>
                           <td>
                             <span

@@ -59,6 +59,7 @@ export interface Signal {
   tier: string;
   sizing_rule: string;
   recommended_size: number;
+  recommended_contracts: number | null;
   signal_date: string;
 }
 
