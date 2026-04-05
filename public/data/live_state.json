@@ -1,0 +1,148 @@
+{
+  "last_refresh": "2026-04-03T16:05:00Z",
+  "market_date": "2026-04-03",
+  "positions": [
+    {
+      "symbol": "ARM",
+      "status": "active",
+      "instrument": "OPTION",
+      "tier": "B",
+      "option_ticker": "O:ARM260417C00125000",
+      "entry_date": "2026-03-19",
+      "entry_price": 8.42,
+      "current_price": 23.17,
+      "stop_price": 4.21,
+      "exit_date": "2026-04-07",
+      "position_size": 6657,
+      "shares_or_contracts": 7,
+      "unrealized_pnl": 10325,
+      "unrealized_pct": 175.18,
+      "days_held": 11,
+      "days_remaining": 2,
+      "body_pct": 0.1497,
+      "atr_change_3d": 0.0484
+    },
+    {
+      "symbol": "NFLX",
+      "status": "active",
+      "instrument": "OPTION",
+      "tier": "B",
+      "option_ticker": "O:NFLX260515C00097000",
+      "entry_date": "2026-03-31",
+      "entry_price": 4.63,
+      "current_price": 6.30,
+      "stop_price": 2.315,
+      "exit_date": "2026-04-17",
+      "position_size": 6482,
+      "shares_or_contracts": 14,
+      "unrealized_pnl": 2338,
+      "unrealized_pct": 36.07,
+      "days_held": 2,
+      "days_remaining": 11,
+      "body_pct": 0.0969,
+      "atr_change_3d": 0.1227
+    },
+    {
+      "symbol": "JD",
+      "status": "active",
+      "instrument": "OPTION",
+      "tier": "B",
+      "option_ticker": "O:JD260515C00031000",
+      "entry_date": "2026-04-01",
+      "entry_price": 0.68,
+      "current_price": 0.47,
+      "stop_price": 0.34,
+      "exit_date": "2026-04-20",
+      "position_size": 6596,
+      "shares_or_contracts": 97,
+      "unrealized_pnl": -2037,
+      "unrealized_pct": -30.88,
+      "days_held": 2,
+      "days_remaining": 12,
+      "body_pct": 0.8875,
+      "atr_change_3d": -0.0388
+    },
+    {
+      "symbol": "MRK",
+      "status": "active",
+      "instrument": "OPTION",
+      "tier": "B",
+      "option_ticker": "O:MRK260515C00125000",
+      "entry_date": "2026-04-02",
+      "entry_price": 4.05,
+      "current_price": 3.35,
+      "stop_price": 2.025,
+      "exit_date": "2026-04-21",
+      "position_size": 6480,
+      "shares_or_contracts": 16,
+      "unrealized_pnl": -1120,
+      "unrealized_pct": -17.28,
+      "days_held": 1,
+      "days_remaining": 13,
+      "body_pct": -0.0208,
+      "atr_change_3d": 0.0949
+    }
+  ],
+  "pending_signals": [],
+  "recently_closed": [
+    {
+      "symbol": "SPG",
+      "exit_date": "2026-04-02",
+      "entry_price": 178.50,
+      "exit_price": 174.30,
+      "net_pnl": -1868,
+      "return_pct": -2.35,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "VXX",
+      "exit_date": "2026-04-01",
+      "entry_price": 2.35,
+      "exit_price": 1.64,
+      "net_pnl": -4035,
+      "return_pct": -30.21,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "AMT",
+      "exit_date": "2026-04-02",
+      "entry_price": 2.37,
+      "exit_price": 0.18,
+      "net_pnl": -6144,
+      "return_pct": -92.41,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "LI",
+      "exit_date": "2026-04-02",
+      "entry_price": 0.68,
+      "exit_price": 0.39,
+      "net_pnl": -2844,
+      "return_pct": -42.65,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "WMT",
+      "exit_date": "2026-04-02",
+      "entry_price": 4.00,
+      "exit_price": 2.41,
+      "net_pnl": -2653,
+      "return_pct": -39.75,
+      "exit_type": "TIME"
+    }
+  ],
+  "summary": {
+    "total_positions": 4,
+    "total_pending": 0,
+    "total_unrealized": 9506,
+    "realized_pnl": 5364112,
+    "month_realized": -17544,
+    "month_unrealized": 9506,
+    "win_rate": 44.0,
+    "profit_factor": 1.77
+  },
+  "risk_alerts": [
+    {"type": "exit_soon", "symbol": "ARM", "days_remaining": 2},
+    {"type": "near_stop", "symbol": "JD", "distance_pct": 27.9}
+  ]
+}

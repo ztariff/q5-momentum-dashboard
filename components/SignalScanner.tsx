@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Zap, RefreshCw, Info } from 'lucide-react';
+import { Zap, Info, Clock } from 'lucide-react';
 
 interface Signal {
   symbol: string;
@@ -17,19 +17,13 @@ interface Signal {
   is_new_signal: boolean;
 }
 
-interface WatchlistItem {
-  symbol: string;
-  quintile: number;
-  z_score: number;
-  slope: number;
-  approaching: boolean;
-}
-
 interface ScannerData {
   signals: Signal[];
-  watchlist: WatchlistItem[];
+  watchlist: unknown[];
   total_scanned: number;
   timestamp: string;
+  market_date: string;
+  last_refresh: string;
 }
 
 function formatSize(val: number): string {
@@ -38,13 +32,25 @@ function formatSize(val: number): string {
   return `$${val}`;
 }
 
+function formatRefreshTime(iso: string): string {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleString('en-US', {
+      month: 'short', day: 'numeric',
+      hour: 'numeric', minute: '2-digit',
+      timeZoneName: 'short',
+    });
+  } catch {
+    return iso;
+  }
+}
+
 export default function SignalScanner() {
   const [data, setData] = useState<ScannerData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'signals' | 'watchlist'>('signals');
   const [error, setError] = useState<string | null>(null);
 
-  const runScan = async () => {
+  const loadSignals = async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -61,7 +67,7 @@ export default function SignalScanner() {
   };
 
   useEffect(() => {
-    runScan();
+    loadSignals();
   }, []);
 
   return (
@@ -79,43 +85,28 @@ export default function SignalScanner() {
           )}
         </div>
         <div className="flex items-center gap-3">
-          {data?.timestamp && (
-            <span className="text-xs" style={{ color: '#475569' }}>
-              {new Date(data.timestamp).toLocaleTimeString()}
-            </span>
+          {data?.last_refresh && (
+            <div className="flex items-center gap-1">
+              <Clock className="w-3 h-3" style={{ color: '#475569' }} />
+              <span className="text-xs" style={{ color: '#475569' }}>
+                Last computed: {formatRefreshTime(data.last_refresh)}
+              </span>
+            </div>
           )}
-          <button
-            onClick={runScan}
-            disabled={isLoading}
-            className="flex items-center gap-1 px-3 py-1.5 rounded text-xs"
-            style={{ backgroundColor: '#1a2035', color: '#60a5fa', border: '1px solid #2d4a7a' }}
-          >
-            <RefreshCw className={`w-3 h-3 ${isLoading ? 'animate-spin' : ''}`} />
-            {isLoading ? 'Scanning...' : 'Run Scan'}
-          </button>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 mb-4">
-        {(['signals', 'watchlist'] as const).map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className="px-4 py-1.5 rounded text-xs font-semibold transition-all"
-            style={{
-              backgroundColor: activeTab === tab ? '#1e3a5f' : '#1a2035',
-              color: activeTab === tab ? '#60a5fa' : '#64748b',
-              border: `1px solid ${activeTab === tab ? '#3b82f6' : '#2d4a7a'}`,
-            }}
-          >
-            {tab === 'signals' ? (
-              <>New Signals {data ? `(${data.signals.length})` : ''}</>
-            ) : (
-              <>Q4 Watchlist {data ? `(${data.watchlist.length})` : ''}</>
-            )}
-          </button>
-        ))}
+      {/* Architecture note */}
+      <div
+        className="flex items-start gap-2 rounded-lg p-2 mb-3 text-xs"
+        style={{ backgroundColor: 'rgba(96,165,250,0.07)', border: '1px solid rgba(96,165,250,0.2)', color: '#94a3b8' }}
+      >
+        <Info className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: '#60a5fa' }} />
+        <span>
+          <span style={{ color: '#60a5fa' }} className="font-semibold">Pre-computed signals</span>{' '}
+          — data is computed daily at 4:05 PM ET by the signal engine (230 symbols, Polygon.io).
+          Use the <span style={{ color: '#fbbf24' }} className="font-semibold">Refresh Data</span> button in the header to re-run manually.
+        </span>
       </div>
 
       {/* Note: signals are connected to Current Positions */}
@@ -125,12 +116,12 @@ export default function SignalScanner() {
       >
         <span style={{ color: '#fbbf24' }} className="font-semibold">Note:</span>
         <span style={{ color: '#d97706' }}>
-          Signals detected here are automatically added to <span style={{ color: '#fbbf24' }} className="font-semibold">Current Positions</span> as <span style={{ color: '#fbbf24' }} className="font-semibold">PENDING</span> entries.
-          They will show in the Positions tab with an amber highlight until the next market open.
+          Signals detected here appear in <span style={{ color: '#fbbf24' }} className="font-semibold">Current Positions</span> as{' '}
+          <span style={{ color: '#fbbf24' }} className="font-semibold">PENDING</span> entries until the next market open.
         </span>
       </div>
 
-      {/* Option contract sizing note */}
+      {/* Sizing note */}
       <div
         className="flex items-start gap-2 rounded-lg p-2 mb-4 text-xs"
         style={{ backgroundColor: 'rgba(96, 165, 250, 0.07)', border: '1px solid rgba(96, 165, 250, 0.2)', color: '#94a3b8' }}
@@ -150,7 +141,7 @@ export default function SignalScanner() {
         <div className="flex items-center justify-center py-12" style={{ color: '#475569' }}>
           <div className="text-center">
             <div className="animate-spin w-8 h-8 border-2 rounded-full mx-auto mb-3" style={{ borderColor: '#2d4a7a', borderTopColor: '#fbbf24' }} />
-            <p className="text-sm">Scanning 230 symbols via Polygon.io...</p>
+            <p className="text-sm">Loading signals from live_state.json...</p>
           </div>
         </div>
       )}
@@ -162,178 +153,108 @@ export default function SignalScanner() {
       )}
 
       {!isLoading && !error && data && (
-        <>
-          {activeTab === 'signals' && (
-            <div>
-              {data.signals.length === 0 ? (
-                <div className="text-center py-8 text-sm" style={{ color: '#475569' }}>
-                  No new Q5 entry signals detected in scanned symbols
-                </div>
-              ) : (
-                <div className="overflow-x-auto rounded-lg border" style={{ borderColor: '#2d4a7a' }}>
-                  <table className="trading-table">
-                    <thead>
-                      <tr>
-                        <th>Symbol</th>
-                        <th>Quintile</th>
-                        <th>Z-Score</th>
-                        <th>SMA50 Slope</th>
-                        <th>Body %</th>
-                        <th>ATR Chg</th>
-                        <th>Tier</th>
-                        <th>Sizing Rule</th>
-                        <th>Rec Size</th>
-                        <th title="Minimum 1 contract per option trade regardless of premium. Formula: max(1, floor(budget / (price × 100)))">
-                          Contracts
-                        </th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.signals.map((sig, i) => (
-                        <tr key={i}>
-                          <td>
-                            <span className="font-bold text-sm" style={{ color: '#f1f5f9' }}>{sig.symbol}</span>
-                          </td>
-                          <td>
-                            <span
-                              className="badge"
-                              style={{
-                                backgroundColor: 'rgba(34, 197, 94, 0.2)',
-                                color: '#4ade80',
-                                border: '1px solid rgba(34, 197, 94, 0.4)',
-                              }}
-                            >
-                              Q{sig.quintile}
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ color: sig.z_score > 1.5 ? '#22c55e' : '#94a3b8' }}>
-                              {sig.z_score.toFixed(3)}
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ color: sig.slope > 0 ? '#22c55e' : '#ef4444' }}>
-                              {sig.slope >= 0 ? '+' : ''}{sig.slope.toFixed(3)}%
-                            </span>
-                          </td>
-                          <td style={{ color: '#94a3b8' }}>
-                            {sig.body_pct >= 0 ? '+' : ''}{(sig.body_pct * 100).toFixed(1)}%
-                          </td>
-                          <td>
-                            <span style={{ color: sig.atr_change > 0 ? '#f59e0b' : '#64748b' }}>
-                              {sig.atr_change >= 0 ? '+' : ''}{(sig.atr_change * 100).toFixed(1)}%
-                            </span>
-                          </td>
-                          <td>
-                            <span className={`badge ${sig.tier === 'A' ? 'badge-tier-a' : sig.tier === 'B' ? 'badge-tier-b' : 'badge-tier-c'}`}>
-                              {sig.tier}
-                            </span>
-                          </td>
-                          <td style={{ color: '#94a3b8', fontSize: '0.7rem' }}>{sig.sizing_rule}</td>
-                          <td className="font-bold" style={{ color: '#60a5fa' }}>
-                            {formatSize(sig.recommended_size)}
-                          </td>
-                          <td>
-                            {sig.recommended_contracts !== null ? (
-                              <span
-                                className="font-bold"
-                                style={{ color: '#c084fc' }}
-                                title="Minimum 1 contract per option trade regardless of premium"
-                              >
-                                {sig.recommended_contracts}x
-                              </span>
-                            ) : (
-                              <span style={{ color: '#475569' }}>—</span>
-                            )}
-                          </td>
-                          <td>
-                            <span
-                              className="badge"
-                              style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', border: '1px solid rgba(34, 197, 94, 0.3)' }}
-                            >
-                              NEW SIGNAL
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
+        <div>
+          {data.signals.length === 0 ? (
+            <div className="text-center py-8 text-sm" style={{ color: '#475569' }}>
+              No Q5 entry signals in current live_state.json.
+              <br />
+              <span className="text-xs mt-1 block" style={{ color: '#374151' }}>
+                Click &quot;Refresh Data&quot; in the header to run the signal engine.
+              </span>
+            </div>
+          ) : (
+            <div className="overflow-x-auto rounded-lg border" style={{ borderColor: '#2d4a7a' }}>
+              <table className="trading-table">
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Quintile</th>
+                    <th>Z-Score</th>
+                    <th>Body %</th>
+                    <th>ATR Chg</th>
+                    <th>Tier</th>
+                    <th>Sizing Rule</th>
+                    <th>Rec Size</th>
+                    <th title="Minimum 1 contract per option trade regardless of premium. Formula: max(1, floor(budget / (price × 100)))">
+                      Contracts
+                    </th>
+                    <th>Est. Entry</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.signals.map((sig, i) => (
+                    <tr key={i}>
+                      <td>
+                        <span className="font-bold text-sm" style={{ color: '#f1f5f9' }}>{sig.symbol}</span>
+                      </td>
+                      <td>
+                        <span
+                          className="badge"
+                          style={{
+                            backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                            color: '#4ade80',
+                            border: '1px solid rgba(34, 197, 94, 0.4)',
+                          }}
+                        >
+                          Q{sig.quintile}
+                        </span>
+                      </td>
+                      <td>
+                        <span style={{ color: sig.z_score > 1.5 ? '#22c55e' : '#94a3b8' }}>
+                          {sig.z_score.toFixed(3)}
+                        </span>
+                      </td>
+                      <td style={{ color: '#94a3b8' }}>
+                        {sig.body_pct >= 0 ? '+' : ''}{(sig.body_pct * 100).toFixed(1)}%
+                      </td>
+                      <td>
+                        <span style={{ color: sig.atr_change > 0 ? '#f59e0b' : '#64748b' }}>
+                          {sig.atr_change >= 0 ? '+' : ''}{(sig.atr_change * 100).toFixed(1)}%
+                        </span>
+                      </td>
+                      <td>
+                        <span className={`badge ${sig.tier === 'A' ? 'badge-tier-a' : sig.tier === 'B' ? 'badge-tier-b' : 'badge-tier-c'}`}>
+                          {sig.tier}
+                        </span>
+                      </td>
+                      <td style={{ color: '#94a3b8', fontSize: '0.7rem' }}>{sig.sizing_rule}</td>
+                      <td className="font-bold" style={{ color: '#60a5fa' }}>
+                        {formatSize(sig.recommended_size)}
+                      </td>
+                      <td>
+                        {sig.recommended_contracts !== null ? (
+                          <span
+                            className="font-bold"
+                            style={{ color: '#c084fc' }}
+                            title="Minimum 1 contract per option trade regardless of premium"
+                          >
+                            {sig.recommended_contracts}x
+                          </span>
+                        ) : (
+                          <span style={{ color: '#475569' }}>—</span>
+                        )}
+                      </td>
+                      <td style={{ color: '#94a3b8' }}>
+                        {'estimated_entry' in sig
+                          ? `$${(sig as Record<string, unknown>).estimated_entry}`
+                          : '—'}
+                      </td>
+                      <td>
+                        <span
+                          className="badge"
+                          style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', border: '1px solid rgba(34, 197, 94, 0.3)' }}
+                        >
+                          NEW SIGNAL
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
-
-          {activeTab === 'watchlist' && (
-            <div>
-              <p className="text-xs mb-3" style={{ color: '#64748b' }}>
-                Q4 stocks with high z-scores — likely to enter Q5 within 1-2 days
-              </p>
-              {data.watchlist.length === 0 ? (
-                <div className="text-center py-8 text-sm" style={{ color: '#475569' }}>
-                  No Q4 stocks approaching Q5 in scanned symbols
-                </div>
-              ) : (
-                <div className="overflow-x-auto rounded-lg border" style={{ borderColor: '#2d4a7a' }}>
-                  <table className="trading-table">
-                    <thead>
-                      <tr>
-                        <th>Symbol</th>
-                        <th>Current Quintile</th>
-                        <th>Z-Score</th>
-                        <th>SMA50 Slope</th>
-                        <th>Momentum</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.watchlist.slice(0, 25).map((item, i) => (
-                        <tr key={i}>
-                          <td>
-                            <span className="font-bold text-sm" style={{ color: '#f1f5f9' }}>{item.symbol}</span>
-                          </td>
-                          <td>
-                            <span
-                              className="badge"
-                              style={{
-                                backgroundColor: 'rgba(245, 158, 11, 0.15)',
-                                color: '#fbbf24',
-                                border: '1px solid rgba(245, 158, 11, 0.3)',
-                              }}
-                            >
-                              Q{item.quintile}
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ color: item.z_score > 1.5 ? '#22c55e' : '#94a3b8' }}>
-                              {item.z_score.toFixed(3)}
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ color: item.slope > 0 ? '#22c55e' : '#ef4444' }}>
-                              {item.slope >= 0 ? '+' : ''}{item.slope.toFixed(3)}%
-                            </span>
-                          </td>
-                          <td>
-                            {item.approaching ? (
-                              <span
-                                className="badge"
-                                style={{ backgroundColor: 'rgba(234, 179, 8, 0.15)', color: '#eab308', border: '1px solid rgba(234, 179, 8, 0.3)' }}
-                              >
-                                APPROACHING Q5
-                              </span>
-                            ) : (
-                              <span className="text-xs" style={{ color: '#475569' }}>Monitor</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          )}
-        </>
+        </div>
       )}
     </div>
   );

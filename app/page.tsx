@@ -18,7 +18,11 @@ const TABS = [
   { id: 'performance' as const, label: 'Performance', icon: BarChart2 },
 ];
 
-const REFRESH_INTERVAL = 60 * 1000;
+// Display refresh: re-read live_state.json every 60s
+const DISPLAY_REFRESH_INTERVAL = 60 * 1000;
+
+// Data staleness threshold: if last_refresh > 6 hours ago, auto-trigger /api/refresh
+const STALE_THRESHOLD_MS = 6 * 60 * 60 * 1000;
 
 interface Summary {
   total_positions: number;
@@ -51,8 +55,11 @@ export default function Dashboard() {
   const [lastRefresh, setLastRefresh] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [summary, setSummary] = useState<Summary | null>(null);
+  const [dataRefreshProgress, setDataRefreshProgress] = useState<{ done: number; total: number } | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const autoRefreshTriggered = useRef(false);
 
+  // ── Display refresh: reads live_state.json via /api/positions ─────────────
   const loadPositions = useCallback(async () => {
     setIsRefreshing(true);
     try {
@@ -70,16 +77,75 @@ export default function Dashboard() {
     }
   }, []);
 
-  useEffect(() => {
-    loadPositions();
+  // ── Auto data refresh: if live_state.json is stale, call /api/refresh once ─
+  const triggerDataRefreshIfStale = useCallback(async () => {
+    if (autoRefreshTriggered.current) return;
+
+    try {
+      const resp = await fetch('/api/positions');
+      if (!resp.ok) return;
+      const data = await resp.json();
+      const lastRefreshStr: string | null = data.last_refresh;
+
+      if (!lastRefreshStr) {
+        // No data at all — trigger refresh
+        autoRefreshTriggered.current = true;
+        triggerBackgroundRefresh();
+        return;
+      }
+
+      const lastRefreshTime = new Date(lastRefreshStr).getTime();
+      const ageMs = Date.now() - lastRefreshTime;
+
+      if (ageMs > STALE_THRESHOLD_MS) {
+        autoRefreshTriggered.current = true;
+        triggerBackgroundRefresh();
+      }
+    } catch {
+      // silently fail — don't block page load
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const triggerBackgroundRefresh = useCallback(async () => {
+    try {
+      // Poll for progress while refresh runs
+      const pollInterval = setInterval(async () => {
+        try {
+          const resp = await fetch('/api/positions');
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data.refresh_progress) {
+              setDataRefreshProgress(data.refresh_progress);
+            }
+          }
+        } catch { /* ignore */ }
+      }, 3000);
+
+      const refreshResp = await fetch('/api/refresh');
+      clearInterval(pollInterval);
+      setDataRefreshProgress(null);
+
+      if (refreshResp.ok) {
+        // Reload display after refresh completes
+        await loadPositions();
+      }
+    } catch {
+      setDataRefreshProgress(null);
+    }
   }, [loadPositions]);
 
   useEffect(() => {
-    intervalRef.current = setInterval(loadPositions, REFRESH_INTERVAL);
+    loadPositions();
+    triggerDataRefreshIfStale();
+  }, [loadPositions, triggerDataRefreshIfStale]);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(loadPositions, DISPLAY_REFRESH_INTERVAL);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [loadPositions]);
 
-  // Mirror RiskAlerts logic: stop crossed, overdue, deep loss, near stop, near exit (1-2d)
+  // ── Risk badge counts ──────────────────────────────────────────────────────
   const stopCrossed = positions.filter(p => p.is_open && p.stop_price != null && p.current_price != null && p.current_price < p.stop_price).length;
   const overdue = positions.filter(p => p.is_open && (p.days_remaining ?? 99) === 0).length;
   const deepLoss = positions.filter(p => p.is_open && (p.unrealized_pnl_pct ?? 0) < -50).length;
@@ -93,18 +159,21 @@ export default function Dashboard() {
   const monthUnrealized = summary?.month_unrealized ?? 0;
   const monthRealized = summary?.month_realized ?? 0;
   const currentMonth = summary?.current_month ?? '';
-
   const monthLabel = formatMonthLabel(currentMonth);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0a0e1a' }}>
-      <Header lastRefresh={lastRefresh} isRefreshing={isRefreshing} onRefresh={loadPositions} />
+      <Header
+        lastRefresh={lastRefresh}
+        isRefreshing={isRefreshing}
+        onRefresh={loadPositions}
+        dataRefreshProgress={dataRefreshProgress}
+      />
 
       <main className="max-w-screen-2xl mx-auto px-4 py-6">
-        {/* Top-level stats bar — 5 boxes */}
+        {/* Top-level stats bar */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
 
-          {/* 1. Total Positions */}
           <div className="stat-card flex items-center gap-3">
             <Activity className="w-5 h-5 flex-shrink-0" style={{ color: '#60a5fa' }} />
             <div>
@@ -117,7 +186,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* 2. Total Unrealized */}
           <div className="stat-card flex items-center gap-3">
             <TrendingUp className="w-5 h-5 flex-shrink-0" style={{ color: totalUnrealized >= 0 ? '#22c55e' : '#ef4444' }} />
             <div>
@@ -128,7 +196,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* 3. Realized P&L (all time) */}
           <div className="stat-card flex items-center gap-3">
             <BarChart2 className="w-5 h-5 flex-shrink-0" style={{ color: '#a855f7' }} />
             <div>
@@ -139,7 +206,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* 4. Current Month Unrealized */}
           <div className="stat-card flex items-center gap-3">
             <Calendar className="w-5 h-5 flex-shrink-0" style={{ color: monthUnrealized >= 0 ? '#22c55e' : '#ef4444' }} />
             <div>
@@ -152,7 +218,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* 5. Current Month Realized */}
           <div className="stat-card flex items-center gap-3">
             <DollarSign className="w-5 h-5 flex-shrink-0" style={{ color: monthRealized >= 0 ? '#22c55e' : '#ef4444' }} />
             <div>
@@ -242,7 +307,7 @@ export default function Dashboard() {
             Q5 Momentum Dashboard — Data via Polygon.io — 230 symbols
           </span>
           <span className="text-xs" style={{ color: '#374151' }}>
-            Prices refresh every 60s during market hours
+            Data engine runs daily at 4:05 PM ET — display refreshes every 60s
           </span>
         </div>
       </main>
