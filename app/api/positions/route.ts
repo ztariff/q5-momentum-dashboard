@@ -5,11 +5,33 @@ import { Position } from '@/lib/types';
 import path from 'path';
 import fs from 'fs';
 
+const SCALE_FACTOR = 0.0666; // Target $40K daily vol = 1/15th of backtest size
+
+// Scale sizing_rule text to reflect new dollar amounts
+function scaleSizingRule(rule: string): string {
+  return rule
+    .replace(/\$2[,.]?000K|\$2M/g, '$133K')
+    .replace(/\$1[,.]?500K|\$1\.5M/g, '$100K')
+    .replace(/\$1[,.]?000K|\$1M/g, '$67K')
+    .replace(/\$500K/g, '$33K')
+    .replace(/\$200K/g, '$13K')
+    .replace(/\$100K/g, '$7K');
+}
+
 export async function GET() {
   try {
     const csvPath = path.join(process.cwd(), 'public', 'data', 'hybrid_all_trades_calendar.csv');
     const csvText = fs.readFileSync(csvPath, 'utf-8');
-    const trades = parseTrades(csvText);
+    const rawTrades = parseTrades(csvText);
+
+    // Apply scale factor to position sizes, shares, and P&L
+    const trades = rawTrades.map(t => ({
+      ...t,
+      position_size: Math.round(t.position_size * SCALE_FACTOR),
+      shares_or_contracts: Math.floor(t.shares_or_contracts * SCALE_FACTOR),
+      net_pnl: t.net_pnl * SCALE_FACTOR,
+      sizing_rule: scaleSizingRule(t.sizing_rule || ''),
+    }));
 
     const today = new Date().toISOString().split('T')[0]; // e.g. '2026-04-03'
 
@@ -60,6 +82,7 @@ export async function GET() {
 
       // Unrealized P&L proxy: use exit_price (or entry_price if not yet set) as current price.
       // For options: exit_price is the option price at expiry/exit — do NOT use live stock price.
+      // shares_or_contracts is already scaled.
       const exitPriceProxy = t.exit_price || t.entry_price;
       const defaultUnrealized = isOption
         ? (exitPriceProxy - t.entry_price) * t.shares_or_contracts * 100
@@ -120,6 +143,7 @@ export async function GET() {
       const livePrice = prices.get(pos.symbol);
       if (!livePrice) return pos;
 
+      // shares_or_contracts is already scaled — unrealized P&L reflects scaled size
       const unrealizedPnl = (livePrice - pos.entry_price) * pos.shares_or_contracts;
       const unrealizedPct = pos.entry_price > 0
         ? ((livePrice / pos.entry_price) - 1) * 100
@@ -147,7 +171,7 @@ export async function GET() {
     // Total unrealized = sum across only these open positions
     const totalUnrealized = enriched.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
-    // Realized P&L = sum of net_pnl from ALL historical closed trades
+    // Realized P&L = sum of net_pnl from ALL historical closed trades (already scaled)
     const closedTrades = trades.filter(t => t.exit_price > 0 && t.net_pnl !== 0);
     const totalRealized = closedTrades.reduce((s, t) => s + t.net_pnl, 0);
 

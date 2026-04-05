@@ -3,6 +3,8 @@ import { parseTrades, parseMonthly } from '@/lib/csvParser';
 import path from 'path';
 import fs from 'fs';
 
+const SCALE_FACTOR = 0.0666; // Target $40K daily vol = 1/15th of backtest size
+
 export async function GET() {
   try {
     const csvPath = path.join(process.cwd(), 'public', 'data', 'hybrid_all_trades_calendar.csv');
@@ -11,9 +13,15 @@ export async function GET() {
     const csvText = fs.readFileSync(csvPath, 'utf-8');
     const monthlyText = fs.readFileSync(monthlyPath, 'utf-8');
     
-    const trades = parseTrades(csvText);
+    const rawTrades = parseTrades(csvText);
     const monthlyData = parseMonthly(monthlyText);
-    
+
+    // Apply scale factor to all trade P&L
+    const trades = rawTrades.map(t => ({
+      ...t,
+      net_pnl: t.net_pnl * SCALE_FACTOR,
+    }));
+
     // Compute performance metrics from closed trades
     const closedTrades = trades.filter(t => t.exit_price > 0 && t.net_pnl !== 0);
     
@@ -30,17 +38,17 @@ export async function GET() {
     const stopTrades = closedTrades.filter(t => t.exit_type?.includes('STOP'));
     const stopRate = closedTrades.length > 0 ? (stopTrades.length / closedTrades.length) * 100 : 0;
     
-    // Build equity curve from monthly data
+    // Build equity curve from monthly data — scale monthly values
     let cumulative = 0;
     const equityCurve = monthlyData.map(m => {
-      cumulative += m.net_total * 1000; // monthly data is in thousands
+      cumulative += m.net_total * 1000 * SCALE_FACTOR; // monthly data is in thousands, then scaled
       return {
         date: m.month,
         equity: cumulative,
       };
     });
     
-    // Compute max drawdown from equity curve
+    // Compute max drawdown from scaled equity curve
     let peak = 0;
     let maxDrawdown = 0;
     for (const point of equityCurve) {
@@ -49,7 +57,7 @@ export async function GET() {
       if (dd < maxDrawdown) maxDrawdown = dd;
     }
     
-    // Yearly P&L
+    // Yearly P&L (using scaled trades)
     const yearlyMap = new Map<string, number>();
     for (const t of closedTrades) {
       const year = t.exit_date?.substring(0, 4);
@@ -61,6 +69,12 @@ export async function GET() {
     const yearlyPnl = Array.from(yearlyMap.entries())
       .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([year, pnl]) => ({ year, pnl }));
+
+    // Scale monthly_data net_total for display
+    const scaledMonthlyData = monthlyData.map(m => ({
+      ...m,
+      net_total: m.net_total * SCALE_FACTOR,
+    }));
     
     return NextResponse.json({
       total_realized_pnl: totalPnl,
@@ -73,7 +87,7 @@ export async function GET() {
       total_trades: closedTrades.length,
       avg_pnl_per_trade: closedTrades.length > 0 ? totalPnl / closedTrades.length : 0,
       stop_rate: stopRate,
-      monthly_data: monthlyData,
+      monthly_data: scaledMonthlyData,
       equity_curve: equityCurve,
       yearly_pnl: yearlyPnl,
       timestamp: new Date().toISOString(),
