@@ -150,7 +150,7 @@ export default function PositionsTable({ positions, isLoading, isDemoMode = fals
                 <th>Tier</th>
                 <th onClick={() => handleSort('entry_date')}>Entry Date <SortIcon col="entry_date" /></th>
                 <th>Entry Price</th>
-                <th>Current/Exit Price</th>
+                <th>Current Price</th>
                 {isDemoMode ? (
                   <>
                     <th onClick={() => handleSort('net_pnl')}>Net P&L <SortIcon col="net_pnl" /></th>
