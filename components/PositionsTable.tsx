@@ -62,8 +62,41 @@ function getTierBadge(tier: string): string {
   return 'badge badge-tier-c';
 }
 
+const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/**
+ * Parse a Polygon option ticker like "O:OXY200221C00047000"
+ * Format: O:{SYMBOL}{YYMMDD}{C|P}{strike*1000 padded to 8 digits}
+ * Output: "OXY Feb 21 2020 $47 Call"
+ */
+function formatOptionTicker(ticker: string): string {
+  if (!ticker) return '';
+
+  // Strip leading "O:" prefix
+  const raw = ticker.startsWith('O:') ? ticker.slice(2) : ticker;
+
+  // Match: letters (symbol), 6 digits (YYMMDD), C or P, 8 digits (strike * 1000)
+  const match = raw.match(/^([A-Z]+)(\d{2})(\d{2})(\d{2})([CP])(\d{8})$/);
+  if (!match) return ticker; // return raw if unparseable
+
+  const [, symbol, yy, mm, dd, cpFlag, strikePadded] = match;
+
+  const year = 2000 + parseInt(yy, 10);
+  const monthIdx = parseInt(mm, 10) - 1;
+  const day = parseInt(dd, 10);
+  const strike = parseInt(strikePadded, 10) / 1000;
+
+  const monthName = MONTH_ABBR[monthIdx] ?? mm;
+  const callPut = cpFlag === 'C' ? 'Call' : 'Put';
+
+  // Format strike: show as integer if whole number, else 2 decimal places
+  const strikeStr = strike % 1 === 0 ? strike.toFixed(0) : strike.toFixed(2);
+
+  return `${symbol} ${monthName} ${day} ${year} $${strikeStr} ${callPut}`;
+}
+
 export default function PositionsTable({ positions, isLoading, isDemoMode = false }: PositionsTableProps) {
-  const [sortKey, setSortKey] = useState<SortKey>(isDemoMode ? 'exit_date' : 'days_remaining');
+  const [sortKey, setSortKey] = useState<SortKey>(isDemoMode ? 'entry_date' : 'days_remaining');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>(isDemoMode ? 'desc' : 'asc');
 
   const handleSort = (key: SortKey) => {
@@ -177,7 +210,7 @@ export default function PositionsTable({ positions, isLoading, isDemoMode = fals
                     <th>Exit Date</th>
                   </>
                 )}
-                <th>Option Ticker</th>
+                <th>Option</th>
               </tr>
             </thead>
             <tbody>
@@ -268,7 +301,9 @@ export default function PositionsTable({ positions, isLoading, isDemoMode = fals
                     )}
                     <td>
                       {pos.option_ticker ? (
-                        <span className="text-xs font-mono" style={{ color: '#c084fc' }}>{pos.option_ticker}</span>
+                        <span className="text-xs" style={{ color: '#c084fc' }} title={pos.option_ticker}>
+                          {formatOptionTicker(pos.option_ticker)}
+                        </span>
                       ) : (
                         <span style={{ color: '#374151' }}>—</span>
                       )}

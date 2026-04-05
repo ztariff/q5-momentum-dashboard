@@ -7,7 +7,7 @@ import RiskAlerts from '@/components/RiskAlerts';
 import SignalScanner from '@/components/SignalScanner';
 import PerformanceSummary from '@/components/PerformanceSummary';
 import { Position } from '@/lib/types';
-import { Activity, TrendingUp, AlertTriangle, Zap, BarChart2, Info } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, Zap, BarChart2, Info, DollarSign, Calendar } from 'lucide-react';
 
 type TabId = 'positions' | 'signals' | 'risk' | 'performance';
 
@@ -20,6 +20,30 @@ const TABS = [
 
 const REFRESH_INTERVAL = 60 * 1000;
 
+interface Summary {
+  total_positions: number;
+  total_unrealized: number;
+  total_realized: number;
+  month_unrealized: number;
+  month_realized: number;
+  current_month: string;
+}
+
+function formatPnlShort(val: number): string {
+  const abs = Math.abs(val);
+  const sign = val >= 0 ? '+' : '-';
+  if (abs >= 1000000) return `${sign}$${(abs / 1000000).toFixed(2)}M`;
+  if (abs >= 1000) return `${sign}$${(abs / 1000).toFixed(1)}K`;
+  return `${sign}$${abs.toFixed(0)}`;
+}
+
+function formatMonthLabel(ym: string): string {
+  if (!ym) return 'Current Month';
+  const [year, month] = ym.split('-');
+  const d = new Date(parseInt(year), parseInt(month) - 1, 1);
+  return d.toLocaleString('default', { month: 'long', year: 'numeric' });
+}
+
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabId>('positions');
   const [positions, setPositions] = useState<Position[]>([]);
@@ -28,6 +52,7 @@ export default function Dashboard() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isDemoMode, setIsDemoMode] = useState(false);
   const [demoNote, setDemoNote] = useState<string | null>(null);
+  const [summary, setSummary] = useState<Summary | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const loadPositions = useCallback(async () => {
@@ -39,6 +64,7 @@ export default function Dashboard() {
       setPositions(data.positions || []);
       setIsDemoMode(data.is_demo || false);
       setDemoNote(data.demo_note || null);
+      setSummary(data.summary || null);
       setLastRefresh(new Date().toLocaleTimeString());
     } catch (err) {
       console.error('Error loading positions:', err);
@@ -61,11 +87,14 @@ export default function Dashboard() {
   const nearExit = positions.filter(p => p.is_open && (p.days_remaining ?? 99) <= 2).length;
   const riskCount = nearStop + nearExit;
 
-  const totalUnrealized = positions.filter(p => p.is_open).reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
-  const totalRealizedRecent = positions.filter(p => !p.is_open).reduce((s, p) => s + (p.net_pnl ?? 0), 0);
+  const totalPositions = summary?.total_positions ?? 0;
+  const totalUnrealized = summary?.total_unrealized ?? 0;
+  const totalRealized = summary?.total_realized ?? 0;
+  const monthUnrealized = summary?.month_unrealized ?? 0;
+  const monthRealized = summary?.month_realized ?? 0;
+  const currentMonth = summary?.current_month ?? '';
 
-  const displayPnl = isDemoMode ? totalRealizedRecent : totalUnrealized;
-  const pnlLabel = isDemoMode ? 'Recent Realized P&L' : 'Unrealized P&L';
+  const monthLabel = formatMonthLabel(currentMonth);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0a0e1a' }}>
@@ -83,45 +112,70 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* Top-level stats bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        {/* Top-level stats bar — 5 boxes */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+
+          {/* 1. Total Positions */}
           <div className="stat-card flex items-center gap-3">
             <Activity className="w-5 h-5 flex-shrink-0" style={{ color: '#60a5fa' }} />
             <div>
               <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>
-                {isDemoMode ? 'Recent Positions' : 'Open Positions'}
+                Total Positions
               </div>
-              <div className="text-2xl font-bold" style={{ color: '#f1f5f9' }}>{positions.length}</div>
+              <div className="text-2xl font-bold" style={{ color: '#f1f5f9' }}>
+                {totalPositions.toLocaleString()}
+              </div>
             </div>
           </div>
+
+          {/* 2. Total Unrealized */}
           <div className="stat-card flex items-center gap-3">
-            <TrendingUp className="w-5 h-5 flex-shrink-0" style={{ color: displayPnl >= 0 ? '#22c55e' : '#ef4444' }} />
+            <TrendingUp className="w-5 h-5 flex-shrink-0" style={{ color: totalUnrealized >= 0 ? '#22c55e' : '#ef4444' }} />
             <div>
-              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>{pnlLabel}</div>
-              <div className="text-2xl font-bold" style={{ color: displayPnl >= 0 ? '#22c55e' : '#ef4444' }}>
-                {displayPnl >= 0 ? '+' : ''}
-                {Math.abs(displayPnl) >= 1000000
-                  ? `$${(displayPnl / 1000000).toFixed(2)}M`
-                  : `$${(displayPnl / 1000).toFixed(1)}K`}
+              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>Total Unrealized</div>
+              <div className="text-2xl font-bold" style={{ color: totalUnrealized >= 0 ? '#22c55e' : '#ef4444' }}>
+                {formatPnlShort(totalUnrealized)}
               </div>
             </div>
           </div>
-          <div className="stat-card flex items-center gap-3">
-            <AlertTriangle className="w-5 h-5 flex-shrink-0" style={{ color: riskCount > 0 ? '#f59e0b' : '#22c55e' }} />
-            <div>
-              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>Risk Alerts</div>
-              <div className="text-2xl font-bold" style={{ color: riskCount > 0 ? '#f59e0b' : '#22c55e' }}>
-                {isDemoMode ? '—' : riskCount}
-              </div>
-            </div>
-          </div>
+
+          {/* 3. Realized P&L (all time) */}
           <div className="stat-card flex items-center gap-3">
             <BarChart2 className="w-5 h-5 flex-shrink-0" style={{ color: '#a855f7' }} />
             <div>
-              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>Backtest P&L (2020–26)</div>
-              <div className="text-2xl font-bold" style={{ color: '#22c55e' }}>+$88.2M</div>
+              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>Realized P&L</div>
+              <div className="text-2xl font-bold" style={{ color: totalRealized >= 0 ? '#22c55e' : '#ef4444' }}>
+                {formatPnlShort(totalRealized)}
+              </div>
             </div>
           </div>
+
+          {/* 4. Current Month Unrealized */}
+          <div className="stat-card flex items-center gap-3">
+            <Calendar className="w-5 h-5 flex-shrink-0" style={{ color: monthUnrealized >= 0 ? '#22c55e' : '#ef4444' }} />
+            <div>
+              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>
+                {monthLabel} Unrealized
+              </div>
+              <div className="text-2xl font-bold" style={{ color: monthUnrealized >= 0 ? '#22c55e' : '#ef4444' }}>
+                {formatPnlShort(monthUnrealized)}
+              </div>
+            </div>
+          </div>
+
+          {/* 5. Current Month Realized */}
+          <div className="stat-card flex items-center gap-3">
+            <DollarSign className="w-5 h-5 flex-shrink-0" style={{ color: monthRealized >= 0 ? '#22c55e' : '#ef4444' }} />
+            <div>
+              <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>
+                {monthLabel} Realized
+              </div>
+              <div className="text-2xl font-bold" style={{ color: monthRealized >= 0 ? '#22c55e' : '#ef4444' }}>
+                {formatPnlShort(monthRealized)}
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Navigation tabs */}
@@ -162,7 +216,7 @@ export default function Dashboard() {
                 <div className="flex items-center gap-2">
                   <Activity className="w-4 h-4" style={{ color: '#60a5fa' }} />
                   <h2 className="text-sm font-semibold tracking-wider uppercase" style={{ color: '#64748b' }}>
-                    {isDemoMode ? 'Recent Trade History (Q1–Q2 2026)' : 'Current Open Positions'}
+                    {isDemoMode ? 'Most Recent 50 Positions (entry date desc)' : 'Current Open Positions'}
                   </h2>
                 </div>
                 {isDemoMode && (
