@@ -83,7 +83,112 @@
       "atr_change_3d": 0.0949
     }
   ],
-  "pending_signals": [],
+  "pending_signals": [
+    {
+      "symbol": "AZN",
+      "z_score": 3.3343,
+      "slope": 0.06054,
+      "quintile": 5,
+      "body_pct": 0.726,
+      "atr_change": 0.15,
+      "tier": "A",
+      "sizing_rule": "$13K options (Tier A) \u2014 Min 1 contract",
+      "recommended_size": 13000,
+      "recommended_contracts": 1,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "SEDG",
+      "z_score": 2.5459,
+      "slope": 0.04368,
+      "quintile": 5,
+      "body_pct": -0.3993,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "OXY",
+      "z_score": 2.457,
+      "slope": 0.04178,
+      "quintile": 5,
+      "body_pct": -0.4454,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "ARM",
+      "z_score": 2.0422,
+      "slope": 0.03291,
+      "quintile": 5,
+      "body_pct": -0.1056,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$67K position (Tier C Q3)",
+      "recommended_size": 67000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "MPC",
+      "z_score": 2.0385,
+      "slope": 0.03283,
+      "quintile": 5,
+      "body_pct": -0.3658,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "DVN",
+      "z_score": 1.9564,
+      "slope": 0.03107,
+      "quintile": 5,
+      "body_pct": -0.3885,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "EOG",
+      "z_score": 1.9469,
+      "slope": 0.03087,
+      "quintile": 5,
+      "body_pct": -0.3443,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "COP",
+      "z_score": 1.9065,
+      "slope": 0.03001,
+      "quintile": 5,
+      "body_pct": -0.1472,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$67K position (Tier C Q3)",
+      "recommended_size": 67000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    }
+  ],
   "recently_closed": [
     {
       "symbol": "SPG",
@@ -153,5 +258,267 @@
       "symbol": "JD",
       "distance_pct": 27.9
     }
-  ]
+  ],
+  "signals": [
+    {
+      "symbol": "AZN",
+      "z_score": 3.3343,
+      "slope": 0.06054,
+      "quintile": 5,
+      "body_pct": 0.726,
+      "atr_change": 0.15,
+      "tier": "A",
+      "sizing_rule": "$13K options (Tier A) \u2014 Min 1 contract",
+      "recommended_size": 13000,
+      "recommended_contracts": 1,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "SEDG",
+      "z_score": 2.5459,
+      "slope": 0.04368,
+      "quintile": 5,
+      "body_pct": -0.3993,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "OXY",
+      "z_score": 2.457,
+      "slope": 0.04178,
+      "quintile": 5,
+      "body_pct": -0.4454,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "ARM",
+      "z_score": 2.0422,
+      "slope": 0.03291,
+      "quintile": 5,
+      "body_pct": -0.1056,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$67K position (Tier C Q3)",
+      "recommended_size": 67000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "MPC",
+      "z_score": 2.0385,
+      "slope": 0.03283,
+      "quintile": 5,
+      "body_pct": -0.3658,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "DVN",
+      "z_score": 1.9564,
+      "slope": 0.03107,
+      "quintile": 5,
+      "body_pct": -0.3885,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "EOG",
+      "z_score": 1.9469,
+      "slope": 0.03087,
+      "quintile": 5,
+      "body_pct": -0.3443,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$33K position (Tier C Q2)",
+      "recommended_size": 33000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    },
+    {
+      "symbol": "COP",
+      "z_score": 1.9065,
+      "slope": 0.03001,
+      "quintile": 5,
+      "body_pct": -0.1472,
+      "atr_change": 0.15,
+      "tier": "C",
+      "sizing_rule": "$67K position (Tier C Q3)",
+      "recommended_size": 67000,
+      "recommended_contracts": null,
+      "is_new_signal": true
+    }
+  ],
+  "watchlist": [
+    {
+      "symbol": "HON",
+      "quintile": 4,
+      "z_score": 0.6988,
+      "slope": 0.00418,
+      "approaching": true,
+      "sma50_slope": 0.4177,
+      "body_pct": 0.4768,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "ADI",
+      "quintile": 4,
+      "z_score": 0.6964,
+      "slope": 0.00412,
+      "approaching": true,
+      "sma50_slope": 0.4124,
+      "body_pct": 0.6773,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "WMT",
+      "quintile": 4,
+      "z_score": 0.686,
+      "slope": 0.0039,
+      "approaching": true,
+      "sma50_slope": 0.3902,
+      "body_pct": 0.3657,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "NOC",
+      "quintile": 4,
+      "z_score": 0.684,
+      "slope": 0.00386,
+      "approaching": true,
+      "sma50_slope": 0.386,
+      "body_pct": 0.1737,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "ENPH",
+      "quintile": 4,
+      "z_score": 0.668,
+      "slope": 0.00352,
+      "approaching": true,
+      "sma50_slope": 0.3518,
+      "body_pct": -0.5357,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "COST",
+      "quintile": 4,
+      "z_score": 0.6649,
+      "slope": 0.00345,
+      "approaching": true,
+      "sma50_slope": 0.3451,
+      "body_pct": 0.4145,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "REGN",
+      "quintile": 4,
+      "z_score": 0.6095,
+      "slope": 0.00227,
+      "approaching": true,
+      "sma50_slope": 0.2266,
+      "body_pct": -0.2067,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "MAR",
+      "quintile": 4,
+      "z_score": 0.5702,
+      "slope": 0.00142,
+      "approaching": true,
+      "sma50_slope": 0.1425,
+      "body_pct": 0.4328,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "HLT",
+      "quintile": 4,
+      "z_score": 0.5585,
+      "slope": 0.00118,
+      "approaching": true,
+      "sma50_slope": 0.1176,
+      "body_pct": 0.2011,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "MCD",
+      "quintile": 4,
+      "z_score": 0.5237,
+      "slope": 0.00043,
+      "approaching": true,
+      "sma50_slope": 0.0432,
+      "body_pct": 0.0694,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "O",
+      "quintile": 4,
+      "z_score": 0.522,
+      "slope": 0.00039,
+      "approaching": true,
+      "sma50_slope": 0.0394,
+      "body_pct": -0.0114,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "TXN",
+      "quintile": 4,
+      "z_score": 0.5213,
+      "slope": 0.00038,
+      "approaching": true,
+      "sma50_slope": 0.038,
+      "body_pct": 0.4916,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "SPG",
+      "quintile": 4,
+      "z_score": 0.52,
+      "slope": 0.00035,
+      "approaching": true,
+      "sma50_slope": 0.0353,
+      "body_pct": 0.3679,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "CMCSA",
+      "quintile": 4,
+      "z_score": 0.5122,
+      "slope": 0.00019,
+      "approaching": true,
+      "sma50_slope": 0.0185,
+      "body_pct": -0.1888,
+      "distance_to_q5": "close"
+    },
+    {
+      "symbol": "HCA",
+      "quintile": 4,
+      "z_score": 0.4994,
+      "slope": -9e-05,
+      "approaching": false,
+      "sma50_slope": -0.0088,
+      "body_pct": 0.0785,
+      "distance_to_q5": "moderate"
+    }
+  ],
+  "as_of": "2026-04-02",
+  "total_scanned": 225,
+  "source": "pre_seeded_enriched_csv",
+  "note": "Seeded from enriched CSV data as of 2026-04-02. Updates when Python engine runs at market close."
 }
