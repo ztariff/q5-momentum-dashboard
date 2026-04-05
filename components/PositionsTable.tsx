@@ -74,6 +74,15 @@ function getTierBadge(tier: string): string {
   return 'badge badge-tier-c';
 }
 
+
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr + 'T00:00:00');
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const day = d.getDate();
+  const suffix = day === 1 || day === 21 || day === 31 ? 'st' : day === 2 || day === 22 ? 'nd' : day === 3 || day === 23 ? 'rd' : 'th';
+  return `${months[d.getMonth()]} ${day}${suffix}, ${d.getFullYear()}`;
+}
+
 const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 /**
@@ -295,8 +304,8 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     {/* Entry Date */}
                     <td style={{ color: '#94a3b8' }}>
                       {isPending ? (
-                        <span style={{ color: '#fbbf24' }}>{pos.entry_date} <span className="text-xs opacity-70">(est.)</span></span>
-                      ) : pos.entry_date}
+                        <span style={{ color: '#fbbf24' }}>{formatDate(pos.entry_date)} <span className="text-xs opacity-70">(est.)</span></span>
+                      ) : formatDate(pos.entry_date)}
                     </td>
 
                     {/* Entry Price */}
@@ -391,7 +400,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
 
                     {/* Exit Date */}
                     <td style={{ color: isExitToday ? '#c084fc' : '#64748b' }}>
-                      {pos.scheduled_exit_date || pos.exit_date}
+                      {pos.scheduled_exit_date ? formatDate(pos.scheduled_exit_date) : pos.exit_date ? formatDate(pos.exit_date) : '—'}
                     </td>
 
                     {/* Option / Contracts */}
