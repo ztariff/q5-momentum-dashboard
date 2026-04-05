@@ -11,17 +11,12 @@ export async function GET() {
     const csvText = fs.readFileSync(csvPath, 'utf-8');
     const trades = parseTrades(csvText);
 
-    const TODAY = new Date('2026-04-03');
-    const todayStr = TODAY.toISOString().split('T')[0];
-
-    // Take the 50 most recently entered trades as "current open positions"
-    const sorted = [...trades].sort((a, b) => b.entry_date.localeCompare(a.entry_date));
-    const recent = sorted.slice(0, 50);
+    const today = new Date().toISOString().split('T')[0]; // e.g. '2026-04-03'
 
     // Helper: count trading days from entry to today (approximate)
     function tradingDaysSinceEntry(entryDate: string): number {
       const start = new Date(entryDate);
-      const end = TODAY;
+      const end = new Date(today);
       let count = 0;
       const cur = new Date(start);
       while (cur < end) {
@@ -32,17 +27,39 @@ export async function GET() {
       return count;
     }
 
-    const positionsToShow: Position[] = recent.map(t => {
+    // A position is "open" if its exit_date has not passed yet.
+    // Treat the backtest as live: positions with exit_date >= today are still open.
+    let openTrades = trades.filter(t => t.exit_date >= today);
+    let isRecentlyClosed = false;
+
+    // Fallback: if zero open positions (all trades have already exited), show
+    // trades from the last 5 trading days as "recently closed"
+    if (openTrades.length === 0) {
+      isRecentlyClosed = true;
+
+      // Compute the last 5 trading days before today
+      const recentCutoff = new Date(today);
+      let tradingDaysBack = 0;
+      while (tradingDaysBack < 5) {
+        recentCutoff.setDate(recentCutoff.getDate() - 1);
+        const day = recentCutoff.getDay();
+        if (day !== 0 && day !== 6) tradingDaysBack++;
+      }
+      const cutoffStr = recentCutoff.toISOString().split('T')[0];
+
+      openTrades = trades.filter(t => t.exit_date >= cutoffStr);
+    }
+
+    function buildPosition(t: ReturnType<typeof parseTrades>[number]): Position {
       const isOption = t.instrument?.toUpperCase().includes('OPTION');
       const maxHoldDays = isOption ? 13 : 20;
 
-      // Compute days held/remaining from entry date to today (not from backtest hold_days)
+      // Compute days held/remaining from entry date to today
       const daysHeld = tradingDaysSinceEntry(t.entry_date);
       const daysRemaining = Math.max(0, maxHoldDays - daysHeld);
 
-      // Unrealized P&L proxy: use (exit_price - entry_price) * shares[* 100 for options].
-      // For options: exit_price is the option price at expiry/exit (NOT the underlying stock price).
-      // Do NOT use live stock prices for options — the comparison is meaningless.
+      // Unrealized P&L proxy: use exit_price (or entry_price if not yet set) as current price.
+      // For options: exit_price is the option price at expiry/exit — do NOT use live stock price.
       const exitPriceProxy = t.exit_price || t.entry_price;
       const defaultUnrealized = isOption
         ? (exitPriceProxy - t.entry_price) * t.shares_or_contracts * 100
@@ -58,7 +75,6 @@ export async function GET() {
         ? t.entry_price * 0.50
         : t.entry_price * 0.90;
 
-      // Distance to stop as % of current price (using exit_price proxy as current)
       const currentPriceProxy = exitPriceProxy;
       const distanceToStop = currentPriceProxy > 0
         ? ((currentPriceProxy - stopPrice) / currentPriceProxy) * 100
@@ -70,7 +86,7 @@ export async function GET() {
         days_remaining: daysRemaining,
         scheduled_exit_date: t.exit_date,
         max_hold_days: maxHoldDays,
-        is_open: true,
+        is_open: !isRecentlyClosed,
         unrealized_pnl: defaultUnrealized,
         unrealized_pnl_pct: defaultUnrealizedPct,
         current_price: currentPriceProxy,
@@ -78,9 +94,11 @@ export async function GET() {
         distance_to_stop_pct: distanceToStop,
         distance_to_stop_dollar: currentPriceProxy - stopPrice,
       } as Position;
-    });
+    }
 
-    // Fetch live stock prices for STOCK positions only
+    const positionsToShow: Position[] = openTrades.map(buildPosition);
+
+    // Fetch live stock prices for STOCK positions only.
     // Options use the exit_price from the CSV — applying live stock prices to options
     // would give wildly inflated P&L (e.g. NFLX stock at $850 vs $4.63 option entry).
     const stockSymbols = [
@@ -123,23 +141,19 @@ export async function GET() {
       };
     });
 
-    // Total positions = count of displayed positions (not all 2082 historical trades)
+    // summary.total_positions = count of truly open positions
     const totalPositions = enriched.length;
 
-    // Total unrealized = sum of displayed positions' unrealized P&L
-    // This is meaningful: options use exit_price proxy, stocks use live price if available
-    // Result should be in -$500K to +$500K range for 50 mixed positions
+    // Total unrealized = sum across only these open positions
     const totalUnrealized = enriched.reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
 
     // Realized P&L = sum of net_pnl from ALL historical closed trades
-    const allTrades = trades;
-    const closedTrades = allTrades.filter(t => t.exit_price > 0 && t.net_pnl !== 0);
+    const closedTrades = trades.filter(t => t.exit_price > 0 && t.net_pnl !== 0);
     const totalRealized = closedTrades.reduce((s, t) => s + t.net_pnl, 0);
 
-    // Current month = April 2026
-    const currentMonth = todayStr.substring(0, 7); // "2026-04"
+    const currentMonth = today.substring(0, 7); // e.g. "2026-04"
 
-    // Month unrealized: only positions entered this month, using their computed unrealized_pnl
+    // Month unrealized: only open positions entered this month
     const monthUnrealized = enriched
       .filter(p => p.entry_date.startsWith(currentMonth))
       .reduce((s, p) => s + (p.unrealized_pnl ?? 0), 0);
@@ -149,11 +163,16 @@ export async function GET() {
       .filter(t => (t.exit_date || '').startsWith(currentMonth))
       .reduce((s, t) => s + t.net_pnl, 0);
 
+    // Risk alerts only apply to open positions
+    // (enriched array already contains only open/recently-closed positions)
+
     return NextResponse.json({
       positions: enriched,
       count: enriched.length,
       is_demo: false,
-      demo_note: null,
+      demo_note: isRecentlyClosed
+        ? 'No positions with future exit dates found — showing recently closed positions from the last 5 trading days.'
+        : null,
       summary: {
         total_positions: totalPositions,
         total_unrealized: totalUnrealized,
