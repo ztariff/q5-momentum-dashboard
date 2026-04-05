@@ -58,3 +58,4 @@ npm run dev
 - **Icons:** Lucide React
 - **Data:** Polygon.io REST API
 - **Deployment:** Railway
+# Trigger redeploy Sun Apr  5 14:59:43 UTC 2026
