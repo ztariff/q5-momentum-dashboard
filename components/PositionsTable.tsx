@@ -274,7 +274,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 const pnlPct = pos.unrealized_pnl_pct ?? 0;
                 const daysRem = pos.days_remaining ?? 0;
                 const daysHeld = pos.days_held ?? pos.hold_days ?? 0;
-                const maxDays = pos.max_hold_days;
+                const maxDays = pos.instrument === 'STOCK' ? 20 : 13;
                 const progressPct = maxDays > 0 ? Math.min(100, (daysHeld / maxDays) * 100) : 0;
 
                 return (
