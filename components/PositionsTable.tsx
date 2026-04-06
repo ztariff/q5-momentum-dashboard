@@ -423,14 +423,14 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                               {(() => {
                                 const budget = pos.tier === 'A' ? 13000 : 7000;
                                 const contracts = recommendedContracts(budget, pos.entry_price);
-                                return `${contracts} contract${contracts !== 1 ? 's' : ''} (min 1)`;
+                                return `${contracts} contract${contracts !== 1 ? 's' : ''}`;
                               })()}
                             </div>
                           )}
                         </div>
                       ) : isPending && pos.instrument?.toUpperCase().includes('OPTION') ? (
                         <span className="text-xs" style={{ color: '#92400e' }}>
-                          Select near-ATM call, {pos.tier === 'A' ? '1–2' : '1'} contract min
+                          30\u0394 call, ~1mo expiry
                         </span>
                       ) : (
                         <span style={{ color: '#374151' }}>—</span>
