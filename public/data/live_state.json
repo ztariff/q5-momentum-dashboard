@@ -17,8 +17,8 @@
       "shares_or_contracts": 7,
       "unrealized_pnl": 10325,
       "unrealized_pct": 175.18,
-      "days_held": 11,
-      "days_remaining": 2,
+      "days_held": 13,
+      "days_remaining": 0,
       "body_pct": 0.1497,
       "atr_change_3d": 0.0484,
       "distance_to_stop_pct": null
@@ -38,8 +38,8 @@
       "shares_or_contracts": 14,
       "unrealized_pnl": 2338,
       "unrealized_pct": 36.07,
-      "days_held": 2,
-      "days_remaining": 11,
+      "days_held": 5,
+      "days_remaining": 8,
       "body_pct": 0.0969,
       "atr_change_3d": 0.1227,
       "distance_to_stop_pct": null
@@ -59,8 +59,8 @@
       "shares_or_contracts": 97,
       "unrealized_pnl": -2037,
       "unrealized_pct": -30.88,
-      "days_held": 2,
-      "days_remaining": 12,
+      "days_held": 4,
+      "days_remaining": 9,
       "body_pct": 0.8875,
       "atr_change_3d": -0.0388,
       "distance_to_stop_pct": null
@@ -75,7 +75,7 @@
       "entry_price": 1.41,
       "current_price": 1.40,
       "stop_price": null,
-      "exit_date": "2026-04-24",
+      "exit_date": "2026-04-23",
       "position_size": 7000,
       "shares_or_contracts": 49,
       "unrealized_pnl": -49,
@@ -101,8 +101,8 @@
       "shares_or_contracts": 16,
       "unrealized_pnl": -1120,
       "unrealized_pct": -17.28,
-      "days_held": 1,
-      "days_remaining": 13,
+      "days_held": 3,
+      "days_remaining": 10,
       "body_pct": -0.0208,
       "atr_change_3d": 0.0949,
       "distance_to_stop_pct": null
@@ -187,9 +187,9 @@
   },
   "risk_alerts": [
     {
-      "type": "exit_soon",
+      "type": "exit_today",
       "symbol": "ARM",
-      "days_remaining": 2
+      "days_remaining": 0
     },
     {
       "type": "near_stop",
