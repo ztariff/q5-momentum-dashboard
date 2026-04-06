@@ -85,30 +85,23 @@
       "body_pct": -0.0208,
       "atr_change_3d": 0.0949,
       "distance_to_stop_pct": null
-    },
-    {
-      "symbol": "CSCO",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "CSCO ~30d call",
-      "entry_date": "2026-04-03",
-      "entry_price": 79.02,
-      "current_price": 79.02,
-      "stop_price": null,
-      "exit_date": "2026-04-22",
-      "position_size": 7000,
-      "shares_or_contracts": 1,
-      "unrealized_pnl": 0,
-      "unrealized_pct": 0,
-      "days_held": 1,
-      "days_remaining": 11,
-      "body_pct": 0.8945,
-      "atr_change_3d": -0.0152,
-      "distance_to_stop_pct": null
     }
   ],
-  "pending_signals": [],
+  "pending_signals": [
+    {
+      "symbol": "CSCO",
+      "z_score": 0.194,
+      "body_pct": 0.895,
+      "atr_change": -0.0152,
+      "tier": "B",
+      "instrument": "OPTION",
+      "sizing_rule": "Tier B: $7K options - Min 1 contract",
+      "recommended_size": 7000,
+      "recommended_contracts": 1,
+      "is_new_signal": true,
+      "entry_date": "2026-04-07"
+    }
+  ],
   "recently_closed": [
     {
       "symbol": "SPG",
@@ -157,8 +150,8 @@
     }
   ],
   "summary": {
-    "total_positions": 5,
-    "total_pending": 0,
+    "total_positions": 4,
+    "total_pending": 1,
     "total_unrealized": 9506,
     "realized_pnl": 5871744,
     "month_realized": 51640,
