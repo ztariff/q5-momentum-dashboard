@@ -1,0 +1,610 @@
+====================================================================================================
+WINNER ANATOMY REPORT: WHAT SEPARATES THE TOP 10% FROM THE REST
+====================================================================================================
+Generated: 2026-04-03
+Total trades analyzed: 2082
+
+====================================================================================================
+SECTION 1: GROUP DEFINITIONS
+====================================================================================================
+  TOP10: 209 trades
+    PnL range: $250,755 to $3,298,117
+    Mean PnL: $597,892
+    Median PnL: $460,541
+    Win rate: 100.0%
+    % of total PnL: 154.9%
+
+  MIDDLE: 1664 trades
+    PnL range: $-149,051 to $250,688
+    Mean PnL: $-1,023
+    Median PnL: $-19,753
+    Win rate: 42.5%
+    % of total PnL: -2.1%
+
+  BOT10: 209 trades
+    PnL range: $-545,689 to $-149,197
+    Mean PnL: $-203,779
+    Median PnL: $-189,512
+    Win rate: 0.0%
+    % of total PnL: -52.8%
+
+  Top 10% cutoff: >= $250,755
+  Bottom 10% cutoff: <= $-149,197
+
+====================================================================================================
+SECTION 2: ADDITIONAL COMPUTED FEATURES
+====================================================================================================
+  Features computed from symbol-level enriched CSVs: 19
+  Successfully computed for: 2082 trades
+  Feature coverage:
+    rvol_signal_day: 2082 trades (100%)
+    rvol_avg_3d: 2082 trades (100%)
+    rvol_avg_5d: 2082 trades (100%)
+    volume_trend_5d: 2082 trades (100%)
+    range_bps_signal: 2082 trades (100%)
+    avg_range_3d: 2082 trades (100%)
+    avg_range_5d: 2082 trades (100%)
+    range_expansion: 2082 trades (100%)
+    range_contraction_prior: 2082 trades (100%)
+    days_since_q4: 0 trades (0%)
+    z_score_velocity: 0 trades (0%)
+    slope_acceleration: 2082 trades (100%)
+    pct_from_52w_high_sig: 2034 trades (98%)
+    pct_from_20d_high_sig: 2082 trades (100%)
+    pct_from_52w_low_sig: 2034 trades (98%)
+    new_20d_high: 2082 trades (100%)
+    new_52w_high: 2034 trades (98%)
+    stock_price: 2082 trades (100%)
+    log_price: 2082 trades (100%)
+
+====================================================================================================
+SECTION 3: FEATURE COMPARISON - TOP 10% vs BOTTOM 10% vs MIDDLE 80%
+====================================================================================================
+
+Feature                          Mean T10   Mean M80   Mean B10   t-stat      p-val  Cohen d   Sig
+----------------------------------------------------------------------------------------------------
+entry_body_pct                      0.399      0.168      0.305     2.43   0.015601    0.518   ***
+spy_exit_roc_20                     2.903      1.012     -1.095     7.96   0.000000    0.439   ***
+entry_daily_return_pct              2.220      0.621      1.310     1.86   0.064103    0.411   ***
+entry_close_location                0.700      0.583      0.657     1.77   0.077377    0.408   ***
+spy_exit_dist_sma20_pct             1.088      0.297     -0.482     5.49   0.000000    0.312   ***
+spy_exit_rsi_14                    57.947     54.769     51.351     5.97   0.000000    0.312   ***
+entry_consec_days                   1.596      0.742      1.356     1.12   0.264855    0.310   ***
+spy_exit_dist_sma50_pct             2.267      1.211     -0.527     6.28   0.000000    0.291   ***
+spy_exit_pct_from_20d_high         -1.802     -2.646     -3.995     5.85   0.000000    0.286   ***
+log_price                           4.196      4.539      4.442    -2.11   0.035631   -0.285   ***
+entry_dist_sma8_pct                 5.541      2.394      5.446     0.05   0.956361    0.277   ***
+entry_bb_bandwidth                  0.314      0.222      0.302     0.24   0.814148    0.261   ***
+spy_exit_roc_10                     1.161      0.305     -0.215     3.69   0.000257    0.257   ***
+entry_dist_sma20_pct               12.900      6.653     11.671     0.28   0.775903    0.246      
+spy_exit_pct_from_20d_low           5.368      4.542      4.345     2.73   0.006516    0.243      
+entry_pct_from_20d_low             47.468     19.432     30.314     0.72   0.474056    0.239      
+spy_exit_macd_hist                  0.205     -0.156     -0.275     2.93   0.003608    0.234      
+entry_dist_sma50_pct               22.385     11.734     18.260     0.49   0.627606    0.233      
+spy_exit_bb_pctb                    0.648      0.584      0.496     4.81   0.000002    0.229   ***
+entry_sma50_slope_5d                2.571      1.618      2.175     0.51   0.611554    0.228      
+entry_roc_10                       32.521      8.900     16.572     0.74   0.461058    0.225      
+entry_roc_20                       36.847     13.021     21.802     0.70   0.486321    0.225      
+entry_range_bps                   426.307    329.918    468.104    -0.80   0.422369    0.219      
+entry_rvol_20d                     53.720     42.569     56.143    -0.34   0.733859    0.211      
+entry_rvol_10d                     56.693     42.279     59.455    -0.28   0.778365    0.211      
+slope_acceleration                  1.077      0.665      0.995     0.25   0.804413    0.210      
+rvol_signal_day                     1.265      1.066      1.318    -0.46   0.648351    0.208      
+entry_dist_sma200_pct              30.363     14.176     21.814     0.58   0.565616    0.208      
+rvol_avg_3d                         1.210      1.081      1.260    -0.78   0.434958    0.204      
+entry_sma20_slope_5d                4.773      2.683      3.922     0.44   0.659852    0.204      
+
+  Total features tested: 90
+  Features meeting significance threshold (|d|>0.25 or |t|>3): 14 of top 30
+  Total significant features: 17
+
+  MULTIPLE TESTING NOTE: With 90 features tested, at alpha=0.05,
+  we expect ~4 false positives by chance alone.
+  Bonferroni-corrected alpha: 0.00056
+  Features surviving Bonferroni correction: 9
+
+====================================================================================================
+SECTION 4: QUINTILE ANALYSIS FOR TOP 5 FEATURES
+====================================================================================================
+
+--- entry_body_pct (Cohen's d = 0.518) ---
+Quintile      Count     Mean PnL      Med PnL      WR%  % Total PnL           Feat Range
+Q1(low)         414        -3282       -27270    35.7%        -1.7%     -0.53 -    -0.25
+Q2              414        32079       -27548    39.1%        16.5%     -0.24 -     0.07
+Q3              413        26236       -12008    46.2%        13.5%      0.07 -     0.37
+Q4              414        60925       -11050    48.3%        31.3%      0.37 -     0.63
+Q5(high)        414        78510         9474    50.7%        40.4%      0.64 -     0.99
+  MONOTONIC: NO (3/4 steps increasing)
+
+--- spy_exit_roc_20 (Cohen's d = 0.439) ---
+Quintile      Count     Mean PnL      Med PnL      WR%  % Total PnL           Feat Range
+Q1(low)         416       -37866       -73545    21.4%       -19.6%    -31.39 -    -2.33
+Q2              414        14842       -25942    41.8%         7.6%     -2.32 -     0.68
+Q3              411        24033       -14910    42.6%        12.3%      0.71 -     2.65
+Q4              414        90252        15634    54.1%        46.4%      2.65 -     4.42
+Q5(high)        414       103501        32789    60.4%        53.2%      4.43 -    23.07
+  MONOTONIC: YES (increasing) - STRONG signal
+
+--- entry_daily_return_pct (Cohen's d = 0.411) ---
+Quintile      Count     Mean PnL      Med PnL      WR%  % Total PnL           Feat Range
+Q1(low)         414         7181       -35199    34.5%         3.7%    -56.63 -    -0.77
+Q2              414        17926       -18690    41.5%         9.2%     -0.76 -     0.10
+Q3              413        49584        -3138    48.7%        25.4%      0.10 -     0.91
+Q4              414        45167       -10863    47.8%        23.2%      0.91 -     2.25
+Q5(high)        414        74666       -12498    47.6%        38.4%      2.25 -    74.40
+  MONOTONIC: NO (3/4 steps increasing)
+
+--- entry_close_location (Cohen's d = 0.408) ---
+Quintile      Count     Mean PnL      Med PnL      WR%  % Total PnL           Feat Range
+Q1(low)         414        15355       -26956    38.4%         7.9%      0.00 -     0.34
+Q2              414        12113       -27131    37.9%         6.2%      0.34 -     0.54
+Q3              413        36460       -15607    46.5%        18.7%      0.54 -     0.72
+Q4              414        52869       -12653    46.4%        27.2%      0.72 -     0.88
+Q5(high)        414        77696         7734    51.0%        40.0%      0.88 -     1.00
+  MONOTONIC: NO (3/4 steps increasing)
+
+--- spy_exit_dist_sma20_pct (Cohen's d = 0.312) ---
+Quintile      Count     Mean PnL      Med PnL      WR%  % Total PnL           Feat Range
+Q1(low)         414       -18404       -50418    28.7%        -9.5%    -20.08 -    -1.60
+Q2              415        25801       -28049    39.5%        13.3%     -1.58 -     0.28
+Q3              412        19621       -21795    43.4%        10.0%      0.28 -     1.34
+Q4              415        69028        19371    54.5%        35.6%      1.35 -     2.25
+Q5(high)        413        98461        12644    54.0%        50.5%      2.26 -    11.36
+  MONOTONIC: NO (3/4 steps increasing)
+
+====================================================================================================
+SECTION 5: TOP 10 INDIVIDUAL WINNERS - COMMON CHARACTERISTICS
+====================================================================================================
+
+  #1: JOBY (2025-06-10) - Hybrid PnL: $3,298,117
+      stock_pnl: 281896.244
+      opt_pnl: 3298117.018
+      tier: A
+      days_held: 20
+      entry_body_pct: 0.028
+      spy_exit_roc_20: 3.771
+      entry_daily_return_pct: 2.013
+      entry_close_location: 0.085
+      spy_exit_dist_sma20_pct: 2.534
+      rvol_signal_day: 1.207
+      range_expansion: 0.643
+      range_bps_signal: 495.103
+      pct_from_52w_high_sig: -11.940
+      new_20d_high: 1.000
+      new_52w_high: 0.000
+      stock_price: 9.440
+      entry_rsi_14: 70.047
+      entry_adx_14: 30.170
+      entry_squeeze: 0.000
+      entry_consec_days: 4.000
+
+  #2: VXX (2020-03-02) - Hybrid PnL: $2,426,587
+      stock_pnl: 2426587.029
+      tier: B
+      days_held: 20
+      entry_body_pct: 0.626
+      spy_exit_roc_20: -15.348
+      entry_daily_return_pct: 10.985
+      entry_close_location: 0.842
+      spy_exit_dist_sma20_pct: -0.486
+      rvol_signal_day: 1.451
+      range_expansion: 1.035
+      range_bps_signal: 763.514
+      pct_from_52w_high_sig: -57.626
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 1409.920
+      entry_rsi_14: 79.916
+      entry_adx_14: 35.749
+      entry_squeeze: 0.000
+      entry_consec_days: 1.000
+
+  #3: AZN (2026-01-20) - Hybrid PnL: $1,987,732
+      stock_pnl: 1987731.639
+      tier: B
+      days_held: 20
+      entry_body_pct: 0.493
+      spy_exit_roc_20: 1.285
+      entry_daily_return_pct: 0.667
+      entry_close_location: 0.860
+      spy_exit_dist_sma20_pct: -0.414
+      rvol_signal_day: 1.379
+      range_expansion: 1.077
+      range_bps_signal: 215.775
+      pct_from_52w_high_sig: -6.808
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 89.940
+      entry_rsi_14: 44.144
+      entry_adx_14: 21.745
+      entry_squeeze: 0.000
+      entry_consec_days: 1.000
+
+  #4: VZ (2023-10-16) - Hybrid PnL: $1,818,708
+      stock_pnl: 300645.082
+      opt_pnl: 1818708.111
+      tier: A
+      days_held: 20
+      entry_body_pct: 0.909
+      spy_exit_roc_20: 0.952
+      entry_daily_return_pct: 0.832
+      entry_close_location: 0.932
+      spy_exit_dist_sma20_pct: 3.027
+      rvol_signal_day: 0.978
+      range_expansion: 1.119
+      range_bps_signal: 226.978
+      pct_from_52w_high_sig: -30.136
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 31.250
+      entry_rsi_14: 42.561
+      entry_adx_14: 36.659
+      entry_squeeze: 0.000
+      entry_consec_days: 2.000
+
+  #5: SMCI (2023-05-10) - Hybrid PnL: $1,809,859
+      stock_pnl: 1809858.511
+      tier: B
+      days_held: 20
+      entry_body_pct: 0.673
+      spy_exit_roc_20: 3.943
+      entry_daily_return_pct: 1.601
+      entry_close_location: 0.767
+      spy_exit_dist_sma20_pct: 2.451
+      rvol_signal_day: 0.524
+      range_expansion: 0.524
+      range_bps_signal: 341.261
+      pct_from_52w_high_sig: -6.445
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 13.428
+      entry_rsi_14: 68.791
+      entry_adx_14: 27.450
+      entry_squeeze: 0.000
+      entry_consec_days: 2.000
+
+  #6: MRVL (2023-05-24) - Hybrid PnL: $1,668,980
+      stock_pnl: 179028.203
+      opt_pnl: 1668979.676
+      tier: A
+      days_held: 20
+      entry_body_pct: 0.157
+      spy_exit_roc_20: 5.381
+      entry_daily_return_pct: 7.590
+      entry_close_location: 0.914
+      spy_exit_dist_sma20_pct: 0.809
+      rvol_signal_day: 1.173
+      range_expansion: 0.768
+      range_bps_signal: 237.363
+      pct_from_52w_high_sig: -25.236
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 45.980
+      entry_rsi_14: 75.582
+      entry_adx_14: 24.028
+      entry_squeeze: 0.000
+      entry_consec_days: 1.000
+
+  #7: AMC (2021-04-29) - Hybrid PnL: $1,631,668
+      stock_pnl: 1631668.306
+      tier: C
+      days_held: 20
+      entry_body_pct: -0.133
+      spy_exit_roc_20: -0.183
+      entry_daily_return_pct: -1.667
+      entry_close_location: 0.500
+      spy_exit_dist_sma20_pct: 0.830
+      rvol_signal_day: 0.829
+      range_expansion: 1.139
+      range_bps_signal: 867.580
+      pct_from_52w_high_sig: -49.902
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 102.000
+      entry_rsi_14: 49.600
+      entry_adx_14: 14.286
+      entry_squeeze: 0.000
+      entry_consec_days: -4.000
+
+  #8: MRK (2021-10-06) - Hybrid PnL: $1,517,891
+      stock_pnl: 129774.702
+      opt_pnl: 1517890.625
+      tier: B
+      days_held: 20
+      entry_body_pct: 0.244
+      spy_exit_roc_20: 6.857
+      entry_daily_return_pct: 1.587
+      entry_close_location: 0.555
+      spy_exit_dist_sma20_pct: 3.328
+      rvol_signal_day: 0.794
+      range_expansion: 0.857
+      range_bps_signal: 187.730
+      pct_from_52w_high_sig: -5.771
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 80.660
+      entry_rsi_14: 69.568
+      entry_adx_14: 31.549
+      entry_squeeze: 0.000
+      entry_consec_days: 1.000
+
+  #9: AFRM (2023-11-30) - Hybrid PnL: $1,500,711
+      stock_pnl: 871239.440
+      opt_pnl: 1500711.231
+      tier: A
+      days_held: 20
+      entry_body_pct: 0.841
+      spy_exit_roc_20: 4.143
+      entry_daily_return_pct: 9.474
+      entry_close_location: 0.933
+      spy_exit_dist_sma20_pct: 1.680
+      rvol_signal_day: 1.013
+      range_expansion: 0.865
+      range_bps_signal: 615.967
+      pct_from_52w_high_sig: -1.573
+      new_20d_high: 1.000
+      new_52w_high: 1.000
+      stock_price: 34.410
+      entry_rsi_14: 82.772
+      entry_adx_14: 37.403
+      entry_squeeze: 0.000
+      entry_consec_days: 7.000
+
+  #10: SMCI (2024-02-02) - Hybrid PnL: $1,455,873
+      stock_pnl: 1639740.361
+      opt_pnl: 1455872.950
+      tier: B
+      days_held: 20
+      entry_body_pct: 0.895
+      spy_exit_roc_20: 3.631
+      entry_daily_return_pct: 14.444
+      entry_close_location: 0.919
+      spy_exit_dist_sma20_pct: 2.041
+      rvol_signal_day: 1.346
+      range_expansion: 0.683
+      range_bps_signal: 691.960
+      pct_from_52w_high_sig: -4.351
+      new_20d_high: 0.000
+      new_52w_high: 0.000
+      stock_price: 57.963
+      entry_rsi_14: 90.951
+      entry_adx_14: 53.454
+      entry_squeeze: 0.000
+      entry_consec_days: 1.000
+
+  --- Shared characteristics (features where top 10 cluster at extremes) ---
+  entry_daily_return_pct: avg percentile = 74% (HIGH), mean=4.753, std=5.414
+  rvol_avg_3d: avg percentile = 71% (HIGH), mean=1.520, std=0.749
+  rvol_avg_5d: avg percentile = 74% (HIGH), mean=1.557, std=0.614
+  new_20d_high: avg percentile = 13% (LOW), mean=0.200, std=0.422
+  new_52w_high: avg percentile = 8% (LOW), mean=0.100, std=0.316
+
+====================================================================================================
+SECTION 6: OVERFITTING CHECK - TIME-PERIOD STABILITY
+====================================================================================================
+  Early period (2020-2022): 954 trades
+  Late period (2023-2026): 1128 trades
+
+--- entry_body_pct ---
+  2020-2022 (n=954):
+    Quintile   Mean PnL      WR%
+    Q1            -7093    34.0%
+    Q2            31348    43.5%
+    Q3            36245    44.2%
+    Q4            54883    49.7%
+    Q5            51218    48.7%
+    Monotonic: NO (3/4 consistent)
+  2023-2026 (n=1115):
+    Quintile   Mean PnL      WR%
+    Q1             3067    37.2%
+    Q2            29469    35.9%
+    Q3            21168    47.5%
+    Q4            55151    46.2%
+    Q5           109524    53.4%
+    Monotonic: NO (3/4 consistent)
+  STABILITY: CONSISTENT across both periods - likely real signal
+
+--- spy_exit_roc_20 ---
+  2020-2022 (n=954):
+    Quintile   Mean PnL      WR%
+    Q1           -30881    21.4%
+    Q2            19319    42.4%
+    Q3             6168    40.7%
+    Q4            92346    60.2%
+    Q5            79687    55.5%
+    Monotonic: NO (2/4 consistent)
+  2023-2026 (n=1115):
+    Quintile   Mean PnL      WR%
+    Q1           -43008    23.2%
+    Q2            20308    39.5%
+    Q3            23505    43.0%
+    Q4            99105    53.1%
+    Q5           119287    61.5%
+    Monotonic: YES (increasing)
+  STABILITY: INCONSISTENT - possible overfitting concern
+
+--- entry_daily_return_pct ---
+  2020-2022 (n=954):
+    Quintile   Mean PnL      WR%
+    Q1            13124    34.0%
+    Q2             8527    39.8%
+    Q3            35982    48.9%
+    Q4            38892    49.7%
+    Q5            70075    47.6%
+    Monotonic: NO (3/4 consistent)
+  2023-2026 (n=1115):
+    Quintile   Mean PnL      WR%
+    Q1             5820    35.9%
+    Q2            19489    41.7%
+    Q3            60984    48.4%
+    Q4            45386    46.2%
+    Q5            86702    48.0%
+    Monotonic: NO (3/4 consistent)
+  STABILITY: CONSISTENT across both periods - likely real signal
+
+====================================================================================================
+SECTION 7: ECONOMIC INTERPRETATION
+====================================================================================================
+
+--- entry_body_pct (Cohen's d = 0.518) ---
+  Finding: Big winners have higher entry_body_pct than the rest
+  Top 10% mean: 0.399 | Bottom 10% mean: 0.305 | t-stat: 2.43
+  Economic rationale: Candle body percentage and close location measure
+  intraday conviction. A close near the high (high close_location) suggests
+  buying pressure persisted through the session, indicating strong demand.
+  VERDICT: ECONOMICALLY PLAUSIBLE
+
+--- spy_exit_roc_20 (Cohen's d = 0.439) ---
+  Finding: Big winners have higher spy_exit_roc_20 than the rest
+  Top 10% mean: 2.903 | Bottom 10% mean: -1.095 | t-stat: 7.96
+  Economic rationale: Market regime at time of entry. Trades entered when
+  the broad market is in a favorable state may benefit from rising-tide effects.
+  This is well-documented in the factor timing literature.
+  VERDICT: ECONOMICALLY PLAUSIBLE
+
+--- entry_daily_return_pct (Cohen's d = 0.411) ---
+  Finding: Big winners have higher entry_daily_return_pct than the rest
+  Top 10% mean: 2.220 | Bottom 10% mean: 1.310 | t-stat: 1.86
+  Economic rationale: Requires further investigation to determine causal mechanism.
+  VERDICT: UNCERTAIN - needs more analysis
+
+--- entry_close_location (Cohen's d = 0.408) ---
+  Finding: Big winners have higher entry_close_location than the rest
+  Top 10% mean: 0.700 | Bottom 10% mean: 0.657 | t-stat: 1.77
+  Economic rationale: Candle body percentage and close location measure
+  intraday conviction. A close near the high (high close_location) suggests
+  buying pressure persisted through the session, indicating strong demand.
+  VERDICT: ECONOMICALLY PLAUSIBLE
+
+--- spy_exit_dist_sma20_pct (Cohen's d = 0.312) ---
+  Finding: Big winners have higher spy_exit_dist_sma20_pct than the rest
+  Top 10% mean: 1.088 | Bottom 10% mean: -0.482 | t-stat: 5.49
+  Economic rationale: Distance from moving averages measures trend extension.
+  Moderate distance suggests early-stage trend; extreme distance suggests mean-reversion
+  risk. Slope measures trend strength and acceleration, which is related to the
+  persistence of momentum documented in academic literature.
+  VERDICT: ECONOMICALLY PLAUSIBLE
+
+--- spy_exit_rsi_14 (Cohen's d = 0.312) ---
+  Finding: Big winners have higher spy_exit_rsi_14 than the rest
+  Top 10% mean: 57.947 | Bottom 10% mean: 51.351 | t-stat: 5.97
+  Economic rationale: RSI measures momentum strength. If winners have different RSI,
+  it may reflect the sweet spot between oversold bounces and overbought exhaustion.
+  However, RSI is a lagging indicator and the relationship may be non-linear.
+  VERDICT: PLAUSIBLE but may be capturing a non-linear effect
+
+--- entry_consec_days (Cohen's d = 0.310) ---
+  Finding: Big winners have higher entry_consec_days than the rest
+  Top 10% mean: 1.596 | Bottom 10% mean: 1.356 | t-stat: 1.12
+  Economic rationale: Consecutive days in a signal state measures persistence
+  of the underlying condition. Moderate persistence suggests confirmation
+  without exhaustion. Too few days = false signal; too many = extended move.
+  VERDICT: PLAUSIBLE if relationship is non-linear
+
+--- spy_exit_dist_sma50_pct (Cohen's d = 0.291) ---
+  Finding: Big winners have higher spy_exit_dist_sma50_pct than the rest
+  Top 10% mean: 2.267 | Bottom 10% mean: -0.527 | t-stat: 6.28
+  Economic rationale: Distance from moving averages measures trend extension.
+  Moderate distance suggests early-stage trend; extreme distance suggests mean-reversion
+  risk. Slope measures trend strength and acceleration, which is related to the
+  persistence of momentum documented in academic literature.
+  VERDICT: ECONOMICALLY PLAUSIBLE
+
+--- spy_exit_pct_from_20d_high (Cohen's d = 0.286) ---
+  Finding: Big winners have higher spy_exit_pct_from_20d_high than the rest
+  Top 10% mean: -1.802 | Bottom 10% mean: -3.995 | t-stat: 5.85
+  Economic rationale: Proximity to 52-week or 20-day highs/lows captures whether
+  the stock is breaking into new territory or bouncing from support. New highs
+  remove overhead supply (no trapped longs above), reducing resistance.
+  VERDICT: ECONOMICALLY PLAUSIBLE
+
+--- log_price (Cohen's d = -0.285) ---
+  Finding: Big winners have lower log_price than the rest
+  Top 10% mean: 4.196 | Bottom 10% mean: 4.442 | t-stat: -2.11
+  Economic rationale: Absolute price level could matter due to options gamma effects
+  (higher-priced stocks have different delta/gamma profiles), or due to institutional
+  coverage biases. However, this could also be a proxy for market cap or quality factor.
+  VERDICT: UNCERTAIN - may be a proxy for other factors
+
+====================================================================================================
+SECTION 8: SUMMARY AND OVERFITTING ASSESSMENT
+====================================================================================================
+
+  Total features tested: 90
+  Features significant at |d|>0.25 or |t|>3: 17
+  Features surviving Bonferroni correction: 9
+  Features FLAGGED for possible overfitting: spy_exit_roc_20
+
+  MULTIPLE TESTING WARNING:
+  We tested 90 features. At p<0.05, we expect ~4 false positives by chance.
+  Only 9 features survive the Bonferroni correction (p < 0.00056).
+  Features that are NOT monotonic in quintile analysis or NOT stable across time periods
+  should be treated with additional skepticism.
+
+  RECOMMENDED FILTERS FOR FURTHER TESTING:
+  The following features meet ALL quality criteria (significant, monotonic-leaning, stable):
+    - entry_body_pct (d=0.518, t=2.43)
+    - entry_daily_return_pct (d=0.411, t=1.86)
+    - entry_close_location (d=0.408, t=1.77)
+    - spy_exit_dist_sma20_pct (d=0.312, t=5.49)
+
+  These features should be considered as potential filters to improve trade selection,
+  but should be validated on a true out-of-sample period before deployment.
+
+====================================================================================================
+SECTION 9: CRITICAL CAVEAT - ENTRY vs EXIT FEATURES
+====================================================================================================
+
+  WARNING: Many of the top-ranked features are "spy_exit_*" variables. These describe
+  the state of the S&P 500 at the TIME THE TRADE EXITS, not at entry. They CANNOT be
+  used as entry-time filters because they are unknowable when the trade is initiated.
+
+  What spy_exit_* features tell us: Big winners tend to EXIT during periods when the
+  broad market is rallying (high spy_exit_roc_20, positive spy_exit_dist_sma20_pct).
+  This is unsurprising -- momentum trades that catch a rising market tide perform best.
+  This is informative about regime but NOT actionable as a filter.
+
+  ACTIONABLE ENTRY-TIME FEATURES (ranked by |Cohen's d|):
+    1. entry_body_pct (d=0.518): Higher body pct on signal day candle -> bigger winners
+       Stable across both time periods. Nearly monotonic in quintiles.
+       Q5 mean PnL: $78,510 vs Q1 mean PnL: -$3,282
+    2. entry_daily_return_pct (d=0.411): Larger signal day return -> bigger winners
+       Stable across both periods. Nearly monotonic.
+       Q5 mean PnL: $74,666 vs Q1 mean PnL: $7,181
+    3. entry_close_location (d=0.408): Close near the high of the day -> bigger winners
+       Nearly monotonic. Q5 (close in top 12% of day's range): mean PnL $77,696
+       vs Q1 (close in bottom third): mean PnL $15,355
+    4. entry_consec_days (d=0.310): More consecutive signal days -> bigger winners
+    5. entry_dist_sma8_pct (d=0.277): Greater distance above 8-day SMA
+    6. entry_bb_bandwidth (d=0.261): Wider Bollinger Bands (more volatility)
+    7. log_price (d=-0.285): Lower-priced stocks produce bigger winners
+
+  ENTRY-TIME FEATURES THAT WERE NOT SIGNIFICANT:
+    - rvol_signal_day, rvol_avg_3d, rvol_avg_5d: No significant difference
+    - range_expansion, range_contraction_prior: No significant difference
+    - slope_acceleration: No significant difference
+    - new_20d_high, new_52w_high: No significant difference (and top 10 winners
+      actually had LOW values here -- most were NOT at new highs)
+    - entry_squeeze: Uniformly 0 across nearly all trades (no discriminating power)
+
+  KEY INSIGHT FROM TOP 10 WINNERS:
+    The top 10 individual winners share:
+    - HIGH rvol_avg_3d and rvol_avg_5d (avg percentile 71-74%) -- elevated volume
+      in the days leading up to the signal, suggesting institutional accumulation
+    - HIGH entry_daily_return_pct (avg percentile 74%) -- strong signal day moves
+    - NOT at new 20d or 52w highs -- they were breakouts from pullbacks, not
+      continuation of existing highs
+    - Wide range of RSI values (42-91), ADX (14-53), and prices ($9-$1410)
+      showing no single technical profile dominates
+
+  BOTTOM LINE:
+    The strongest actionable entry-time signal is the combination of:
+    (1) Strong intraday conviction on signal day (high body_pct + close_location)
+    (2) Meaningful signal day return (entry_daily_return_pct)
+    These three features are correlated but capture slightly different aspects of
+    the same phenomenon: the signal day candle should show genuine buying pressure,
+    not a doji or indecisive candle.
+
+    The market regime at exit matters enormously (spy features dominate), but this
+    is not actionable at entry time. The practical implication is that even a
+    perfect entry filter will underperform when the broad market turns against it.

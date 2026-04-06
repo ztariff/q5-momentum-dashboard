@@ -1,0 +1,205 @@
+========================================================================================================================
+CUT vs DOWNSIZE vs TIERED SIZING: COMPREHENSIVE COMPARISON
+========================================================================================================================
+Generated: 2026-04-04 05:37
+Dataset: 2,875 trades with ATR stops, joined with entry_body_pct
+Base position size: $1,000,000
+
+QUINTILE BREAKDOWN (entry_body_pct):
+--------------------------------------------------------------------------------
+Quintile     Range                        Trades     WR        Total PnL         PnL/Trade
+--------------------------------------------------------------------------------
+Q1           [-0.9910, -0.5258]           575       36.9%     $-16,540,910      $-28,767
+Q2           [-0.5254, -0.1673]           575       46.3%      $-1,346,798       $-2,342
+Q3           [-0.1667, 0.2273]            575       53.2%       $9,217,025       $16,030
+Q4           [0.2275, 0.5743]             575       58.6%      $16,246,439       $28,255
+Q5           [0.5755, 1.0000]             575       62.8%      $29,845,950       $51,906
+
+OPTION DEFINITIONS:
+--------------------------------------------------------------------------------
+Baseline : All 2,875 trades at $1M (flat sizing)
+A: Cut Q1 : Skip bottom quintile entirely (2,300 trades at $1M)
+B: Downsize Q1 : Bottom quintile at $250K, rest at $1M (2,875 trades)
+C: Tiered (all) : Q1=$250K, Q2=$500K, Q3=$1M, Q4=$1.5M, Q5=$2M (2,875 trades)
+D: Tiered (cut Q1): Skip Q1, Q2=$500K, Q3=$1M, Q4=$1.5M, Q5=$2M (2,300 trades)
+
+
+========================================================================================================================
+SIDE-BY-SIDE COMPARISON
+========================================================================================================================
+Metric                                   Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+------------------------------------------------------------------------------------------------------------------------
+Trades                                      2,875            2,300            2,875            2,875            2,300
+Total P&L                            $     37.42M     $     53.96M     $     49.83M     $     88.47M     $     92.61M
+P&L per Trade                         $    13,016      $    23,462      $    17,331      $    30,772      $    40,263
+Win Rate                                    51.5%            55.2%            51.5%            51.5%            55.2%
+Profit Factor                                1.31             1.64             1.54             1.85             1.97
+Max Drawdown                         $    -13.34M     $     -6.73M     $     -8.32M     $     -7.04M     $     -6.38M
+Sharpe Ratio (portfolio)                     1.41             2.60             2.25             3.00             3.29
+Calmar Ratio                                 0.46             1.30             0.97             2.04             2.36
+Annual Return                        $      6.07M     $      8.76M     $      8.09M     $     14.36M     $     15.03M
+Worst Single Trade                    $  -463,691      $  -463,691      $  -463,691      $  -587,796      $  -587,796
+Avg Capital Deployed/Day             $     32.42M     $     26.50M     $     27.98M     $     34.98M     $     33.50M
+Total Trade-Days                           50,865           41,592           43,910           54,883           52,564
+Return per $ Deployed                      1.1544           2.0361           1.7807           2.5295           2.7646
+
+
+========================================================================================================================
+KEY EFFICIENCY METRICS (highlighted)
+========================================================================================================================
+
+Metric                          
+  Baseline:
+    Return/$ Deployed:     1.1544
+    Max Drawdown:          $-13,337,860
+    Calmar Ratio:          0.46
+    Avg Capital/Day:       $32,417,333
+    P&L per Trade:         $13,016
+
+  A: Cut Q1:
+    Return/$ Deployed:     2.0361
+    Max Drawdown:          $-6,729,436
+    Calmar Ratio:          1.30
+    Avg Capital/Day:       $26,502,766
+    P&L per Trade:         $23,462
+
+  B: Downsize Q1:
+    Return/$ Deployed:     1.7807
+    Max Drawdown:          $-8,321,948
+    Calmar Ratio:          0.97
+    Avg Capital/Day:       $27,981,407
+    P&L per Trade:         $17,331
+
+  C: Tiered (all):
+    Return/$ Deployed:     2.5295
+    Max Drawdown:          $-7,036,733
+    Calmar Ratio:          2.04
+    Avg Capital/Day:       $34,975,569
+    P&L per Trade:         $30,772
+
+  D: Tiered (cut Q1):
+    Return/$ Deployed:     2.7646
+    Max Drawdown:          $-6,378,833
+    Calmar Ratio:          2.36
+    Avg Capital/Day:       $33,496,927
+    P&L per Trade:         $40,263
+
+
+========================================================================================================================
+YEAR-BY-YEAR BREAKDOWN
+========================================================================================================================
+
+--- 2020 ---
+Metric                       Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+---------------------------------------------------------------------------------------------------------
+Trades                            438              352              438              438              352
+P&L                       $17,970,472      $18,687,606      $18,508,323      $28,975,987      $29,155,271
+Win Rate                        54.3%            57.4%            54.3%            54.3%            57.4%
+
+--- 2021 ---
+Metric                       Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+---------------------------------------------------------------------------------------------------------
+Trades                            413              330              413              413              330
+P&L                        $3,957,390       $5,689,532       $5,256,496       $7,294,314       $7,727,350
+Win Rate                        53.0%            55.8%            53.0%            53.0%            55.8%
+
+--- 2022 ---
+Metric                       Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+---------------------------------------------------------------------------------------------------------
+Trades                            461              367              461              461              367
+P&L                       $-7,715,390      $-1,366,783      $-2,953,935        $-743,052         $844,099
+Win Rate                        43.2%            49.0%            43.2%            43.2%            49.0%
+
+--- 2023 ---
+Metric                       Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+---------------------------------------------------------------------------------------------------------
+Trades                            505              409              505              505              409
+P&L                        $9,605,867      $12,881,673      $12,062,722      $23,797,437      $24,616,388
+Win Rate                        52.3%            56.5%            52.3%            52.3%            56.5%
+
+--- 2024 ---
+Metric                       Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+---------------------------------------------------------------------------------------------------------
+Trades                            478              377              478              478              377
+P&L                        $5,757,700       $9,136,712       $8,291,959      $15,545,890      $16,390,642
+Win Rate                        54.4%            58.6%            54.4%            54.4%            58.6%
+
+--- 2025 ---
+Metric                       Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+---------------------------------------------------------------------------------------------------------
+Trades                            494              393              494              494              393
+P&L                        $6,127,428       $7,195,225       $6,928,276      $10,586,377      $10,853,327
+Win Rate                        52.4%            55.0%            52.4%            52.4%            55.0%
+
+--- 2026 ---
+Metric                       Baseline        A: Cut Q1   B: Downsize Q1  C: Tiered (all)D: Tiered (cut Q1)
+---------------------------------------------------------------------------------------------------------
+Trades                             86               72               86               86               72
+P&L                        $1,718,239       $1,738,651       $1,733,548       $3,013,006       $3,018,109
+Win Rate                        50.0%            50.0%            50.0%            50.0%            50.0%
+
+
+========================================================================================================================
+CRITICAL QUESTION: Q1 AT 0.25x — POSITIVE OR NEGATIVE EXPECTED VALUE?
+========================================================================================================================
+
+Q1 trades at 0.25x ($250K):
+  Trades:           575
+  Total P&L:        $-4,135,227
+  P&L per trade:    $-7,192
+  Total trade-days: 9,273
+  Win rate:         36.9%
+
+  Verdict: Q1 at 0.25x has NEGATIVE expected value ($-4,135,227)
+  These 575 trades consume 9,273 trade-days of capital at $250K each.
+  Capital tied up: 9,273 days x $250K = $2,318.2M in dollar-days
+
+  Incremental impact of keeping Q1 at 0.25x (B vs A):
+    PnL difference:        $-4,135,227
+    Max DD difference:     $-1,592,512
+    Additional trade-days: 9,273
+  Incremental impact in tiered context (C vs D):
+    PnL difference:        $-4,135,227
+    Max DD difference:     $-657,900
+
+
+========================================================================================================================
+OBJECTIVE SUMMARY OF FINDINGS
+========================================================================================================================
+
+Ranked by Return per Dollar Deployed (efficiency):
+  1. D: Tiered (cut Q1)     2.7646  (PnL: $92.61M, DD: $-6.38M)
+  2. C: Tiered (all)        2.5295  (PnL: $88.47M, DD: $-7.04M)
+  3. A: Cut Q1              2.0361  (PnL: $53.96M, DD: $-6.73M)
+  4. B: Downsize Q1         1.7807  (PnL: $49.83M, DD: $-8.32M)
+  5. Baseline               1.1544  (PnL: $37.42M, DD: $-13.34M)
+
+Ranked by Calmar Ratio (risk-adjusted return):
+  1. D: Tiered (cut Q1)     2.36  (Annual: $15.03M, DD: $-6.38M)
+  2. C: Tiered (all)        2.04  (Annual: $14.36M, DD: $-7.04M)
+  3. A: Cut Q1              1.30  (Annual: $8.76M, DD: $-6.73M)
+  4. B: Downsize Q1         0.97  (Annual: $8.09M, DD: $-8.32M)
+  5. Baseline               0.46  (Annual: $6.07M, DD: $-13.34M)
+
+Ranked by Sharpe Ratio (portfolio-level, weekly returns):
+  1. D: Tiered (cut Q1)     3.29
+  2. C: Tiered (all)        3.00
+  3. A: Cut Q1              2.60
+  4. B: Downsize Q1         2.25
+  5. Baseline               1.41
+
+Ranked by Total P&L (absolute return):
+  1. D: Tiered (cut Q1)     $92.61M
+  2. C: Tiered (all)        $88.47M
+  3. A: Cut Q1              $53.96M
+  4. B: Downsize Q1         $49.83M
+  5. Baseline               $37.42M
+
+Key observations:
+  - Q1 at full $1M loses $16,540,910 across 575 trades
+  - Q1 at 0.25x ($250K) still loses $4,135,227
+  - Cutting Q1 entirely (A) vs downsizing (B): PnL diff = $-4,135,227, DD diff = $-1,592,512
+  - Tiered sizing (C/D) amplifies winners (Q4/Q5) while reducing losers
+  - Highest efficiency (return/$): D: Tiered (cut Q1)
+  - Best risk-adjusted (Calmar):   D: Tiered (cut Q1)
+  - Highest absolute P&L:          D: Tiered (cut Q1)

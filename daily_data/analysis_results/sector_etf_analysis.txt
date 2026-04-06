@@ -1,0 +1,593 @@
+==========================================================================================
+SECTOR ETF CONDITIONS AT ENTRY: DO THEY PREDICT TRADE OUTCOMES?
+==========================================================================================
+Total trades analyzed: 2082
+Date range: 2020-01-08 to 2026-04-02
+Sectors: 13
+
+------------------------------------------------------------------------------------------
+SECTOR DISTRIBUTION
+------------------------------------------------------------------------------------------
+  TECH                 ETF=QQQ    Trades= 495  WR=42.8%  Mean P&L=$36,680  Total=$18,156,598
+  BIOTECH              ETF=XLV    Trades= 272  WR=43.4%  Mean P&L=$20,980  Total=$5,706,606
+  CONSUMER             ETF=XLY    Trades= 254  WR=45.7%  Mean P&L=$32,725  Total=$8,312,220
+  ETF                  ETF=SPY    Trades= 226  WR=46.9%  Mean P&L=$49,208  Total=$11,120,914
+  FINANCIALS           ETF=XLF    Trades= 190  WR=44.7%  Mean P&L=$31,553  Total=$5,995,033
+  ENERGY               ETF=XLE    Trades= 124  WR=48.4%  Mean P&L=$42,449  Total=$5,263,676
+  INDUSTRIALS          ETF=XLI    Trades= 114  WR=47.4%  Mean P&L=$60,071  Total=$6,848,145
+  MEME                 ETF=IWM    Trades=  88  WR=29.5%  Mean P&L=$-16,834  Total=$-1,481,376
+  TRAVEL               ETF=XLY    Trades=  85  WR=41.2%  Mean P&L=$32,513  Total=$2,763,563
+  EV_CLEAN             ETF=QQQ    Trades=  70  WR=37.1%  Mean P&L=$88,473  Total=$6,193,121
+  CHINA                ETF=KWEB   Trades=  68  WR=44.1%  Mean P&L=$98,904  Total=$6,725,462
+  METALS               ETF=XLE    Trades=  67  WR=52.2%  Mean P&L=$53,450  Total=$3,581,172
+  CRYPTO               ETF=SPY    Trades=  29  WR=44.8%  Mean P&L=$51,131  Total=$1,482,789
+
+==========================================================================================
+STEP 3: CROSS-SECTOR ANALYSIS (ALL TRADES)
+==========================================================================================
+
+--- Spearman Correlations (ALL trades) ---
+Feature                             rho    p-value  Significant
+  etf_above_sma20                0.0417     0.0571           no
+  etf_above_sma50                0.0313     0.1528           no
+  etf_above_sma200               0.0027     0.9019           no
+  etf_trend_aligned              0.0103     0.6387           no
+  etf_rsi                        0.0202     0.3564           no
+  etf_roc_5d                     0.0015     0.9455           no
+  etf_roc_10d                    0.0467     0.0332          YES
+  etf_roc_20d                    0.0253     0.2490           no
+  etf_dist_sma50_pct             0.0289     0.1869           no
+  etf_consec_days                0.0059     0.7888           no
+  etf_pct_from_20d_high          0.0295     0.1780           no
+
+--- Binary Feature Analysis (ALL trades) ---
+
+  etf_above_sma20:
+    When 0: n= 605  Mean=$    26,338  Median=$   -30,892  WR=40.3%  Total=$  15,934,747
+    When 1: n=1477  Mean=$    43,827  Median=$   -14,400  WR=45.5%  Total=$  64,733,176
+    Cohen's d=0.0704  t=1.497  p=0.1346  
+
+  etf_above_sma50:
+    When 0: n= 528  Mean=$    36,329  Median=$   -27,980  WR=41.5%  Total=$  19,181,867
+    When 1: n=1554  Mean=$    39,566  Median=$   -16,001  WR=44.9%  Total=$  61,486,055
+    Cohen's d=0.0130  t=0.246  p=0.8060  
+
+  etf_above_sma200:
+    When 0: n= 494  Mean=$    35,671  Median=$   -21,369  WR=43.1%  Total=$  17,621,267
+    When 1: n=1588  Mean=$    39,702  Median=$   -17,952  WR=44.3%  Total=$  63,046,656
+    Cohen's d=0.0162  t=0.315  p=0.7528  
+
+  etf_trend_aligned:
+    When 0: n= 900  Mean=$    31,543  Median=$   -20,698  WR=44.0%  Total=$  28,388,628
+    When 1: n=1182  Mean=$    44,230  Median=$   -19,562  WR=44.0%  Total=$  52,279,295
+    Cohen's d=0.0510  t=1.168  p=0.2429  
+
+--- Quintile Analysis (ALL trades, continuous features) ---
+
+  etf_rsi:
+     Q     N                     Range     Mean PnL   Median PnL    WR%      Total PnL
+     1   417            20.00 to 46.71 $    38,359 $   -23,846  43.6% $  15,995,591
+     2   416            46.71 to 55.30 $    21,862 $   -28,317  38.9% $   9,094,546
+     3   416            55.31 to 60.98 $    48,449 $    -9,761  46.9% $  20,154,805
+     4   416            60.98 to 66.97 $    49,613 $    -2,868  48.6% $  20,638,820
+     5   417            66.98 to 85.55 $    35,454 $   -27,916  42.0% $  14,784,160
+
+  etf_roc_5d:
+     Q     N                     Range     Mean PnL   Median PnL    WR%      Total PnL
+     1   417           -20.58 to -1.42 $    34,924 $   -16,261  43.9% $  14,563,508
+     2   416             -1.42 to 0.09 $    33,368 $   -20,960  42.3% $  13,881,289
+     3   416              0.09 to 1.36 $    64,054 $    -9,190  46.2% $  26,646,668
+     4   416              1.37 to 3.03 $    23,687 $   -25,598  43.0% $   9,853,694
+     5   417             3.03 to 26.79 $    37,704 $   -21,208  44.6% $  15,722,763
+
+  etf_roc_10d:
+     Q     N                     Range     Mean PnL   Median PnL    WR%      Total PnL
+     1   418           -34.30 to -1.36 $    28,392 $   -30,990  40.2% $  11,867,927
+     2   415             -1.35 to 0.76 $    24,600 $   -23,250  41.0% $  10,208,984
+     3   416              0.77 to 2.39 $    54,050 $   -13,736  44.5% $  22,484,968
+     4   417              2.40 to 4.81 $    66,108 $     7,432  53.0% $  27,567,139
+     5   416             4.83 to 39.34 $    20,526 $   -24,539  41.3% $   8,538,904
+
+  etf_roc_20d:
+     Q     N                     Range     Mean PnL   Median PnL    WR%      Total PnL
+     1   417           -40.64 to -1.84 $    36,260 $   -31,899  41.2% $  15,120,381
+     2   416             -1.84 to 1.61 $    37,299 $   -19,753  44.2% $  15,516,559
+     3   416              1.61 to 3.98 $    47,576 $   -14,389  44.0% $  19,791,683
+     4   416              4.00 to 7.01 $    31,994 $   -17,243  45.0% $  13,309,583
+     5   417             7.03 to 42.08 $    40,599 $   -13,005  45.6% $  16,929,716
+
+  etf_dist_sma50_pct:
+     Q     N                     Range     Mean PnL   Median PnL    WR%      Total PnL
+     1   417           -35.62 to -0.89 $    47,885 $   -22,000  43.6% $  19,968,067
+     2   416             -0.89 to 1.92 $    10,304 $   -28,094  40.1% $   4,286,389
+     3   417              1.94 to 4.01 $    49,372 $   -12,062  45.6% $  20,588,039
+     4   415              4.01 to 6.46 $    36,756 $   -15,136  45.8% $  15,253,566
+     5   417             6.47 to 34.29 $    49,333 $   -14,173  44.8% $  20,571,862
+
+  etf_consec_days:
+     Q     N                     Range     Mean PnL   Median PnL    WR%      Total PnL
+     1   800            -7.00 to -1.00 $    35,325 $   -23,464  41.1% $  28,260,380
+     2   591              0.00 to 1.00 $    37,699 $   -14,478  46.0% $  22,280,169
+     3   312              2.00 to 2.00 $    43,477 $   -19,753  43.9% $  13,564,870
+     4   379             3.00 to 11.00 $    43,701 $   -15,136  47.0% $  16,562,504
+
+  etf_pct_from_20d_high:
+     Q     N                     Range     Mean PnL   Median PnL    WR%      Total PnL
+     1   417           -40.88 to -4.72 $    42,570 $   -28,250  42.2% $  17,751,523
+     2   416            -4.72 to -2.34 $    17,440 $   -23,433  40.1% $   7,255,146
+     3   416            -2.34 to -1.16 $    46,019 $   -10,000  45.7% $  19,143,803
+     4   416            -1.16 to -0.43 $    42,582 $   -20,063  46.4% $  17,713,915
+     5   417             -0.43 to 0.00 $    45,092 $   -15,136  45.6% $  18,803,536
+
+--- Cohen's d: Feature values for Winners vs Losers (ALL trades) ---
+Feature                               d   Winners Mean    Losers Mean
+  etf_above_sma20                0.0953         0.7336         0.6904
+  etf_above_sma50                0.0596         0.7609         0.7350
+  etf_above_sma200               0.0199         0.7675         0.7590
+  etf_trend_aligned             -0.0001         0.5677         0.5678
+  etf_rsi                        0.0311        57.1668        56.8107
+  etf_roc_5d                     0.0136         0.7975         0.7533
+  etf_roc_10d                    0.0552         1.7595         1.4984
+  etf_roc_20d                    0.0412         2.9601         2.6783
+  etf_dist_sma50_pct             0.0090         2.7555         2.7046
+  etf_consec_days                0.0600         0.7456         0.6055
+  etf_pct_from_20d_high          0.0342        -2.8971        -3.0204
+
+==========================================================================================
+WITHIN-SECTOR ANALYSIS
+==========================================================================================
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: BIOTECH (ETF: XLV, n=272, WR=43.4%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=43.5% Mean=$12,961 (n=92) | 1→WR=43.3% Mean=$25,079 (n=180) | d=0.055 p=0.657
+  etf_above_sma50: 0→WR=49.3% Mean=$26,732 (n=67) | 1→WR=41.5% Mean=$19,100 (n=205) | d=-0.035 p=0.815
+  etf_above_sma200: 0→WR=47.4% Mean=$11,108 (n=57) | 1→WR=42.3% Mean=$23,597 (n=215) | d=0.057 p=0.618
+  etf_trend_aligned: 0→WR=46.5% Mean=$19,583 (n=114) | 1→WR=41.1% Mean=$21,989 (n=158) | d=0.011 p=0.928
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: CHINA (ETF: KWEB, n=68, WR=44.1%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=47.6% Mean=$84,659 (n=21) | 1→WR=42.6% Mean=$105,269 (n=47) | d=0.060 p=0.836
+  etf_above_sma50: 0→WR=44.4% Mean=$110,933 (n=27) | 1→WR=43.9% Mean=$90,982 (n=41) | d=-0.058 p=0.825
+  etf_above_sma200: 0→WR=44.1% Mean=$100,981 (n=34) | 1→WR=44.1% Mean=$96,826 (n=34) | d=-0.012 p=0.960
+  etf_trend_aligned: 0→WR=45.7% Mean=$107,106 (n=35) | 1→WR=42.4% Mean=$90,204 (n=33) | d=-0.049 p=0.839
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: CONSUMER (ETF: XLY, n=254, WR=45.7%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=40.3% Mean=$8,742 (n=77) | 1→WR=48.0% Mean=$43,159 (n=177) | d=0.157 p=0.223
+  etf_above_sma50: 0→WR=43.1% Mean=$74,574 (n=72) | 1→WR=46.7% Mean=$16,170 (n=182) | d=-0.268 p=0.142
+  etf_above_sma200: 0→WR=42.6% Mean=$39,019 (n=68) | 1→WR=46.8% Mean=$30,424 (n=186) | d=-0.039 p=0.788
+  etf_trend_aligned: 0→WR=49.2% Mean=$57,254 (n=130) | 1→WR=41.9% Mean=$7,009 (n=124) | d=-0.231 p=0.064 ***
+  etf_roc_5d: rho=0.111 p=0.078 ***
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: CRYPTO (ETF: SPY, n=29, WR=44.8%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=16.7% Mean=$98,617 (n=6) | 1→WR=52.2% Mean=$38,743 (n=23) | d=-0.253 p=0.714
+  etf_above_sma200: 0→WR=20.0% Mean=$-70,488 (n=10) | 1→WR=57.9% Mean=$115,140 (n=19) | d=0.844 p=0.010 ***
+  etf_trend_aligned: 0→WR=28.6% Mean=$87,367 (n=7) | 1→WR=50.0% Mean=$39,601 (n=22) | d=-0.201 p=0.732
+  etf_roc_5d: rho=-0.117 p=0.546
+  etf_roc_10d: rho=-0.127 p=0.513
+  etf_roc_20d: rho=-0.223 p=0.245
+  etf_dist_sma50_pct: rho=0.125 p=0.518
+  etf_consec_days: rho=0.102 p=0.600
+  etf_pct_from_20d_high: rho=0.186 p=0.335
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: ENERGY (ETF: XLE, n=124, WR=48.4%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=31.8% Mean=$-5,568 (n=22) | 1→WR=52.0% Mean=$52,806 (n=102) | d=0.297 p=0.160
+  etf_above_sma50: 0→WR=43.8% Mean=$-159 (n=16) | 1→WR=49.1% Mean=$48,761 (n=108) | d=0.248 p=0.227
+  etf_above_sma200: 0→WR=40.0% Mean=$-9,553 (n=20) | 1→WR=50.0% Mean=$52,449 (n=104) | d=0.315 p=0.061 ***
+  etf_trend_aligned: 0→WR=38.9% Mean=$-4,815 (n=36) | 1→WR=52.3% Mean=$61,784 (n=88) | d=0.340 p=0.037 ***
+  etf_roc_10d: rho=0.137 p=0.130
+  etf_roc_20d: rho=0.170 p=0.059 ***
+  etf_dist_sma50_pct: rho=0.109 p=0.228
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: ETF (ETF: SPY, n=226, WR=46.9%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=39.4% Mean=$76,492 (n=66) | 1→WR=50.0% Mean=$37,953 (n=160) | d=-0.147 p=0.424
+  etf_above_sma50: 0→WR=41.1% Mean=$92,464 (n=56) | 1→WR=48.8% Mean=$34,958 (n=170) | d=-0.219 p=0.294
+  etf_above_sma200: 0→WR=48.0% Mean=$108,754 (n=50) | 1→WR=46.6% Mean=$32,291 (n=176) | d=-0.292 p=0.197
+  etf_trend_aligned: 0→WR=40.0% Mean=$60,418 (n=85) | 1→WR=51.1% Mean=$42,449 (n=141) | d=-0.068 p=0.659
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: EV_CLEAN (ETF: QQQ, n=70, WR=37.1%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=50.0% Mean=$22,291 (n=20) | 1→WR=32.0% Mean=$114,946 (n=50) | d=0.195 p=0.288
+  etf_above_sma50: 0→WR=46.7% Mean=$34,958 (n=15) | 1→WR=34.5% Mean=$103,068 (n=55) | d=0.143 p=0.429
+  etf_above_sma200: 0→WR=52.6% Mean=$14,543 (n=19) | 1→WR=31.4% Mean=$116,016 (n=51) | d=0.214 p=0.250
+  etf_trend_aligned: 0→WR=34.5% Mean=$-27,946 (n=29) | 1→WR=39.0% Mean=$170,819 (n=41) | d=0.426 p=0.047 ***
+  etf_consec_days: rho=-0.211 p=0.080 ***
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: FINANCIALS (ETF: XLF, n=190, WR=44.7%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=32.7% Mean=$1,136 (n=55) | 1→WR=49.6% Mean=$43,945 (n=135) | d=0.225 p=0.097 ***
+  etf_above_sma50: 0→WR=36.2% Mean=$2,119 (n=47) | 1→WR=47.6% Mean=$41,227 (n=143) | d=0.205 p=0.169
+  etf_above_sma200: 0→WR=40.0% Mean=$27,280 (n=45) | 1→WR=46.2% Mean=$32,879 (n=145) | d=0.029 p=0.842
+  etf_trend_aligned: 0→WR=44.4% Mean=$24,558 (n=90) | 1→WR=45.0% Mean=$37,848 (n=100) | d=0.070 p=0.626
+  etf_roc_10d: rho=0.128 p=0.078 ***
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: INDUSTRIALS (ETF: XLI, n=114, WR=47.4%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=48.7% Mean=$35,635 (n=39) | 1→WR=46.7% Mean=$72,778 (n=75) | d=0.157 p=0.373
+  etf_above_sma50: 0→WR=43.6% Mean=$-614 (n=39) | 1→WR=49.3% Mean=$91,628 (n=75) | d=0.396 p=0.015 ***
+  etf_above_sma200: 0→WR=48.4% Mean=$43,313 (n=31) | 1→WR=47.0% Mean=$66,331 (n=83) | d=0.097 p=0.657
+  etf_trend_aligned: 0→WR=44.6% Mean=$7,519 (n=56) | 1→WR=50.0% Mean=$110,812 (n=58) | d=0.446 p=0.018 ***
+  etf_dist_sma50_pct: rho=0.115 p=0.224
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: MEME (ETF: IWM, n=88, WR=29.5%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=28.9% Mean=$-23,887 (n=38) | 1→WR=30.0% Mean=$-11,474 (n=50) | d=0.045 p=0.828
+  etf_above_sma50: 0→WR=30.3% Mean=$-20,151 (n=33) | 1→WR=29.1% Mean=$-14,843 (n=55) | d=0.019 p=0.927
+  etf_above_sma200: 0→WR=35.9% Mean=$-5,340 (n=39) | 1→WR=24.5% Mean=$-25,982 (n=49) | d=-0.074 p=0.724
+  etf_trend_aligned: 0→WR=27.1% Mean=$-44,303 (n=48) | 1→WR=32.5% Mean=$16,130 (n=40) | d=0.218 p=0.330
+  etf_consec_days: rho=-0.161 p=0.133
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: METALS (ETF: XLE, n=67, WR=52.2%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=37.5% Mean=$34,772 (n=24) | 1→WR=60.5% Mean=$63,876 (n=43) | d=0.140 p=0.605
+  etf_above_sma50: 0→WR=33.3% Mean=$16,533 (n=24) | 1→WR=62.8% Mean=$74,055 (n=43) | d=0.279 p=0.290
+  etf_above_sma200: 0→WR=40.0% Mean=$40,341 (n=25) | 1→WR=59.5% Mean=$61,254 (n=42) | d=0.101 p=0.701
+  etf_trend_aligned: 0→WR=44.1% Mean=$26,213 (n=34) | 1→WR=60.6% Mean=$81,513 (n=33) | d=0.269 p=0.277
+  etf_rsi: rho=0.260 p=0.034 ***
+  etf_roc_5d: rho=0.338 p=0.005 ***
+  etf_roc_10d: rho=0.203 p=0.100
+  etf_roc_20d: rho=0.222 p=0.071 ***
+  etf_dist_sma50_pct: rho=0.203 p=0.099 ***
+  etf_consec_days: rho=0.299 p=0.014 ***
+  etf_pct_from_20d_high: rho=0.222 p=0.071 ***
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: TECH (ETF: QQQ, n=495, WR=42.8%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=45.9% Mean=$47,423 (n=111) | 1→WR=41.9% Mean=$33,575 (n=384) | d=-0.055 p=0.614
+  etf_above_sma50: 0→WR=46.5% Mean=$47,925 (n=99) | 1→WR=41.9% Mean=$33,869 (n=396) | d=-0.056 p=0.651
+  etf_above_sma200: 0→WR=47.4% Mean=$48,561 (n=78) | 1→WR=42.0% Mean=$34,458 (n=417) | d=-0.056 p=0.661
+  etf_trend_aligned: 0→WR=49.2% Mean=$40,129 (n=177) | 1→WR=39.3% Mean=$34,760 (n=318) | d=-0.021 p=0.813
+
+──────────────────────────────────────────────────────────────────────
+SECTOR: TRAVEL (ETF: XLY, n=85, WR=41.2%)
+──────────────────────────────────────────────────────────────────────
+  etf_above_sma20: 0→WR=32.4% Mean=$-9,268 (n=34) | 1→WR=47.1% Mean=$60,366 (n=51) | d=0.338 p=0.092 ***
+  etf_above_sma50: 0→WR=27.6% Mean=$-34,914 (n=29) | 1→WR=48.2% Mean=$67,430 (n=56) | d=0.504 p=0.011 ***
+  etf_above_sma200: 0→WR=22.2% Mean=$-59,719 (n=18) | 1→WR=46.3% Mean=$57,291 (n=67) | d=0.575 p=0.002 ***
+  etf_trend_aligned: 0→WR=39.0% Mean=$28,851 (n=59) | 1→WR=46.2% Mean=$40,821 (n=26) | d=0.057 p=0.797
+  etf_rsi: rho=0.204 p=0.062 ***
+  etf_roc_20d: rho=0.273 p=0.011 ***
+  etf_dist_sma50_pct: rho=0.236 p=0.030 ***
+  etf_pct_from_20d_high: rho=0.237 p=0.029 ***
+
+==========================================================================================
+STEP 4: SPECIFIC QUESTIONS
+==========================================================================================
+
+--- 4a: Tech trades (QQQ sector) vs QQQ SMA conditions ---
+Tech/QQQ-mapped trades: 565
+
+  etf_above_sma50:
+    Below: n=114, Mean=$46,219, WR=46.5%, Total=$5,268,991
+    Above: n=451, Mean=$42,308, WR=41.0%, Total=$19,080,729
+    Cohen's d=-0.0136, p=0.8927
+
+  etf_above_sma200:
+    Below: n=97, Mean=$41,898, WR=48.5%, Total=$4,064,061
+    Above: n=468, Mean=$43,345, WR=40.8%, Total=$20,285,658
+    Cohen's d=0.0050, p=0.9599
+
+--- 4b: Energy trades vs XLE trending (roc_20d > 0) ---
+Energy trades: 124
+  XLE not trending (roc20d<=0): n=19, Mean=$14,830, WR=42.1%
+  XLE trending (roc20d>0):      n=105, Mean=$47,447, WR=49.5%
+  Cohen's d=0.1650, p=0.4035
+
+--- 4c: Trend aligned (SMA8 > SMA20 > SMA50) across all trades ---
+  Not aligned: n=900, Mean=$31,543, WR=44.0%
+  Aligned:     n=1182, Mean=$44,230, WR=44.0%
+  Cohen's d=0.0510, p=0.2429
+  Not significant
+
+--- 4d: Sectors with Cohen's d > 0.3 on any feature ---
+  CRYPTO               etf_above_sma200          d=+0.844 p=0.010 n=29
+  TRAVEL               etf_above_sma200          d=+0.575 p=0.002 n=85
+  TRAVEL               etf_above_sma50           d=+0.504 p=0.011 n=85
+  INDUSTRIALS          etf_trend_aligned         d=+0.446 p=0.018 n=114
+  EV_CLEAN             etf_trend_aligned         d=+0.426 p=0.047 n=70
+  INDUSTRIALS          etf_above_sma50           d=+0.396 p=0.015 n=114
+  ENERGY               etf_trend_aligned         d=+0.340 p=0.037 n=124
+  TRAVEL               etf_above_sma20           d=+0.338 p=0.092 n=85
+  ENERGY               etf_above_sma200          d=+0.315 p=0.061 n=124
+
+  Full scan of all sector-feature Cohen's d values:
+    CRYPTO               etf_above_sma20           d=+0.5862 (n=29)
+    CRYPTO               etf_above_sma50           d=+0.7500 (n=29)
+    CRYPTO               etf_above_sma200          d=+0.7539 (n=29)
+    CRYPTO               etf_trend_aligned         d=+0.3640 (n=29)
+    ENERGY               etf_above_sma20           d=+0.3093 (n=124)
+    ENERGY               etf_trend_aligned         d=+0.2431 (n=124)
+    ETF                  etf_trend_aligned         d=+0.2155 (n=226)
+    EV_CLEAN             etf_above_sma20           d=-0.3482 (n=70)
+    EV_CLEAN             etf_above_sma50           d=-0.2111 (n=70)
+    EV_CLEAN             etf_above_sma200          d=-0.4070 (n=70)
+    FINANCIALS           etf_above_sma20           d=+0.3122 (n=190)
+    MEME                 etf_above_sma200          d=-0.2712 (n=88)
+    METALS               etf_above_sma20           d=+0.4457 (n=67)
+    METALS               etf_above_sma50           d=+0.5813 (n=67)
+    METALS               etf_above_sma200          d=+0.3796 (n=67)
+    METALS               etf_trend_aligned         d=+0.3299 (n=67)
+    TRAVEL               etf_above_sma20           d=+0.2971 (n=85)
+    TRAVEL               etf_above_sma50           d=+0.4071 (n=85)
+    TRAVEL               etf_above_sma200          d=+0.4090 (n=85)
+
+--- 4e: 'ETF above 50 SMA' consistency across sectors ---
+Sector                 ETF  n_below  n_above  WR_below  WR_above   Mean_below   Mean_above        d
+  BIOTECH              XLV       67      205     49.3%     41.5% $    26,732 $    19,100   -0.035 HURTS
+  CHINA               KWEB       27       41     44.4%     43.9% $   110,933 $    90,982   -0.058 HURTS
+  CONSUMER             XLY       72      182     43.1%     46.7% $    74,574 $    16,170   -0.268 HURTS
+  ENERGY               XLE       16      108     43.8%     49.1% $      -159 $    48,761   +0.248 HELPS
+  ETF                  SPY       56      170     41.1%     48.8% $    92,464 $    34,958   -0.219 HURTS
+  EV_CLEAN             QQQ       15       55     46.7%     34.5% $    34,958 $   103,068   +0.143 HELPS
+  FINANCIALS           XLF       47      143     36.2%     47.6% $     2,119 $    41,227   +0.205 HELPS
+  INDUSTRIALS          XLI       39       75     43.6%     49.3% $      -614 $    91,628   +0.396 HELPS
+  MEME                 IWM       33       55     30.3%     29.1% $   -20,151 $   -14,843   +0.019 HELPS
+  METALS               XLE       24       43     33.3%     62.8% $    16,533 $    74,055   +0.279 HELPS
+  TECH                 QQQ       99      396     46.5%     41.9% $    47,925 $    33,869   -0.056 HURTS
+  TRAVEL               XLY       29       56     27.6%     48.2% $   -34,914 $    67,430   +0.504 HELPS
+
+  Sectors where above-50SMA helps: 7
+  Sectors where above-50SMA hurts: 5
+
+==========================================================================================
+STEP 5: FILTER TESTING
+==========================================================================================
+
+--- Filter 1: Only trade when sector ETF above 50 SMA ---
+                      Trades     WR%     Mean PnL      Total PnL     PF
+  All trades            2082   44.0% $    38,745 $  80,667,922   1.77
+  Filtered (above)      1554   44.9% $    39,566 $  61,486,055   1.81
+  Excluded (below)       528   41.5% $    36,329 $  19,181,867   1.66
+
+--- Filter 2: Only trade when sector ETF roc_20d > 0 ---
+                      Trades     WR%     Mean PnL      Total PnL     PF
+  All trades            2082   44.0% $    38,745 $  80,667,922   1.77
+  Filtered (pos)        1468   44.8% $    41,769 $  61,316,769   1.87
+  Excluded (neg)         614   42.0% $    31,517 $  19,351,153   1.58
+
+--- Filter 3: Only trade when sector ETF trend aligned (8>20>50) ---
+                      Trades     WR%     Mean PnL      Total PnL     PF
+  All trades            2082   44.0% $    38,745 $  80,667,922   1.77
+  Filtered (aligned)    1182   44.0% $    44,230 $  52,279,295   1.90
+  Excluded               900   44.0% $    31,543 $  28,388,628   1.61
+
+--- Filter: ETF above 50 SMA, by sector ---
+Sector                 ETF  All_n  Filt_n  All_WR  Filt_WR   All_Mean   Filt_Mean  All_PF  Filt_PF
+  BIOTECH              XLV    272     205   43.4%    41.5% $  20,980 $   19,100    1.44     1.41
+  CHINA               KWEB     68      41   44.1%    43.9% $  98,904 $   90,982    3.02     2.86
+  CONSUMER             XLY    254     182   45.7%    46.7% $  32,725 $   16,170    1.68     1.33
+  ENERGY               XLE    124     108   48.4%    49.1% $  42,449 $   48,761    2.00     2.18
+  ETF                  SPY    226     170   46.9%    48.8% $  49,208 $   34,958    2.11     1.79
+  EV_CLEAN             QQQ     70      55   37.1%    34.5% $  88,473 $  103,068    2.37     2.48
+  FINANCIALS           XLF    190     143   44.7%    47.6% $  31,553 $   41,227    1.72     2.00
+  INDUSTRIALS          XLI    114      75   47.4%    49.3% $  60,071 $   91,628    2.54     3.58
+  MEME                 IWM     88      55   29.5%    29.1% $ -16,834 $  -14,843    0.82     0.85
+  METALS               XLE     67      43   52.2%    62.8% $  53,450 $   74,055    2.42     3.51
+  TECH                 QQQ    495     396   42.8%    41.9% $  36,680 $   33,869    1.68     1.66
+  TRAVEL               XLY     85      56   41.2%    48.2% $  32,513 $   67,430    1.62     2.56
+
+==========================================================================================
+STEP 6: STABILITY CHECK (2020-2022 vs 2023-2026)
+==========================================================================================
+
+Early period (2020-2022): 952 trades
+Late period (2023-2026): 1130 trades
+
+  etf_above_sma20:
+    2020-2022: 0→WR=40.8% Mean=$    27,178 (n=319) | 1→WR=45.7% Mean=$    36,084 (n=633) | d=+0.038 p=0.588
+    2023-2026: 0→WR=39.9% Mean=$    25,401 (n=286) | 1→WR=45.4% Mean=$    49,635 (n=844) | d=+0.093 p=0.139
+
+  etf_above_sma50:
+    2020-2022: 0→WR=41.1% Mean=$    29,580 (n=297) | 1→WR=45.3% Mean=$    34,695 (n=655) | d=+0.022 p=0.767
+    2023-2026: 0→WR=42.0% Mean=$    45,007 (n=231) | 1→WR=44.5% Mean=$    43,115 (n=899) | d=-0.007 p=0.926
+
+  etf_above_sma200:
+    2020-2022: 0→WR=41.7% Mean=$    26,547 (n=321) | 1→WR=45.2% Mean=$    36,433 (n=631) | d=+0.043 p=0.547
+    2023-2026: 0→WR=45.7% Mean=$    52,599 (n=173) | 1→WR=43.7% Mean=$    41,857 (n=957) | d=-0.041 p=0.609
+
+  etf_trend_aligned:
+    2020-2022: 0→WR=45.1% Mean=$    30,684 (n=443) | 1→WR=43.0% Mean=$    35,202 (n=509) | d=+0.019 p=0.766
+    2023-2026: 0→WR=42.9% Mean=$    32,375 (n=457) | 1→WR=44.7% Mean=$    51,057 (n=673) | d=+0.071 p=0.223
+
+  etf_roc_20d > 0 filter:
+    2020-2022: neg→WR=41.2% Mean=$    28,013 (n=320) | pos→WR=45.4% Mean=$    35,675 (n=632) | d=+0.033 p=0.646
+    2023-2026: neg→WR=42.9% Mean=$    35,330 (n=294) | pos→WR=44.4% Mean=$    46,376 (n=836) | d=+0.042 p=0.530
+
+  Stability by sector for 'ETF above 50 SMA':
+    BIOTECH (XLV):
+      2020-2022: below→Mean=$    78,464 WR=60.0% (n=35) | above→Mean=$    10,667 WR=44.1% (n=93) | d=-0.319
+      2023-2026: below→Mean=$   -29,849 WR=37.5% (n=32) | above→Mean=$    26,103 WR=39.3% (n=112) | d=+0.250
+    CHINA (KWEB):
+      2020-2022: below→Mean=$    58,798 WR=46.7% (n=15) | above→Mean=$   149,579 WR=46.7% (n=15) | d=+0.269
+      2023-2026: below→Mean=$   176,102 WR=41.7% (n=12) | above→Mean=$    57,176 WR=42.3% (n=26) | d=-0.342
+    CONSUMER (XLY):
+      2020-2022: below→Mean=$    49,510 WR=38.9% (n=36) | above→Mean=$    23,586 WR=46.7% (n=75) | d=-0.134
+      2023-2026: below→Mean=$    99,637 WR=47.2% (n=36) | above→Mean=$    10,972 WR=46.7% (n=107) | d=-0.377
+    ENERGY (XLE):
+      2020-2022: n=64 (insufficient split)
+      2023-2026: below→Mean=$   -11,205 WR=46.2% (n=13) | above→Mean=$    13,328 WR=42.6% (n=47) | d=+0.190
+    ETF (SPY):
+      2020-2022: below→Mean=$   106,438 WR=38.7% (n=31) | above→Mean=$     5,113 WR=46.5% (n=71) | d=-0.377
+      2023-2026: below→Mean=$    75,136 WR=44.0% (n=25) | above→Mean=$    56,363 WR=50.5% (n=99) | d=-0.073
+    EV_CLEAN (QQQ):
+      2020-2022: below→Mean=$       572 WR=41.7% (n=12) | above→Mean=$    56,917 WR=45.0% (n=20) | d=+0.233
+      2023-2026: n=38 (insufficient split)
+    FINANCIALS (XLF):
+      2020-2022: below→Mean=$   -12,331 WR=29.6% (n=27) | above→Mean=$    40,803 WR=50.0% (n=60) | d=+0.329
+      2023-2026: below→Mean=$    21,626 WR=45.0% (n=20) | above→Mean=$    41,534 WR=45.8% (n=83) | d=+0.093
+    INDUSTRIALS (XLI):
+      2020-2022: below→Mean=$     7,780 WR=50.0% (n=20) | above→Mean=$    66,165 WR=41.2% (n=34) | d=+0.255
+      2023-2026: below→Mean=$    -9,450 WR=36.8% (n=19) | above→Mean=$   112,744 WR=56.1% (n=41) | d=+0.511
+    MEME (IWM):
+      2020-2022: below→Mean=$   -74,342 WR=28.6% (n=14) | above→Mean=$    -8,264 WR=25.0% (n=28) | d=+0.193
+      2023-2026: below→Mean=$    19,779 WR=31.6% (n=19) | above→Mean=$   -21,666 WR=33.3% (n=27) | d=-0.199
+    METALS (XLE):
+      2020-2022: below→Mean=$    15,365 WR=41.7% (n=12) | above→Mean=$   151,811 WR=68.4% (n=19) | d=+0.640
+      2023-2026: below→Mean=$    17,702 WR=25.0% (n=12) | above→Mean=$    12,499 WR=58.3% (n=24) | d=-0.027
+    TECH (QQQ):
+      2020-2022: below→Mean=$    37,562 WR=43.9% (n=66) | above→Mean=$    25,957 WR=42.1% (n=152) | d=-0.050
+      2023-2026: below→Mean=$    68,652 WR=51.5% (n=33) | above→Mean=$    38,797 WR=41.8% (n=244) | d=-0.112
+    TRAVEL (XLY):
+      2020-2022: below→Mean=$   -57,324 WR=25.0% (n=24) | above→Mean=$     4,497 WR=35.0% (n=20) | d=+0.352
+      2023-2026: below→Mean=$    72,652 WR=40.0% (n=5) | above→Mean=$   102,393 WR=55.6% (n=36) | d=+0.133
+
+==========================================================================================
+FINAL SUMMARY: KEY FINDINGS
+==========================================================================================
+
+1. CROSS-SECTOR SPEARMAN CORRELATIONS (significant at p<0.05):
+   etf_roc_10d: rho=0.0467, p=0.0332
+
+2. STRONGEST SECTOR-SPECIFIC EFFECTS (|d| > 0.2):
+   CRYPTO               etf_above_sma200          d=+0.844 p=0.010 n=29
+   TRAVEL               etf_above_sma200          d=+0.575 p=0.002 n=85
+   TRAVEL               etf_above_sma50           d=+0.504 p=0.011 n=85
+   INDUSTRIALS          etf_trend_aligned         d=+0.446 p=0.018 n=114
+   EV_CLEAN             etf_trend_aligned         d=+0.426 p=0.047 n=70
+   INDUSTRIALS          etf_above_sma50           d=+0.396 p=0.015 n=114
+   ENERGY               etf_trend_aligned         d=+0.340 p=0.037 n=124
+   TRAVEL               etf_above_sma20           d=+0.338 p=0.092 n=85
+   ENERGY               etf_above_sma200          d=+0.315 p=0.061 n=124
+   ENERGY               etf_above_sma20           d=+0.297 p=0.160 n=124
+   ETF                  etf_above_sma200          d=-0.292 p=0.197 n=226
+   METALS               etf_above_sma50           d=+0.279 p=0.290 n=67
+   METALS               etf_trend_aligned         d=+0.269 p=0.277 n=67
+   CONSUMER             etf_above_sma50           d=-0.268 p=0.142 n=254
+   CRYPTO               etf_above_sma20           d=-0.253 p=0.714 n=29
+   ENERGY               etf_above_sma50           d=+0.248 p=0.227 n=124
+   CONSUMER             etf_trend_aligned         d=-0.231 p=0.064 n=254
+   FINANCIALS           etf_above_sma20           d=+0.225 p=0.097 n=190
+   ETF                  etf_above_sma50           d=-0.219 p=0.294 n=226
+   MEME                 etf_trend_aligned         d=+0.218 p=0.330 n=88
+   EV_CLEAN             etf_above_sma200          d=+0.214 p=0.250 n=70
+   FINANCIALS           etf_above_sma50           d=+0.205 p=0.169 n=190
+   CRYPTO               etf_trend_aligned         d=-0.201 p=0.732 n=29
+
+3. BOTTOM LINE:
+   ETF above 50 SMA:  d=+0.0130 p=0.8060
+   Trend aligned:     d=+0.0510 p=0.2429
+   ETF above 200 SMA: d=+0.0162 p=0.7528
+
+==========================================================================================
+INTERPRETIVE SUMMARY
+==========================================================================================
+
+CROSS-SECTOR (AGGREGATE) FINDINGS:
+- No sector ETF feature reaches statistical significance at p<0.05 for binary tests
+  across all 2,082 trades. The one significant Spearman correlation (etf_roc_10d,
+  rho=0.047, p=0.033) has trivially small effect size.
+- Cohen's d values for all cross-sector binary features are below 0.08 -- negligible.
+- The three aggregate filters (ETF>SMA50, ROC20>0, trend aligned) all produce mildly
+  higher profit factors when applied (1.81/1.87/1.90 vs 1.77 unfiltered), but the
+  improvements are marginal and none alter win rate by more than ~1 percentage point.
+
+SECTOR-SPECIFIC FINDINGS (where the signal lives):
+
+  TRAVEL (XLY, n=85): STRONGEST and most consistent effect.
+    - XLY above 200 SMA: d=+0.575, p=0.002. WR jumps from 22.2% to 46.3%.
+      Mean P&L swings from -$59,719 to +$57,291.
+    - XLY above 50 SMA: d=+0.504, p=0.011. WR from 27.6% to 48.2%.
+      PF goes from below 1.0 to 2.56.
+    - Stability: directionally consistent across both periods (d=+0.35 early, +0.13 late).
+    - CAVEAT: Only 85 trades total; early period had 24 below/20 above the 50 SMA.
+
+  INDUSTRIALS (XLI, n=114): Strong and improving over time.
+    - XLI above 50 SMA: d=+0.396, p=0.015. Mean P&L from -$614 to $91,628. PF: 3.58.
+    - XLI trend aligned: d=+0.446, p=0.018. Mean from $7,519 to $110,812.
+    - Stability: effect STRENGTHENS in 2023-2026 (d=+0.511 late vs +0.255 early).
+    - This is the most promising sector-specific finding in the dataset.
+
+  ENERGY (XLE, n=124): Moderate effect, concentrated in trend alignment.
+    - XLE trend aligned: d=+0.340, p=0.037. Mean from -$4,815 to $61,784.
+      WR from 38.9% to 52.3%.
+    - XLE above 200 SMA: d=+0.315, p=0.061. Borderline.
+    - roc_20d > 0: directionally positive (rho=0.17, p=0.059) but not significant.
+    - Stability: insufficient split in early period; late period shows d=+0.19.
+
+  EV/CLEAN (QQQ, n=70): Trend alignment matters.
+    - QQQ trend aligned: d=+0.426, p=0.047. Mean from -$27,946 to $170,819.
+    - Small sample. Early period d=+0.23, late period insufficient split.
+
+  METALS (XLE, n=67): Broad positive response to XLE strength.
+    - XLE above 50 SMA: WR from 33.3% to 62.8%, PF from base to 3.51.
+    - Multiple XLE features show rho > 0.20 (rsi, roc_5d, consec_days all significant).
+    - Stability: STRONG early (d=+0.64) but FLAT late (d=-0.03). NOT stable.
+
+  FINANCIALS (XLF, n=190): Moderate effect on XLF above SMA20.
+    - XLF above SMA20: d=+0.225, p=0.097. WR from 32.7% to 49.6%.
+    - Stability: early d=+0.33, late d=+0.09. Effect fading.
+
+  CRYPTO (SPY, n=29): Large d but only 29 trades -- unreliable.
+
+  TECH (QQQ, n=495): NO effect. The largest sector shows zero sensitivity
+    to QQQ's position relative to any moving average. All d values near zero,
+    all p > 0.60. QQQ condition does not predict tech trade outcomes.
+
+  CONSUMER (XLY, n=254): REVERSE effect -- trades do WORSE when XLY is
+    above SMA50 (mean drops from $74,574 to $16,170, d=-0.268). Trend aligned
+    also hurts (d=-0.231, p=0.064). This may reflect a mean-reversion tendency
+    in consumer/retail names.
+
+ANSWERS TO SPECIFIC QUESTIONS:
+
+  a) Tech + QQQ above 50/200 SMA: NO. Zero effect. d=-0.014 (50SMA), d=+0.005 (200SMA).
+     Both p > 0.89. Tech trade outcomes are independent of QQQ's moving average position.
+
+  b) Energy + XLE trending (roc20d > 0): Directionally positive but NOT significant.
+     d=+0.165, p=0.40. Trend alignment (SMA8>20>50) is more predictive (d=+0.34, p=0.037).
+
+  c) Trend aligned (8>20>50): NOT significant cross-sector (d=+0.05, p=0.24).
+     BUT significant within Industrials (d=+0.45), EV/Clean (d=+0.43), and Energy (d=+0.34).
+
+  d) Sectors with d > 0.3: YES --
+     Travel/XLY (d=+0.50 to +0.58 on SMA features)
+     Industrials/XLI (d=+0.40 to +0.45 on SMA50 and trend aligned)
+     Energy/XLE (d=+0.34 on trend aligned)
+     EV_Clean/QQQ (d=+0.43 on trend aligned)
+     Crypto/SPY (d=+0.84 but n=29 -- discard)
+
+  e) ETF above 50 SMA consistency: MIXED. Helps in 7 of 12 sectors, hurts in 5.
+     The "hurts" sectors include two of the largest (Tech and Consumer), so it
+     washes out in aggregate. This is NOT a universal filter.
+
+FILTER VIABILITY:
+
+  The only filters that show promise are SECTOR-SPECIFIC:
+  - Industrials: require XLI > SMA50 or trend aligned. PF improves from 2.54 to 3.58.
+    Stable across periods.
+  - Travel: require XLY > SMA50 or SMA200. PF improves from 1.62 to 2.56.
+    Directionally stable but small sample.
+  - Energy: require XLE trend aligned. WR improves from 38.9% to 52.3%.
+    Limited stability data.
+
+  Cross-sector filters are not viable. The aggregate effect is too small (d < 0.06)
+  and not statistically significant. A blanket "only trade when sector ETF > SMA50"
+  rule would marginally improve PF (1.81 vs 1.77) while cutting 25% of trades -- a
+  tradeoff with no statistical support.
+
+STABILITY VERDICT:
+
+  Most sector-specific effects are NOT stable across the 2020-2022 vs 2023-2026 split.
+  The notable exception is INDUSTRIALS, where the XLI>SMA50 effect strengthened from
+  d=+0.255 (early) to d=+0.511 (late). Metals was strong early but collapsed late.
+  Travel was directionally consistent but sample-limited. Consumer's reverse effect
+  persisted in both periods.
+
+  The instability of most findings, combined with small sector sample sizes (67-124
+  trades), means these effects should be treated as suggestive patterns rather than
+  reliable filters. The Industrials finding is the most credible for implementation.

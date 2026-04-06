@@ -1,0 +1,361 @@
+#!/usr/bin/env python3
+"""
+Options bar data downloader using 1-minute OHLCV bars from Polygon.io.
+Processes entry and exit dates for each trade, fetches 8 delta strikes per (symbol, date).
+"""
+
+import os
+import csv
+import time
+import math
+import requests
+import logging
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
+
+# ── Config ───────────────────────────────────────────────────────────────────
+API_KEY       = "cBE5Kbq9yllt0Yj29mDQjBcIKfAYQlHF"
+TRADES_FILE   = "/home/ubuntu/daily_data/analysis_results/trade1_20d_trades.csv"
+DATA_DIR      = "/home/ubuntu/daily_data/data"
+OUTPUT_FILE   = "/home/ubuntu/daily_data/data/trade_options/options_bars_final.csv"
+LOG_FILE      = "/home/ubuntu/options-data/download_log.txt"
+SAVE_EVERY    = 200   # incremental save interval (lookups)
+SLEEP_BETWEEN = 0.12  # seconds between API calls
+
+DELTAS = [80, 70, 60, 50, 40, 30, 20, 10]
+Z_MAP  = {80: 0.842, 70: 0.524, 60: 0.253, 50: 0.0,
+           40: -0.253, 30: -0.524, 20: -0.842, 10: -1.282}
+
+OUTPUT_COLS = [
+    "symbol", "date", "date_type", "spot_unadjusted",
+    "delta_target", "option_ticker", "strike", "expiration", "dte",
+    "avg_price", "n_bars", "total_volume"
+]
+
+# ── Logging ──────────────────────────────────────────────────────────────────
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s  %(levelname)s  %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE, mode="a"),
+        logging.StreamHandler()
+    ]
+)
+log = logging.getLogger(__name__)
+
+
+# ── Helper: third Friday ─────────────────────────────────────────────────────
+def third_friday(year: int, month: int) -> date:
+    """Return the third Friday of the given year/month."""
+    d = date(year, month, 1)
+    first_friday = d + timedelta(days=(4 - d.weekday()) % 7)
+    return first_friday + timedelta(weeks=2)
+
+
+def expiry_about_30d_out(trade_date: date) -> date:
+    """Find expiry = 3rd Friday of the month ~30 days out."""
+    target = trade_date + timedelta(days=30)
+    exp = third_friday(target.year, target.month)
+    # If exp <= trade_date, go to next month
+    if exp <= trade_date:
+        if target.month == 12:
+            exp = third_friday(target.year + 1, 1)
+        else:
+            exp = third_friday(target.year, target.month + 1)
+    return exp
+
+
+# ── Helper: strike rounding ──────────────────────────────────────────────────
+def round_strike(raw: float) -> float:
+    if raw < 25:
+        return round(raw * 2) / 2          # $0.50 increments
+    elif raw < 200:
+        return round(raw)                  # $1.00 increments
+    elif raw < 500:
+        return round(raw / 2.5) * 2.5     # $2.50 increments
+    else:
+        return round(raw / 5) * 5          # $5.00 increments
+
+
+# ── Helper: build OCC ticker ─────────────────────────────────────────────────
+def build_ticker(symbol: str, expiry: date, strike: float) -> str:
+    exp_str = expiry.strftime("%y%m%d")
+    strike_int = int(round(strike * 1000))
+    return f"O:{symbol}{exp_str}C{strike_int:08d}"
+
+
+# ── Helper: is EDT (UTC-4) or EST (UTC-5) ────────────────────────────────────
+def utc_offset_for_date(d: date) -> int:
+    """Return UTC offset in hours for US/Eastern on given date (-4 or -5)."""
+    # DST in US: second Sunday in March through first Sunday in November
+    # Approximate: March 8 – November 1 range is safe
+    dt = datetime(d.year, d.month, d.day, tzinfo=ZoneInfo("America/New_York"))
+    offset_seconds = dt.utcoffset().total_seconds()
+    return int(offset_seconds / 3600)  # -4 or -5
+
+
+# ── API: unadjusted close ─────────────────────────────────────────────────────
+def get_unadj_close(symbol: str, trade_date: str) -> float | None:
+    url = (f"https://api.polygon.io/v1/open-close/{symbol}/{trade_date}"
+           f"?adjusted=false&apiKey={API_KEY}")
+    try:
+        r = requests.get(url, timeout=30)
+        time.sleep(SLEEP_BETWEEN)
+        if r.status_code == 200:
+            data = r.json()
+            return float(data.get("close") or data.get("afterHours") or 0) or None
+        else:
+            log.warning(f"open-close {symbol} {trade_date}: HTTP {r.status_code}")
+            return None
+    except Exception as e:
+        log.error(f"open-close {symbol} {trade_date}: {e}")
+        return None
+
+
+# ── API: rvol_20d from enriched CSV ──────────────────────────────────────────
+_rvol_cache: dict[tuple[str, str], float] = {}
+_enriched_loaded: set[str] = set()
+
+def load_enriched(symbol: str) -> None:
+    if symbol in _enriched_loaded:
+        return
+    _enriched_loaded.add(symbol)
+    path = os.path.join(DATA_DIR, f"{symbol}_enriched.csv")
+    if not os.path.exists(path):
+        log.warning(f"No enriched file for {symbol}, will use default rvol")
+        return
+    try:
+        with open(path, newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                d = row.get("date", "").strip()
+                rv = row.get("rvol_20d", "").strip()
+                if d and rv:
+                    try:
+                        _rvol_cache[(symbol, d)] = float(rv)
+                    except ValueError:
+                        pass
+    except Exception as e:
+        log.error(f"Loading enriched {symbol}: {e}")
+
+
+def get_rvol20(symbol: str, trade_date: str) -> float:
+    load_enriched(symbol)
+    val = _rvol_cache.get((symbol, trade_date), None)
+    if val is None:
+        return 0.30
+    # rvol_20d is stored as a percentage (e.g. 30.64 = 30.64% annualized vol)
+    # Divide by 100 to get decimal form
+    if val > 2.0:
+        val = val / 100.0
+    return val
+
+
+# ── API: 1-min bars for window 9:30–9:36 ET ──────────────────────────────────
+def get_avg_price(ticker: str, trade_date: str, date_obj: date) -> tuple[float | None, int, int]:
+    """
+    Returns (avg_price, n_bars, total_volume).
+    avg_price is VWAP of close prices in 9:30–9:36 ET window.
+    Falls back to first bar of day if window empty.
+    Returns (None, 0, 0) if no bars at all.
+    """
+    url = (f"https://api.polygon.io/v2/aggs/ticker/{ticker}/range/1/minute"
+           f"/{trade_date}/{trade_date}"
+           f"?adjusted=true&sort=asc&limit=50&apiKey={API_KEY}")
+    try:
+        r = requests.get(url, timeout=30)
+        time.sleep(SLEEP_BETWEEN)
+        if r.status_code != 200:
+            return None, 0, 0
+        data = r.json()
+        results = data.get("results", [])
+        if not results:
+            return None, 0, 0
+    except Exception as e:
+        log.error(f"bars {ticker} {trade_date}: {e}")
+        return None, 0, 0
+
+    # Determine ET offset for this date
+    et_offset = utc_offset_for_date(date_obj)  # -4 or -5
+
+    # 9:30 ET = 13:30 UTC (EDT) or 14:30 UTC (EST)
+    # 9:36 ET = 13:36 UTC (EDT) or 14:36 UTC (EST)
+    open_utc_hour   = 9 - et_offset   # 13 in EDT, 14 in EST
+    open_utc_min    = 30
+    window_start_ms = int(datetime(date_obj.year, date_obj.month, date_obj.day,
+                                   open_utc_hour, open_utc_min, 0).timestamp() * 1000)
+    window_end_ms   = window_start_ms + 6 * 60 * 1000  # +6 minutes
+
+    window_bars = [b for b in results
+                   if window_start_ms <= b["t"] < window_end_ms]
+
+    if window_bars:
+        bars_to_use = window_bars
+    else:
+        bars_to_use = [results[0]]  # first bar of day fallback
+
+    total_vol = sum(b.get("v", 0) for b in bars_to_use)
+    if total_vol > 0:
+        vwap = sum(b["c"] * b.get("v", 0) for b in bars_to_use) / total_vol
+    else:
+        vwap = sum(b["c"] for b in bars_to_use) / len(bars_to_use)
+
+    return round(vwap, 6), len(bars_to_use), int(total_vol)
+
+
+# ── Load trades ───────────────────────────────────────────────────────────────
+def load_trades(min_date: str = "2022-01-01") -> list[dict]:
+    trades = []
+    with open(TRADES_FILE, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if row["entry_date"] >= min_date:
+                trades.append(row)
+    log.info(f"Loaded {len(trades)} trades with entry_date >= {min_date}")
+    return trades
+
+
+# ── Load already-processed keys ──────────────────────────────────────────────
+def load_done_keys() -> set[tuple]:
+    """Returns set of (symbol, date, delta_target) already in output file."""
+    done = set()
+    if not os.path.exists(OUTPUT_FILE):
+        return done
+    try:
+        with open(OUTPUT_FILE, newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                key = (row["symbol"], row["date"], row["delta_target"])
+                done.add(key)
+        log.info(f"Resume: {len(done)} rows already in output file")
+    except Exception as e:
+        log.warning(f"Could not read existing output file: {e}")
+    return done
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+def main():
+    log.info("=" * 60)
+    log.info("Starting options bars download (1-min OHLCV)")
+
+    trades = load_trades("2022-01-01")
+    done_keys = load_done_keys()
+
+    # Build full work list: each trade => entry_date + exit_date
+    work_items = []  # (symbol, date_str, date_type)
+    seen = set()
+    for t in trades:
+        sym = t["symbol"]
+        for dt_type, dt_str in [("entry", t["entry_date"]), ("exit", t["exit_date"])]:
+            key = (sym, dt_str)
+            if key not in seen:
+                seen.add(key)
+                work_items.append((sym, dt_str, dt_type))
+            # Even if seen as a key, if date_type differs we might want it
+            # But instructions say deduplicate (symbol, date) — same date processed once
+            # We'll label as entry if first seen as entry, exit if first seen as exit
+
+    # Actually: keep both entry and exit even if same date (different date_type label)
+    # Re-do: allow both date_types for same (sym, date)
+    work_items = []
+    seen_full = set()
+    for t in trades:
+        sym = t["symbol"]
+        for dt_type, dt_str in [("entry", t["entry_date"]), ("exit", t["exit_date"])]:
+            full_key = (sym, dt_str, dt_type)
+            if full_key not in seen_full:
+                seen_full.add(full_key)
+                work_items.append((sym, dt_str, dt_type))
+
+    log.info(f"Total (symbol, date, date_type) items: {len(work_items)}")
+
+    # Open output file (append mode if exists, create with header otherwise)
+    file_exists = os.path.exists(OUTPUT_FILE)
+    out_f = open(OUTPUT_FILE, "a", newline="")
+    writer = csv.DictWriter(out_f, fieldnames=OUTPUT_COLS)
+    if not file_exists:
+        writer.writeheader()
+        out_f.flush()
+
+    lookup_count = 0
+    rows_written = 0
+
+    for idx, (symbol, date_str, date_type) in enumerate(work_items):
+        # Check if all 8 deltas are already done for this (symbol, date)
+        all_done = all(
+            (symbol, date_str, str(d)) in done_keys for d in DELTAS
+        )
+        if all_done:
+            continue
+
+        date_obj = date.fromisoformat(date_str)
+
+        # 1. Unadjusted close
+        spot = get_unadj_close(symbol, date_str)
+        lookup_count += 1
+        if spot is None or spot <= 0:
+            log.warning(f"No spot price for {symbol} {date_str}, skipping")
+            continue
+
+        # 2. rvol_20d (annualised vol)
+        rvol = get_rvol20(symbol, date_str)
+        if rvol <= 0:
+            rvol = 0.30
+
+        # 3. Expiry ~30d out
+        expiry = expiry_about_30d_out(date_obj)
+        dte = (expiry - date_obj).days
+        T = dte / 365.0
+
+        # 4. For each delta, fetch 1-min bars
+        for delta in DELTAS:
+            delta_key = (symbol, date_str, str(delta))
+            if delta_key in done_keys:
+                continue
+
+            z = Z_MAP[delta]
+            raw_strike = spot * math.exp(-z * rvol * math.sqrt(T))
+            strike = round_strike(raw_strike)
+            ticker = build_ticker(symbol, expiry, strike)
+
+            avg_price, n_bars, total_vol = get_avg_price(ticker, date_str, date_obj)
+            lookup_count += 1
+
+            row = {
+                "symbol":         symbol,
+                "date":           date_str,
+                "date_type":      date_type,
+                "spot_unadjusted": round(spot, 4),
+                "delta_target":   delta,
+                "option_ticker":  ticker,
+                "strike":         strike,
+                "expiration":     expiry.isoformat(),
+                "dte":            dte,
+                "avg_price":      round(avg_price, 6) if avg_price is not None else "",
+                "n_bars":         n_bars,
+                "total_volume":   total_vol,
+            }
+            writer.writerow(row)
+            rows_written += 1
+            done_keys.add(delta_key)
+
+            # Incremental save
+            if lookup_count % SAVE_EVERY == 0:
+                out_f.flush()
+                log.info(f"  Progress: item {idx+1}/{len(work_items)}, "
+                         f"lookups={lookup_count}, rows_written={rows_written}")
+
+        if idx % 50 == 0:
+            out_f.flush()
+            log.info(f"Checkpoint: item {idx+1}/{len(work_items)}, "
+                     f"lookups={lookup_count}, rows_written={rows_written}")
+
+    out_f.flush()
+    out_f.close()
+    log.info(f"Done. Total lookups: {lookup_count}, rows written: {rows_written}")
+    log.info(f"Output: {OUTPUT_FILE}")
+
+
+if __name__ == "__main__":
+    main()

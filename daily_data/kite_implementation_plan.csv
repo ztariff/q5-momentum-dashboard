@@ -1,0 +1,74 @@
+section,parameter,value,implementation_notes,kite_limitation
+ARCHITECTURE,pattern,multi-instance,230 instances (one per symbol) with class-level coordination,
+ARCHITECTURE,qualified_symbols,230,is_symbol_qualified returns True for all universe symbols,
+ARCHITECTURE,signal_computation,KITE-native,All computed from md.bar.daily_by_index() — no precomputed signals,KITE provides max ~252 daily bars vs 2829 in Polygon
+ARCHITECTURE,data_source,KITE daily bars,Unadjusted prices from KITE backtester,Differs from Polygon split-adjusted data
+ARCHITECTURE,state_persistence,class-level Python variables,Persists across days in multiday job — no on_save/on_restore needed,
+BAR_READING,api_call,"md.bar.daily_by_index(start=-400)",Request 400 but KITE returns max ~252 valid bars,252-bar limit means shorter z-score lookback (~192 slopes vs 252)
+BAR_READING,valid_count_method,iterate close values until zero,"bars.length is buffer capacity (86400) not actual count",Must count manually
+BAR_READING,fields_extracted,"opens, highs, lows, closes",Four parallel arrays from bar iteration,
+BAR_READING,min_bars_required,120,Need 50 (SMA) + 10 (slope) + 60 (min_periods z-score),
+SMA50,window,50,Simple arithmetic mean of last 50 closes,"running_sum / 50.0",
+SMA50,implementation,running sum,"Efficient: add close[i], subtract close[i-50]",
+SMA50,first_valid,bar index 49,Need 50 bars for first SMA,
+SLOPE,lookback,10,"100 * (SMA50[t] / SMA50[t-10] - 1)",10-day percent change of SMA50
+SLOPE,first_valid,bar index 59,SMA50 needs 50 bars + 10 more for slope,
+ZSCORE,rolling_window,252,Look back up to 252 prior slopes,KITE: only ~192 slopes available (vs 252 in spec)
+ZSCORE,min_periods,60,NaN if fewer than 60 slope values in window,
+ZSCORE,includes_today,YES,"window = slopes[-min(252, len(slopes)):]",Matches pandas default — DO NOT shift
+ZSCORE,std_type,sample,"ddof=1: divide by (n-1)",Matches pandas .std() default
+ZSCORE,scope,per_symbol,Each symbol z-scored against its own history,NOT cross-sectional
+QUINTILE,method,cross_sectional,Rank all symbols by z-score on each day,
+QUINTILE,n_groups,5,Equal-sized quintile bins,Implementation uses rank-based assignment not pd.qcut
+QUINTILE,min_symbols,20,Skip day if fewer than 20 valid z-scores,
+QUINTILE,duplicate_handling,skip day,If ties prevent 5 groups skip the day,
+QUINTILE,kite_note,rank-based binning,"int(rank * 5.0 / n) + 1 — close to pd.qcut but not identical at boundaries",May cause ~2 symbols per day to differ from pd.qcut
+ENTRY_SIGNAL,trigger,Q5 transition,"quintile[t] == 5 AND prev_quintile[t-1] != 5",First day of each Q5 stint
+ENTRY_SIGNAL,first_day_rule,no signal,Cannot signal on first day with valid quintile,No prev_quintile available
+ENTRY_SIGNAL,re_entry_rule,BLOCK if open position,Skip signal if symbol already has an un-exited trade,Reduces trades by ~10%
+BODY_PCT,formula,"(close - open) / (high - low)",Computed on signal day (last formed daily bar in on_start),
+BODY_PCT,computed_on,signal_date,The day BEFORE entry — yesterday's formed bar in KITE,
+BODY_PCT,zero_range,skip trade,If high == low body_pct is undefined,
+BODY_PCT,q1_boundary,-0.53,body_pct <= -0.53 → SKIP trade,Fixed boundary
+BODY_PCT,q2_boundary,-0.17,-0.53 < body_pct <= -0.17 → $500K,Fixed boundary
+BODY_PCT,q3_boundary,+0.23,-0.17 < body_pct <= +0.23 → $1M,Fixed boundary
+BODY_PCT,q4_boundary,+0.57,+0.23 < body_pct <= +0.57 → $1.5M,Fixed boundary
+BODY_PCT,q5_boundary,+1.00,body_pct > +0.57 → $2M,Fixed boundary
+BODY_PCT,kite_note,unadjusted OHLC,"KITE uses unadjusted prices — body_pct = (C-O)/(H-L) is ratio so split-neutral in theory, but vendor rounding may shift values at boundaries",
+ATR14,formula,"ATR[t] = ATR[t-1] * (13/14) + TR[t] * (1/14)",Wilder's exponential smoothing
+ATR14,true_range,"max(H-L, abs(H-prevC), abs(L-prevC))",Standard True Range
+ATR14,first_value,"mean(TR[1] ... TR[14])",Simple average of first 14 TRs
+ATR14,computed_on,signal_date,ATR value from the last formed daily bar,
+ATR14,min_bars,15,Need 14 TRs (15 bars) for first ATR,
+STOP,formula,signal_day_low - 3.0 * ATR14,3 ATRs below signal day's intraday low,
+STOP,check_field,daily LOW,Compare md.L1.low to stop_price at close-30s,md.L1.low gives session low
+STOP,check_starts,day 1 AFTER entry,First stop check the day after entry (NOT entry day),days_held >= 2
+STOP,fill_price,market near close,"KITE exits at market via algo_sell at close-30s timer",Spec assumes exact stop_price fill — KITE fills at market which may differ
+STOP,kite_limitation,market fill vs theoretical,"Spec says fill at stop_price; KITE sells at market near close which could be above or below stop_price",Known divergence from theoretical backtest
+ENTRY,timing,next day open,Signal fires in on_start (using yesterday's bar) then buy at open+2s timer,
+ENTRY,price_source,md.L1.last at open+2s,Market order fills near open,Spec uses exact Polygon open — KITE fill will be close but not identical
+ENTRY,shares,"floor(position_size / md.L1.last)",Round down to whole shares,Different from spec's floor(size/polygon_open) due to price difference
+ENTRY,order_guid,2b4fdc55-ff01-416e-a5ea-e1f1d4524c7d,Buy Market ARCA,
+ENTRY,cost_bps,5,Entry cost modeled as 5 basis points,Not applied in KITE — P&L reflects actual fills
+EXIT_TIME,hold_days,20,"Entry day = day 1, exit at close of day 20",days_held threshold = 21 (starts at 1 on entry)
+EXIT_TIME,timer,close-30s,Market sell at close minus 30 seconds,Spec uses exact daily close — KITE fill will be close but not identical
+EXIT_TIME,order_guid,8fdee8fe-b772-46bd-b411-5544f7a0d917,Sell Market ARCA,
+EXIT_TIME,cost_bps,5,Exit cost modeled as 5 basis points,Not applied in KITE — P&L reflects actual fills
+TIMER_CONFIG,entry_timer,open_t + 2 seconds,Timer ID 1 — entry execution after all on_start calls complete,
+TIMER_CONFIG,exit_timer,close_t - 30 seconds,Timer ID 2 — stop check then time exit,
+POSITION_TRACKING,storage,class-level list,"[{symbol, shares, entry_price, days_held, stop_price}]",
+POSITION_TRACKING,days_held_init,1,Set to 1 on entry day,
+POSITION_TRACKING,days_held_increment,once per day in on_start,First instance each day increments all positions,
+POSITION_TRACKING,duplicate_filter,_open_position_symbols set,"Add symbol on entry, remove on exit (stop or time)",
+EXPECTED_DIVERGENCES,z_score_lookback,~192 slopes vs 252,"KITE's 252-bar limit means shorter history for z-score normalization",Will produce different z-scores than Polygon-based backtest
+EXPECTED_DIVERGENCES,quintile_method,rank-based vs pd.qcut,"~2 symbols per day may be assigned differently at quintile boundaries",
+EXPECTED_DIVERGENCES,prices,unadjusted vs split-adjusted,"KITE uses unadjusted prices — share counts will differ for stocks that split during 2020-2026 (AAPL, TSLA, AMZN, GOOGL, SHOP)",
+EXPECTED_DIVERGENCES,fill_prices,market fills vs theoretical,"Entry fills near open (not exact open), exit fills near close (not exact close), stop fills at market (not exact stop_price)",
+EXPECTED_DIVERGENCES,trade_count,will differ from 2082,"Due to z-score and quintile differences, different stocks will enter/exit Q5",
+SUBMISSION,upload,"kti strategy upload --code Q5MomentumD_kite.py --meta meta.yaml",New strategy GUID will be assigned
+SUBMISSION,backtest,"kti backtest submit <GUID> --start-date 2020-01-02 --end-date 2026-04-01 --symbols __ALL__ --multiday --params '{""holding_days"": 21}'",Full 6-year backtest
+SUBMISSION,quick_test,"kti backtest submit <GUID> --dates 2020-01-07,2020-01-08,2020-01-09,2020-01-10,2020-01-13 --symbols __ALL__ --multiday",5-day validation first
+VERIFICATION,step_1,5-day test,Check console for z-signal counts (~189/230) and entry symbols with body_pct sizing,
+VERIFICATION,step_2,compare entries,"Cross-check first 10 entries against quant's reference trade list — symbols should overlap significantly but not perfectly",
+VERIFICATION,step_3,full run,Submit 2020-2026 and monitor P&L progression,
+VERIFICATION,step_4,final comparison,"Compare total trades, yearly P&L, and max drawdown against spec targets",

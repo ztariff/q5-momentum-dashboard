@@ -1,0 +1,187 @@
+==========================================================================================
+LEVEL 1 SCAN — BROAD HYPOTHESIS TEST
+==========================================================================================
+Symbols: 230
+Conditions tested: 82
+Hold periods: [1, 2, 3, 5]
+Total pooled tests: 324
+BH-significant (α=0.05): 169
+Per-symbol tests: 62,369
+
+──────────────────────────────────────────────────────────────────────────────────────────
+UNCONDITIONAL BASELINE (all symbols pooled)
+──────────────────────────────────────────────────────────────────────────────────────────
+  1d: mean=8.5 bps, median=5.4, std=580.3, WR=51.3%, N=570,833
+  2d: mean=17.1 bps, median=11.4, std=939.1, WR=52.0%, N=570,603
+  3d: mean=25.9 bps, median=16.8, std=1175.5, WR=52.4%, N=570,373
+  5d: mean=42.3 bps, median=28.1, std=1467.1, WR=53.0%, N=569,913
+
+──────────────────────────────────────────────────────────────────────────────────────────
+TOP FINDINGS — BH-significant, sorted by |t-stat|
+──────────────────────────────────────────────────────────────────────────────────────────
+Condition                                     Hold        N  Excess       t   WR% Cons% #Sym
+──────────────────────────────────────────────────────────────────────────────────────────
+within_2pct_of_52w_high                          5d  60,239   -20.6  -12.79  54.4   5.1   10
+within_5pct_of_52w_high                          5d 125,851   -13.6  -11.32  54.7   8.0   17
+within_2pct_of_52w_high                          3d  60,259   -13.4  -10.83  53.7   3.6    7
+roc20_above_15pct                                5d  52,768   +48.6    9.94  52.4  15.1   31
+gap_up_100_closed_weak                           1d  26,529   +26.2    9.82  53.1  13.8   30
+within_5pct_of_52w_high                          3d 125,898    -8.5   -9.18  54.1   5.2   11
+dist_sma200_above_20pct                          5d  89,635   +26.9    9.08  53.1  12.3   26
+roc10_above_10pct                                5d  53,785   +44.4    8.86  52.2  14.8   31
+5_up_days                                        3d  19,054   -29.0   -8.66  50.3   3.2    7
+within_2pct_of_52w_high                          2d  60,261    -8.7   -8.62  53.3   3.1    6
+3_up_days                                        5d  75,202   -20.2   -8.61  52.6   2.2    5
+within_5pct_of_52w_high                          2d 125,925    -5.8   -7.67  53.6   3.8    8
+4_up_days                                        3d  37,950   -19.4   -7.53  51.2   2.2    5
+gap_up_100_closed_weak                           3d  26,492   +67.3    7.44  54.1  18.0   39
+4_up_days                                        5d  37,937   -23.6   -7.43  52.5   3.5    8
+5_down_days                                      2d  14,113   +30.0    7.28  53.9  12.7   28
+roc20_above_15pct                                3d  52,793   +26.7    7.24  51.4   7.3   15
+oversold_combo                                   1d   8,078   +41.5    7.22  54.0   6.2    9
+3_up_days                                        3d  75,219   -13.4   -6.97  51.6   2.2    5
+5_up_days                                        5d  19,045   -29.3   -6.90  52.4   3.7    8
+5_up_days                                        2d  19,054   -18.9   -6.80  50.2   1.4    3
+gap_up_100_closed_weak                           2d  26,496   +45.6    6.76  53.7  19.4   42
+roc20_below_neg15pct                             5d  39,396   +64.5    6.72  52.8  22.3   43
+dist_sma20_above_5pct                            5d  96,605   +20.6    6.68  52.5  12.8   29
+stoch_overbought                                 5d 115,150   -11.5   -6.68  53.4   5.2   12
+dist_sma50_below_neg10pct                        5d  64,709   +41.9    6.67  52.8  25.1   56
+dist_sma200_above_20pct                          3d  89,695   +13.9    6.47  52.3   7.5   16
+gap_up_100_closed_weak                           5d  26,430   +57.6    6.44  54.3  12.4   27
+stoch_overbought                                 3d 115,177    -8.7   -6.36  52.4   1.7    4
+5_down_days                                      1d  14,113   +20.1    6.21  53.5   2.3    5
+roc20_above_15pct                                2d  52,804   +18.6    6.21  50.9   4.4    9
+rvol_20d_below_15                                5d  63,848   -20.4   -6.18  54.6  12.9   17
+rvol_20d_above_40                                5d 187,947   +28.5    6.17  51.6  15.5   35
+gap_up_100_closed_strong                         5d  28,180   -33.6   -6.16  50.9   0.0    0
+at_20d_high                                      5d  79,606   -18.0   -6.12  53.6   2.7    6
+weak_trend_adx_below_15                          5d  93,063   -12.6   -6.11  52.3  14.8   34
+4_down_days                                      3d  29,719   +23.3    6.00  53.0  12.6   29
+dist_sma50_below_neg10pct                        3d  64,891   +29.6    5.90  51.8  19.3   43
+rsi_below_30                                     5d  21,918   +88.7    5.89  56.1  31.0   70
+rsi_below_30                                     3d  21,980   +71.8    5.87  54.6  26.4   60
+roc10_above_10pct                                3d  53,807   +21.2    5.72  50.9   6.7   14
+oversold_combo                                   3d   8,077   +62.6    5.72  55.5  16.4   24
+4_down_days                                      2d  29,719   +16.3    5.68  53.0   7.0   16
+5_down_days                                      3d  14,113   +28.7    5.67  53.1  15.9   35
+roc20_below_neg15pct                             3d  39,481   +43.5    5.61  51.7  14.0   27
+stoch_overbought                                 2d 115,179    -6.1   -5.57  51.8   1.7    4
+within_2pct_of_52w_high                          1d  60,267    -3.9   -5.55  52.4   1.5    3
+rvol_20d_above_40                                3d 188,136   +14.7    5.54  50.9   7.5   17
+gap_up_100bps                                    3d  83,912   +20.0    5.52  52.0   2.6    6
+at_20d_high                                      3d  79,621   -12.4   -5.39  52.7   1.8    4
+dist_sma200_above_20pct                          2d  89,729    +9.2    5.35  52.2   2.8    6
+gap_up_100_closed_strong                         3d  28,188   -23.1   -5.30  51.2   0.4    1
+rvol_20d_below_15                                3d  63,865   -13.7   -5.29  53.9   6.1    8
+macd_cross_below                                 1d  22,629   -10.1   -5.21  51.1   0.4    1
+within_5pct_of_52w_high                          1d 125,941    -2.8   -5.21  52.6   0.9    2
+rvol_20d_above_40                                2d 188,241    +8.0    5.17  50.4   3.1    7
+macd_cross_below                                 2d  22,618   -14.0   -5.09  51.1   0.4    1
+gap_up_50bps                                     3d 157,978   +10.6    5.06  52.3   0.4    1
+oversold_combo                                   5d   8,049   +66.3    5.05  56.5  18.5   27
+gap_up_100bps                                    2d  84,046   +14.1    4.95  51.6   2.2    5
+gap_down_100bps                                  5d  77,341   +21.1    4.84  52.7   0.9    2
+4_up_days                                        2d  37,952   -10.0   -4.73  51.1   2.2    5
+roc20_above_15pct                                1d  52,813   +10.0    4.73  50.1   1.5    3
+gap_up_50bps                                     2d 158,146    +7.7    4.70  52.0   0.9    2
+dist_sma50_below_neg10pct                        2d  64,942   +19.2    4.64  51.0  11.7   26
+weak_trend_adx_below_15                          3d  93,119    -7.4   -4.63  51.9   9.1   21
+big_red_candle_5pct                              5d  19,859   +45.1    4.63  50.5   2.5    4
+rsi_below_30                                     2d  21,980   +46.1    4.54  53.0  13.7   31
+gap_up_100bps                                    5d  83,818   +17.8    4.47  52.6   1.3    3
+gap_up_200bps                                    2d  32,293   +21.6    4.45  50.6   1.4    3
+dist_sma200_above_10pct                          5d 178,418    +8.9    4.38  53.4   9.7   22
+3down_oversold_vol                               5d   5,124   +77.0    4.37  57.5   7.3    3
+macd_cross_below                                 3d  22,615   -14.9   -4.37  51.7   0.9    2
+3_up_days                                        2d  75,230    -7.1   -4.33  51.2   1.3    3
+dist_sma50_above_10pct                           5d  77,560   +15.1    4.32  51.7   6.9   15
+at_20d_high                                      2d  79,625    -8.1   -4.31  52.4   1.4    3
+gap_down_200bps                                  5d  31,049   +39.9    4.30  51.9   1.4    3
+rvol_20d_below_15                                2d  63,871    -9.1   -4.28  53.4   3.8    5
+dist_sma20_above_5pct                            3d  96,642    +9.7    4.22  51.4   7.0   16
+rsi_below_20                                     1d   1,758   +69.8    4.19  56.5   0.0    0
+
+──────────────────────────────────────────────────────────────────────────────────────────
+THEME SUMMARY — What does the data say?
+──────────────────────────────────────────────────────────────────────────────────────────
+
+  GAP: 25 significant findings
+    LONG | gap_up_100_closed_weak                   1d excess=+26.2bps t=9.82 N=26,529 consist=14%
+    LONG | gap_up_100_closed_weak                   3d excess=+67.3bps t=7.44 N=26,492 consist=18%
+    LONG | gap_up_100_closed_weak                   2d excess=+45.6bps t=6.76 N=26,496 consist=19%
+    LONG | gap_up_100_closed_weak                   5d excess=+57.6bps t=6.44 N=26,430 consist=12%
+    SHORT | gap_up_100_closed_strong                 5d excess=-33.6bps t=-6.16 N=28,180 consist=0%
+    LONG | gap_up_100bps                            3d excess=+20.0bps t=5.52 N=83,912 consist=3%
+    SHORT | gap_up_100_closed_strong                 3d excess=-23.1bps t=-5.30 N=28,188 consist=0%
+    LONG | gap_up_50bps                             3d excess=+10.6bps t=5.06 N=157,978 consist=0%
+    LONG | gap_up_100bps                            2d excess=+14.1bps t=4.95 N=84,046 consist=2%
+    LONG | gap_down_100bps                          5d excess=+21.1bps t=4.84 N=77,341 consist=1%
+
+  MEAN_REVERSION: 71 significant findings
+    LONG | dist_sma200_above_20pct                  5d excess=+26.9bps t=9.08 N=89,635 consist=12%
+    LONG | 5_down_days                              2d excess=+30.0bps t=7.28 N=14,113 consist=13%
+    LONG | oversold_combo                           1d excess=+41.5bps t=7.22 N=8,078 consist=6%
+    LONG | dist_sma20_above_5pct                    5d excess=+20.6bps t=6.68 N=96,605 consist=13%
+    SHORT | stoch_overbought                         5d excess=-11.5bps t=-6.68 N=115,150 consist=5%
+    LONG | dist_sma50_below_neg10pct                5d excess=+41.9bps t=6.67 N=64,709 consist=25%
+    LONG | dist_sma200_above_20pct                  3d excess=+13.9bps t=6.47 N=89,695 consist=8%
+    SHORT | stoch_overbought                         3d excess=-8.7bps t=-6.36 N=115,177 consist=2%
+    LONG | 5_down_days                              1d excess=+20.1bps t=6.21 N=14,113 consist=2%
+    LONG | 4_down_days                              3d excess=+23.3bps t=6.00 N=29,719 consist=13%
+
+  MOMENTUM: 49 significant findings
+    SHORT | within_2pct_of_52w_high                  5d excess=-20.6bps t=-12.79 N=60,239 consist=5%
+    SHORT | within_5pct_of_52w_high                  5d excess=-13.6bps t=-11.32 N=125,851 consist=8%
+    SHORT | within_2pct_of_52w_high                  3d excess=-13.4bps t=-10.83 N=60,259 consist=4%
+    LONG | roc20_above_15pct                        5d excess=+48.6bps t=9.94 N=52,768 consist=15%
+    SHORT | within_5pct_of_52w_high                  3d excess=-8.5bps t=-9.18 N=125,898 consist=5%
+    LONG | roc10_above_10pct                        5d excess=+44.4bps t=8.86 N=53,785 consist=15%
+    SHORT | 5_up_days                                3d excess=-29.0bps t=-8.66 N=19,054 consist=3%
+    SHORT | within_2pct_of_52w_high                  2d excess=-8.7bps t=-8.62 N=60,261 consist=3%
+    SHORT | 3_up_days                                5d excess=-20.2bps t=-8.61 N=75,202 consist=2%
+    SHORT | within_5pct_of_52w_high                  2d excess=-5.8bps t=-7.67 N=125,925 consist=4%
+
+  VOLUME: 9 significant findings
+    SHORT | rvol_20d_below_15                        5d excess=-20.4bps t=-6.18 N=63,848 consist=13%
+    LONG | rvol_20d_above_40                        5d excess=+28.5bps t=6.17 N=187,947 consist=16%
+    LONG | rvol_20d_above_40                        3d excess=+14.7bps t=5.54 N=188,136 consist=8%
+    SHORT | rvol_20d_below_15                        3d excess=-13.7bps t=-5.29 N=63,865 consist=6%
+    LONG | rvol_20d_above_40                        2d excess=+8.0bps t=5.17 N=188,241 consist=3%
+    SHORT | rvol_20d_below_15                        2d excess=-9.1bps t=-4.28 N=63,871 consist=4%
+    LONG | rvol_20d_above_40                        1d excess=+4.1bps t=3.83 N=188,346 consist=0%
+    SHORT | rvol_20d_below_15                        1d excess=-4.3bps t=-2.71 N=63,876 consist=2%
+    LONG | vol_spike_2x_down_day                    5d excess=+31.5bps t=2.49 N=10,324 consist=6%
+
+  VOLATILITY: 10 significant findings
+    SHORT | rvol_20d_below_15                        5d excess=-20.4bps t=-6.18 N=63,848 consist=13%
+    LONG | rvol_20d_above_40                        5d excess=+28.5bps t=6.17 N=187,947 consist=16%
+    LONG | rvol_20d_above_40                        3d excess=+14.7bps t=5.54 N=188,136 consist=8%
+    SHORT | rvol_20d_below_15                        3d excess=-13.7bps t=-5.29 N=63,865 consist=6%
+    LONG | rvol_20d_above_40                        2d excess=+8.0bps t=5.17 N=188,241 consist=3%
+    SHORT | rvol_20d_below_15                        2d excess=-9.1bps t=-4.28 N=63,871 consist=4%
+    LONG | rvol_20d_above_40                        1d excess=+4.1bps t=3.83 N=188,346 consist=0%
+    LONG | narrow_range_below_0.5x_atr              5d excess=+19.3bps t=3.73 N=43,851 consist=10%
+    SHORT | rvol_20d_below_15                        1d excess=-4.3bps t=-2.71 N=63,876 consist=2%
+    SHORT | squeeze_release_today                    3d excess=-13.9bps t=-2.42 N=8,546 consist=1%
+
+  CANDLE: 5 significant findings
+    LONG | big_red_candle_5pct                      5d excess=+45.1bps t=4.63 N=19,859 consist=2%
+    SHORT | doji_body_lt_10pct                       1d excess=-5.1bps t=-4.07 N=58,760 consist=0%
+    LONG | big_red_candle_3pct                      5d excess=+34.7bps t=3.92 N=49,467 consist=3%
+    LONG | big_green_candle_5pct                    2d excess=+22.4bps t=3.34 N=21,095 consist=2%
+    LONG | big_red_candle_5pct                      1d excess=+10.1bps t=2.46 N=19,906 consist=4%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+NOTABLE NON-FINDINGS — Popular beliefs that FAIL statistical significance
+──────────────────────────────────────────────────────────────────────────────────────────
+  golden_cross_today                       best t=2.10 at 5d excess=+37.0bps [NOT SIGNIFICANT]
+  death_cross_today                        best t=0.62 at 3d excess=+9.2bps [NOT SIGNIFICANT]
+  doji_body_lt_10pct                       best t=-4.07 at 1d excess=-5.1bps [SIGNIFICANT]
+  sma8_cross_above_sma20                   best t=0.42 at 1d excess=+2.8bps [NOT SIGNIFICANT]
+  sma8_cross_below_sma20                   best t=-2.25 at 2d excess=-7.4bps [SIGNIFICANT]
+  macd_cross_above                         best t=-2.90 at 5d excess=-12.9bps [SIGNIFICANT]
+  macd_cross_below                         best t=-5.21 at 1d excess=-10.1bps [SIGNIFICANT]
+  squeeze_release_today                    best t=-2.42 at 3d excess=-13.9bps [SIGNIFICANT]
+
+==========================================================================================

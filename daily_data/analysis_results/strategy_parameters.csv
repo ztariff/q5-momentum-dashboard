@@ -1,0 +1,99 @@
+category,parameter,value,description,formula,notes
+UNIVERSE,total_symbols,230,Number of symbols in universe,,See data/universe.csv for complete list
+UNIVERSE,symbol_source,Polygon.io,Data vendor for daily OHLCV,,Split-adjusted daily bars
+UNIVERSE,data_start,2015-01-01,Earliest data used (warmup period),,No trades taken before 2020
+UNIVERSE,trade_start,2020-01-01,First eligible trade date,,Warmup years 2015-2019 for rolling z-score
+UNIVERSE,min_symbols_for_quintile,20,Minimum symbols with valid z-score to assign quintiles on a given day,,Skip day if fewer than 20 valid
+UNIVERSE,filtering,none,No volume/market cap/sector filtering applied,,Use all 230 symbols every day they have data
+SIGNAL_SMA,indicator,SMA50,50-day Simple Moving Average,SMA50[t] = mean(close[t] ... close[t-49]),Simple arithmetic mean of last 50 closing prices including today
+SIGNAL_SMA,window,50,Number of trading days in SMA,,Not calendar days
+SIGNAL_SMA,type,simple,Simple average not exponential,,Equal weight on all 50 days
+SIGNAL_SMA,first_valid,day 50,First day SMA50 can be computed,,NaN before 50 closes available
+SIGNAL_SMA,pandas,"df['close'].rolling(50).mean()",Pandas implementation,,
+SIGNAL_SLOPE,indicator,SMA50_slope,Percent change of SMA50 over 10 days,"slope[t] = 100 × (SMA50[t] / SMA50[t-10] - 1)",Positive = SMA rising; negative = SMA falling
+SIGNAL_SLOPE,lookback,10,Number of trading days for slope computation,,NOT 5 days
+SIGNAL_SLOPE,first_valid,day 60,First valid slope (50 days for SMA + 10 more),,
+SIGNAL_SLOPE,pandas,"100 * (sma50 / sma50.shift(10) - 1)",Pandas implementation,,
+SIGNAL_ZSCORE,indicator,z_signal,Z-scored slope within each symbol,"z[t] = (slope[t] - rolling_mean[t]) / rolling_std[t]",Measures how extreme current slope is relative to this symbol's own history
+SIGNAL_ZSCORE,rolling_window,252,Trading days in rolling z-score window,,Approximately 1 year
+SIGNAL_ZSCORE,min_periods,60,Minimum periods before z-score is valid,,NaN if fewer than 60 prior slope values
+SIGNAL_ZSCORE,scope,per_symbol,Z-score computed within each symbol independently,,Do NOT z-score across symbols
+SIGNAL_ZSCORE,includes_today,yes,Today's slope IS included in its own rolling window,,Pandas default behavior - do NOT shift before rolling
+SIGNAL_ZSCORE,pandas_mean,"slope.rolling(252, min_periods=60).mean()",Rolling mean implementation,,
+SIGNAL_ZSCORE,pandas_std,"slope.rolling(252, min_periods=60).std()",Rolling std implementation,,
+SIGNAL_ZSCORE,pandas_z,"(slope - rolling_mean) / rolling_std",Z-score implementation,,Replace 0 std with NaN
+SIGNAL_QUINTILE,method,cross_sectional,Rank all symbols on each day by z_signal,,Fresh ranking every trading day
+SIGNAL_QUINTILE,n_groups,5,Number of quintile groups,,Q1=lowest 20% through Q5=highest 20%
+SIGNAL_QUINTILE,pandas,"pd.qcut(z_values, 5, labels=[1,2,3,4,5], duplicates='drop')",Implementation,,
+SIGNAL_QUINTILE,duplicate_handling,drop,If duplicates prevent 5 groups skip the day,,No quintiles assigned no signals
+SIGNAL_QUINTILE,q1_definition,lowest z_signal,Bottom 20% — SMA50 slope declining fastest,,
+SIGNAL_QUINTILE,q5_definition,highest z_signal,Top 20% — SMA50 slope rising fastest,,
+SIGNAL_ENTRY,trigger,Q5 transition,Stock enters Q5 today AND was not in Q5 yesterday,"entered_q5 = (quintile[t]==5) AND (prev_quintile[t-1]!=5)",The FIRST day of each Q5 stint
+SIGNAL_ENTRY,prev_quintile,shift by 1 trading day,Compare to previous trading day's quintile,,Sort by (symbol date) then groupby symbol shift(1)
+SIGNAL_ENTRY,first_day_rule,no signal,First day a symbol has valid quintile cannot generate signal,,No prev_quintile available
+SIGNAL_ENTRY,re_entry,allowed after gap,If stock leaves Q5 then returns it triggers a new signal,,Each Q5 stint is independent
+NO_REENTRY,rule,block if open position,If you already hold this symbol do NOT open a second position,,Skip the signal entirely
+NO_REENTRY,check,at signal time,Before opening check if an un-exited position exists in this symbol,,
+NO_REENTRY,effect,reduces trades by ~237,About 10% of signals blocked,,Improves risk-adjusted returns
+SIZING_BODYPCT,indicator,body_pct,Candle body as fraction of range on signal day,"body_pct = (close - open) / (high - low)",+1=perfect green candle; -1=perfect red candle; 0=doji
+SIZING_BODYPCT,computed_on,signal_date,The day BEFORE entry (when signal fires),,NOT the entry day
+SIZING_BODYPCT,zero_range,skip,If high==low body_pct is undefined skip trade,,
+SIZING_Q1_BOUNDARY,-0.53,body_pct <= -0.53 is Q1,,Strong red candle,
+SIZING_Q2_BOUNDARY,-0.17,-0.53 < body_pct <= -0.17 is Q2,,Moderate red candle,
+SIZING_Q3_BOUNDARY,+0.23,-0.17 < body_pct <= +0.23 is Q3,,Doji / indecisive,
+SIZING_Q4_BOUNDARY,+0.57,+0.23 < body_pct <= +0.57 is Q4,,Moderate green candle,
+SIZING_Q5_BOUNDARY,+1.00,body_pct > +0.57 is Q5,,Strong green candle,
+SIZING_Q1_ACTION,SKIP,$0 — do not take the trade,,36.9% WR — net loser,
+SIZING_Q2_SIZE,500000,$500K position (0.5x base),,45.8% WR,
+SIZING_Q3_SIZE,1000000,"$1,000,000 position (1.0x base)",,52.7% WR,
+SIZING_Q4_SIZE,1500000,"$1,500,000 position (1.5x base)",,58.1% WR,
+SIZING_Q5_SIZE,2000000,"$2,000,000 position (2.0x base)",,62.5% WR,
+SIZING_NOTE,boundaries_fixed,yes,Quintile boundaries are fixed across all trades,,Do NOT recompute quintiles daily for sizing
+ENTRY,timing,next day open,Signal fires at close of signal_date; enter at open of next trading day,,
+ENTRY,price,open price,Buy at the opening print of entry_date,,
+ENTRY,shares,"floor(position_size / open_price)",Round DOWN to whole shares,,
+ENTRY,cost_bps,5,Entry cost in basis points,entry_cost = shares × entry_price × 5 / 10000,
+ENTRY,skip_if_no_data,yes,If entry_date has no data for symbol skip trade,,
+STOP,reference,signal_day_low,Anchor the stop below the signal day's intraday low,,NOT the entry price
+STOP,atr_multiplier,3.0,Number of ATRs below signal_day_low,,
+STOP,formula,signal_day_low - 3.0 × ATR(14),"stop_price = low[signal_date] - 3 × atr_14[signal_date]",
+STOP,atr_type,wilders_ema,ATR uses Wilder's exponential smoothing,,alpha = 1/14 NOT simple 14-day average
+STOP,atr_formula_tr,"TR = max(H-L, abs(H-prevC), abs(L-prevC))",True Range per day,,
+STOP,atr_formula_atr,"ATR[t] = ATR[t-1] × (13/14) + TR[t] × (1/14)",Wilder's smoothing,,
+STOP,atr_pandas,"tr.ewm(alpha=1/14, min_periods=14, adjust=False).mean()",Pandas implementation,,
+STOP,atr_source_date,signal_date,ATR value taken from the signal day,,NOT the entry day
+STOP,check_frequency,daily,Stop checked once per day against the daily low,,NOT intraday real-time
+STOP,check_field,daily low,Compare day's low price to stop_price,,NOT the close
+STOP,check_starts,day 1 after entry,First stop check is the day after entry,,NOT on entry day itself
+STOP,fill_price,stop_price,If stopped assume fill at exact stop_price,,Optimistic — real gaps would fill worse
+STOP,gap_through,fill at stop_price,Even if day opens below stop credit stop_price,,Known limitation
+EXIT,type,time_based,Exit after fixed number of trading days if stop not hit,,
+EXIT,hold_period,20,Number of trading days to hold,,Entry day = day 1; exit at close of day 20
+EXIT,price,close price,Sell at closing print of the 20th trading day,,
+EXIT,cost_bps,5,Exit cost in basis points,exit_cost = shares × exit_price × 5 / 10000,
+EXIT,early_data_end,exit at last close,If symbol runs out of data before day 20 exit at last available close,,
+PNL,gross,"shares × (exit_price - entry_price)",Gross P&L before costs,,
+PNL,entry_cost,"shares × entry_price × 5 / 10000",Entry transaction cost,,
+PNL,exit_cost,"shares × exit_price × 5 / 10000",Exit transaction cost,,
+PNL,net,"gross_pnl - entry_cost - exit_cost",Net P&L after costs,,
+PNL,return_pct,"100 × (exit_price / entry_price - 1)",Percentage return,,
+PNL,cost_model,5 bps each way (10 bps round trip),Covers estimated spread + market impact,,
+RESULTS,total_trades,2082,Option D no-re-entry total trades,,
+RESULTS,total_pnl,88164323,Total net P&L in dollars,,
+RESULTS,win_rate,55.3%,Percentage of trades with positive net P&L,,
+RESULTS,profit_factor,2.03,Sum of winners / abs(sum of losers),,
+RESULTS,max_drawdown,-6131802,Largest peak-to-trough on cumulative P&L,,
+RESULTS,sharpe,0.61,Annualized Sharpe ratio,,
+RESULTS,calmar,2.32,Annual return / max drawdown,,
+RESULTS,avg_pnl_per_trade,42346,Average net P&L per trade,,
+RESULTS,stop_rate,22%,Percentage of trades that hit the stop,,
+RESULTS,avg_days_held,18.1,Average holding period in trading days,,
+RESULTS,worst_trade,-587796,Largest single-trade loss in dollars,,
+RESULTS,best_trade,2426587,Largest single-trade gain in dollars,,
+RESULTS,2020_pnl,23802703,Net P&L for 2020,,
+RESULTS,2021_pnl,9308237,Net P&L for 2021,,
+RESULTS,2022_pnl,-113292,Net P&L for 2022 (only losing year — nearly breakeven),,
+RESULTS,2023_pnl,24710873,Net P&L for 2023,,
+RESULTS,2024_pnl,17212817,Net P&L for 2024,,
+RESULTS,2025_pnl,8985625,Net P&L for 2025,,
+RESULTS,2026_pnl,4257361,Net P&L for 2026 (partial year),,

@@ -1,0 +1,383 @@
+#!/usr/bin/env python3
+"""
+Download options NBBO quotes for trade entry/exit dates.
+For each trade in trade1_20d_trades.csv, fetch the 80/70/60/50/40/30/20/10 delta
+call option NBBO quotes between 9:31-9:36 AM ET on entry and exit dates.
+
+Robust against concurrent sessions: writes to a private staging file in /tmp,
+uses a lockfile to prevent duplicate runs, and syncs to the final path.
+"""
+
+import os
+import csv
+import math
+import time
+import fcntl
+import shutil
+import calendar
+import logging
+import requests
+import pandas as pd
+from datetime import date, datetime, timedelta, timezone
+
+# ── Config ──────────────────────────────────────────────────────────────────
+API_KEY       = "cBE5Kbq9yllt0Yj29mDQjBcIKfAYQlHF"
+TRADES_CSV    = "/home/ubuntu/daily_data/analysis_results/trade1_20d_trades.csv"
+ENRICHED_DIR  = "/home/ubuntu/daily_data/data"
+OUTPUT_CSV    = "/home/ubuntu/daily_data/data/trade_options/trade_options_nbbo.csv"
+STAGING_CSV   = "/tmp/trade_options_nbbo_staging.csv"   # private working file
+LOCK_FILE     = "/tmp/options_nbbo_download.lock"
+LOG_FILE      = "/home/ubuntu/options-data/download_log.txt"
+SAVE_INTERVAL = 100   # flush to staging every N rows
+
+DELTAS = [80, 70, 60, 50, 40, 30, 20, 10]
+Z_VALS = {80: 0.842, 70: 0.524, 60: 0.253, 50: 0.0,
+          40: -0.253, 30: -0.524, 20: -0.842, 10: -1.282}
+
+SLEEP_MIN = 0.08
+SLEEP_MAX = 0.12
+
+FIELDNAMES = ["symbol", "date", "date_type", "spot_price", "rvol_20d",
+              "delta_target", "option_ticker", "strike", "expiration",
+              "dte", "avg_bid", "avg_ask", "avg_mid", "spread", "n_quotes"]
+
+# ── Logging ──────────────────────────────────────────────────────────────────
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE),
+        logging.StreamHandler()
+    ]
+)
+log = logging.getLogger(__name__)
+
+
+# ── Lock ─────────────────────────────────────────────────────────────────────
+
+def acquire_lock():
+    """Try to acquire exclusive lock. Returns lock file handle or None."""
+    lf = open(LOCK_FILE, "w")
+    try:
+        fcntl.flock(lf, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        lf.write(f"{os.getpid()}\n")
+        lf.flush()
+        return lf
+    except IOError:
+        lf.close()
+        return None
+
+
+# ── Helpers ──────────────────────────────────────────────────────────────────
+
+def third_friday(year: int, month: int) -> date:
+    c = calendar.monthcalendar(year, month)
+    fridays = [week[4] for week in c if week[4] != 0]
+    return date(year, month, fridays[2])
+
+
+def nearest_monthly_expiry(trade_date: date) -> date:
+    target = trade_date + timedelta(days=30)
+    candidates = []
+    for delta_m in [-1, 0, 1, 2]:
+        m = target.month + delta_m
+        y = target.year
+        while m > 12:
+            m -= 12; y += 1
+        while m < 1:
+            m += 12; y -= 1
+        try:
+            exp = third_friday(y, m)
+            if exp > trade_date + timedelta(days=6):
+                candidates.append(exp)
+        except Exception:
+            pass
+    return min(candidates, key=lambda e: abs((e - trade_date).days - 30))
+
+
+def is_edt(d: date) -> bool:
+    def nth_sunday(year, month, n):
+        c = calendar.monthcalendar(year, month)
+        sundays = [week[6] for week in c if week[6] != 0]
+        return date(year, month, sundays[n - 1])
+    edt_start = nth_sunday(d.year, 3, 2)
+    edt_end   = nth_sunday(d.year, 11, 1)
+    return edt_start <= d < edt_end
+
+
+def market_open_ns(d: date):
+    utc_offset = 4 if is_edt(d) else 5
+    start_utc = datetime(d.year, d.month, d.day,
+                         9 + utc_offset, 31, 0, tzinfo=timezone.utc)
+    end_utc   = datetime(d.year, d.month, d.day,
+                         9 + utc_offset, 36, 0, tzinfo=timezone.utc)
+    return int(start_utc.timestamp() * 1e9), int(end_utc.timestamp() * 1e9)
+
+
+def round_strike(raw: float, spot: float) -> float:
+    if spot < 25:
+        inc = 0.50
+    elif spot < 200:
+        inc = 1.0
+    elif spot < 500:
+        inc = 2.5
+    else:
+        inc = 5.0
+    return round(raw / inc) * inc
+
+
+def build_ticker(symbol: str, exp: date, strike: float) -> str:
+    strike_int = round(strike * 1000)
+    exp_str = exp.strftime("%y%m%d")
+    return f"O:{symbol}{exp_str}C{strike_int:08d}"
+
+
+def fetch_quotes(ticker: str, start_ns: int, end_ns: int) -> list:
+    url = (f"https://api.polygon.io/v3/quotes/{ticker}"
+           f"?timestamp.gte={start_ns}&timestamp.lte={end_ns}"
+           f"&limit=500&sort=timestamp&apiKey={API_KEY}")
+    results = []
+    while url:
+        try:
+            r = requests.get(url, timeout=15)
+            if r.status_code == 429:
+                log.warning("Rate limit hit, sleeping 5s")
+                time.sleep(5)
+                continue
+            r.raise_for_status()
+            data = r.json()
+        except Exception as exc:
+            log.error(f"Request error for {ticker}: {exc}")
+            return results
+
+        for rec in data.get("results", []):
+            bid = rec.get("bid_price")
+            ask = rec.get("ask_price")
+            if bid is not None and ask is not None and bid >= 0 and ask >= 0:
+                results.append((float(bid), float(ask)))
+
+        url = data.get("next_url")
+        if url:
+            url += f"&apiKey={API_KEY}"
+            time.sleep(SLEEP_MIN)
+
+    return results
+
+
+def compute_stats(quotes: list):
+    if not quotes:
+        return None, None, None, None
+    bids = [q[0] for q in quotes]
+    asks = [q[1] for q in quotes]
+    avg_bid = sum(bids) / len(bids)
+    avg_ask = sum(asks) / len(asks)
+    avg_mid = (avg_bid + avg_ask) / 2
+    spread  = avg_ask - avg_bid
+    return avg_bid, avg_ask, avg_mid, spread
+
+
+def load_enriched_rvol(symbol: str, lookup_date: str) -> tuple:
+    path = os.path.join(ENRICHED_DIR, f"{symbol}_enriched.csv")
+    if not os.path.exists(path):
+        log.warning(f"Enriched file not found: {path}")
+        return None, None
+    try:
+        df = pd.read_csv(path, usecols=["date", "close", "rvol_20d"])
+        df = df.dropna(subset=["date", "close", "rvol_20d"])
+        df["date"] = df["date"].astype(str)
+        df = df.sort_values("date")
+        row = df[df["date"] <= lookup_date].tail(1)
+        if row.empty:
+            return None, None
+        close = float(row["close"].iloc[0])
+        rvol  = float(row["rvol_20d"].iloc[0]) / 100.0
+        return close, rvol
+    except Exception as exc:
+        log.error(f"Error reading {path}: {exc}")
+        return None, None
+
+
+def load_staging_done() -> set:
+    """Read staging file and return set of (symbol, date, date_type, delta) done."""
+    done = set()
+    if not os.path.exists(STAGING_CSV):
+        return done
+    try:
+        with open(STAGING_CSV, "r") as f:
+            reader = csv.DictReader(f)
+            if reader.fieldnames and "date_type" in reader.fieldnames and "spot_price" in reader.fieldnames:
+                for row in reader:
+                    key = (row["symbol"], row["date"],
+                           row["date_type"], str(row["delta_target"]))
+                    done.add(key)
+            else:
+                log.info("Staging file has wrong schema, rebuilding")
+                os.remove(STAGING_CSV)
+    except Exception as exc:
+        log.warning(f"Could not read staging file: {exc}")
+    return done
+
+
+def sync_to_output():
+    """Copy staging file to final output path."""
+    try:
+        if os.path.exists(STAGING_CSV):
+            shutil.copy2(STAGING_CSV, OUTPUT_CSV)
+    except Exception as exc:
+        log.error(f"Failed to sync to output: {exc}")
+
+
+# ── Main ─────────────────────────────────────────────────────────────────────
+
+def main():
+    # Acquire exclusive lock - only one instance should run at a time
+    lock = acquire_lock()
+    if lock is None:
+        log.warning("Another instance is already running (lock file held). Exiting.")
+        return
+
+    try:
+        _run(lock)
+    finally:
+        fcntl.flock(lock, fcntl.LOCK_UN)
+        lock.close()
+        try:
+            os.remove(LOCK_FILE)
+        except Exception:
+            pass
+
+
+def _run(lock):
+    log.info("=== Starting options NBBO download (PID %d) ===", os.getpid())
+
+    # Load trades
+    trades = pd.read_csv(TRADES_CSV)
+    log.info(f"Loaded {len(trades)} trades")
+
+    # Build work list
+    work_items = []
+    for _, row in trades.iterrows():
+        sym = row["symbol"]
+        work_items.append((sym, str(row["entry_date"]), "entry", float(row["entry_price"])))
+        work_items.append((sym, str(row["exit_date"]),  "exit",  float(row["exit_price"])))
+    log.info(f"Total (symbol, date, type) work items: {len(work_items)}")
+
+    # Load already-done from staging file
+    already_done = load_staging_done()
+    log.info(f"Already done from staging: {len(already_done)} rows")
+
+    # Open staging file for append
+    write_header = not os.path.exists(STAGING_CSV)
+    out_f  = open(STAGING_CSV, "a", newline="")
+    writer = csv.DictWriter(out_f, fieldnames=FIELDNAMES)
+    if write_header:
+        writer.writeheader()
+        out_f.flush()
+
+    # Preload enriched rvol cache to speed things up
+    log.info("Preloading rvol cache...")
+    rvol_cache = {}  # symbol -> {date: (close, rvol_decimal)}
+
+    buffer     = []
+    total_done = 0
+    api_calls  = 0
+    errors     = 0
+
+    for idx, (symbol, trade_date_str, date_type, spot_price) in enumerate(work_items):
+        deltas_needed = [d for d in DELTAS
+                         if (symbol, trade_date_str, date_type, str(d)) not in already_done]
+        if not deltas_needed:
+            total_done += len(DELTAS)
+            continue
+
+        # Get rvol from enriched file (cached per symbol)
+        if symbol not in rvol_cache:
+            rvol_cache[symbol] = {}
+
+        cache_key = (symbol, trade_date_str)
+        if cache_key not in rvol_cache.get(symbol, {}):
+            close_price, rvol = load_enriched_rvol(symbol, trade_date_str)
+            if close_price is None or rvol is None:
+                rvol = 0.20
+            rvol_cache.setdefault(symbol, {})[trade_date_str] = rvol
+        else:
+            rvol = rvol_cache[symbol][trade_date_str]
+
+        spot = spot_price
+
+        try:
+            trade_date = date.fromisoformat(trade_date_str)
+        except Exception:
+            log.error(f"Bad date: {trade_date_str}")
+            continue
+
+        expiry = nearest_monthly_expiry(trade_date)
+        dte    = (expiry - trade_date).days
+        T      = dte / 365.0
+        start_ns, end_ns = market_open_ns(trade_date)
+
+        for delta in deltas_needed:
+            key = (symbol, trade_date_str, date_type, str(delta))
+
+            z      = Z_VALS[delta]
+            strike = spot * math.exp(-z * rvol * math.sqrt(T))
+            strike = round_strike(strike, spot)
+            ticker = build_ticker(symbol, expiry, strike)
+
+            quotes = fetch_quotes(ticker, start_ns, end_ns)
+            api_calls += 1
+            time.sleep(SLEEP_MIN + (SLEEP_MAX - SLEEP_MIN) * (api_calls % 3 == 0))
+
+            avg_bid, avg_ask, avg_mid, spread = compute_stats(quotes)
+
+            row_out = {
+                "symbol":        symbol,
+                "date":          trade_date_str,
+                "date_type":     date_type,
+                "spot_price":    round(spot, 4),
+                "rvol_20d":      round(rvol * 100, 4),
+                "delta_target":  delta,
+                "option_ticker": ticker,
+                "strike":        strike,
+                "expiration":    expiry.isoformat(),
+                "dte":           dte,
+                "avg_bid":       round(avg_bid, 4) if avg_bid is not None else "",
+                "avg_ask":       round(avg_ask, 4) if avg_ask is not None else "",
+                "avg_mid":       round(avg_mid, 4) if avg_mid is not None else "",
+                "spread":        round(spread, 4) if spread is not None else "",
+                "n_quotes":      len(quotes),
+            }
+            buffer.append(row_out)
+            already_done.add(key)
+            total_done += 1
+
+            if len(quotes) == 0:
+                errors += 1
+
+        # Flush buffer to staging
+        if len(buffer) >= SAVE_INTERVAL:
+            writer.writerows(buffer)
+            out_f.flush()
+            buffer = []
+            sync_to_output()  # also copy to final output
+            log.info(f"Progress: {idx+1}/{len(work_items)} items, "
+                     f"{total_done} rows, {api_calls} API calls, "
+                     f"{errors} empty")
+
+    # Final flush
+    if buffer:
+        writer.writerows(buffer)
+        out_f.flush()
+    out_f.close()
+
+    # Final sync to output
+    sync_to_output()
+
+    log.info(f"=== Done. Rows: {total_done}, API calls: {api_calls}, "
+             f"Empty: {errors} ===")
+    log.info(f"Output: {OUTPUT_CSV}")
+
+
+if __name__ == "__main__":
+    main()

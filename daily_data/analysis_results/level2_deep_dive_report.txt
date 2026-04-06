@@ -1,0 +1,1108 @@
+====================================================================================================
+LEVEL 2 DEEP DIVE — Walk-Forward, Consistency, Null Model, Slippage
+Slippage assumption: 10 bps each way (20 bps round trip)
+====================================================================================================
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: 3_down_days_long_2d
+Direction: LONG, Hold: 2d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=21,996, net=-8.7bps, t=-3.44, WR=48.5%, median=-7.7
+    test1_2020_2022: N=19,488, net=+19.7bps, t=2.34, WR=49.2%, median=-7.1
+    test2_2023_2026: N=20,885, net=+7.5bps, t=2.27, WR=49.5%, median=-3.5
+    full: N=62,369, net=+5.6bps, t=1.88, WR=49.0%, median=-6.2
+
+  YEAR-BY-YEAR (6/12 positive):
+    2015: N= 4541, net=   -11.3bps, WR=49% [-]
+    2016: N= 4357, net=   -11.8bps, WR=47% [-]
+    2017: N= 3826, net=    +9.0bps, WR=49% [+]
+    2018: N= 5108, net=   -20.7bps, WR=47% [-]
+    2019: N= 4164, net=    -4.2bps, WR=51% [-]
+    2020: N= 4890, net=   +30.9bps, WR=52% [+]
+    2021: N= 6119, net=    -3.7bps, WR=50% [-]
+    2022: N= 8479, net=   +30.1bps, WR=47% [+]
+    2023: N= 6517, net=    +2.6bps, WR=48% [+]
+    2024: N= 6666, net=    -4.8bps, WR=48% [-]
+    2025: N= 5956, net=   +24.9bps, WR=52% [+]
+    2026: N= 1746, net=   +13.1bps, WR=51% [+]
+
+  PER-SYMBOL CONSISTENCY: 124/230 positive (54%)
+
+  NULL MODEL (200 permutations):
+    Real net: +5.60 bps
+    Null mean: -2.65 bps (std=3.36)
+    p-value: 0.0200
+    Real / Null ratio: -2.11x
+
+  SLIPPAGE BREAKEVEN: 12.8 bps each way (25.6 round trip)
+
+  VERDICT: KILL
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: 3down_oversold_vol_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=2,065, net=+72.2bps, t=5.58, WR=58.3%, median=+71.2
+    test1_2020_2022: N=1,653, net=+93.7bps, t=2.93, WR=51.0%, median=+19.2
+    test2_2023_2026: N=1,406, net=+145.8bps, t=3.01, WR=57.6%, median=+76.0
+    full: N=5,124, net=+99.3bps, t=5.64, WR=55.7%, median=+62.6
+
+  YEAR-BY-YEAR (8/12 positive):
+    2015: N=  575, net=  +187.7bps, WR=70% [+]
+    2016: N=  389, net=    -2.9bps, WR=47% [-]
+    2017: N=  221, net=   +35.1bps, WR=56% [+]
+    2018: N=  579, net=   +68.2bps, WR=57% [+]
+    2019: N=  301, net=   -16.6bps, WR=54% [-]
+    2020: N=  489, net=  -191.1bps, WR=37% [-]
+    2021: N=  454, net=  +261.2bps, WR=66% [+]
+    2022: N=  710, net=  +182.7bps, WR=51% [+]
+    2023: N=  346, net=   +13.6bps, WR=51% [+]
+    2024: N=  452, net=   +46.8bps, WR=57% [+]
+    2025: N=  420, net=  +443.8bps, WR=68% [+]
+    2026: N=  188, net=   -38.3bps, WR=49% [-]
+
+  PER-SYMBOL CONSISTENCY: 149/211 positive (71%)
+
+  NULL MODEL (200 permutations):
+    Real net: +99.32 bps
+    Null mean: +19.96 bps (std=14.74)
+    p-value: 0.0100
+    Real / Null ratio: 4.98x
+
+  SLIPPAGE BREAKEVEN: 59.7 bps each way (119.4 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, consistent (71% syms), robust to costs (60bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: 4_down_days_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=10,313, net=+17.9bps, t=3.74, WR=50.5%, median=+3.7
+    test1_2020_2022: N=9,462, net=+48.8bps, t=7.03, WR=51.2%, median=+10.1
+    test2_2023_2026: N=9,944, net=+22.5bps, t=2.75, WR=50.6%, median=+5.6
+    full: N=29,719, net=+29.2bps, t=7.52, WR=50.8%, median=+6.3
+
+  YEAR-BY-YEAR (10/12 positive):
+    2015: N= 2207, net=   +69.1bps, WR=55% [+]
+    2016: N= 2014, net=    +2.4bps, WR=49% [+]
+    2017: N= 1691, net=   +22.9bps, WR=49% [+]
+    2018: N= 2482, net=   -19.8bps, WR=48% [-]
+    2019: N= 1919, net=   +19.6bps, WR=53% [+]
+    2020: N= 2110, net=   +79.0bps, WR=54% [+]
+    2021: N= 2939, net=   +32.3bps, WR=51% [+]
+    2022: N= 4413, net=   +45.2bps, WR=50% [+]
+    2023: N= 3086, net=    +5.1bps, WR=46% [+]
+    2024: N= 3231, net=   +29.9bps, WR=53% [+]
+    2025: N= 2768, net=   +42.3bps, WR=53% [+]
+    2026: N=  859, net=    -7.0bps, WR=51% [-]
+
+  PER-SYMBOL CONSISTENCY: 160/230 positive (70%)
+
+  NULL MODEL (200 permutations):
+    Real net: +29.25 bps
+    Null mean: +5.33 bps (std=6.21)
+    p-value: 0.0050
+    Real / Null ratio: 5.48x
+
+  SLIPPAGE BREAKEVEN: 24.6 bps each way (49.2 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (10/12 yrs), consistent (70% syms), beats null, robust to costs (25bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: 5_down_days_long_1d
+Direction: LONG, Hold: 1d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=4,925, net=-1.6bps, t=-0.36, WR=48.5%, median=-6.3
+    test1_2020_2022: N=4,551, net=+31.1bps, t=5.03, WR=51.7%, median=+9.8
+    test2_2023_2026: N=4,637, net=-2.6bps, t=-0.44, WR=48.5%, median=-6.1
+    full: N=14,113, net=+8.6bps, t=2.65, WR=49.6%, median=-2.2
+  ⚠ FAILS OOS — net negative in at least one test period
+
+  YEAR-BY-YEAR (6/12 positive):
+    2015: N= 1073, net=    +9.6bps, WR=52% [+]
+    2016: N=  976, net=   -15.3bps, WR=46% [-]
+    2017: N=  795, net=   +10.0bps, WR=44% [+]
+    2018: N= 1234, net=    -6.5bps, WR=47% [-]
+    2019: N=  847, net=    -4.1bps, WR=54% [-]
+    2020: N=  947, net=   +28.2bps, WR=53% [+]
+    2021: N= 1401, net=   +25.5bps, WR=52% [+]
+    2022: N= 2203, net=   +35.9bps, WR=51% [+]
+    2023: N= 1465, net=   -10.6bps, WR=46% [-]
+    2024: N= 1553, net=   -13.8bps, WR=48% [-]
+    2025: N= 1200, net=   +32.7bps, WR=53% [+]
+    2026: N=  419, net=   -34.8bps, WR=46% [-]
+
+  PER-SYMBOL CONSISTENCY: 139/230 positive (60%)
+
+  NULL MODEL (200 permutations):
+    Real net: +8.59 bps
+    Null mean: -11.50 bps (std=4.45)
+    p-value: 0.0150
+    Real / Null ratio: -0.75x
+
+  SLIPPAGE BREAKEVEN: 14.3 bps each way (28.6 round trip)
+
+  VERDICT: KILL
+    Evidence: consistent (60% syms)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: 5_down_days_long_2d
+Direction: LONG, Hold: 2d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=4,925, net=+20.6bps, t=3.37, WR=51.1%, median=+6.2
+    test1_2020_2022: N=4,551, net=+56.0bps, t=6.57, WR=52.4%, median=+21.7
+    test2_2023_2026: N=4,637, net=+5.6bps, t=0.84, WR=49.7%, median=-2.7
+    full: N=14,113, net=+27.1bps, t=6.59, WR=51.1%, median=+7.5
+
+  YEAR-BY-YEAR (8/12 positive):
+    2015: N= 1073, net=   +84.0bps, WR=57% [+]
+    2016: N=  976, net=    -3.0bps, WR=48% [-]
+    2017: N=  795, net=   +19.1bps, WR=47% [+]
+    2018: N= 1234, net=    -8.6bps, WR=50% [-]
+    2019: N=  847, net=   +11.3bps, WR=53% [+]
+    2020: N=  947, net=   +63.6bps, WR=56% [+]
+    2021: N= 1401, net=   +28.7bps, WR=50% [+]
+    2022: N= 2203, net=   +70.1bps, WR=53% [+]
+    2023: N= 1465, net=    -1.2bps, WR=45% [-]
+    2024: N= 1553, net=    +6.1bps, WR=52% [+]
+    2025: N= 1200, net=   +22.5bps, WR=52% [+]
+    2026: N=  419, net=   -20.9bps, WR=51% [-]
+
+  PER-SYMBOL CONSISTENCY: 157/230 positive (68%)
+
+  NULL MODEL (200 permutations):
+    Real net: +27.09 bps
+    Null mean: -2.30 bps (std=7.99)
+    p-value: 0.0150
+    Real / Null ratio: -11.76x
+
+  SLIPPAGE BREAKEVEN: 23.5 bps each way (47.0 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, consistent (68% syms), robust to costs (24bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: 5_down_days_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=4,925, net=+39.0bps, t=5.17, WR=51.5%, median=+10.7
+    test1_2020_2022: N=4,551, net=+52.8bps, t=5.13, WR=50.7%, median=+5.1
+    test2_2023_2026: N=4,637, net=+12.0bps, t=1.43, WR=50.5%, median=+5.0
+    full: N=14,113, net=+34.6bps, t=6.84, WR=50.9%, median=+7.6
+
+  YEAR-BY-YEAR (9/12 positive):
+    2015: N= 1073, net=  +136.0bps, WR=60% [+]
+    2016: N=  976, net=    +1.9bps, WR=47% [+]
+    2017: N=  795, net=   +42.1bps, WR=50% [+]
+    2018: N= 1234, net=   -16.0bps, WR=48% [-]
+    2019: N=  847, net=   +36.1bps, WR=54% [+]
+    2020: N=  947, net=   +78.8bps, WR=56% [+]
+    2021: N= 1401, net=   +43.9bps, WR=51% [+]
+    2022: N= 2203, net=   +47.3bps, WR=48% [+]
+    2023: N= 1465, net=    +8.0bps, WR=45% [+]
+    2024: N= 1553, net=   +33.5bps, WR=55% [+]
+    2025: N= 1200, net=    -0.2bps, WR=51% [-]
+    2026: N=  419, net=   -18.6bps, WR=51% [-]
+
+  PER-SYMBOL CONSISTENCY: 155/230 positive (67%)
+
+  NULL MODEL (200 permutations):
+    Real net: +34.59 bps
+    Null mean: +6.13 bps (std=9.64)
+    p-value: 0.0400
+    Real / Null ratio: 5.65x
+
+  SLIPPAGE BREAKEVEN: 27.3 bps each way (54.6 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (9/12 yrs), consistent (67% syms), robust to costs (27bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: below_sma200_20pct_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=10,058, net=+63.0bps, t=5.59, WR=51.0%, median=+19.0
+    test1_2020_2022: N=26,431, net=+87.8bps, t=2.72, WR=49.1%, median=-20.0
+    test2_2023_2026: N=17,624, net=+69.8bps, t=7.57, WR=50.1%, median=+2.9
+    full: N=54,113, net=+77.3bps, t=4.78, WR=49.8%, median=-4.7
+
+  YEAR-BY-YEAR (8/12 positive):
+    2015: N=  703, net=  -141.4bps, WR=43% [-]
+    2016: N= 2767, net=  +128.8bps, WR=55% [+]
+    2017: N= 1411, net=   +80.8bps, WR=46% [+]
+    2018: N= 2249, net=   -27.2bps, WR=47% [-]
+    2019: N= 2928, net=  +110.4bps, WR=55% [+]
+    2020: N= 6398, net=  +450.9bps, WR=54% [+]
+    2021: N= 2054, net=    +2.8bps, WR=45% [+]
+    2022: N=17979, net=   -31.7bps, WR=48% [-]
+    2023: N= 5137, net=  +181.2bps, WR=53% [+]
+    2024: N= 5144, net=   +46.4bps, WR=50% [+]
+    2025: N= 5427, net=   +70.0bps, WR=51% [+]
+    2026: N= 1916, net=  -166.2bps, WR=39% [-]
+
+  PER-SYMBOL CONSISTENCY: 165/208 positive (79%)
+
+  NULL MODEL (200 permutations):
+    Real net: +77.33 bps
+    Null mean: +22.14 bps (std=6.04)
+    p-value: 0.0000
+    Real / Null ratio: 3.49x
+
+  SLIPPAGE BREAKEVEN: 48.7 bps each way (97.4 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, consistent (79% syms), beats null, robust to costs (49bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: below_sma20_5pct_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=23,632, net=+19.5bps, t=5.07, WR=51.2%, median=+11.5
+    test1_2020_2022: N=32,848, net=+39.8bps, t=1.99, WR=48.9%, median=-16.0
+    test2_2023_2026: N=29,976, net=+38.8bps, t=8.32, WR=51.5%, median=+16.0
+    full: N=86,456, net=+33.9bps, t=4.32, WR=50.4%, median=+4.7
+
+  YEAR-BY-YEAR (11/12 positive):
+    2015: N= 4312, net=   +33.5bps, WR=53% [+]
+    2016: N= 4910, net=   +21.3bps, WR=51% [+]
+    2017: N= 2611, net=   +11.1bps, WR=50% [+]
+    2018: N= 6888, net=    +8.6bps, WR=51% [+]
+    2019: N= 4911, net=   +25.1bps, WR=51% [+]
+    2020: N= 7889, net=  +106.6bps, WR=50% [+]
+    2021: N= 8369, net=   +31.1bps, WR=52% [+]
+    2022: N=16590, net=   +12.4bps, WR=47% [+]
+    2023: N= 8599, net=   +52.4bps, WR=51% [+]
+    2024: N= 8706, net=   +44.5bps, WR=53% [+]
+    2025: N= 9325, net=   +50.8bps, WR=53% [+]
+    2026: N= 3346, net=   -44.4bps, WR=46% [-]
+
+  PER-SYMBOL CONSISTENCY: 169/230 positive (73%)
+
+  NULL MODEL (200 permutations):
+    Real net: +33.91 bps
+    Null mean: +5.76 bps (std=3.72)
+    p-value: 0.0000
+    Real / Null ratio: 5.88x
+
+  SLIPPAGE BREAKEVEN: 27.0 bps each way (54.0 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (11/12 yrs), consistent (73% syms), beats null, robust to costs (27bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: below_sma50_10pct_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=15,723, net=+25.0bps, t=4.66, WR=50.9%, median=+9.1
+    test1_2020_2022: N=26,644, net=+29.6bps, t=2.78, WR=49.8%, median=-4.5
+    test2_2023_2026: N=22,524, net=+50.0bps, t=8.27, WR=51.3%, median=+17.6
+    full: N=64,891, net=+35.6bps, t=7.07, WR=50.6%, median=+8.0
+
+  YEAR-BY-YEAR (10/12 positive):
+    2015: N= 3046, net=   +21.3bps, WR=50% [+]
+    2016: N= 3670, net=   +32.5bps, WR=51% [+]
+    2017: N= 1591, net=    -9.7bps, WR=48% [-]
+    2018: N= 4163, net=   +29.9bps, WR=53% [+]
+    2019: N= 3253, net=   +30.6bps, WR=50% [+]
+    2020: N= 6171, net=   +38.8bps, WR=51% [+]
+    2021: N= 5162, net=   +35.9bps, WR=51% [+]
+    2022: N=15311, net=   +23.8bps, WR=49% [+]
+    2023: N= 6233, net=   +71.4bps, WR=51% [+]
+    2024: N= 6034, net=   +60.1bps, WR=52% [+]
+    2025: N= 7343, net=   +56.1bps, WR=53% [+]
+    2026: N= 2914, net=   -32.3bps, WR=46% [-]
+
+  PER-SYMBOL CONSISTENCY: 183/228 positive (80%)
+
+  NULL MODEL (200 permutations):
+    Real net: +35.56 bps
+    Null mean: +5.74 bps (std=4.43)
+    p-value: 0.0000
+    Real / Null ratio: 6.19x
+
+  SLIPPAGE BREAKEVEN: 27.8 bps each way (55.6 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (10/12 yrs), consistent (80% syms), beats null, robust to costs (28bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: below_sma50_10pct_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=15,723, net=+55.5bps, t=7.26, WR=52.0%, median=+30.2
+    test1_2020_2022: N=26,644, net=+54.9bps, t=4.13, WR=51.0%, median=+24.8
+    test2_2023_2026: N=22,342, net=+81.7bps, t=11.36, WR=52.6%, median=+39.3
+    full: N=64,709, net=+64.3bps, t=10.23, WR=51.8%, median=+32.7
+
+  YEAR-BY-YEAR (11/12 positive):
+    2015: N= 3046, net=   +16.3bps, WR=51% [+]
+    2016: N= 3670, net=   +77.9bps, WR=53% [+]
+    2017: N= 1591, net=   +39.8bps, WR=46% [+]
+    2018: N= 4163, net=   +74.1bps, WR=54% [+]
+    2019: N= 3253, net=   +50.7bps, WR=52% [+]
+    2020: N= 6171, net=   +89.2bps, WR=53% [+]
+    2021: N= 5162, net=   +71.7bps, WR=52% [+]
+    2022: N=15311, net=   +35.4bps, WR=50% [+]
+    2023: N= 6233, net=  +131.1bps, WR=53% [+]
+    2024: N= 6034, net=  +112.5bps, WR=54% [+]
+    2025: N= 7341, net=   +88.0bps, WR=55% [+]
+    2026: N= 2734, net=  -115.8bps, WR=42% [-]
+
+  PER-SYMBOL CONSISTENCY: 191/228 positive (84%)
+
+  NULL MODEL (200 permutations):
+    Real net: +64.29 bps
+    Null mean: +21.91 bps (std=5.62)
+    p-value: 0.0000
+    Real / Null ratio: 2.93x
+
+  SLIPPAGE BREAKEVEN: 42.1 bps each way (84.2 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (11/12 yrs), consistent (84% syms), beats null, robust to costs (42bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: big_red_3pct_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=12,029, net=+61.2bps, t=7.89, WR=53.5%, median=+51.2
+    test1_2020_2022: N=21,125, net=+53.1bps, t=2.79, WR=49.3%, median=-16.1
+    test2_2023_2026: N=16,313, net=+59.1bps, t=6.63, WR=50.4%, median=+8.0
+    full: N=49,467, net=+57.0bps, t=6.45, WR=50.7%, median=+11.7
+
+  YEAR-BY-YEAR (10/12 positive):
+    2015: N= 2286, net=   +42.8bps, WR=54% [+]
+    2016: N= 2430, net=   +55.8bps, WR=53% [+]
+    2017: N= 1369, net=   +90.8bps, WR=52% [+]
+    2018: N= 3319, net=   +28.2bps, WR=52% [+]
+    2019: N= 2625, net=  +108.5bps, WR=57% [+]
+    2020: N= 6541, net=  +172.4bps, WR=54% [+]
+    2021: N= 5293, net=   +63.2bps, WR=50% [+]
+    2022: N= 9291, net=   -36.7bps, WR=45% [-]
+    2023: N= 4714, net=  +112.5bps, WR=52% [+]
+    2024: N= 4797, net=   +53.0bps, WR=50% [+]
+    2025: N= 5226, net=   +48.0bps, WR=50% [+]
+    2026: N= 1576, net=   -45.3bps, WR=47% [-]
+
+  PER-SYMBOL CONSISTENCY: 177/228 positive (78%)
+
+  NULL MODEL (200 permutations):
+    Real net: +57.04 bps
+    Null mean: +22.00 bps (std=6.00)
+    p-value: 0.0000
+    Real / Null ratio: 2.59x
+
+  SLIPPAGE BREAKEVEN: 38.5 bps each way (77.0 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (10/12 yrs), consistent (78% syms), beats null, robust to costs (38bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: big_red_5pct_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=3,881, net=+31.8bps, t=2.42, WR=49.3%, median=-10.6
+    test1_2020_2022: N=9,505, net=-14.6bps, t=-1.29, WR=47.2%, median=-60.2
+    test2_2023_2026: N=6,514, net=+53.6bps, t=3.69, WR=49.4%, median=-11.8
+    full: N=19,900, net=+16.8bps, t=2.20, WR=48.4%, median=-29.9
+  ⚠ FAILS OOS — net negative in at least one test period
+
+  YEAR-BY-YEAR (8/12 positive):
+    2015: N=  711, net=   +22.6bps, WR=51% [+]
+    2016: N=  825, net=   +24.5bps, WR=50% [+]
+    2017: N=  457, net=   +29.9bps, WR=46% [+]
+    2018: N= 1055, net=   -10.0bps, WR=46% [-]
+    2019: N=  833, net=  +100.7bps, WR=53% [+]
+    2020: N= 3065, net=    -7.7bps, WR=50% [-]
+    2021: N= 2121, net=   +33.2bps, WR=51% [+]
+    2022: N= 4319, net=   -43.0bps, WR=44% [-]
+    2023: N= 1772, net=   +88.4bps, WR=50% [+]
+    2024: N= 1865, net=   -20.4bps, WR=46% [-]
+    2025: N= 2241, net=   +60.8bps, WR=50% [+]
+    2026: N=  636, net=  +148.6bps, WR=55% [+]
+
+  PER-SYMBOL CONSISTENCY: 126/214 positive (59%)
+
+  NULL MODEL (200 permutations):
+    Real net: +16.77 bps
+    Null mean: +5.49 bps (std=7.89)
+    p-value: 0.1050
+    Real / Null ratio: 3.05x
+
+  SLIPPAGE BREAKEVEN: 18.4 bps each way (36.8 round trip)
+
+  VERDICT: KILL
+    Evidence: consistent (59% syms), robust to costs (18bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: big_red_5pct_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=3,881, net=+78.1bps, t=4.76, WR=50.7%, median=+13.4
+    test1_2020_2022: N=9,505, net=+47.2bps, t=3.17, WR=49.0%, median=-28.2
+    test2_2023_2026: N=6,473, net=+90.8bps, t=5.10, WR=50.0%, median=+0.2
+    full: N=19,859, net=+67.5bps, t=6.92, WR=49.7%, median=-9.0
+
+  YEAR-BY-YEAR (11/12 positive):
+    2015: N=  711, net=   +73.3bps, WR=50% [+]
+    2016: N=  825, net=   +58.5bps, WR=50% [+]
+    2017: N=  457, net=   +60.3bps, WR=47% [+]
+    2018: N= 1055, net=   +54.0bps, WR=50% [+]
+    2019: N=  833, net=  +141.8bps, WR=54% [+]
+    2020: N= 3065, net=  +119.9bps, WR=53% [+]
+    2021: N= 2121, net=   +97.5bps, WR=50% [+]
+    2022: N= 4319, net=   -29.0bps, WR=46% [-]
+    2023: N= 1772, net=  +142.1bps, WR=52% [+]
+    2024: N= 1865, net=   +55.9bps, WR=48% [+]
+    2025: N= 2239, net=  +100.3bps, WR=51% [+]
+    2026: N=  597, net=   +12.2bps, WR=50% [+]
+
+  PER-SYMBOL CONSISTENCY: 146/214 positive (68%)
+
+  NULL MODEL (200 permutations):
+    Real net: +67.45 bps
+    Null mean: +22.12 bps (std=9.16)
+    p-value: 0.0000
+    Real / Null ratio: 3.05x
+
+  SLIPPAGE BREAKEVEN: 43.7 bps each way (87.4 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (11/12 yrs), consistent (68% syms), beats null, robust to costs (44bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: gap_down_100_strong_close_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=6,846, net=-1.0bps, t=-0.17, WR=48.2%, median=-11.9
+    test1_2020_2022: N=9,853, net=+19.7bps, t=2.11, WR=50.7%, median=+8.5
+    test2_2023_2026: N=8,924, net=-5.5bps, t=-0.77, WR=49.4%, median=-6.5
+    full: N=25,623, net=+5.4bps, t=1.16, WR=49.6%, median=-4.3
+  ⚠ FAILS OOS — net negative in at least one test period
+
+  YEAR-BY-YEAR (8/12 positive):
+    2015: N= 1105, net=   +24.4bps, WR=52% [+]
+    2016: N= 1532, net=   +17.5bps, WR=50% [+]
+    2017: N=  769, net=   +46.2bps, WR=54% [+]
+    2018: N= 1769, net=   -66.9bps, WR=40% [-]
+    2019: N= 1671, net=   +13.4bps, WR=49% [+]
+    2020: N= 2913, net=  +106.8bps, WR=56% [+]
+    2021: N= 2564, net=   +65.1bps, WR=52% [+]
+    2022: N= 4376, net=   -64.9bps, WR=47% [-]
+    2023: N= 3084, net=   +10.3bps, WR=50% [+]
+    2024: N= 2077, net=   +53.8bps, WR=51% [+]
+    2025: N= 2843, net=   -35.3bps, WR=50% [-]
+    2026: N=  920, net=   -99.9bps, WR=41% [-]
+
+  PER-SYMBOL CONSISTENCY: 95/229 positive (41%)
+
+  NULL MODEL (200 permutations):
+    Real net: +5.39 bps
+    Null mean: +5.33 bps (std=6.81)
+    p-value: 0.3700
+    Real / Null ratio: 1.01x
+
+  SLIPPAGE BREAKEVEN: 12.7 bps each way (25.4 round trip)
+
+  VERDICT: KILL
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: gap_down_100_vol_spike_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=2,165, net=+20.7bps, t=1.37, WR=50.5%, median=+4.8
+    test1_2020_2022: N=1,988, net=+39.3bps, t=1.04, WR=48.1%, median=-29.4
+    test2_2023_2026: N=2,062, net=+69.8bps, t=2.40, WR=49.1%, median=-13.1
+    full: N=6,215, net=+43.0bps, t=2.63, WR=49.3%, median=-11.6
+
+  YEAR-BY-YEAR (7/12 positive):
+    2015: N=  458, net=   +75.3bps, WR=59% [+]
+    2016: N=  529, net=   +27.7bps, WR=49% [+]
+    2017: N=  340, net=    -1.6bps, WR=49% [-]
+    2018: N=  426, net=    -6.5bps, WR=44% [-]
+    2019: N=  412, net=    -2.6bps, WR=50% [-]
+    2020: N=  670, net=  -146.8bps, WR=42% [-]
+    2021: N=  614, net=  +191.2bps, WR=52% [+]
+    2022: N=  704, net=   +84.0bps, WR=50% [+]
+    2023: N=  606, net=   +52.7bps, WR=48% [+]
+    2024: N=  590, net=   +55.2bps, WR=48% [+]
+    2025: N=  713, net=  +141.1bps, WR=53% [+]
+    2026: N=  153, net=  -138.1bps, WR=40% [-]
+
+  PER-SYMBOL CONSISTENCY: 120/225 positive (53%)
+
+  NULL MODEL (200 permutations):
+    Real net: +42.96 bps
+    Null mean: +20.09 bps (std=13.46)
+    p-value: 0.0350
+    Real / Null ratio: 2.14x
+
+  SLIPPAGE BREAKEVEN: 31.5 bps each way (63.0 round trip)
+
+  VERDICT: KILL
+    Evidence: robust to costs (32bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: gap_up_100_weak_close_long_1d
+Direction: LONG, Hold: 1d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=6,586, net=+3.2bps, t=0.77, WR=49.1%, median=-3.4
+    test1_2020_2022: N=10,190, net=+11.0bps, t=2.34, WR=49.6%, median=-3.2
+    test2_2023_2026: N=9,753, net=+26.1bps, t=5.80, WR=50.3%, median=+1.3
+    full: N=26,529, net=+14.6bps, t=5.49, WR=49.7%, median=-1.6
+
+  YEAR-BY-YEAR (6/12 positive):
+    2015: N= 1343, net=   +46.3bps, WR=58% [+]
+    2016: N= 1269, net=    +1.5bps, WR=47% [+]
+    2017: N=  892, net=   -16.3bps, WR=46% [-]
+    2018: N= 1568, net=   -17.1bps, WR=48% [-]
+    2019: N= 1514, net=    -0.9bps, WR=46% [-]
+    2020: N= 3571, net=   +48.2bps, WR=54% [+]
+    2021: N= 2906, net=   +15.8bps, WR=48% [+]
+    2022: N= 3713, net=   -28.4bps, WR=46% [-]
+    2023: N= 2951, net=    +9.4bps, WR=51% [+]
+    2024: N= 2883, net=   -11.2bps, WR=47% [-]
+    2025: N= 3106, net=   +83.4bps, WR=54% [+]
+    2026: N=  813, net=    -0.2bps, WR=48% [-]
+
+  PER-SYMBOL CONSISTENCY: 165/229 positive (72%)
+
+  NULL MODEL (200 permutations):
+    Real net: +14.63 bps
+    Null mean: -11.40 bps (std=3.50)
+    p-value: 0.0000
+    Real / Null ratio: -1.28x
+
+  SLIPPAGE BREAKEVEN: 17.3 bps each way (34.6 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, consistent (72% syms), beats null, robust to costs (17bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: gap_up_100_weak_close_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=6,586, net=+37.3bps, t=4.30, WR=52.0%, median=+19.8
+    test1_2020_2022: N=10,190, net=+96.4bps, t=4.59, WR=51.6%, median=+20.2
+    test2_2023_2026: N=9,716, net=+73.3bps, t=7.77, WR=53.7%, median=+41.4
+    full: N=26,492, net=+73.2bps, t=8.09, WR=52.5%, median=+27.8
+
+  YEAR-BY-YEAR (10/12 positive):
+    2015: N= 1343, net=  +103.3bps, WR=57% [+]
+    2016: N= 1269, net=   +30.1bps, WR=53% [+]
+    2017: N=  892, net=   +58.5bps, WR=49% [+]
+    2018: N= 1568, net=   -39.9bps, WR=47% [-]
+    2019: N= 1514, net=   +52.3bps, WR=53% [+]
+    2020: N= 3571, net=  +140.9bps, WR=54% [+]
+    2021: N= 2906, net=   +35.8bps, WR=50% [+]
+    2022: N= 3713, net=  +100.9bps, WR=50% [+]
+    2023: N= 2951, net=   +79.0bps, WR=53% [+]
+    2024: N= 2883, net=   +25.9bps, WR=52% [+]
+    2025: N= 3105, net=  +143.0bps, WR=58% [+]
+    2026: N=  777, net=   -50.6bps, WR=46% [-]
+
+  PER-SYMBOL CONSISTENCY: 196/229 positive (86%)
+
+  NULL MODEL (200 permutations):
+    Real net: +73.23 bps
+    Null mean: +5.26 bps (std=6.57)
+    p-value: 0.0000
+    Real / Null ratio: 13.92x
+
+  SLIPPAGE BREAKEVEN: 46.6 bps each way (93.2 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (10/12 yrs), consistent (86% syms), beats null, robust to costs (47bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: high_rvol_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=40,923, net=+55.3bps, t=12.38, WR=52.2%, median=+32.0
+    test1_2020_2022: N=79,284, net=+49.8bps, t=4.89, WR=50.1%, median=+1.9
+    test2_2023_2026: N=67,740, net=+49.4bps, t=12.70, WR=50.2%, median=+3.0
+    full: N=187,947, net=+50.9bps, t=11.00, WR=50.6%, median=+10.5
+
+  YEAR-BY-YEAR (9/12 positive):
+    2015: N= 7055, net=   -42.4bps, WR=47% [-]
+    2016: N= 8950, net=   +89.1bps, WR=54% [+]
+    2017: N= 4797, net=   +97.4bps, WR=51% [+]
+    2018: N= 9882, net=   +16.7bps, WR=51% [+]
+    2019: N=10239, net=  +110.5bps, WR=56% [+]
+    2020: N=26407, net=  +223.1bps, WR=57% [+]
+    2021: N=20374, net=   +42.9bps, WR=49% [+]
+    2022: N=32503, net=   -86.6bps, WR=45% [-]
+    2023: N=19900, net=   +99.1bps, WR=51% [+]
+    2024: N=19559, net=   +43.6bps, WR=49% [+]
+    2025: N=22739, net=   +60.1bps, WR=53% [+]
+    2026: N= 5542, net=  -151.9bps, WR=41% [-]
+
+  PER-SYMBOL CONSISTENCY: 194/230 positive (84%)
+
+  NULL MODEL (200 permutations):
+    Real net: +50.88 bps
+    Null mean: +22.32 bps (std=2.63)
+    p-value: 0.0000
+    Real / Null ratio: 2.28x
+
+  SLIPPAGE BREAKEVEN: 35.4 bps each way (70.8 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (9/12 yrs), consistent (84% syms), beats null, robust to costs (35bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: mean_revert_setup_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=5,198, net=+11.8bps, t=1.61, WR=50.0%, median=+0.0
+    test1_2020_2022: N=4,678, net=+30.1bps, t=0.99, WR=50.3%, median=+3.4
+    test2_2023_2026: N=5,309, net=+38.6bps, t=4.84, WR=53.9%, median=+33.9
+    full: N=15,185, net=+26.8bps, t=2.67, WR=51.5%, median=+13.3
+
+  YEAR-BY-YEAR (8/12 positive):
+    2015: N= 1054, net=   +68.8bps, WR=56% [+]
+    2016: N= 1231, net=   -11.5bps, WR=47% [-]
+    2017: N=  702, net=   +12.7bps, WR=49% [+]
+    2018: N= 1199, net=   +12.6bps, WR=51% [+]
+    2019: N= 1012, net=   -20.8bps, WR=46% [-]
+    2020: N= 1190, net=   -73.2bps, WR=48% [-]
+    2021: N= 1114, net=   +28.5bps, WR=54% [+]
+    2022: N= 2374, net=   +82.6bps, WR=50% [+]
+    2023: N= 1631, net=   +68.5bps, WR=55% [+]
+    2024: N= 1584, net=   +65.2bps, WR=57% [+]
+    2025: N= 1475, net=   +13.0bps, WR=53% [+]
+    2026: N=  619, net=   -46.8bps, WR=45% [-]
+
+  PER-SYMBOL CONSISTENCY: 143/229 positive (62%)
+
+  NULL MODEL (200 permutations):
+    Real net: +26.81 bps
+    Null mean: +5.85 bps (std=8.97)
+    p-value: 0.0500
+    Real / Null ratio: 4.58x
+
+  SLIPPAGE BREAKEVEN: 23.4 bps each way (46.8 round trip)
+
+  VERDICT: MARGINAL — worth investigating
+    Evidence: consistent (62% syms), robust to costs (23bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: oversold_combo_long_1d
+Direction: LONG, Hold: 1d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=3,152, net=+5.3bps, t=0.78, WR=49.9%, median=-1.1
+    test1_2020_2022: N=2,390, net=+65.3bps, t=5.38, WR=54.4%, median=+29.4
+    test2_2023_2026: N=2,536, net=+27.2bps, t=2.38, WR=49.1%, median=-5.8
+    full: N=8,078, net=+29.9bps, t=5.21, WR=51.0%, median=+4.5
+
+  YEAR-BY-YEAR (8/12 positive):
+    2015: N=  641, net=   -20.7bps, WR=50% [-]
+    2016: N=  698, net=    +2.3bps, WR=52% [+]
+    2017: N=  359, net=   -14.8bps, WR=46% [-]
+    2018: N=  994, net=   +24.3bps, WR=48% [+]
+    2019: N=  460, net=   +21.1bps, WR=56% [+]
+    2020: N=  830, net=  +105.7bps, WR=57% [+]
+    2021: N=  535, net=   +83.2bps, WR=59% [+]
+    2022: N= 1025, net=   +23.1bps, WR=50% [+]
+    2023: N=  643, net=   -11.4bps, WR=51% [-]
+    2024: N=  728, net=   -29.2bps, WR=45% [-]
+    2025: N=  882, net=  +100.6bps, WR=52% [+]
+    2026: N=  283, net=   +31.4bps, WR=48% [+]
+
+  PER-SYMBOL CONSISTENCY: 148/224 positive (66%)
+
+  NULL MODEL (200 permutations):
+    Real net: +29.93 bps
+    Null mean: -11.50 bps (std=5.56)
+    p-value: 0.0000
+    Real / Null ratio: -2.60x
+
+  SLIPPAGE BREAKEVEN: 25.0 bps each way (50.0 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, consistent (66% syms), beats null, robust to costs (25bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: oversold_combo_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=3,152, net=+63.8bps, t=6.39, WR=53.8%, median=+30.9
+    test1_2020_2022: N=2,390, net=+7.9bps, t=0.42, WR=50.1%, median=+0.5
+    test2_2023_2026: N=2,535, net=+131.5bps, t=4.83, WR=56.8%, median=+59.1
+    full: N=8,077, net=+68.5bps, t=6.26, WR=53.6%, median=+33.8
+
+  YEAR-BY-YEAR (11/12 positive):
+    2015: N=  641, net=  +114.1bps, WR=58% [+]
+    2016: N=  698, net=   +25.3bps, WR=46% [+]
+    2017: N=  359, net=    +5.7bps, WR=48% [+]
+    2018: N=  994, net=   +80.9bps, WR=57% [+]
+    2019: N=  460, net=   +60.6bps, WR=58% [+]
+    2020: N=  830, net=  -258.6bps, WR=43% [-]
+    2021: N=  535, net=  +154.2bps, WR=58% [+]
+    2022: N= 1025, net=  +147.5bps, WR=52% [+]
+    2023: N=  643, net=    +1.0bps, WR=50% [+]
+    2024: N=  728, net=   +10.0bps, WR=52% [+]
+    2025: N=  882, net=  +315.4bps, WR=64% [+]
+    2026: N=  282, net=  +167.1bps, WR=61% [+]
+
+  PER-SYMBOL CONSISTENCY: 156/224 positive (70%)
+
+  NULL MODEL (200 permutations):
+    Real net: +68.52 bps
+    Null mean: +5.62 bps (std=10.99)
+    p-value: 0.0000
+    Real / Null ratio: 12.18x
+
+  SLIPPAGE BREAKEVEN: 44.3 bps each way (88.6 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (11/12 yrs), consistent (70% syms), beats null, robust to costs (44bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: oversold_combo_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=3,152, net=+95.2bps, t=8.27, WR=55.6%, median=+56.6
+    test1_2020_2022: N=2,390, net=-1.5bps, t=-0.06, WR=49.7%, median=-6.4
+    test2_2023_2026: N=2,507, net=+166.5bps, t=5.25, WR=58.7%, median=+99.3
+    full: N=8,049, net=+88.7bps, t=6.75, WR=54.8%, median=+56.3
+  ⚠ FAILS OOS — net negative in at least one test period
+
+  YEAR-BY-YEAR (11/12 positive):
+    2015: N=  641, net=  +147.6bps, WR=60% [+]
+    2016: N=  698, net=   +19.7bps, WR=46% [+]
+    2017: N=  359, net=   +62.3bps, WR=51% [+]
+    2018: N=  994, net=  +154.8bps, WR=62% [+]
+    2019: N=  460, net=   +33.2bps, WR=53% [+]
+    2020: N=  830, net=  -369.1bps, WR=36% [-]
+    2021: N=  535, net=  +223.3bps, WR=65% [+]
+    2022: N= 1025, net=  +178.9bps, WR=53% [+]
+    2023: N=  643, net=   +23.8bps, WR=49% [+]
+    2024: N=  728, net=   +54.1bps, WR=58% [+]
+    2025: N=  880, net=  +399.8bps, WR=68% [+]
+    2026: N=  256, net=   +42.5bps, WR=52% [+]
+
+  PER-SYMBOL CONSISTENCY: 149/222 positive (67%)
+
+  NULL MODEL (200 permutations):
+    Real net: +88.69 bps
+    Null mean: +21.26 bps (std=13.58)
+    p-value: 0.0000
+    Real / Null ratio: 4.17x
+
+  SLIPPAGE BREAKEVEN: 54.3 bps each way (108.6 round trip)
+
+  VERDICT: KILL
+    Evidence: strong pooled t-stat, stable (11/12 yrs), consistent (67% syms), beats null, robust to costs (54bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: rsi_above_80_short_3d
+Direction: SHORT, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=2,076, net=-10.3bps, t=-0.98, WR=46.1%, median=-20.0
+    test1_2020_2022: N=1,096, net=-141.5bps, t=-2.45, WR=52.6%, median=+24.4
+    test2_2023_2026: N=1,612, net=-4.7bps, t=-0.30, WR=48.3%, median=-13.7
+    full: N=4,784, net=-38.5bps, t=-2.57, WR=48.3%, median=-11.1
+  ⚠ FAILS OOS — net negative in at least one test period
+
+  YEAR-BY-YEAR (5/12 positive):
+    2015: N=  153, net=   +89.4bps, WR=61% [+]
+    2016: N=  289, net=   -12.0bps, WR=48% [-]
+    2017: N=  748, net=   -41.6bps, WR=41% [-]
+    2018: N=  549, net=    +4.6bps, WR=46% [+]
+    2019: N=  337, net=    -9.3bps, WR=49% [-]
+    2020: N=  595, net=   -79.9bps, WR=53% [-]
+    2021: N=  393, net=  -304.2bps, WR=50% [-]
+    2022: N=  108, net=  +111.0bps, WR=60% [+]
+    2023: N=  522, net=   -35.6bps, WR=47% [-]
+    2024: N=  600, net=   -16.7bps, WR=48% [-]
+    2025: N=  375, net=   +18.2bps, WR=51% [+]
+    2026: N=  115, net=  +124.3bps, WR=48% [+]
+
+  PER-SYMBOL CONSISTENCY: 86/186 positive (46%)
+
+  NULL MODEL (200 permutations):
+    Real net: -38.48 bps
+    Null mean: -46.03 bps (std=14.81)
+    p-value: 0.7500
+    Real / Null ratio: 0.84x
+
+  SLIPPAGE BREAKEVEN: -9.2 bps each way (-18.4 round trip)
+  ⚠ THIN EDGE — breakeven below 10 bps/side
+
+  VERDICT: KILL
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: rsi_below_20_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=808, net=+164.6bps, t=6.63, WR=58.4%, median=+75.0
+    test1_2020_2022: N=540, net=+185.7bps, t=0.70, WR=46.3%, median=-54.7
+    test2_2023_2026: N=410, net=+147.0bps, t=5.65, WR=63.4%, median=+111.6
+    full: N=1,758, net=+167.0bps, t=2.03, WR=55.9%, median=+63.2
+
+  YEAR-BY-YEAR (11/12 positive):
+    2015: N=  320, net=  +156.6bps, WR=61% [+]
+    2016: N=   84, net=  +127.7bps, WR=55% [+]
+    2017: N=  116, net=   +91.0bps, WR=47% [+]
+    2018: N=  164, net=  +287.1bps, WR=69% [+]
+    2019: N=  124, net=  +117.2bps, WR=51% [+]
+    2020: N=  315, net=  -283.5bps, WR=39% [-]
+    2021: N=   94, net=  +172.6bps, WR=55% [+]
+    2022: N=  131, net= +1323.3bps, WR=56% [+]
+    2023: N=   98, net=  +145.8bps, WR=64% [+]
+    2024: N=  147, net=   +42.9bps, WR=56% [+]
+    2025: N=  108, net=  +151.3bps, WR=69% [+]
+    2026: N=   57, net=  +409.5bps, WR=70% [+]
+
+  PER-SYMBOL CONSISTENCY: 40/76 positive (53%)
+
+  NULL MODEL (200 permutations):
+    Real net: +166.98 bps
+    Null mean: +7.36 bps (std=30.73)
+    p-value: 0.0150
+    Real / Null ratio: 22.69x
+
+  SLIPPAGE BREAKEVEN: 93.5 bps each way (187.0 round trip)
+
+  VERDICT: MARGINAL — worth investigating
+    Evidence: stable (11/12 yrs), robust to costs (94bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: rsi_below_30_long_3d
+Direction: LONG, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=8,667, net=+49.3bps, t=8.14, WR=52.0%, median=+16.0
+    test1_2020_2022: N=6,365, net=+109.4bps, t=2.81, WR=50.8%, median=+7.6
+    test2_2023_2026: N=6,948, net=+84.2bps, t=6.41, WR=55.1%, median=+45.5
+    full: N=21,980, net=+77.7bps, t=6.35, WR=52.6%, median=+23.8
+
+  YEAR-BY-YEAR (11/12 positive):
+    2015: N= 2281, net=   +69.4bps, WR=53% [+]
+    2016: N= 1809, net=   +36.4bps, WR=49% [+]
+    2017: N= 1168, net=    +6.1bps, WR=48% [+]
+    2018: N= 2062, net=   +71.7bps, WR=56% [+]
+    2019: N= 1347, net=   +35.8bps, WR=53% [+]
+    2020: N= 1822, net=  -114.0bps, WR=45% [-]
+    2021: N= 1423, net=  +104.8bps, WR=56% [+]
+    2022: N= 3120, net=  +242.0bps, WR=52% [+]
+    2023: N= 2086, net=   +39.2bps, WR=51% [+]
+    2024: N= 2059, net=   +35.3bps, WR=54% [+]
+    2025: N= 1939, net=  +194.2bps, WR=60% [+]
+    2026: N=  864, net=   +62.2bps, WR=54% [+]
+
+  PER-SYMBOL CONSISTENCY: 181/230 positive (79%)
+
+  NULL MODEL (200 permutations):
+    Real net: +77.73 bps
+    Null mean: +5.29 bps (std=7.16)
+    p-value: 0.0000
+    Real / Null ratio: 14.68x
+
+  SLIPPAGE BREAKEVEN: 48.9 bps each way (97.8 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (11/12 yrs), consistent (79% syms), beats null, robust to costs (49bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: rsi_below_30_long_5d
+Direction: LONG, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=8,667, net=+77.2bps, t=9.84, WR=54.4%, median=+45.5
+    test1_2020_2022: N=6,365, net=+148.2bps, t=3.06, WR=52.0%, median=+38.5
+    test2_2023_2026: N=6,886, net=+119.4bps, t=8.51, WR=56.4%, median=+75.2
+    full: N=21,918, net=+111.1bps, t=7.38, WR=54.3%, median=+52.6
+
+  YEAR-BY-YEAR (10/12 positive):
+    2015: N= 2281, net=   +82.7bps, WR=57% [+]
+    2016: N= 1809, net=   +47.6bps, WR=50% [+]
+    2017: N= 1168, net=   +51.9bps, WR=49% [+]
+    2018: N= 2062, net=  +132.9bps, WR=59% [+]
+    2019: N= 1347, net=   +44.7bps, WR=53% [+]
+    2020: N= 1822, net=  -170.8bps, WR=44% [-]
+    2021: N= 1423, net=  +168.3bps, WR=58% [+]
+    2022: N= 3120, net=  +325.4bps, WR=54% [+]
+    2023: N= 2086, net=   +82.0bps, WR=51% [+]
+    2024: N= 2059, net=   +92.2bps, WR=58% [+]
+    2025: N= 1937, net=  +239.9bps, WR=63% [+]
+    2026: N=  804, net=    -4.4bps, WR=49% [-]
+
+  PER-SYMBOL CONSISTENCY: 174/230 positive (76%)
+
+  NULL MODEL (200 permutations):
+    Real net: +111.09 bps
+    Null mean: +22.37 bps (std=8.90)
+    p-value: 0.0000
+    Real / Null ratio: 4.97x
+
+  SLIPPAGE BREAKEVEN: 65.5 bps each way (131.0 round trip)
+
+  VERDICT: PASS → Level 3
+    Evidence: strong pooled t-stat, stable (10/12 yrs), consistent (76% syms), beats null, robust to costs (66bp BE)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: stoch_overbought_short_3d
+Direction: SHORT, Hold: 3d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=48,799, net=-29.4bps, t=-20.77, WR=42.6%, median=-33.6
+    test1_2020_2022: N=30,655, net=-40.5bps, t=-11.35, WR=45.6%, median=-31.0
+    test2_2023_2026: N=35,723, net=-44.9bps, t=-17.60, WR=44.3%, median=-36.9
+    full: N=115,177, net=-37.2bps, t=-27.05, WR=43.9%, median=-33.9
+  ⚠ FAILS OOS — net negative in at least one test period
+
+  YEAR-BY-YEAR (1/12 positive):
+    2015: N= 6992, net=    -2.6bps, WR=48% [-]
+    2016: N=10021, net=   -33.0bps, WR=43% [-]
+    2017: N=10816, net=   -50.5bps, WR=38% [-]
+    2018: N= 8634, net=    -7.3bps, WR=46% [-]
+    2019: N=12336, net=   -38.7bps, WR=41% [-]
+    2020: N=10869, net=   -82.4bps, WR=44% [-]
+    2021: N=11070, net=   -55.9bps, WR=44% [-]
+    2022: N= 8716, net=   +31.3bps, WR=50% [+]
+    2023: N=11967, net=   -64.2bps, WR=43% [-]
+    2024: N=10446, net=   -36.3bps, WR=45% [-]
+    2025: N=11453, net=   -39.5bps, WR=45% [-]
+    2026: N= 1857, net=    -2.6bps, WR=46% [-]
+
+  PER-SYMBOL CONSISTENCY: 19/230 positive (8%)
+
+  NULL MODEL (200 permutations):
+    Real net: -37.18 bps
+    Null mean: -45.72 bps (std=3.20)
+    p-value: 1.0000
+    Real / Null ratio: 0.81x
+
+  SLIPPAGE BREAKEVEN: -8.6 bps each way (-17.2 round trip)
+  ⚠ THIN EDGE — breakeven below 10 bps/side
+
+  VERDICT: KILL
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+STRATEGY: stoch_overbought_short_5d
+Direction: SHORT, Hold: 5d
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  WALK-FORWARD (pooled across all symbols):
+    train_2015_2019: N=48,799, net=-38.1bps, t=-20.80, WR=42.6%, median=-43.4
+    test1_2020_2022: N=30,655, net=-50.5bps, t=-11.64, WR=45.5%, median=-41.9
+    test2_2023_2026: N=35,696, net=-68.5bps, t=-20.89, WR=44.1%, median=-49.3
+    full: N=115,150, net=-50.8bps, t=-29.48, WR=43.9%, median=-44.7
+  ⚠ FAILS OOS — net negative in at least one test period
+
+  YEAR-BY-YEAR (2/12 positive):
+    2015: N= 6992, net=   +13.0bps, WR=50% [+]
+    2016: N=10021, net=   -41.1bps, WR=43% [-]
+    2017: N=10816, net=   -70.9bps, WR=38% [-]
+    2018: N= 8634, net=    -0.7bps, WR=48% [-]
+    2019: N=12336, net=   -62.1bps, WR=39% [-]
+    2020: N=10869, net=  -112.6bps, WR=43% [-]
+    2021: N=11070, net=   -65.2bps, WR=44% [-]
+    2022: N= 8716, net=   +45.6bps, WR=51% [+]
+    2023: N=11967, net=  -100.6bps, WR=42% [-]
+    2024: N=10446, net=   -50.1bps, WR=46% [-]
+    2025: N=11451, net=   -60.4bps, WR=44% [-]
+    2026: N= 1832, net=   -15.4bps, WR=46% [-]
+
+  PER-SYMBOL CONSISTENCY: 24/230 positive (10%)
+
+  NULL MODEL (200 permutations):
+    Real net: -50.84 bps
+    Null mean: -62.24 bps (std=4.10)
+    p-value: 1.0000
+    Real / Null ratio: 0.82x
+
+  SLIPPAGE BREAKEVEN: -15.4 bps each way (-30.8 round trip)
+  ⚠ THIN EDGE — breakeven below 10 bps/side
+
+  VERDICT: KILL
+
+
+====================================================================================================
+FINAL SUMMARY — All candidates ranked
+====================================================================================================
+Strategy                                         Net      t    WR   Yrs  Sym%  NullP    BE Verdict
+────────────────────────────────────────────────────────────────────────────────────────────────────
+high_rvol_long_5d                              +50.9  11.00  50.6  9/12    84  0.000    35 PASS → Level 3
+below_sma50_10pct_long_5d                      +64.3  10.23  51.8 11/12    84  0.000    42 PASS → Level 3
+gap_up_100_weak_close_long_3d                  +73.2   8.09  52.5 10/12    86  0.000    47 PASS → Level 3
+4_down_days_long_3d                            +29.2   7.52  50.8 10/12    70  0.005    25 PASS → Level 3
+rsi_below_30_long_5d                          +111.1   7.38  54.3 10/12    76  0.000    66 PASS → Level 3
+below_sma50_10pct_long_3d                      +35.6   7.07  50.6 10/12    80  0.000    28 PASS → Level 3
+big_red_5pct_long_5d                           +67.5   6.92  49.7 11/12    68  0.000    44 PASS → Level 3
+5_down_days_long_3d                            +34.6   6.84  50.9  9/12    67  0.040    27 PASS → Level 3
+oversold_combo_long_5d                         +88.7   6.75  54.8 11/12    67  0.000    54 KILL
+5_down_days_long_2d                            +27.1   6.59  51.1  8/12    68  0.015    24 PASS → Level 3
+big_red_3pct_long_5d                           +57.0   6.45  50.7 10/12    78  0.000    38 PASS → Level 3
+rsi_below_30_long_3d                           +77.7   6.35  52.6 11/12    79  0.000    49 PASS → Level 3
+oversold_combo_long_3d                         +68.5   6.26  53.6 11/12    70  0.000    44 PASS → Level 3
+3down_oversold_vol_long_5d                     +99.3   5.64  55.7  8/12    71  0.010    60 PASS → Level 3
+gap_up_100_weak_close_long_1d                  +14.6   5.49  49.7  6/12    72  0.000    17 PASS → Level 3
+oversold_combo_long_1d                         +29.9   5.21  51.0  8/12    66  0.000    25 PASS → Level 3
+below_sma200_20pct_long_5d                     +77.3   4.78  49.8  8/12    79  0.000    49 PASS → Level 3
+below_sma20_5pct_long_3d                       +33.9   4.32  50.4 11/12    73  0.000    27 PASS → Level 3
+mean_revert_setup_long_3d                      +26.8   2.67  51.5  8/12    62  0.050    23 MARGINAL — worth investigating
+5_down_days_long_1d                             +8.6   2.65  49.6  6/12    60  0.015    14 KILL
+gap_down_100_vol_spike_long_5d                 +43.0   2.63  49.3  7/12    53  0.035    32 KILL
+big_red_5pct_long_3d                           +16.8   2.20  48.4  8/12    59  0.105    18 KILL
+rsi_below_20_long_3d                          +167.0   2.03  55.9 11/12    53  0.015    94 MARGINAL — worth investigating
+3_down_days_long_2d                             +5.6   1.88  49.0  6/12    54  0.020    13 KILL
+gap_down_100_strong_close_long_3d               +5.4   1.16  49.6  8/12    41  0.370    13 KILL
+rsi_above_80_short_3d                          -38.5  -2.57  48.3  5/12    46  0.750    -9 KILL
+stoch_overbought_short_3d                      -37.2 -27.05  43.9  1/12     8  1.000    -9 KILL
+stoch_overbought_short_5d                      -50.8 -29.48  43.9  2/12    10  1.000   -15 KILL

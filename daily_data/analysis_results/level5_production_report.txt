@@ -1,0 +1,183 @@
+==============================================================================================================
+LEVEL 5: PRODUCTION REALITY — Dollar P&L, Factor Regression, Capacity
+==============================================================================================================
+
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+SECTION 1: DOLLAR P&L WITH TRANSACTION COSTS
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+  Hold = 1d, Signal = z_sma50_slope_5d
+  Rebalance dates: 1570
+  Average turnover per rebalance: 5.6%
+  Names turned per rebalance: 2.5
+  Gross L/S per rebalance: +68.4 bps
+  Gross annual L/S: +17249 bps
+
+   Capital/leg | 
+   Capital/leg | 5bp RT | 10bp RT | 15bp RT | 20bp RT | 30bp RT |
+  ───────────────────────────────────────────────────────────────────────────
+  $5M/leg      | $+8.59M | $+8.55M | $+8.52M | $+8.48M | $+8.41M |
+  $10M/leg      | $+17.18M | $+17.11M | $+17.04M | $+16.97M | $+16.83M |
+  $25M/leg      | $+42.95M | $+42.77M | $+42.60M | $+42.42M | $+42.07M |
+
+  Detailed (10 bps RT, $10M/leg):
+    Gross Sharpe: 5.58
+    Net Sharpe:   5.53
+    Cost drag:    0.6 bps/rebalance (1% of gross)
+    Gross annual: $17.25M
+    Net annual:   $17.11M
+    Win rate:     68.7%
+
+    Year-by-year (10 bps RT, $10M/leg):
+      2020: N= 253, net= +79.0 bps/trade, ~$+19.91M/yr
+      2021: N= 252, net= +52.0 bps/trade, ~$+13.11M/yr
+      2022: N= 251, net= +86.9 bps/trade, ~$+21.90M/yr
+      2023: N= 250, net= +68.8 bps/trade, ~$+17.34M/yr
+      2024: N= 252, net= +61.1 bps/trade, ~$+15.40M/yr
+      2025: N= 250, net= +61.6 bps/trade, ~$+15.53M/yr
+      2026: N=  62, net= +59.3 bps/trade, ~$+14.95M/yr
+
+  Hold = 5d, Signal = z_sma50_slope_5d
+  Rebalance dates: 314
+  Average turnover per rebalance: 21.9%
+  Names turned per rebalance: 9.7
+  Gross L/S per rebalance: +340.4 bps
+  Gross annual L/S: +17156 bps
+
+   Capital/leg | 
+   Capital/leg | 5bp RT | 10bp RT | 15bp RT | 20bp RT | 30bp RT |
+  ───────────────────────────────────────────────────────────────────────────
+  $5M/leg      | $+8.55M | $+8.52M | $+8.50M | $+8.47M | $+8.41M |
+  $10M/leg      | $+17.10M | $+17.05M | $+16.99M | $+16.94M | $+16.82M |
+  $25M/leg      | $+42.75M | $+42.61M | $+42.48M | $+42.34M | $+42.06M |
+
+  Detailed (10 bps RT, $10M/leg):
+    Gross Sharpe: 5.86
+    Net Sharpe:   5.82
+    Cost drag:    2.2 bps/rebalance (1% of gross)
+    Gross annual: $17.16M
+    Net annual:   $17.05M
+    Win rate:     86.6%
+
+    Year-by-year (10 bps RT, $10M/leg):
+      2020: N=  51, net=+385.3 bps/trade, ~$+19.42M/yr
+      2021: N=  50, net=+292.9 bps/trade, ~$+14.76M/yr
+      2022: N=  51, net=+412.1 bps/trade, ~$+20.77M/yr
+      2023: N=  50, net=+340.1 bps/trade, ~$+17.14M/yr
+      2024: N=  50, net=+286.9 bps/trade, ~$+14.46M/yr
+      2025: N=  50, net=+321.5 bps/trade, ~$+16.20M/yr
+      2026: N=  12, net=+288.5 bps/trade, ~$+14.54M/yr
+
+
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+SECTION 2: FACTOR REGRESSION — Is there residual alpha after known factors?
+Factors: MKT (equal-weight universe), SMB (size), HML (value proxy), STR (reversal)
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+  Hold = 1d (N=1570):
+  R² = 0.1276
+  Alpha (intercept) = +65.80 bps/rebalance (t=14.12)
+  Alpha annualized  = +16582 bps/year
+
+  Factor       Beta   t-stat    p-value
+  ────────────────────────────────────────
+  Alpha     +65.804    14.12     0.0000 ***
+  MKT        +0.291     8.31     0.0000 ***
+  SMB        +0.503     4.20     0.0000 ***
+  HML        -0.343    -2.68     0.0074 **
+  STR        +0.057     3.15     0.0016 **
+
+  Residual Sharpe (unexplained by factors): -0.00
+  Fraction of signal explained by factors: 12.8%
+  Fraction that is PURE ALPHA: 87.2%
+
+  Hold = 5d (N=314):
+  R² = 0.0810
+  Alpha (intercept) = +329.17 bps/rebalance (t=13.86)
+  Alpha annualized  = +16590 bps/year
+
+  Factor       Beta   t-stat    p-value
+  ────────────────────────────────────────
+  Alpha    +329.166    13.86     0.0000 ***
+  MKT        +0.205     2.54     0.0115 *
+  SMB        +0.284     1.06     0.2914 
+  HML        -0.114    -0.43     0.6707 
+  STR        +0.068     1.68     0.0943 
+
+  Residual Sharpe (unexplained by factors): 0.00
+  Fraction of signal explained by factors: 8.1%
+  Fraction that is PURE ALPHA: 91.9%
+
+
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+SECTION 3: CAPACITY — Can you actually trade this?
+Rule of thumb: don't exceed 1% of ADV per name per day
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+  Hold = 1d (2024-2026 data):
+  Long leg (Q1 — declining slope):
+    Avg names per leg: 46
+    Min ADV in leg:    $43.4M
+    Median ADV in leg: $759.4M
+    Mean ADV in leg:   $1656.8M
+  Short leg (Q5 — rising slope):
+    Avg names per leg: 46
+    Min ADV in leg:    $70.7M
+    Median ADV in leg: $711.5M
+    Mean ADV in leg:   $1542.3M
+
+  CAPACITY ESTIMATES:
+    At 1% ADV (min name):         $20M per leg ($40M total)
+    At 0.5% ADV (conservative):   $10M per leg
+    At 1% ADV (median name):      $326M per leg ($653M total)
+
+  If we filter to names with ADV > $50M:
+    26% of days have all long-leg names above $50M ADV
+
+  EXPECTED ANNUAL P&L (10 bps RT cost, hold=1d):
+    $1M/leg: $+1.71M/yr  ✓
+    $5M/leg: $+8.55M/yr  ✓
+    $10M/leg: $+17.11M/yr  ✓
+    $25M/leg: $+42.77M/yr  ⚠ OVER CAPACITY
+    $50M/leg: $+85.54M/yr  ⚠ OVER CAPACITY
+
+  Hold = 5d (2024-2026 data):
+  Long leg (Q1 — declining slope):
+    Avg names per leg: 46
+    Min ADV in leg:    $43.7M
+    Median ADV in leg: $757.1M
+    Mean ADV in leg:   $1656.6M
+  Short leg (Q5 — rising slope):
+    Avg names per leg: 46
+    Min ADV in leg:    $70.8M
+    Median ADV in leg: $710.4M
+    Mean ADV in leg:   $1546.4M
+
+  CAPACITY ESTIMATES:
+    At 1% ADV (min name):         $20M per leg ($40M total)
+    At 0.5% ADV (conservative):   $10M per leg
+    At 1% ADV (median name):      $326M per leg ($652M total)
+
+  If we filter to names with ADV > $50M:
+    26% of days have all long-leg names above $50M ADV
+
+  EXPECTED ANNUAL P&L (10 bps RT cost, hold=5d):
+    $1M/leg: $+1.70M/yr  ✓
+    $5M/leg: $+8.52M/yr  ✓
+    $10M/leg: $+17.05M/yr  ✓
+    $25M/leg: $+42.61M/yr  ⚠ OVER CAPACITY
+    $50M/leg: $+85.23M/yr  ⚠ OVER CAPACITY
+
+
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+FINAL VERDICT
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+  SIGNAL: z_sma50_slope_5d (z-scored 5-day change in 50-day SMA, within each symbol)
+  TRADE: Cross-sectional L/S quintile sort across 230 mid/large-cap names
+  LONG: Bottom quintile (most declining SMA50 slope)
+  SHORT: Top quintile (most rising SMA50 slope)
+  REBALANCE: Daily (1d hold) or weekly (5d hold)
+  PERIOD: OOS 2020-2026, trained on 2015-2019
+    
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════

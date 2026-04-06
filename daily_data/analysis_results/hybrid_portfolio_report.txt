@@ -1,0 +1,120 @@
+================================================================================
+HYBRID PORTFOLIO BACKTEST REPORT
+Tier C = Stock (ATR stop, 20-day hold)
+Tier A+B = Options (30d 1-month, 13-day hold, no stop)
+================================================================================
+
+A) PORTFOLIO BREAKDOWN
+------------------------------------------------------------
+
+  TIER C (Stock trades):
+    Count:     592
+    Total P&L: $    20,937,987
+    Win Rate:  54.4%
+    Profit Factor: 1.91
+    Avg P&L:   $        35,368
+    Median P&L:$        10,983
+
+  TIER A+B (Option trades):
+    Count:     1451
+    Total P&L: $    38,099,554
+    Win Rate:  37.1%
+    Profit Factor: 1.46
+    Avg P&L:   $        26,257
+    Median P&L:$       -50,574
+      Tier A: 510 trades, P&L: $  22,446,632, WR: 36.9%, Avg: $    44,013
+      Tier B: 941 trades, P&L: $  15,652,922, WR: 37.3%, Avg: $    16,634
+
+  TIER A+B (Stock fallback — no option data):
+    Count:     39
+    Total P&L: $     1,675,640
+    Win Rate:  61.5%
+
+  COMBINED PORTFOLIO:
+    Total Trades: 2082
+    Total P&L:    $    60,713,181
+    Win Rate:     42.5%
+    Profit Factor:    1.56
+    Avg P&L:      $        29,161
+    Max Drawdown: $    -7,379,292
+
+
+B) COMPARISON TABLE
+--------------------------------------------------------------------------------
+  Metric                             Hybrid      Stock Only    Options Only         Overlay
+  ------------------------- --------------- --------------- --------------- ---------------
+  Total Trades                        2,082           2,082          ~2,082          ~4,164
+  Total P&L                     $60,713,181     $88,200,000     $36,100,000   ~$124,300,000
+  Win Rate                            42.5%           55.3%             N/A             N/A
+  Profit Factor                        1.56            2.03             N/A             N/A
+  Max Drawdown                  $-7,379,292     $-5,812,059             N/A             N/A
+  Avg P&L/Trade                     $29,161         $42,346             N/A             N/A
+
+
+C) YEAR-BY-YEAR PERFORMANCE
+------------------------------------------------------------------------------------------
+  Year    Trades      Total P&L      WR      PF      Avg P&L    Stock PnL      Opt PnL       FB PnL
+  ----    ------      ---------      --      --      -------    ---------      -------       ------
+  2020       315 $   11,974,304   41.3%   1.80 $     38,014 $  7,112,745 $  3,878,837 $    982,723
+  2021       300 $   13,847,045   44.0%   1.93 $     46,157 $  4,742,770 $  9,249,195 $   -144,921
+  2022       337 $     -598,303   39.8%   0.97 $     -1,775 $    528,978 $ -1,445,207 $    317,926
+  2023       372 $   17,477,840   42.2%   1.85 $     46,983 $  1,449,705 $ 15,957,145 $     70,990
+  2024       341 $    9,367,154   46.0%   1.57 $     27,470 $    755,793 $  8,125,569 $    485,792
+  2025       346 $    5,259,324   41.6%   1.31 $     15,200 $  6,187,009 $   -918,863 $     -8,821
+  2026        71 $    3,385,817   43.7%   1.98 $     47,688 $    160,987 $  3,252,879 $    -28,049
+
+
+D) CAPITAL EFFICIENCY
+------------------------------------------------------------
+  Metric                                       Hybrid      Stock Only
+  ----------------------------------- --------------- ---------------
+  Avg Daily Capital Deployed              $11,632,821     $30,373,387
+  Max Daily Capital Deployed              $28,100,000     $63,500,000
+  Total Return                            $60,713,181     $88,164,323
+  Return on Avg Capital                        521.9%          290.3%
+  Capital Reduction (Hybrid)                    61.7%
+
+
+E) TOP 10 WINNERS AND TOP 10 LOSERS
+------------------------------------------------------------------------------------------
+
+  TOP 10 WINNERS:
+    # Symbol          Entry  Tier     Source            P&L    Return%
+  --- ------          -----  ----     ------            ---    -------
+    1 GME        2021-01-21     A     option $    3,778,970    1892.2%
+    2 PLUG       2021-01-06     A     option $    1,996,025     999.5%
+    3 MRVL       2023-05-25     A     option $    1,718,797     860.0%
+    4 AMC        2021-04-30     C      stock $    1,631,668     163.2%
+    5 VZ         2023-10-17     A     option $    1,438,936     720.0%
+    6 NUE        2021-03-11     A     option $    1,386,145     693.7%
+    7 XPEV       2024-09-10     A     option $    1,381,614     691.3%
+    8 CCL        2023-05-30     A     option $    1,357,213     679.1%
+    9 NIO        2020-10-30     A     option $    1,344,515     673.2%
+   10 UPS        2020-07-16     A     option $    1,248,352     625.1%
+
+  TOP 10 LOSERS:
+    # Symbol          Entry  Tier     Source            P&L    Return%
+  --- ------          -----  ----     ------            ---    -------
+    1 DOCU       2022-06-02     C      stock $     -510,934     -25.5%
+    2 QS         2022-04-25     C      stock $     -349,817     -23.3%
+    3 ZS         2022-10-03     C      stock $     -320,104     -16.0%
+    4 CHPT       2022-03-24     C      stock $     -317,819     -21.2%
+    5 BYND       2020-10-05     C      stock $     -312,761     -15.6%
+    6 MSTR       2022-08-03     C      stock $     -308,655     -15.4%
+    7 DOCU       2022-10-03     C      stock $     -294,059     -14.7%
+    8 NOW        2022-07-07     C      stock $     -288,710     -14.4%
+    9 CVNA       2023-10-06     C      stock $     -285,765     -14.3%
+   10 CVNA       2023-04-06     C      stock $     -281,429     -14.1%
+
+
+F) RISK PROFILE
+------------------------------------------------------------
+  Max Drawdown:            $    -7,379,292
+  Worst Month:             2023-02 ($  -2,976,603)
+  Longest Drawdown Period: 2022-02-03 to 2023-01-19 (350 days)
+  Max Concurrent Positions:   45 (Stock: 19, Options: 35)
+  Best Month:              2023-05 ($   7,702,148)
+  Avg Monthly P&L:         $       798,858
+  Monthly P&L Std Dev:     $     1,950,840
+  Annualized Sharpe Ratio:     1.42
+  Profitable Months:       48/76 (63%)

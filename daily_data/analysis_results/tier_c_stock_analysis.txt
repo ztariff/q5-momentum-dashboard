@@ -1,0 +1,92 @@
+======================================================================
+TIER C STOCK TRADE ANALYSIS
+2-Filter Options Backtest: Tier C = body_pct <= 0.23 AND atr_change_3d <= 0
+======================================================================
+
+Total valid trades analyzed: 2082 of 2082
+Total strategy stock P&L (valid trades): $88,164,322.64
+
+----------------------------------------------------------------------
+TIER C SUMMARY
+----------------------------------------------------------------------
+Tier C (Both Filters Fail)
+  Trades:        592
+  Total P&L:     $20,937,986.77
+  Avg P&L:       $35,368.22
+  Median P&L:    $10,983.47
+  Win Rate:      54.4% (322W / 270L)
+  Avg Win:       $136,636.84
+  Avg Loss:      $-85,403.98
+  Profit Factor: 1.908
+
+  % of all trades:   28.4%
+  % of total P&L:    23.7%
+
+----------------------------------------------------------------------
+TIER A+B SUMMARY (for comparison)
+----------------------------------------------------------------------
+Tier A+B (At Least One Filter Passes)
+  Trades:        1490
+  Total P&L:     $67,226,335.87
+  Avg P&L:       $45,118.35
+  Median P&L:    $12,186.10
+  Win Rate:      55.7% (830W / 660L)
+  Avg Win:       $156,113.91
+  Avg Loss:      $-94,466.98
+  Profit Factor: 2.078
+
+----------------------------------------------------------------------
+YEAR-BY-YEAR: TIER C STOCK TRADES
+----------------------------------------------------------------------
+
+  2020:
+    Tier C:    95 trades | P&L: $7,112,744.50 | WR:  62.1% | % of yr P&L:   27.6%
+    Tier AB:  220 trades | P&L: $18,615,096.77 | WR:  55.9%
+
+  2021:
+    Tier C:    90 trades | P&L: $4,742,770.38 | WR:  53.3% | % of yr P&L:   60.9%
+    Tier AB:  210 trades | P&L: $3,050,370.35 | WR:  56.2%
+
+  2022:
+    Tier C:   106 trades | P&L: $  528,977.67 | WR:  45.3% | % of yr P&L:   20.3%
+    Tier AB:  231 trades | P&L: $2,070,675.12 | WR:  52.4%
+
+  2023:
+    Tier C:    99 trades | P&L: $1,449,704.82 | WR:  51.5% | % of yr P&L:    6.4%
+    Tier AB:  273 trades | P&L: $21,242,051.00 | WR:  57.5%
+
+  2024:
+    Tier C:    92 trades | P&L: $  755,793.36 | WR:  52.2% | % of yr P&L:    4.8%
+    Tier AB:  249 trades | P&L: $14,932,400.79 | WR:  61.4%
+
+  2025:
+    Tier C:    98 trades | P&L: $6,187,009.07 | WR:  64.3% | % of yr P&L:   65.8%
+    Tier AB:  248 trades | P&L: $3,219,381.48 | WR:  50.4%
+
+  2026:
+    Tier C:    12 trades | P&L: $  160,986.97 | WR:  41.7% | % of yr P&L:    3.8%
+    Tier AB:   59 trades | P&L: $4,096,360.36 | WR:  55.9%
+
+----------------------------------------------------------------------
+TIER C DISTRIBUTION BY body_pct AND atr_change_3d
+----------------------------------------------------------------------
+
+  Tier C body_pct distribution:
+    Mean:   -0.2738
+    Median: -0.2688
+    Min:    -0.9429
+    Max:    0.2297
+
+  Tier C atr_change_3d distribution:
+    Mean:   -3.89%
+    Median: -3.53%
+    Min:    -12.85%
+    Max:    -0.01%
+
+----------------------------------------------------------------------
+BOTTOM LINE
+----------------------------------------------------------------------
+  Tier C contributes $20,937,986.77 in positive P&L
+  Removing 592 Tier C trades would change total P&L from $88,164,322.64 to $67,226,335.87
+  That is a -23.7% change in total strategy P&L
+  Avg P&L per trade: Tier C $35,368.22 vs Tier A+B $45,118.35

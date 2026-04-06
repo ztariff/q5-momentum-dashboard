@@ -1,0 +1,15 @@
+Loading trades...
+Trades: 2875
+Loading realized vol...
+Rvol entries: 566,463
+Unique (symbol, date) lookups: 5713
+  [100/5713] INTC 2020-03-06 (rows: 792, ok: 0, no_data: 99, err: 0)
+  [200/5713] OKTA 2020-04-17 (rows: 1592, ok: 0, no_data: 199, err: 0)
+  [300/5713] SPOT 2020-05-22 (rows: 2392, ok: 0, no_data: 299, err: 0)
+  [400/5713] ADBE 2020-06-23 (rows: 3192, ok: 0, no_data: 399, err: 0)
+  [500/5713] HCA 2020-07-31 (rows: 3992, ok: 0, no_data: 499, err: 0)
+    Flushed 4000 rows to disk
+  [600/5713] MAR 2020-10-13 (rows: 792, ok: 0, no_data: 599, err: 0)
+  [700/5713] BABA 2020-11-17 (rows: 1592, ok: 0, no_data: 699, err: 0)
+  [800/5713] COP 2020-12-28 (rows: 2392, ok: 0, no_data: 799, err: 0)
+  [900/5713] RTX 2021-02-18 (rows: 3192, ok: 0, no_data: 899, err: 0)

@@ -1,0 +1,384 @@
+================================================================================
+OPTIONS VOLUME AS PREDICTOR OF TRADE OUTCOMES
+================================================================================
+Total trades: 2082
+Trades with entry-day option volume data: 2026
+Coverage: 97.3%
+
+--- Entry-Day Volume Stats ---
+  opt_vol_entry: n=2026, mean=926.6, median=137.0, p25=32.0, p75=584.5, p90=2,073.0
+  opt_vol_avg_3d: n=2026, mean=1,015.5, median=192.7, p25=47.8, p75=700.5, p90=2,351.3
+  opt_vol_day1_vs_avg: n=2026, mean=1.3, median=0.7, p25=0.3, p75=1.6, p90=3.2
+  n_bars_entry: n=2026, mean=42.1, median=22.0, p25=8.0, p75=53.0, p90=106.5
+  notional_vol: n=2026, mean=230,383.0, median=35,250.0, p25=9,326.2, p75=130,972.5, p90=428,136.0
+
+================================================================================
+STEP 2: QUINTILE ANALYSIS
+================================================================================
+
+========================================
+Feature: opt_vol_entry
+========================================
+
+  vs hybrid_pnl (n=2026):
+    Q1(low): n= 415, mean=$    42,196, total=$  17,511,351, WR=47.0%
+    Q2: n= 396, mean=$    20,471, total=$   8,106,392, WR=43.4%
+    Q3: n= 405, mean=$    22,851, total=$   9,254,457, WR=41.0%
+    Q4: n= 405, mean=$    54,338, total=$  22,007,087, WR=43.7%
+    Q5(high): n= 405, mean=$    53,310, total=$  21,590,375, WR=43.0%
+  Spearman rho=-0.0073, p=0.7441
+  Cohen's d (top 10% vs rest): 0.1405
+  Monotonic: NO
+
+  vs opt_pnl (n=1125):
+    Q1(low): n= 197, mean=$    44,858, total=$   8,837,052, WR=42.1%
+    Q2: n= 203, mean=$    17,163, total=$   3,484,129, WR=36.9%
+    Q3: n= 221, mean=$    12,752, total=$   2,818,182, WR=31.2%
+    Q4: n= 252, mean=$    78,119, total=$  19,685,902, WR=41.7%
+    Q5(high): n= 252, mean=$    61,824, total=$  15,579,532, WR=36.5%
+  Spearman rho=0.0086, p=0.7731
+  Cohen's d (top 10% vs rest): 0.2288
+  Monotonic: NO
+
+  vs stock_pnl (n=2026):
+    Q1(low): n= 415, mean=$    43,381, total=$  18,003,144, WR=56.9%
+    Q2: n= 396, mean=$    39,923, total=$  15,809,350, WR=55.3%
+    Q3: n= 405, mean=$    22,139, total=$   8,966,397, WR=51.1%
+    Q4: n= 405, mean=$    44,415, total=$  17,988,264, WR=56.0%
+    Q5(high): n= 405, mean=$    62,245, total=$  25,209,154, WR=57.3%
+  Spearman rho=0.0171, p=0.4428
+  Cohen's d (top 10% vs rest): 0.1038
+  Monotonic: NO
+
+========================================
+Feature: opt_vol_avg_3d
+========================================
+
+  vs hybrid_pnl (n=2026):
+    Q1(low): n= 407, mean=$    34,686, total=$  14,117,111, WR=46.7%
+    Q2: n= 404, mean=$    33,759, total=$  13,638,657, WR=43.3%
+    Q3: n= 405, mean=$    30,845, total=$  12,492,170, WR=43.7%
+    Q4: n= 405, mean=$    31,985, total=$  12,953,728, WR=40.2%
+    Q5(high): n= 405, mean=$    62,390, total=$  25,267,997, WR=44.2%
+  Spearman rho=0.0045, p=0.8404
+  Cohen's d (top 10% vs rest): 0.1893
+  Monotonic: NO
+
+  vs opt_pnl (n=1125):
+    Q1(low): n= 187, mean=$    27,932, total=$   5,223,342, WR=38.0%
+    Q2: n= 193, mean=$    19,346, total=$   3,733,779, WR=36.8%
+    Q3: n= 243, mean=$    51,834, total=$  12,595,629, WR=40.3%
+    Q4: n= 248, mean=$    33,473, total=$   8,301,324, WR=34.7%
+    Q5(high): n= 254, mean=$    80,908, total=$  20,550,724, WR=38.6%
+  Spearman rho=0.0327, p=0.2728
+  Cohen's d (top 10% vs rest): 0.1580
+  Monotonic: NO
+
+  vs stock_pnl (n=2026):
+    Q1(low): n= 407, mean=$    45,200, total=$  18,396,468, WR=58.2%
+    Q2: n= 404, mean=$    35,505, total=$  14,344,078, WR=52.2%
+    Q3: n= 405, mean=$    24,352, total=$   9,862,416, WR=54.3%
+    Q4: n= 405, mean=$    43,909, total=$  17,783,339, WR=54.8%
+    Q5(high): n= 405, mean=$    63,185, total=$  25,590,005, WR=57.0%
+  Spearman rho=0.0227, p=0.3063
+  Cohen's d (top 10% vs rest): 0.2393
+  Monotonic: NO
+
+========================================
+Feature: opt_vol_day1_vs_avg
+========================================
+
+  vs hybrid_pnl (n=2026):
+    Q1(low): n= 406, mean=$    36,638, total=$  14,875,119, WR=44.1%
+    Q2: n= 405, mean=$    29,037, total=$  11,760,101, WR=45.9%
+    Q3: n= 405, mean=$    39,465, total=$  15,983,527, WR=45.2%
+    Q4: n= 405, mean=$    49,394, total=$  20,004,631, WR=44.2%
+    Q5(high): n= 405, mean=$    39,127, total=$  15,846,285, WR=38.8%
+  Spearman rho=-0.0513, p=0.0210
+  Cohen's d (top 10% vs rest): -0.0853
+  Monotonic: NO
+
+  vs opt_pnl (n=1125):
+    Q1(low): n= 225, mean=$    30,640, total=$   6,894,046, WR=35.6%
+    Q2: n= 218, mean=$    36,839, total=$   8,030,997, WR=43.6%
+    Q3: n= 207, mean=$    44,878, total=$   9,289,833, WR=36.7%
+    Q4: n= 233, mean=$    71,030, total=$  16,549,968, WR=42.1%
+    Q5(high): n= 242, mean=$    39,835, total=$   9,639,953, WR=31.0%
+  Spearman rho=-0.0604, p=0.0428
+  Cohen's d (top 10% vs rest): -0.1020
+  Monotonic: NO
+
+  vs stock_pnl (n=2026):
+    Q1(low): n= 406, mean=$    46,323, total=$  18,807,311, WR=60.1%
+    Q2: n= 405, mean=$    40,982, total=$  16,597,726, WR=54.3%
+    Q3: n= 405, mean=$    35,018, total=$  14,182,385, WR=55.6%
+    Q4: n= 405, mean=$    52,837, total=$  21,398,891, WR=55.8%
+    Q5(high): n= 405, mean=$    37,012, total=$  14,989,994, WR=50.9%
+  Spearman rho=-0.0317, p=0.1543
+  Cohen's d (top 10% vs rest): -0.1155
+  Monotonic: NO
+
+========================================
+Feature: n_bars_entry
+========================================
+
+  vs hybrid_pnl (n=2026):
+    Q1(low): n= 420, mean=$    34,124, total=$  14,331,939, WR=44.5%
+    Q2: n= 414, mean=$    30,864, total=$  12,777,617, WR=44.9%
+    Q3: n= 393, mean=$    19,315, total=$   7,590,788, WR=43.0%
+    Q4: n= 394, mean=$    48,325, total=$  19,039,991, WR=44.4%
+    Q5(high): n= 405, mean=$    61,060, total=$  24,729,328, WR=41.2%
+  Spearman rho=0.0033, p=0.8808
+  Cohen's d (top 10% vs rest): 0.1236
+  Monotonic: NO
+
+  vs opt_pnl (n=1125):
+    Q1(low): n= 211, mean=$    28,310, total=$   5,973,487, WR=37.9%
+    Q2: n= 199, mean=$    21,963, total=$   4,370,719, WR=37.7%
+    Q3: n= 220, mean=$    25,272, total=$   5,559,893, WR=37.7%
+    Q4: n= 232, mean=$    56,073, total=$  13,008,979, WR=39.2%
+    Q5(high): n= 263, mean=$    81,718, total=$  21,491,719, WR=36.1%
+  Spearman rho=0.0245, p=0.4112
+  Cohen's d (top 10% vs rest): 0.1485
+  Monotonic: NO
+
+  vs stock_pnl (n=2026):
+    Q1(low): n= 420, mean=$    39,518, total=$  16,597,763, WR=56.7%
+    Q2: n= 414, mean=$    37,398, total=$  15,482,660, WR=52.7%
+    Q3: n= 393, mean=$    33,940, total=$  13,338,604, WR=55.7%
+    Q4: n= 394, mean=$    45,452, total=$  17,907,975, WR=56.1%
+    Q5(high): n= 405, mean=$    55,924, total=$  22,649,305, WR=55.6%
+  Spearman rho=0.0239, p=0.2813
+  Cohen's d (top 10% vs rest): 0.1956
+  Monotonic: NO
+
+========================================
+Feature: notional_vol
+========================================
+
+  vs hybrid_pnl (n=2026):
+    Q1(low): n= 406, mean=$    34,507, total=$  14,009,959, WR=43.3%
+    Q2: n= 405, mean=$    43,934, total=$  17,793,180, WR=47.2%
+    Q3: n= 405, mean=$    34,830, total=$  14,106,136, WR=43.0%
+    Q4: n= 405, mean=$    26,867, total=$  10,881,063, WR=41.5%
+    Q5(high): n= 405, mean=$    53,529, total=$  21,679,326, WR=43.2%
+  Spearman rho=-0.0211, p=0.3416
+  Cohen's d (top 10% vs rest): -0.1286
+  Monotonic: NO
+
+  vs opt_pnl (n=1125):
+    Q1(low): n= 220, mean=$    37,737, total=$   8,302,113, WR=38.6%
+    Q2: n= 217, mean=$    30,113, total=$   6,534,485, WR=36.9%
+    Q3: n= 216, mean=$    32,298, total=$   6,976,347, WR=36.6%
+    Q4: n= 241, mean=$    48,301, total=$  11,640,477, WR=39.4%
+    Q5(high): n= 231, mean=$    73,383, total=$  16,951,376, WR=36.8%
+  Spearman rho=0.0052, p=0.8613
+  Cohen's d (top 10% vs rest): -0.0808
+  Monotonic: NO
+
+  vs stock_pnl (n=2026):
+    Q1(low): n= 406, mean=$    32,636, total=$  13,250,346, WR=53.2%
+    Q2: n= 405, mean=$    55,460, total=$  22,461,165, WR=61.2%
+    Q3: n= 405, mean=$    43,271, total=$  17,524,932, WR=53.3%
+    Q4: n= 405, mean=$    30,100, total=$  12,190,654, WR=53.3%
+    Q5(high): n= 405, mean=$    50,739, total=$  20,549,210, WR=55.6%
+  Spearman rho=0.0061, p=0.7822
+  Cohen's d (top 10% vs rest): -0.0440
+  Monotonic: NO
+
+================================================================================
+STEP 3: UNUSUAL OPTIONS ACTIVITY THRESHOLDS
+================================================================================
+
+Threshold values: median=137, 75th=584, 90th=2073
+
+--- vol > median (137) ---
+  hybrid_pnl:
+    PASS: n=1012, mean=$    43,618, WR=42.2%, PF=1.84
+    FAIL: n=1014, mean=$    33,855, WR=45.1%, PF=1.69
+    Diff: $     9,763  t=0.878  p=0.3802
+  opt_pnl:
+    PASS: n= 625, mean=$    56,609, WR=37.1%, PF=2.06
+    FAIL: n= 500, mean=$    30,049, WR=38.4%, PF=1.56
+    Diff: $    26,560  t=1.641  p=0.1011
+  stock_pnl:
+    PASS: n=1012, mean=$    44,523, WR=55.2%, PF=2.03
+    FAIL: n=1014, mean=$    40,355, WR=55.4%, PF=2.03
+    Diff: $     4,168  t=0.427  p=0.6691
+
+--- vol > 75th pct (584) ---
+  hybrid_pnl:
+    PASS: n= 507, mean=$    55,034, WR=43.0%, PF=2.07
+    FAIL: n=1519, mean=$    33,290, WR=43.8%, PF=1.66
+    Diff: $    21,744  t=1.694  p=0.0904
+  opt_pnl:
+    PASS: n= 317, mean=$    69,210, WR=36.9%, PF=2.23
+    FAIL: n= 808, mean=$    35,229, WR=38.0%, PF=1.67
+    Diff: $    33,981  t=1.901  p=0.0575
+  stock_pnl:
+    PASS: n= 507, mean=$    56,357, WR=56.2%, PF=2.33
+    FAIL: n=1519, mean=$    37,790, WR=55.0%, PF=1.93
+    Diff: $    18,567  t=1.650  p=0.0990
+
+--- vol > 90th pct (2073) ---
+  hybrid_pnl:
+    PASS: n= 203, mean=$    70,351, WR=44.3%, PF=2.34
+    FAIL: n=1823, mean=$    35,210, WR=43.6%, PF=1.70
+    Diff: $    35,140  t=1.898  p=0.0578
+  opt_pnl:
+    PASS: n= 131, mean=$    93,007, WR=36.6%, PF=2.50
+    FAIL: n= 994, mean=$    38,452, WR=37.8%, PF=1.73
+    Diff: $    54,556  t=2.177  p=0.0297
+  stock_pnl:
+    PASS: n= 203, mean=$    62,921, WR=56.7%, PF=2.58
+    FAIL: n=1823, mean=$    40,155, WR=55.2%, PF=1.97
+    Diff: $    22,766  t=1.403  p=0.1609
+
+--- n_bars > 100 ---
+  hybrid_pnl:
+    PASS: n= 219, mean=$    62,519, WR=43.4%, PF=2.21
+    FAIL: n=1807, mean=$    35,848, WR=43.7%, PF=1.71
+    Diff: $    26,671  t=1.489  p=0.1365
+  opt_pnl:
+    PASS: n= 132, mean=$    80,775, WR=37.9%, PF=2.45
+    FAIL: n= 993, mean=$    40,023, WR=37.7%, PF=1.75
+    Diff: $    40,753  t=1.630  p=0.1033
+  stock_pnl:
+    PASS: n= 219, mean=$    78,549, WR=58.0%, PF=3.09
+    FAIL: n=1807, mean=$    38,060, WR=55.0%, PF=1.91
+    Diff: $    40,489  t=2.582  p=0.0099
+
+================================================================================
+STEP 4: DOES OPTIONS VOLUME PREDICT OPTION vs STOCK RETURNS?
+================================================================================
+
+Feature                      rho(opt_pnl)        p  rho(stock_pnl)        p     Diff
+-------------------------------------------------------------------------------------
+opt_vol_entry                     +0.0086   0.7731         +0.0171   0.4428  -0.0085
+opt_vol_avg_3d                    +0.0327   0.2728         +0.0227   0.3063  +0.0100
+opt_vol_day1_vs_avg               -0.0604   0.0428         -0.0317   0.1543  -0.0288
+n_bars_entry                      +0.0245   0.4112         +0.0239   0.2813  +0.0006
+notional_vol                      +0.0052   0.8613         +0.0061   0.7822  -0.0009
+
+--- Direct comparison: trades with both opt_pnl and stock_pnl ---
+Trades with both: 1125
+  opt_vol_entry: rho(opt)=+0.0086 (p=0.7731), rho(stk)=+0.0232 (p=0.4367), diff=-0.0146
+  notional_vol: rho(opt)=+0.0052 (p=0.8613), rho(stk)=+0.0406 (p=0.1740), diff=-0.0353
+  n_bars_entry: rho(opt)=+0.0245 (p=0.4112), rho(stk)=+0.0336 (p=0.2602), diff=-0.0091
+
+================================================================================
+STEP 5: TOP 10% WINNERS vs REST
+================================================================================
+
+Top 10% threshold: hybrid_pnl >= $250,851
+Top 10%: n=203, Rest: n=1823
+
+  opt_vol_entry:
+    Top 10%: mean=1,281.1, median=180.0
+    Rest:    mean=887.1, median=136.0
+    Top 10% median sits at 55th percentile overall
+    Mann-Whitney U p=0.3400
+
+  opt_vol_avg_3d:
+    Top 10%: mean=1,419.9, median=226.3
+    Rest:    mean=970.5, median=190.3
+    Top 10% median sits at 53th percentile overall
+    Mann-Whitney U p=0.0661
+
+  opt_vol_day1_vs_avg:
+    Top 10%: mean=1.3, median=0.8
+    Rest:    mean=1.3, median=0.7
+    Top 10% median sits at 52th percentile overall
+    Mann-Whitney U p=0.5898
+
+  n_bars_entry:
+    Top 10%: mean=50.9, median=25.0
+    Rest:    mean=41.1, median=21.0
+    Top 10% median sits at 55th percentile overall
+    Mann-Whitney U p=0.1913
+
+  notional_vol:
+    Top 10%: mean=296,392.8, median=40,860.0
+    Rest:    mean=223,032.5, median=34,892.0
+    Top 10% median sits at 53th percentile overall
+    Mann-Whitney U p=0.9527
+
+Top 10% distribution across opt_vol_entry quintiles:
+  Q1(low): 48/415 = 11.6% are top 10%
+  Q2: 30/396 = 7.6% are top 10%
+  Q3: 31/405 = 7.7% are top 10%
+  Q4: 46/405 = 11.4% are top 10%
+  Q5(high): 48/405 = 11.9% are top 10%
+
+================================================================================
+STEP 6: STABILITY CHECK (2020-2022 vs 2023-2026)
+================================================================================
+
+Feature                   Period            n   Spearman    p-val   Sig?
+------------------------------------------------------------------------
+opt_vol_entry             2020-2022       925     0.0123   0.7092       
+opt_vol_entry             2023-2026      1101    -0.0236   0.4339       
+opt_vol_avg_3d            2020-2022       925     0.0187   0.5704       
+opt_vol_avg_3d            2023-2026      1101    -0.0081   0.7882       
+opt_vol_day1_vs_avg       2020-2022       925    -0.0259   0.4309       
+opt_vol_day1_vs_avg       2023-2026      1101    -0.0720   0.0169      *
+n_bars_entry              2020-2022       925     0.0154   0.6389       
+n_bars_entry              2023-2026      1101    -0.0081   0.7882       
+notional_vol              2020-2022       925    -0.0098   0.7667       
+notional_vol              2023-2026      1101    -0.0321   0.2875       
+
+--- vs opt_pnl stability ---
+Feature                   Period            n   Spearman    p-val
+-----------------------------------------------------------------
+opt_vol_entry             2020-2022       467     0.0480   0.3010
+opt_vol_entry             2023-2026       658    -0.0171   0.6606
+notional_vol              2020-2022       467     0.0291   0.5301
+notional_vol              2023-2026       658    -0.0115   0.7678
+n_bars_entry              2020-2022       467     0.0361   0.4368
+n_bars_entry              2023-2026       658     0.0165   0.6733
+
+================================================================================
+STEP 7: VOLUME FILTER FOR OPTIONS STRATEGY
+================================================================================
+
+Tier A+B option trades with opt_pnl: 1128
+With volume data: 1125
+
+Filter                                  n      Total PnL    Mean PnL      WR      PF
+-------------------------------------------------------------------------------------
+  No filter (baseline) (opt)           1125 $  50,404,798 $   44,804  37.7%   1.83
+  No filter (baseline) (hybrid)        1125 $  50,404,798 $   44,804  37.7%   1.83
+  vol > median (189) (opt)              561 $  35,762,287 $   63,747  38.5%   2.19
+  vol > median (189) (hybrid)           561 $  35,762,287 $   63,747  38.5%   2.19
+  vol > 75th (715) (opt)                281 $  19,545,683 $   69,558  36.7%   2.22
+  vol > 75th (715) (hybrid)             281 $  19,545,683 $   69,558  36.7%   2.22
+  n_bars > 100 (opt)                    132 $  10,662,348 $   80,775  37.9%   2.45
+  n_bars > 100 (hybrid)                 132 $  10,662,348 $   80,775  37.9%   2.45
+  vol <= median (189) (opt)             564 $  14,642,511 $   25,962  36.9%   1.48
+  vol <= median (189) (hybrid)          564 $  14,642,511 $   25,962  36.9%   1.48
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+This analysis tested whether entry-day options volume and activity metrics
+predict subsequent trade outcomes across 2,082 trades.
+
+KEY FINDINGS:
+
+1. CORRELATION WITH HYBRID PNL:
+   - opt_vol_entry vs hybrid_pnl: rho=-0.0073, p=0.7441
+   - notional_vol vs hybrid_pnl:  rho=-0.0211, p=0.3416
+   - n_bars_entry vs hybrid_pnl:  rho=0.0033, p=0.8808
+
+2. STATISTICALLY SIGNIFICANT FEATURES (p<0.05):
+   - opt_vol_day1_vs_avg: rho=-0.0513, p=0.0210
+
+3. OPTION vs STOCK RETURN PREDICTION (same trades, n=1125):
+   - opt_vol_entry -> opt_pnl:   rho=+0.0086
+   - opt_vol_entry -> stock_pnl:  rho=+0.0232
+   Options volume does NOT predict option returns better than stock returns
+
+4. PRACTICAL FILTER VALUE:
+   Baseline (all): 1125 trades, total=$50,404,798
+   Vol>median:     561 trades, total=$35,762,287

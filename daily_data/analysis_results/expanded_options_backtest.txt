@@ -1,0 +1,187 @@
+====================================================================================================
+EXPANDED OPTIONS BACKTEST — Original + Backfill Data (2020-2026)
+====================================================================================================
+
+A) COVERAGE SUMMARY
+--------------------------------------------------------------------------------
+  Total trades:                          2,082
+  Tier A:                                525
+  Tier B:                                965
+  Tier C:                                592
+  Tier A+B total:                        1,490
+
+  Before backfill (30d_1m only):
+    Trades with option data:             1,576
+    Tier A+B with option data:           1,115
+    Coverage rate (A+B):                 74.8%
+
+  After backfill (original + backfill):
+    Trades with option data:             2,031
+    Tier A+B with option data:           1,451
+    Tier A+B executed (contracts >= 1):  1,451
+    Coverage rate (A+B):                 97.4%
+
+  Improvement from backfill:             +455 trades
+  Still missing (all trades):            51 trades
+  Still missing (Tier A+B):              39 trades
+
+  Hybrid composition:
+    Tier C (stock):                      592 trades
+    Tier A+B (options):                  1,451 trades
+    Tier A+B (stock fallback):           39 trades
+
+
+B) COMPARISON TABLE — ALL VERSIONS
+------------------------------------------------------------------------------------------------------------------------
+Version                                   Trades      Total PnL    Avg PnL     WR     PF          MaxDD  Sharpe    Avg Capital
+------------------------------------------------------------------------------------------------------------------------
+Hybrid (expanded)                          2,082 $   63,884,497 $   30,684  42.4%  1.57 $   -7,904,553   1.47 $      480,836
+Hybrid (prior run)                         2,082 $   60,713,181 $   29,161  42.5%  1.56 $   -7,379,292   1.42 $   11,632,821
+Options only w/ tier (expanded)            1,451 $   41,270,870 $   28,443  36.9%  1.47 $   -5,877,668   1.14 $      135,148
+Options only w/ tier (prior run)             675 $   36,110,144 $   53,497  37.9%  1.92 $   -2,691,548   1.94 $            0
+Stock only baseline                        2,082 $   88,164,323 $   42,346  55.3%  2.03 $   -5,812,059   1.81 $   30,373,387
+
+  Notes:
+  - Prior hybrid used body_quintile sizing; expanded uses tier A/B/C classification
+  - Prior options-only is from 2-filter tiered backtest (A=$200K, B=$100K, skip C)
+  - Stock only = Option D no-re-entry baseline with ATR stop + 20-day hold
+
+
+C) YEAR-BY-YEAR PERFORMANCE
+====================================================================================================
+
+  HYBRID (expanded):
+    Year  Trades      Total PnL    Avg PnL     WR     PF          MaxDD  Sharpe
+  ------ ------- -------------- ---------- ------ ------ -------------- -------
+    2020     315 $   14,819,496 $   47,046  43.2%  1.95 $   -2,015,784   2.98
+    2021     300 $   10,646,130 $   35,487  43.0%  1.67 $   -3,458,775   2.49
+    2022     337 $     -746,444 $   -2,215  38.3%  0.96 $   -7,904,553  -0.12
+    2023     372 $   18,951,261 $   50,944  41.1%  1.89 $   -6,354,389   1.62
+    2024     341 $   11,456,482 $   33,597  46.0%  1.70 $   -2,328,365   1.94
+    2025     346 $    5,498,378 $   15,891  42.8%  1.32 $   -3,346,658   0.94
+    2026      71 $    3,259,193 $   45,904  42.3%  1.89 $   -1,178,790   1.54
+
+  OPTIONS ONLY w/ tier (expanded):
+    Year  Trades      Total PnL    Avg PnL     WR     PF          MaxDD  Sharpe
+  ------ ------- -------------- ---------- ------ ------ -------------- -------
+    2020     214 $    6,724,029 $   31,421  34.1%  1.53 $   -1,699,556   1.79
+    2021     208 $    6,048,281 $   29,078  38.5%  1.47 $   -2,998,211   1.67
+    2022     221 $   -1,593,348 $   -7,210  33.5%  0.89 $   -5,877,668  -0.41
+    2023     268 $   17,430,566 $   65,039  36.9%  2.03 $   -5,018,432   1.67
+    2024     240 $   10,214,897 $   42,562  42.9%  1.82 $   -1,750,488   2.09
+    2025     242 $     -679,810 $   -2,809  33.9%  0.95 $   -4,095,876  -0.17
+    2026      58 $    3,126,255 $   53,901  43.1%  2.01 $     -918,476   1.68
+
+
+D) TOP 10 WINNERS / LOSERS
+====================================================================================================
+
+  HYBRID — TOP 10 WINNERS:
+    # Symbol          Entry  Tier     Source            PnL    Return%
+  --- -------- ------------ ----- ---------- -------------- ----------
+    1 PLUG       2021-01-06     A     option $    2,067,014    1035.1%
+    2 VZ         2023-10-17     A     option $    1,818,708     910.0%
+    3 MRVL       2023-05-25     A     option $    1,668,980     835.1%
+    4 AMC        2021-04-30     C      stock $    1,631,668     163.2%
+    5 AFRM       2023-12-01     A     option $    1,500,711     751.1%
+    6 SMCI       2024-02-05     B     option $    1,455,873    1475.9%
+    7 XPEV       2024-09-10     A     option $    1,407,686     704.3%
+    8 NUE        2021-03-11     A     option $    1,386,145     693.7%
+    9 CCL        2023-05-30     A     option $    1,357,213     679.1%
+   10 INTC       2023-11-01     A     option $    1,298,994     650.0%
+
+  HYBRID — TOP 10 LOSERS:
+    # Symbol          Entry  Tier     Source            PnL    Return%
+  --- -------- ------------ ----- ---------- -------------- ----------
+    1 DOCU       2022-06-02     C      stock $     -510,934     -25.5%
+    2 QS         2022-04-25     C      stock $     -349,817     -23.3%
+    3 ZS         2022-10-03     C      stock $     -320,104     -16.0%
+    4 CHPT       2022-03-24     C      stock $     -317,819     -21.2%
+    5 BYND       2020-10-05     C      stock $     -312,761     -15.6%
+    6 MSTR       2022-08-03     C      stock $     -308,655     -15.4%
+    7 DOCU       2022-10-03     C      stock $     -294,059     -14.7%
+    8 NOW        2022-07-07     C      stock $     -288,710     -14.4%
+    9 CVNA       2023-10-06     C      stock $     -285,765     -14.3%
+   10 CVNA       2023-04-06     C      stock $     -281,429     -14.1%
+
+  OPTIONS ONLY — TOP 10 WINNERS:
+    # Symbol          Entry  Tier     Source            PnL    Return%
+  --- -------- ------------ ----- ---------- -------------- ----------
+    1 PLUG       2021-01-06     A     option $    2,067,014    1035.1%
+    2 VZ         2023-10-17     A     option $    1,818,708     910.0%
+    3 MRVL       2023-05-25     A     option $    1,668,980     835.1%
+    4 AFRM       2023-12-01     A     option $    1,500,711     751.1%
+    5 SMCI       2024-02-05     B     option $    1,455,873    1475.9%
+    6 XPEV       2024-09-10     A     option $    1,407,686     704.3%
+    7 NUE        2021-03-11     A     option $    1,386,145     693.7%
+    8 CCL        2023-05-30     A     option $    1,357,213     679.1%
+    9 INTC       2023-11-01     A     option $    1,298,994     650.0%
+   10 UPS        2020-07-16     A     option $    1,252,490     627.2%
+
+  OPTIONS ONLY — TOP 10 LOSERS:
+    # Symbol          Entry  Tier     Source            PnL    Return%
+  --- -------- ------------ ----- ---------- -------------- ----------
+    1 COST       2025-06-03     A     option $     -199,975     -99.9%
+    2 LMT        2022-11-01     A     option $     -199,824     -99.9%
+    3 PDD        2024-05-30     A     option $     -199,740     -99.8%
+    4 AMD        2020-08-05     A     option $     -199,474     -99.7%
+    5 DDOG       2023-02-16     A     option $     -199,462     -99.8%
+    6 SHOP       2020-01-24     A     option $     -199,410     -99.9%
+    7 CRWD       2025-02-14     A     option $     -199,388     -99.9%
+    8 TSM        2022-01-12     A     option $     -199,380     -99.8%
+    9 AMGN       2024-02-02     A     option $     -199,300     -99.6%
+   10 IWM        2024-07-26     A     option $     -199,284     -99.6%
+
+
+E) STILL-MISSING TRADES (Tier A+B without option data)
+====================================================================================================
+  These 39 Tier A+B trades have no option data.
+  In Hybrid backtest they fall back to stock P&L; in Options-only they are skipped.
+
+  Symbol     Entry Date  Tier      Stock PnL Stock Ret%
+  -------- ------------ ----- -------------- ----------
+  AI         2020-02-24     B $      -57,613      -5.8%
+  SPOT       2020-05-22     A $      101,760      20.4%
+  SNOW       2020-09-17     B $       52,789       5.3%
+  CAT        2020-10-16     B $       15,352       1.0%
+  PDD        2020-11-16     A $      -14,712      -2.9%
+  AI         2020-12-10     B $      885,148      44.3%
+  BEKE       2021-10-19     B $       64,404       6.4%
+  U          2021-11-16     B $     -209,325     -10.5%
+  TXN        2022-05-02     B $       63,726       4.2%
+  BIIB       2022-05-13     A $        2,839       0.2%
+  RUN        2022-06-23     A $      105,150       5.3%
+  UPS        2022-07-05     B $      141,100       7.1%
+  NFLX       2022-07-18     A $      293,917      29.4%
+  TGT        2022-09-08     A $     -261,221     -13.1%
+  HLT        2022-09-15     A $     -131,744     -13.2%
+  DXCM       2022-10-07     A $       42,750       8.5%
+  CAT        2022-10-26     A $       97,669      19.5%
+  EQIX       2022-12-05     B $      -36,261      -3.6%
+  ZTS        2023-04-20     B $       27,314       2.7%
+  NUE        2023-08-11     B $       -8,106      -0.5%
+  NVO        2023-08-23     B $       20,621       1.0%
+  BEKE       2023-09-14     B $       44,769       4.5%
+  HLT        2023-09-18     B $      -13,607      -2.7%
+  TXN        2024-01-09     A $      -93,880      -4.7%
+  ZTS        2024-01-17     B $      -22,623      -4.5%
+  ABBV       2024-01-22     B $      117,470       7.8%
+  PSX        2024-04-02     B $     -162,616      -8.1%
+  ELV        2024-04-26     B $       13,010       1.3%
+  ZTS        2024-06-27     A $       52,370       3.5%
+  BNTX       2024-09-10     A $      520,042      26.0%
+  ORCL       2024-09-23     B $       21,802       4.4%
+  GOOGL      2024-12-23     A $       40,218       2.7%
+  TXN        2025-06-17     B $       93,085       9.3%
+  JNJ        2025-08-05     A $       43,068       4.3%
+  AMAT       2025-08-11     B $      -53,273     -10.7%
+  QCOM       2025-10-22     B $      -23,250      -1.5%
+  ELV        2025-11-25     B $       51,314       3.4%
+  TEAM       2025-12-24     B $     -119,765     -12.0%
+  SPG        2026-03-05     A $      -28,049      -5.6%
+
+  Total stock P&L left on table (options-only): $    1,675,640
+
+  Missing symbols (35): AAPL, ABBV, AI, AMAT, BEKE, BIIB, BNTX, CAT, DXCM, ELV, EQIX, GOOGL, HLT, JNJ, MARA, NFLX, NKE, NUE, NVO, ORCL, PDD, PLD, PSX, QCOM, RUN, SMCI, SNOW, SPG, SPOT, TEAM, TGT, TXN, U, UPS, ZTS
+
+  All missing trades (any tier): 51 trades across 35 symbols

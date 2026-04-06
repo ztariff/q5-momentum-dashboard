@@ -1,0 +1,330 @@
+#!/usr/bin/env python3
+"""
+Download options NBBO data for trade entries/exits.
+Filters to entry_date >= 2022-01-01 only (Polygon NBBO quotes for options only exist from 2022 onward).
+Uses UNADJUSTED close prices from Polygon open-close endpoint for accurate strike computation.
+"""
+
+import csv
+import math
+import os
+import time
+import logging
+import requests
+from datetime import datetime, timedelta, timezone, date
+from pathlib import Path
+
+# ── Configuration ────────────────────────────────────────────────────────────
+API_KEY = "cBE5Kbq9yllt0Yj29mDQjBcIKfAYQlHF"
+TRADE_LOG = "/home/ubuntu/daily_data/analysis_results/trade1_20d_trades.csv"
+ENRICHED_DIR = "/home/ubuntu/daily_data/data"
+OUTPUT_FILE = "/home/ubuntu/daily_data/data/trade_options/trade_options_nbbo.csv"
+LOG_FILE = "/home/ubuntu/options-data/download_log.txt"
+SAVE_EVERY = 500
+SLEEP_BETWEEN_CALLS = 0.12   # slightly above 0.1s to be safe
+
+DELTAS = [80, 70, 60, 50, 40, 30, 20, 10]
+DELTA_Z = {80: 0.842, 70: 0.524, 60: 0.253, 50: 0.0, 40: -0.253, 30: -0.524, 20: -0.842, 10: -1.282}
+
+# ── Logging ──────────────────────────────────────────────────────────────────
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE),
+        logging.StreamHandler(),
+    ],
+)
+log = logging.getLogger(__name__)
+
+# ── Helpers ──────────────────────────────────────────────────────────────────
+
+def is_edt(dt: date) -> bool:
+    """Return True if date falls in EDT (UTC-4): 2nd Sun Mar through 1st Sun Nov."""
+    year = dt.year
+    # Second Sunday in March
+    march1 = date(year, 3, 1)
+    first_sun_mar = march1 + timedelta(days=(6 - march1.weekday()) % 7)
+    second_sun_mar = first_sun_mar + timedelta(weeks=1)
+    # First Sunday in November
+    nov1 = date(year, 11, 1)
+    first_sun_nov = nov1 + timedelta(days=(6 - nov1.weekday()) % 7)
+    return second_sun_mar <= dt < first_sun_nov
+
+
+def market_open_utc_ns(d: date) -> tuple:
+    """Return (start_ns, end_ns) for 9:31-9:36 ET in UTC nanoseconds."""
+    # EDT = UTC-4, EST = UTC-5
+    # 9:31 ET => add utc_offset hours to get UTC
+    utc_offset = 4 if is_edt(d) else 5
+    start_utc = datetime(d.year, d.month, d.day, 9 + utc_offset, 31, 0, tzinfo=timezone.utc)
+    end_utc   = datetime(d.year, d.month, d.day, 9 + utc_offset, 36, 0, tzinfo=timezone.utc)
+    return int(start_utc.timestamp() * 1e9), int(end_utc.timestamp() * 1e9)
+
+
+def third_friday(year: int, month: int) -> date:
+    """Return the third Friday of a given month."""
+    first_day = date(year, month, 1)
+    # weekday(): Monday=0 ... Friday=4
+    first_friday_offset = (4 - first_day.weekday()) % 7
+    first_friday = first_day + timedelta(days=first_friday_offset)
+    return first_friday + timedelta(weeks=2)
+
+
+def nearest_monthly_expiry(ref_date: date, min_dte: int = 20) -> date:
+    """Find the nearest monthly expiry at least min_dte days away."""
+    for month_offset in range(0, 6):
+        year = ref_date.year + (ref_date.month - 1 + month_offset) // 12
+        month = (ref_date.month - 1 + month_offset) % 12 + 1
+        tf = third_friday(year, month)
+        if (tf - ref_date).days >= min_dte:
+            return tf
+    raise ValueError(f"No expiry found for {ref_date}")
+
+
+def round_strike(spot: float, raw_strike: float) -> float:
+    """Round strike to the nearest increment based on spot price."""
+    if spot < 25:
+        increment = 0.5
+    elif spot < 200:
+        increment = 1.0
+    elif spot < 500:
+        increment = 2.5
+    else:
+        increment = 5.0
+    return round(round(raw_strike / increment) * increment, 4)
+
+
+def build_ticker(symbol: str, expiry: date, strike: float) -> str:
+    """Build OCC option ticker: O:SYMBOL{YYMMDD}C{strike*1000:08d}"""
+    yy = expiry.strftime("%y")
+    mm = expiry.strftime("%m")
+    dd = expiry.strftime("%d")
+    strike_int = int(round(strike * 1000))
+    return f"O:{symbol}{yy}{mm}{dd}C{strike_int:08d}"
+
+
+def get_unadjusted_close(symbol: str, d: date) -> float:
+    """Fetch unadjusted close from Polygon open-close endpoint."""
+    url = f"https://api.polygon.io/v1/open-close/{symbol}/{d.isoformat()}?adjusted=false&apiKey={API_KEY}"
+    try:
+        resp = requests.get(url, timeout=15)
+        time.sleep(SLEEP_BETWEEN_CALLS)
+        if resp.status_code == 200:
+            data = resp.json()
+            close = data.get("close")
+            if close:
+                return float(close)
+        log.warning("No unadjusted close for %s on %s: status=%s body=%s",
+                    symbol, d, resp.status_code, resp.text[:200])
+    except Exception as e:
+        log.error("Error fetching unadjusted close %s %s: %s", symbol, d, e)
+    return None
+
+
+def get_rvol20d(symbol: str, d: date) -> float:
+    """Get rvol_20d from enriched CSV for the given symbol and date."""
+    path = Path(ENRICHED_DIR) / f"{symbol}_enriched.csv"
+    if not path.exists():
+        return 30.0  # default 30% annualized vol (percentage, caller divides by 100)
+    try:
+        with open(path, newline="") as f:
+            reader = csv.DictReader(f)
+            best_val = None
+            target_str = d.isoformat()
+            for row in reader:
+                row_date = row.get("date", "")
+                if row_date <= target_str:
+                    val = row.get("rvol_20d", "")
+                    if val and val not in ("", "nan", "None"):
+                        try:
+                            v = float(val)
+                            if v > 0:
+                                best_val = v
+                        except ValueError:
+                            pass
+                else:
+                    break
+            if best_val:
+                return best_val
+    except Exception as e:
+        log.warning("Could not read rvol_20d for %s: %s", symbol, e)
+    return 30.0  # default 30% annualized vol (stored as percentage, caller divides by 100)
+
+
+def get_nbbo_quotes(ticker: str, d: date) -> dict:
+    """Query NBBO quotes for 9:31-9:36 ET window, following pagination."""
+    start_ns, end_ns = market_open_utc_ns(d)
+    url = (
+        f"https://api.polygon.io/v3/quotes/{ticker}"
+        f"?timestamp.gte={start_ns}&timestamp.lte={end_ns}"
+        f"&limit=500&sort=timestamp&apiKey={API_KEY}"
+    )
+    bids, asks = [], []
+    while url:
+        try:
+            resp = requests.get(url, timeout=15)
+            time.sleep(SLEEP_BETWEEN_CALLS)
+            if resp.status_code != 200:
+                log.warning("NBBO %s %s: HTTP %s", ticker, d, resp.status_code)
+                break
+            data = resp.json()
+            results = data.get("results", [])
+            for q in results:
+                bid = q.get("bid_price")
+                ask = q.get("ask_price")
+                if bid is not None:
+                    bids.append(float(bid))
+                if ask is not None:
+                    asks.append(float(ask))
+            next_url = data.get("next_url")
+            if next_url:
+                url = next_url + f"&apiKey={API_KEY}"
+            else:
+                url = None
+        except Exception as e:
+            log.error("Error fetching NBBO %s %s: %s", ticker, d, e)
+            break
+
+    n = max(len(bids), len(asks)) if (bids or asks) else 0
+    if n == 0:
+        return {"avg_bid": None, "avg_ask": None, "avg_mid": None, "spread": None, "n_quotes": 0}
+
+    avg_bid = sum(bids) / len(bids) if bids else None
+    avg_ask = sum(asks) / len(asks) if asks else None
+    avg_mid = (avg_bid + avg_ask) / 2 if (avg_bid is not None and avg_ask is not None) else None
+    spread  = (avg_ask - avg_bid)   if (avg_bid is not None and avg_ask is not None) else None
+    return {"avg_bid": avg_bid, "avg_ask": avg_ask, "avg_mid": avg_mid, "spread": spread, "n_quotes": n}
+
+
+def fmt(v, decimals=4):
+    if v is None:
+        return ""
+    return f"{v:.{decimals}f}"
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+OUTPUT_COLS = [
+    "symbol", "date", "date_type", "spot_unadjusted",
+    "delta_target", "option_ticker", "strike", "expiration", "dte",
+    "avg_bid", "avg_ask", "avg_mid", "spread", "n_quotes",
+]
+
+
+def main():
+    # Read trade log — only entry_date >= 2022-01-01
+    trades = []
+    with open(TRADE_LOG, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            try:
+                entry_date = date.fromisoformat(row["entry_date"])
+            except ValueError:
+                continue
+            if entry_date < date(2022, 1, 1):
+                continue
+            trades.append(row)
+    log.info("Loaded %d trades with entry_date >= 2022-01-01", len(trades))
+
+    # Remove and recreate output file
+    out_path = Path(OUTPUT_FILE)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    if out_path.exists():
+        out_path.unlink()
+        log.info("Removed existing output file %s", OUTPUT_FILE)
+
+    outfile = open(out_path, "w", newline="")
+    writer = csv.DictWriter(outfile, fieldnames=OUTPUT_COLS)
+    writer.writeheader()
+    outfile.flush()
+
+    # Cache for unadjusted closes and rvol to avoid redundant API calls
+    close_cache = {}
+    rvol_cache  = {}
+
+    total_lookups = 0
+    rows_written  = 0
+
+    for trade_idx, trade in enumerate(trades):
+        symbol     = trade["symbol"]
+        entry_date = date.fromisoformat(trade["entry_date"])
+        exit_date  = date.fromisoformat(trade["exit_date"])
+
+        log.info(
+            "Trade %d/%d  %s  entry=%s  exit=%s",
+            trade_idx + 1, len(trades), symbol, entry_date, exit_date,
+        )
+
+        for d, date_type in [(entry_date, "entry"), (exit_date, "exit")]:
+            # Get unadjusted close (cached per symbol+date)
+            cache_key = (symbol, d)
+            if cache_key not in close_cache:
+                close_cache[cache_key] = get_unadjusted_close(symbol, d)
+            spot = close_cache[cache_key]
+
+            if spot is None:
+                log.warning("Skipping %s %s %s — no unadjusted close", symbol, d, date_type)
+                continue
+
+            # Get rvol_20d (cached per symbol+date)
+            # rvol_20d is stored as a percentage (e.g. 30.64 = 30.64%), convert to decimal
+            if cache_key not in rvol_cache:
+                rvol_cache[cache_key] = get_rvol20d(symbol, d)
+            raw_rvol = rvol_cache[cache_key]
+            sigma = raw_rvol / 100.0  # convert percentage to decimal fraction
+
+            # Find expiry ~30 days out (nearest third Friday >= 20 DTE)
+            try:
+                expiry = nearest_monthly_expiry(d, min_dte=20)
+            except ValueError as e:
+                log.error("Cannot find expiry for %s %s: %s", symbol, d, e)
+                continue
+            dte = (expiry - d).days
+            T   = dte / 252.0  # annualised time in trading-day units
+
+            for delta in DELTAS:
+                z          = DELTA_Z[delta]
+                raw_strike = spot * math.exp(-z * sigma * math.sqrt(T))
+                strike     = round_strike(spot, raw_strike)
+                ticker     = build_ticker(symbol, expiry, strike)
+
+                nbbo = get_nbbo_quotes(ticker, d)
+                total_lookups += 1
+
+                row = {
+                    "symbol":          symbol,
+                    "date":            d.isoformat(),
+                    "date_type":       date_type,
+                    "spot_unadjusted": fmt(spot, 4),
+                    "delta_target":    delta,
+                    "option_ticker":   ticker,
+                    "strike":          fmt(strike, 2),
+                    "expiration":      expiry.isoformat(),
+                    "dte":             dte,
+                    "avg_bid":         fmt(nbbo["avg_bid"]),
+                    "avg_ask":         fmt(nbbo["avg_ask"]),
+                    "avg_mid":         fmt(nbbo["avg_mid"]),
+                    "spread":          fmt(nbbo["spread"]),
+                    "n_quotes":        nbbo["n_quotes"],
+                }
+                writer.writerow(row)
+                rows_written += 1
+
+                if total_lookups % SAVE_EVERY == 0:
+                    outfile.flush()
+                    log.info(
+                        "Progress: %d lookups done, %d rows written (trade %d/%d)",
+                        total_lookups, rows_written, trade_idx + 1, len(trades),
+                    )
+
+    outfile.flush()
+    outfile.close()
+    log.info(
+        "Done. Total lookups: %d, rows written: %d -> %s",
+        total_lookups, rows_written, OUTPUT_FILE,
+    )
+
+
+if __name__ == "__main__":
+    main()

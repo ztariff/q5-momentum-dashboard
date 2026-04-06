@@ -95,7 +95,8 @@
       "sizing_rule": "$13K options (Tier A) \u2014 Min 1 contract",
       "recommended_size": 13000,
       "recommended_contracts": 1,
-      "is_new_signal": true
+      "is_new_signal": true,
+      "instrument": "OPTION"
     },
     {
       "symbol": "SEDG",
@@ -108,7 +109,8 @@
       "sizing_rule": "$33K position (Tier C Q2)",
       "recommended_size": 33000,
       "recommended_contracts": null,
-      "is_new_signal": true
+      "is_new_signal": true,
+      "instrument": "STOCK"
     },
     {
       "symbol": "OXY",
@@ -121,20 +123,8 @@
       "sizing_rule": "$33K position (Tier C Q2)",
       "recommended_size": 33000,
       "recommended_contracts": null,
-      "is_new_signal": true
-    },
-    {
-      "symbol": "ARM",
-      "z_score": 2.0422,
-      "slope": 0.03291,
-      "quintile": 5,
-      "body_pct": -0.1056,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$67K position (Tier C Q3)",
-      "recommended_size": 67000,
-      "recommended_contracts": null,
-      "is_new_signal": true
+      "is_new_signal": true,
+      "instrument": "STOCK"
     },
     {
       "symbol": "MPC",
@@ -147,7 +137,8 @@
       "sizing_rule": "$33K position (Tier C Q2)",
       "recommended_size": 33000,
       "recommended_contracts": null,
-      "is_new_signal": true
+      "is_new_signal": true,
+      "instrument": "STOCK"
     },
     {
       "symbol": "DVN",
@@ -160,7 +151,8 @@
       "sizing_rule": "$33K position (Tier C Q2)",
       "recommended_size": 33000,
       "recommended_contracts": null,
-      "is_new_signal": true
+      "is_new_signal": true,
+      "instrument": "STOCK"
     },
     {
       "symbol": "EOG",
@@ -173,7 +165,8 @@
       "sizing_rule": "$33K position (Tier C Q2)",
       "recommended_size": 33000,
       "recommended_contracts": null,
-      "is_new_signal": true
+      "is_new_signal": true,
+      "instrument": "STOCK"
     },
     {
       "symbol": "COP",
@@ -186,7 +179,8 @@
       "sizing_rule": "$67K position (Tier C Q3)",
       "recommended_size": 67000,
       "recommended_contracts": null,
-      "is_new_signal": true
+      "is_new_signal": true,
+      "instrument": "STOCK"
     }
   ],
   "recently_closed": [
