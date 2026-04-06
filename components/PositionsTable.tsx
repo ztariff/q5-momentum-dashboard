@@ -373,9 +373,9 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
 
                     {/* Distance to Stop */}
                     <td>
-                      {pos.distance_to_stop_pct !== undefined ? (
+                      {pos.distance_to_stop_pct != null ? (
                         <span style={{ color: pos.distance_to_stop_pct < 20 ? '#f59e0b' : '#64748b' }}>
-                          {pos.distance_to_stop_pct.toFixed(1)}%
+                          {(pos.distance_to_stop_pct ?? 0).toFixed(1)}%
                         </span>
                       ) : '—'}
                     </td>
