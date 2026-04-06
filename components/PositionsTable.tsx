@@ -248,14 +248,13 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 <th onClick={() => handleSort('status')}>Status <SortIcon col="status" /></th>
                 <th onClick={() => handleSort('symbol')}>Symbol <SortIcon col="symbol" /></th>
                 <th>Option / Contracts</th>
-                <th>Type</th>
                 <th>Tier</th>
                 <th onClick={() => handleSort('entry_date')}>Entry Date <SortIcon col="entry_date" /></th>
                 <th>Entry Price</th>
                 <th>Current Price</th>
                 <th onClick={() => handleSort('unrealized_pnl')}>Unreal P&L <SortIcon col="unrealized_pnl" /></th>
                 <th>Unreal %</th>
-                <th onClick={() => handleSort('position_size')}>Size / Shares <SortIcon col="position_size" /></th>
+                <th onClick={() => handleSort('position_size')}>Size <SortIcon col="position_size" /></th>
                 <th>Stop Price</th>
                 <th>Dist to Stop</th>
                 <th onClick={() => handleSort('days_remaining')}>Days Rem <SortIcon col="days_remaining" /></th>
@@ -309,13 +308,6 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                       ) : (
                         <span style={{ color: '#374151' }}>—</span>
                       )}
-                    </td>
-
-                    {/* Type */}
-                    <td>
-                      <span className={getInstrumentBadge(pos.instrument)}>
-                        {getInstrumentLabel(pos.instrument)}
-                      </span>
                     </td>
 
                     {/* Tier */}
