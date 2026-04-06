@@ -66,6 +66,27 @@
       "distance_to_stop_pct": null
     },
     {
+      "symbol": "CSCO",
+      "status": "active",
+      "instrument": "OPTION",
+      "tier": "B",
+      "option_ticker": "O:CSCO260515C00085000",
+      "entry_date": "2026-04-07",
+      "entry_price": 1.41,
+      "current_price": 1.40,
+      "stop_price": null,
+      "exit_date": "2026-04-24",
+      "position_size": 7000,
+      "shares_or_contracts": 49,
+      "unrealized_pnl": -49,
+      "unrealized_pct": -0.71,
+      "days_held": 1,
+      "days_remaining": 12,
+      "body_pct": 0.895,
+      "atr_change_3d": -0.0152,
+      "distance_to_stop_pct": null
+    },
+    {
       "symbol": "MRK",
       "status": "active",
       "instrument": "OPTION",
@@ -87,56 +108,33 @@
       "distance_to_stop_pct": null
     }
   ],
-  "pending_signals": [
-    {
-      "symbol": "CSCO",
-      "z_score": 0.194,
-      "body_pct": 0.895,
-      "atr_change": -0.0152,
-      "tier": "B",
-      "instrument": "OPTION",
-      "sizing_rule": "Tier B: $7K options - Min 1 contract",
-      "recommended_size": 7000,
-      "recommended_contracts": 1,
-      "is_new_signal": true,
-      "entry_date": "2026-04-07"
-    }
-  ],
+  "pending_signals": [],
   "recently_closed": [
     {
-      "symbol": "SPG",
+      "symbol": "MPC",
       "exit_date": "2026-04-02",
-      "entry_price": 178.5,
-      "exit_price": 174.3,
-      "net_pnl": -1868,
-      "return_pct": -2.35,
+      "entry_price": 5.2,
+      "exit_price": 21.53,
+      "net_pnl": 21930,
+      "return_pct": 314.04,
       "exit_type": "TIME"
     },
     {
-      "symbol": "VXX",
+      "symbol": "PFE",
+      "exit_date": "2026-04-02",
+      "entry_price": 0.45,
+      "exit_price": 0.59,
+      "net_pnl": 4029,
+      "return_pct": 31.11,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "VLO",
       "exit_date": "2026-04-01",
-      "entry_price": 2.35,
-      "exit_price": 1.64,
-      "net_pnl": -4035,
-      "return_pct": -30.21,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "AMT",
-      "exit_date": "2026-04-02",
-      "entry_price": 2.37,
-      "exit_price": 0.18,
-      "net_pnl": -6144,
-      "return_pct": -92.41,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "LI",
-      "exit_date": "2026-04-02",
-      "entry_price": 0.68,
-      "exit_price": 0.39,
-      "net_pnl": -2844,
-      "return_pct": -42.65,
+      "entry_price": 8.75,
+      "exit_price": 8.3,
+      "net_pnl": -680,
+      "return_pct": -5.14,
       "exit_type": "TIME"
     },
     {
@@ -144,21 +142,48 @@
       "exit_date": "2026-04-02",
       "entry_price": 4.0,
       "exit_price": 2.41,
-      "net_pnl": -2653,
+      "net_pnl": -2788,
       "return_pct": -39.75,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "LI",
+      "exit_date": "2026-04-02",
+      "entry_price": 0.68,
+      "exit_price": 0.39,
+      "net_pnl": -2990,
+      "return_pct": -42.65,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "VXX",
+      "exit_date": "2026-04-02",
+      "entry_price": 2.35,
+      "exit_price": 1.64,
+      "net_pnl": -3938,
+      "return_pct": -30.21,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "GME",
+      "exit_date": "2026-04-02",
+      "entry_price": 1.28,
+      "exit_price": 0.2,
+      "net_pnl": -10973,
+      "return_pct": -84.38,
       "exit_type": "TIME"
     }
   ],
   "summary": {
-    "total_positions": 4,
-    "total_pending": 1,
-    "total_unrealized": 9506,
-    "realized_pnl": 5871744,
-    "month_realized": 51640,
+    "total_positions": 5,
+    "total_pending": 0,
+    "total_unrealized": 9457,
+    "realized_pnl": 5838808,
+    "month_realized": 18704,
     "month_unrealized": 9506,
     "win_rate": 55.3,
     "profit_factor": 2.03,
-    "year_realized": 283540
+    "year_realized": 250604
   },
   "risk_alerts": [
     {
@@ -638,9 +663,9 @@
     },
     {
       "year": "2026",
-      "pnl": 283540,
+      "pnl": 250604,
       "win_rate": 51.1,
-      "trades": 92
+      "trades": 88
     }
   ],
   "monthly_equity": [
@@ -1021,8 +1046,8 @@
     },
     {
       "date": "2026-04",
-      "pnl": 51640,
-      "equity": 5871744
+      "pnl": 18704,
+      "equity": 5838808
     }
   ]
 }
