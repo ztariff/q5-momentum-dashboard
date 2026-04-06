@@ -430,7 +430,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                         </div>
                       ) : isPending && pos.instrument?.toUpperCase().includes('OPTION') ? (
                         <span className="text-xs" style={{ color: '#92400e' }}>
-                          30\u0394 call, ~1mo expiry
+                          30-delta call, ~1mo expiry
                         </span>
                       ) : (
                         <span style={{ color: '#374151' }}>—</span>
