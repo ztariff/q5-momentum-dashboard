@@ -164,7 +164,7 @@ export default function Dashboard() {
                 Total Positions
               </div>
               <div className="text-2xl font-bold" style={{ color: '#f1f5f9' }}>
-                {totalPositions.toLocaleString()}
+                {(totalPositions || 0).toLocaleString()}
               </div>
             </div>
           </div>

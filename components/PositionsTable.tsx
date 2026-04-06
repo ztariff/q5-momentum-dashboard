@@ -102,7 +102,7 @@ function formatOptionTicker(ticker: string): string {
   const strike = parseInt(strikePadded, 10) / 1000;
   const monthName = MONTH_ABBR[monthIdx] ?? mm;
   const callPut = cpFlag === 'C' ? 'Call' : 'Put';
-  const strikeStr = strike % 1 === 0 ? strike.toFixed(0) : strike.toFixed(2);
+  const strikeStr = strike % 1 === 0 ? (strike || 0).toFixed(0) : (strike || 0).toFixed(2);
   return `${symbol} ${monthName} ${day} ${year} $${strikeStr} ${callPut}`;
 }
 
@@ -354,7 +354,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                         <span style={{ color: '#475569' }}>—</span>
                       ) : (
                         <span className={pnlPct >= 0 ? 'pnl-positive' : 'pnl-negative'}>
-                          {pnlPct >= 0 ? '+' : ''}{pnlPct.toFixed(2)}%
+                          {pnlPct >= 0 ? '+' : ''}{(pnlPct || 0).toFixed(2)}%
                         </span>
                       )}
                     </td>
@@ -362,13 +362,13 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     {/* Size */}
                     <td style={{ color: '#94a3b8' }}>
                       {pos.instrument?.toUpperCase().includes('STOCK')
-                        ? `${Math.round(pos.shares_or_contracts).toLocaleString()} shares`
+                        ? `${Math.round(pos.shares_or_contracts || 0).toLocaleString()} shares`
                         : formatSize(pos.position_size)}
                     </td>
 
                     {/* Stop Price */}
                     <td style={{ color: '#f59e0b' }}>
-                      {pos.stop_price ? `$${pos.stop_price.toFixed(2)}` : '—'}
+                      {pos.stop_price ? `$${(pos.stop_price || 0).toFixed(2)}` : '—'}
                     </td>
 
                     {/* Distance to Stop */}

@@ -93,13 +93,13 @@ export default function PerformanceSummary() {
 
   const statCards = [
     { label: 'Total P&L', value: formatPnl(data.total_realized_pnl), positive: data.total_realized_pnl >= 0, icon: <TrendingUp className="w-4 h-4" /> },
-    { label: 'Win Rate', value: `${data.win_rate.toFixed(1)}%`, positive: data.win_rate >= 50, icon: <Award className="w-4 h-4" /> },
-    { label: 'Profit Factor', value: data.profit_factor.toFixed(2), positive: data.profit_factor >= 1, icon: <BarChart2 className="w-4 h-4" /> },
-    { label: 'Sharpe Ratio', value: data.sharpe.toFixed(2), positive: data.sharpe >= 0, icon: <Target className="w-4 h-4" /> },
+    { label: 'Win Rate', value: `${(data.win_rate || 0).toFixed(1)}%`, positive: data.win_rate >= 50, icon: <Award className="w-4 h-4" /> },
+    { label: 'Profit Factor', value: (data.profit_factor || 0).toFixed(2), positive: data.profit_factor >= 1, icon: <BarChart2 className="w-4 h-4" /> },
+    { label: 'Sharpe Ratio', value: (data.sharpe || 0).toFixed(2), positive: data.sharpe >= 0, icon: <Target className="w-4 h-4" /> },
     { label: 'Max Drawdown', value: formatPnl(data.max_drawdown), positive: false, icon: <TrendingUp className="w-4 h-4" style={{ transform: 'rotate(180deg)' }} /> },
     { label: 'Avg P&L/Trade', value: formatPnl(data.avg_pnl_per_trade), positive: data.avg_pnl_per_trade >= 0, icon: <BarChart2 className="w-4 h-4" /> },
-    { label: 'Total Trades', value: data.total_trades.toLocaleString(), positive: true, icon: <Target className="w-4 h-4" /> },
-    { label: 'Stop Rate', value: `${data.stop_rate.toFixed(1)}%`, positive: data.stop_rate < 30, icon: <Award className="w-4 h-4" /> },
+    { label: 'Total Trades', value: (data.total_trades || 0).toLocaleString(), positive: true, icon: <Target className="w-4 h-4" /> },
+    { label: 'Stop Rate', value: `${(data.stop_rate || 0).toFixed(1)}%`, positive: data.stop_rate < 30, icon: <Award className="w-4 h-4" /> },
   ];
 
   return (
