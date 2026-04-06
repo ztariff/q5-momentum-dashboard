@@ -4,7 +4,7 @@
   "positions": [
     {
       "symbol": "ARM",
-      "status": "active",
+      "status": "exit_today",
       "instrument": "OPTION",
       "tier": "B",
       "option_ticker": "O:ARM260417C00125000",
