@@ -361,7 +361,6 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                       ) : isExitToday ? (
                         <span className={`font-bold ${(pnlValue ?? 0) >= 0 ? 'pnl-positive' : 'pnl-negative'}`}>
                           {formatPnl(pnlValue)}
-                          <span className="text-xs ml-1" style={{ color: '#c084fc' }}>(final)</span>
                         </span>
                       ) : (
                         <span className={(pnlValue ?? 0) >= 0 ? 'pnl-positive font-bold' : 'pnl-negative font-bold'}>
