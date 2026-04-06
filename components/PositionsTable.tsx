@@ -210,9 +210,6 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
             {formatPnl(totalPnl)}
           </span>
         </span>
-        <span className="text-xs" style={{ color: '#64748b' }}>
-          Win rate: <span style={{ color: '#94a3b8' }}>{winRate}%</span>
-        </span>
         <span className="text-xs" style={{ color: '#475569' }}>
           Click column headers to sort
         </span>
@@ -250,6 +247,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
               <tr>
                 <th onClick={() => handleSort('status')}>Status <SortIcon col="status" /></th>
                 <th onClick={() => handleSort('symbol')}>Symbol <SortIcon col="symbol" /></th>
+                <th>Option / Contracts</th>
                 <th>Type</th>
                 <th>Tier</th>
                 <th onClick={() => handleSort('entry_date')}>Entry Date <SortIcon col="entry_date" /></th>
@@ -262,7 +260,6 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 <th>Dist to Stop</th>
                 <th onClick={() => handleSort('days_remaining')}>Days Rem <SortIcon col="days_remaining" /></th>
                 <th>Exit Date</th>
-                <th title="Minimum 1 contract per option trade regardless of premium. Formula: max(1, floor(budget / (price × 100)))">Option / Contracts</th>
               </tr>
             </thead>
             <tbody>
@@ -287,6 +284,31 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     {/* Symbol */}
                     <td>
                       <span className="font-bold text-sm" style={{ color: '#f1f5f9' }}>{pos.symbol}</span>
+                    </td>
+
+                    {/* Option / Contracts */}
+                    <td>
+                      {pos.option_ticker ? (
+                        <div>
+                          <span className="text-xs" style={{ color: '#c084fc' }} title={pos.option_ticker}>
+                            {formatOptionTicker(pos.option_ticker)}
+                          </span>
+                          {pos.shares_or_contracts > 0 && (
+                            <div
+                              className="text-xs mt-0.5"
+                              style={{ color: '#a78bfa' }}
+                            >
+                              {pos.shares_or_contracts} contract{pos.shares_or_contracts !== 1 ? 's' : ''}
+                            </div>
+                          )}
+                        </div>
+                      ) : isPending && pos.instrument?.toUpperCase().includes('OPTION') ? (
+                        <span className="text-xs" style={{ color: '#92400e' }}>
+                          30-delta call, ~1mo expiry
+                        </span>
+                      ) : (
+                        <span style={{ color: '#374151' }}>—</span>
+                      )}
                     </td>
 
                     {/* Type */}
@@ -407,30 +429,6 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                       {pos.scheduled_exit_date ? formatDate(pos.scheduled_exit_date) : pos.exit_date ? formatDate(pos.exit_date) : '—'}
                     </td>
 
-                    {/* Option / Contracts */}
-                    <td>
-                      {pos.option_ticker ? (
-                        <div>
-                          <span className="text-xs" style={{ color: '#c084fc' }} title={pos.option_ticker}>
-                            {formatOptionTicker(pos.option_ticker)}
-                          </span>
-                          {pos.shares_or_contracts > 0 && (
-                            <div
-                              className="text-xs mt-0.5"
-                              style={{ color: '#a78bfa' }}
-                            >
-                              {pos.shares_or_contracts} contract{pos.shares_or_contracts !== 1 ? 's' : ''}
-                            </div>
-                          )}
-                        </div>
-                      ) : isPending && pos.instrument?.toUpperCase().includes('OPTION') ? (
-                        <span className="text-xs" style={{ color: '#92400e' }}>
-                          30-delta call, ~1mo expiry
-                        </span>
-                      ) : (
-                        <span style={{ color: '#374151' }}>—</span>
-                      )}
-                    </td>
                   </tr>
                 );
               })}
