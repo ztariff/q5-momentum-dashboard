@@ -414,17 +414,12 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                           <span className="text-xs" style={{ color: '#c084fc' }} title={pos.option_ticker}>
                             {formatOptionTicker(pos.option_ticker)}
                           </span>
-                          {pos.entry_price > 0 && (
+                          {pos.shares_or_contracts > 0 && (
                             <div
                               className="text-xs mt-0.5"
                               style={{ color: '#a78bfa' }}
-                              title="Minimum 1 contract per option trade regardless of premium"
                             >
-                              {(() => {
-                                const budget = pos.tier === 'A' ? 13000 : 7000;
-                                const contracts = recommendedContracts(budget, pos.entry_price);
-                                return `${contracts} contract${contracts !== 1 ? 's' : ''}`;
-                              })()}
+                              {pos.shares_or_contracts} contract{pos.shares_or_contracts !== 1 ? 's' : ''}
                             </div>
                           )}
                         </div>
