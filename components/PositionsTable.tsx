@@ -304,7 +304,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     {/* Entry Date */}
                     <td style={{ color: '#94a3b8' }}>
                       {isPending ? (
-                        <span style={{ color: '#fbbf24' }}>{formatDate(pos.entry_date)} <span className="text-xs opacity-70">(est.)</span></span>
+                        <span style={{ color: '#fbbf24' }}>{formatDate(pos.entry_date)}</span>
                       ) : formatDate(pos.entry_date)}
                     </td>
 
