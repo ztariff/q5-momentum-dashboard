@@ -7,14 +7,14 @@ import RiskAlerts from '@/components/RiskAlerts';
 import SignalScanner from '@/components/SignalScanner';
 import PerformanceSummary from '@/components/PerformanceSummary';
 import { Position } from '@/lib/types';
-import { Activity, TrendingUp, AlertTriangle, Zap, BarChart2, DollarSign, Calendar } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, Eye, BarChart2, DollarSign, Calendar } from 'lucide-react';
 
 type TabId = 'positions' | 'signals' | 'risk' | 'performance';
 
 const TABS = [
   { id: 'positions' as const, label: 'Current Positions', icon: Activity },
   { id: 'risk' as const, label: 'Risk Alerts', icon: AlertTriangle },
-  { id: 'signals' as const, label: 'Signal Scanner', icon: Zap },
+  { id: 'signals' as const, label: 'Watchlist', icon: Eye },
   { id: 'performance' as const, label: 'Performance', icon: BarChart2 },
 ];
 
