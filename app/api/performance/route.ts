@@ -38,11 +38,8 @@ export async function GET() {
     const stopTrades = closedTrades.filter(t => t.exit_type?.includes('STOP'));
     const stopRate = closedTrades.length > 0 ? (stopTrades.length / closedTrades.length) * 100 : 0;
     
-<<<<<<< Updated upstream
     // Build equity curve from monthly data — scale monthly values
-=======
     // Build equity curve from monthly data — scale each monthly value
->>>>>>> Stashed changes
     let cumulative = 0;
     const equityCurve = monthlyData.map(m => {
       cumulative += m.net_total * 1000 * SCALE_FACTOR; // monthly data is in thousands, then scaled
@@ -80,11 +77,6 @@ export async function GET() {
       net_total: m.net_total * SCALE_FACTOR,
     }));
     
-    // Also scale the monthly_data net_total for display
-    const scaledMonthlyData = monthlyData.map(m => ({
-      ...m,
-      net_total: m.net_total * SCALE_FACTOR,
-    }));
 
     return NextResponse.json({
       total_realized_pnl: totalPnl,
