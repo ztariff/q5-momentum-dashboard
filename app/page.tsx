@@ -120,7 +120,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     loadPositions();
-    triggerDataRefreshIfStale();
+    // triggerDataRefreshIfStale(); // disabled — causes Railway issues
   }, [loadPositions, triggerDataRefreshIfStale]);
 
   useEffect(() => {
