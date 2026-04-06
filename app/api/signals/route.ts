@@ -4,8 +4,11 @@ import fs from 'fs';
 
 /**
  * GET /api/signals
- * Pure display layer — reads pre-computed pending_signals from live_state.json.
- * All computation happens in /api/refresh (the daily engine).
+ * Returns the Q4 watchlist from live_state.json.
+ * These are symbols approaching Q5 — not yet actionable, just to monitor.
+ *
+ * Q5 signals (pending_signals) belong in Current Positions as PENDING entries.
+ * They are served by /api/positions.
  */
 export async function GET() {
   try {
@@ -20,31 +23,24 @@ export async function GET() {
 
     const liveState = JSON.parse(fs.readFileSync(liveStatePath, 'utf-8'));
 
-    const pendingSignals = liveState.pending_signals ?? [];
-
-    // Build watchlist-style data from pending signals (Q5 stocks near trigger)
-    // For a pure display layer, this just surfaces what /api/refresh wrote
-    const signals = pendingSignals.map((s: Record<string, unknown>) => ({
-      symbol: s.symbol,
-      z_score: s.z_score,
-      slope: 0, // not stored in live_state — could be added in future refresh
-      quintile: 5,
-      body_pct: s.body_pct,
-      atr_change: s.atr_change_3d,
-      tier: s.tier,
-      sizing_rule: s.sizing_rule,
-      recommended_size: s.position_size,
-      recommended_contracts: s.tier === 'C' ? null : Math.max(1, Math.floor((s.position_size as number) / ((s.estimated_entry as number) * 100))),
-      is_new_signal: true,
+    // Only expose the Q4 watchlist here.
+    // pending_signals (Q5) are handled exclusively by /api/positions.
+    const watchlist = (liveState.watchlist ?? []).map((item: Record<string, unknown>) => ({
+      symbol: item.symbol ?? null,
+      quintile: item.quintile ?? 4,
+      z_score: item.z_score ?? null,
+      slope: item.slope ?? null,
+      sma50_slope: item.sma50_slope ?? null,
+      body_pct: item.body_pct ?? null,
+      distance_to_q5: item.distance_to_q5 ?? null,
+      approaching: item.approaching ?? false,
     }));
 
     return NextResponse.json({
-      signals,
-      watchlist: [], // watchlist computation requires full quintile history — deferred to future refresh enhancement
-      total_scanned: liveState.summary?.total_positions !== undefined ? 230 : 0,
-      timestamp: liveState.last_refresh,
-      market_date: liveState.market_date,
-      last_refresh: liveState.last_refresh,
+      watchlist,
+      total_scanned: liveState.total_scanned ?? 0,
+      last_refresh: liveState.last_refresh ?? null,
+      market_date: liveState.market_date ?? null,
     });
   } catch (err) {
     console.error('Error in /api/signals:', err);
