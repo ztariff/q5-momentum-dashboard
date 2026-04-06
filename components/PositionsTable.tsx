@@ -312,10 +312,10 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                     <td style={{ color: '#cbd5e1' }}>
                       {isPending ? (
                         <span style={{ color: '#d97706' }}>
-                          Est. ${pos.entry_price.toFixed(2)}
+                          Est. ${((pos.entry_price || 0).toFixed(2))}
                         </span>
                       ) : (
-                        `$${pos.entry_price.toFixed(2)}`
+                        `$${((pos.entry_price || 0).toFixed(2))}`
                       )}
                     </td>
 
@@ -324,8 +324,8 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                       {isPending ? (
                         <span style={{ color: '#92400e' }} className="text-xs">—</span>
                       ) : pos.current_price ? (
-                        <span style={{ color: pos.current_price >= pos.entry_price ? '#22c55e' : '#ef4444' }}>
-                          ${pos.current_price.toFixed(2)}
+                        <span style={{ color: ((pos.current_price || 0) >= (pos.entry_price || 0)) ? '#22c55e' : '#ef4444' }}>
+                          ${((pos.current_price || 0).toFixed(2))}
                         </span>
                       ) : (
                         <span style={{ color: '#475569' }}>—</span>
