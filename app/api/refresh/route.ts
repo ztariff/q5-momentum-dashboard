@@ -198,7 +198,7 @@ export async function GET() {
   };
 
   try {
-    fs.writeFileSync(liveStatePath, JSON.stringify(updatedState, null, 2));
+    try { fs.writeFileSync(liveStatePath, JSON.stringify(updatedState, null, 2)); } catch { /* read-only filesystem on Railway — skip write */ }
   } catch (err) {
     return NextResponse.json({ error: `Failed to write live_state.json: ${err}` }, { status: 500 });
   }
