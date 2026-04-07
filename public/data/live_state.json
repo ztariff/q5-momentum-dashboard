@@ -1,6 +1,6 @@
 {
-  "last_refresh": "2026-04-03T16:05:00Z",
-  "market_date": "2026-04-02",
+  "last_refresh": "2026-04-07T11:10:13Z",
+  "market_date": "2026-04-07",
   "positions": [
     {
       "symbol": "CSCO",
@@ -686,21 +686,12 @@
   "pending_signals": [],
   "recently_closed": [
     {
-      "symbol": "ARM",
-      "exit_date": "2026-04-07",
-      "entry_price": 8.42,
-      "exit_price": 23.17,
-      "net_pnl": 42775,
-      "return_pct": 175.18,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "DTE",
+      "symbol": "LI",
       "exit_date": "2026-04-01",
-      "entry_price": 146.21,
-      "exit_price": 147.12,
-      "net_pnl": 1372,
-      "return_pct": 0.62,
+      "entry_price": 0.68,
+      "exit_price": 0.39,
+      "net_pnl": -10663,
+      "return_pct": -42.65,
       "exit_type": "TIME"
     },
     {
@@ -713,12 +704,12 @@
       "exit_type": "TIME"
     },
     {
-      "symbol": "LI",
+      "symbol": "DTE",
       "exit_date": "2026-04-01",
-      "entry_price": 0.68,
-      "exit_price": 0.39,
-      "net_pnl": -10663,
-      "return_pct": -42.65,
+      "entry_price": 146.21,
+      "exit_price": 147.12,
+      "net_pnl": 1372,
+      "return_pct": 0.62,
       "exit_type": "TIME"
     },
     {
@@ -731,21 +722,21 @@
       "exit_type": "TIME"
     },
     {
-      "symbol": "GME",
-      "exit_date": "2026-03-30",
-      "entry_price": 1.28,
-      "exit_price": 0.2,
-      "net_pnl": -42149,
-      "return_pct": -84.38,
-      "exit_type": "TIME"
-    },
-    {
       "symbol": "PFE",
       "exit_date": "2026-03-30",
       "entry_price": 0.45,
       "exit_price": 0.59,
       "net_pnl": 15496,
       "return_pct": 31.11,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "GME",
+      "exit_date": "2026-03-30",
+      "entry_price": 1.28,
+      "exit_price": 0.2,
+      "net_pnl": -42149,
+      "return_pct": -84.38,
       "exit_type": "TIME"
     },
     {
@@ -774,6 +765,15 @@
       "net_pnl": 251,
       "return_pct": 0.61,
       "exit_type": "TIME"
+    },
+    {
+      "symbol": "SPG",
+      "exit_date": "2026-03-23",
+      "entry_price": 5.66,
+      "exit_price": 0.29,
+      "net_pnl": -47282,
+      "return_pct": -94.88,
+      "exit_type": "TIME"
     }
   ],
   "summary": {
@@ -789,9 +789,34 @@
   },
   "risk_alerts": [
     {
+      "type": "exit_today",
+      "symbol": "LB",
+      "days_remaining": 0
+    },
+    {
+      "type": "exit_today",
+      "symbol": "CMS",
+      "days_remaining": 0
+    },
+    {
+      "type": "exit_soon",
+      "symbol": "SENS",
+      "days_remaining": 1
+    },
+    {
+      "type": "exit_soon",
+      "symbol": "FANG",
+      "days_remaining": 2
+    },
+    {
+      "type": "exit_soon",
+      "symbol": "RRC",
+      "days_remaining": 3
+    },
+    {
       "type": "near_stop",
-      "symbol": "JD",
-      "distance_pct": 27.9
+      "symbol": "MCD",
+      "distance_pct": 3.7
     }
   ],
   "signals": [
@@ -1217,10 +1242,10 @@
       "distance_to_q5": "approaching"
     }
   ],
-  "as_of": "2026-04-02",
+  "as_of": "2026-04-07",
   "total_scanned": 225,
   "source": "pre_seeded_enriched_csv",
-  "note": "Dual Ranking FINAL. R1(230 opt) + R2(366 all). Smart option download. $30.7M, PF 1.67, Sharpe 1.62, 7/7. 2026-04-07.",
+  "note": "Dual Ranking FINAL. R1(230 opt)+R2(366 all). $30.7M, PF 1.67, Sharpe 1.62, 7/7.",
   "yearly_pnl": [
     {
       "year": "2020",
