@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-04-07T17:33:17Z",
+  "last_refresh": "2026-04-07T17:56:34Z",
   "market_date": "2026-04-07",
   "positions": [
     {
@@ -10,16 +10,16 @@
       "option_ticker": "O:CSCO260515C00085000",
       "entry_date": "2026-04-07",
       "entry_price": 1.41,
-      "current_price": 1.92,
+      "current_price": 1.91,
       "stop_price": null,
       "exit_date": "2026-04-23",
       "position_size": 25000,
       "shares_or_contracts": 177,
-      "unrealized_pnl": 9027,
-      "unrealized_pct": 36.17,
+      "unrealized_pnl": 8850,
+      "unrealized_pct": 35.46,
       "days_held": 1,
       "days_remaining": 12,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "LIVE"
     },
     {
@@ -30,16 +30,16 @@
       "option_ticker": "O:HAL260417C00040000",
       "entry_date": "2026-03-20",
       "entry_price": 0.32,
-      "current_price": 0.45,
+      "current_price": 0.43,
       "stop_price": null,
       "exit_date": "2026-04-08",
       "position_size": 50000,
       "shares_or_contracts": 1562,
-      "unrealized_pnl": 20306,
-      "unrealized_pct": 40.62,
+      "unrealized_pnl": 17182,
+      "unrealized_pct": 34.38,
       "days_held": 12,
       "days_remaining": 1,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -49,7 +49,7 @@
       "tier": "B",
       "option_ticker": "O:STZ260417C00160000",
       "entry_date": "2026-03-24",
-      "entry_price": 3.0,
+      "entry_price": 3,
       "current_price": 2.42,
       "stop_price": null,
       "exit_date": "2026-04-10",
@@ -59,7 +59,7 @@
       "unrealized_pct": -19.33,
       "days_held": 10,
       "days_remaining": 3,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -69,7 +69,7 @@
       "tier": "A",
       "option_ticker": "O:VTR260417C00085000",
       "entry_date": "2026-03-25",
-      "entry_price": 1.0,
+      "entry_price": 1,
       "current_price": 0.8,
       "stop_price": null,
       "exit_date": "2026-04-13",
@@ -79,7 +79,7 @@
       "unrealized_pct": -20.0,
       "days_held": 9,
       "days_remaining": 4,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -90,16 +90,16 @@
       "option_ticker": "O:ARM260417C00175000",
       "entry_date": "2026-03-26",
       "entry_price": 0.48,
-      "current_price": 0.24,
+      "current_price": 0.25,
       "stop_price": null,
       "exit_date": "2026-04-14",
       "position_size": 50000,
       "shares_or_contracts": 1041,
-      "unrealized_pnl": -24984,
-      "unrealized_pct": -50.0,
+      "unrealized_pnl": -23943,
+      "unrealized_pct": -47.92,
       "days_held": 8,
       "days_remaining": 5,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -119,7 +119,7 @@
       "unrealized_pct": -22.22,
       "days_held": 6,
       "days_remaining": 7,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -130,16 +130,16 @@
       "option_ticker": "O:RSG260515C00230000",
       "entry_date": "2026-03-31",
       "entry_price": 2.9,
-      "current_price": 3.0,
+      "current_price": 3.1,
       "stop_price": null,
       "exit_date": "2026-04-17",
       "position_size": 50000,
       "shares_or_contracts": 172,
-      "unrealized_pnl": 1720,
-      "unrealized_pct": 3.45,
+      "unrealized_pnl": 3440,
+      "unrealized_pct": 6.9,
       "days_held": 5,
       "days_remaining": 8,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -159,7 +159,7 @@
       "unrealized_pct": 46.67,
       "days_held": 5,
       "days_remaining": 8,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -179,7 +179,7 @@
       "unrealized_pct": 76.92,
       "days_held": 4,
       "days_remaining": 9,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -190,16 +190,16 @@
       "option_ticker": "O:CSX260515C00040000",
       "entry_date": "2026-04-01",
       "entry_price": 2.11,
-      "current_price": 2.45,
+      "current_price": 2.52,
       "stop_price": null,
       "exit_date": "2026-04-20",
       "position_size": 50000,
       "shares_or_contracts": 236,
-      "unrealized_pnl": 8024,
-      "unrealized_pct": 16.11,
+      "unrealized_pnl": 9676,
+      "unrealized_pct": 19.43,
       "days_held": 4,
       "days_remaining": 9,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -210,38 +210,17 @@
       "option_ticker": "O:MRVL260515C00110000",
       "entry_date": "2026-04-01",
       "entry_price": 2.81,
-      "current_price": 8.5,
+      "current_price": 8.18,
       "stop_price": null,
       "exit_date": "2026-04-20",
       "position_size": 50000,
       "shares_or_contracts": 177,
-      "unrealized_pnl": 100713,
-      "unrealized_pct": 202.49,
+      "unrealized_pnl": 95049,
+      "unrealized_pct": 191.1,
       "days_held": 4,
       "days_remaining": 9,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
-    },
-    {
-      "symbol": "MCD",
-      "status": "skipped",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:MCD260417C00330000",
-      "entry_date": "2026-03-19",
-      "entry_price": 7.25,
-      "current_price": 0.14,
-      "stop_price": null,
-      "exit_date": "2026-04-07",
-      "position_size": 25000,
-      "shares_or_contracts": 34,
-      "unrealized_pnl": -24174,
-      "unrealized_pct": -98.07,
-      "days_held": 13,
-      "days_remaining": 0,
-      "distance_to_stop_pct": null,
-      "source": "R2_366",
-      "skip_reason": "Premium $7.25 > $3.00"
     },
     {
       "symbol": "FDX",
@@ -257,10 +236,10 @@
       "position_size": 25000,
       "shares_or_contracts": 30,
       "unrealized_pnl": -18480,
-      "unrealized_pct": -74.67,
+      "unrealized_pct": -74.7,
       "days_held": 10,
       "days_remaining": 3,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $8.25 > $3.00"
     },
@@ -278,10 +257,10 @@
       "position_size": 50000,
       "shares_or_contracts": 145,
       "unrealized_pnl": -42630,
-      "unrealized_pct": -85.47,
+      "unrealized_pct": -85.5,
       "days_held": 9,
       "days_remaining": 4,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $3.44 > $3.00"
     },
@@ -299,10 +278,10 @@
       "position_size": 25000,
       "shares_or_contracts": 52,
       "unrealized_pnl": 2080,
-      "unrealized_pct": 8.33,
+      "unrealized_pct": 8.3,
       "days_held": 4,
       "days_remaining": 9,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $4.80 > $3.00"
     },
@@ -313,17 +292,17 @@
       "tier": "B",
       "option_ticker": "O:TRV260515C00300000",
       "entry_date": "2026-04-02",
-      "entry_price": 8.0,
+      "entry_price": 8,
       "current_price": 8.7,
       "stop_price": null,
       "exit_date": "2026-04-21",
       "position_size": 25000,
       "shares_or_contracts": 31,
       "unrealized_pnl": 2170,
-      "unrealized_pct": 8.75,
+      "unrealized_pct": 8.7,
       "days_held": 3,
       "days_remaining": 10,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $8.00 > $3.00"
     },
@@ -341,16 +320,25 @@
       "position_size": 25000,
       "shares_or_contracts": 43,
       "unrealized_pnl": -2580,
-      "unrealized_pct": -10.53,
+      "unrealized_pct": -10.5,
       "days_held": 3,
       "days_remaining": 10,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $5.70 > $3.00"
     }
   ],
   "pending_signals": [],
   "recently_closed": [
+    {
+      "symbol": "MCD",
+      "exit_date": "2026-04-07",
+      "entry_price": 7.25,
+      "exit_price": 0.07,
+      "net_pnl": -24412,
+      "return_pct": -99.03,
+      "exit_type": "TIME"
+    },
     {
       "symbol": "LB",
       "exit_date": "2026-03-19",
@@ -416,10 +404,10 @@
     {
       "symbol": "STM",
       "exit_date": "2026-04-07",
-      "entry_price": 1.0,
+      "entry_price": 1,
       "exit_price": 0.75,
       "net_pnl": -6250,
-      "return_pct": -25.0,
+      "return_pct": -25,
       "exit_type": "TIME"
     },
     {
@@ -439,28 +427,19 @@
       "net_pnl": 4410,
       "return_pct": 8.82,
       "exit_type": "TIME"
-    },
-    {
-      "symbol": "ADM",
-      "exit_date": "2026-04-07",
-      "entry_price": 0.76,
-      "exit_price": 0.3,
-      "net_pnl": -30222,
-      "return_pct": -60.53,
-      "exit_type": "TIME"
     }
   ],
   "summary": {
     "total_positions": 11,
     "total_pending": 0,
-    "total_unrealized": 144594,
-    "realized_pnl": 27260288,
-    "month_realized": -58755,
-    "month_unrealized": 144594,
-    "win_rate": 40.0,
+    "total_unrealized": 140042,
+    "realized_pnl": 27235876,
+    "month_realized": -83167,
+    "month_unrealized": 140042,
+    "win_rate": 40,
     "profit_factor": 2.17,
-    "year_realized": 2316053,
-    "year_total": 2460647
+    "year_realized": 2291641,
+    "year_total": 2431683
   },
   "risk_alerts": [
     {
@@ -476,22 +455,7 @@
     {
       "type": "large_loss",
       "symbol": "ARM",
-      "unrealized_pct": -50.0
-    },
-    {
-      "type": "exit_soon",
-      "symbol": "FDX",
-      "days_remaining": 3
-    },
-    {
-      "type": "large_loss",
-      "symbol": "FDX",
-      "unrealized_pct": -77.82
-    },
-    {
-      "type": "large_loss",
-      "symbol": "SEDG",
-      "unrealized_pct": -93.31
+      "unrealized_pct": -47.92
     }
   ],
   "signals": [
@@ -1636,7 +1600,7 @@
     },
     {
       "year": "2026",
-      "pnl": 2316053,
+      "pnl": 2291641,
       "win_rate": 58.1,
       "trades": 62
     }
