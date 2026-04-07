@@ -23,11 +23,9 @@ function getRowClass(pos: Position): string {
 
   // Active positions: standard color coding
   const unrealPct = pos.unrealized_pct ?? 0;
-  const stopDist = pos.distance_to_stop_pct ?? 100;
   const daysRem = pos.days_remaining ?? 99;
 
   if (unrealPct < -50) return 'row-deep-loss';
-  if (stopDist < 20) return 'row-near-stop';
   if (daysRem <= 2) return 'row-near-exit';
   if ((pos.unrealized_pnl ?? 0) > 0) return 'row-profitable';
   return 'row-losing';

@@ -59,7 +59,6 @@ export function deriveOpenPositions(trades: Trade[]): Position[] {
         days_remaining: daysRemaining,
         scheduled_exit_date: trade.exit_date,
         max_hold_days: maxHoldDays,
-        is_open: true,
       };
       
       openPositions.push(position);

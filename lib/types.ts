@@ -41,8 +41,7 @@ export interface Position extends Trade {
   days_held?: number;
   days_remaining?: number;
   scheduled_exit_date?: string;
-  max_hold_days: number;
-  is_open: boolean;
+  max_hold_days?: number;
 }
 
 export interface WatchlistItem {

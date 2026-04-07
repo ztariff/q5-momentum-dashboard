@@ -41,9 +41,7 @@ export async function GET() {
       days_remaining: null,
       body_pct: s.body_pct ?? null,
       atr_change_3d: s.atr_change ?? null,
-      distance_to_stop_pct: null,
       sizing_rule: s.sizing_rule ?? '',
-      is_open: true,
     }));
 
     const allPositions = [...pendingPositions, ...activePositions];

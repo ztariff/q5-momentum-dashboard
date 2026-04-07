@@ -9,7 +9,7 @@ interface RiskAlertsProps {
 
 export default function RiskAlerts({ positions }: RiskAlertsProps) {
   // Only evaluate positions that are flagged as open/displayed
-  const openPositions = positions.filter(p => p.is_open);
+  const openPositions = positions.filter(p => p.status === 'active' || p.status === 'exit_today');
 
   // Stop already crossed: current price below computed stop price
   // Deep loss: >50% unrealized loss
