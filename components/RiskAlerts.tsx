@@ -12,22 +12,8 @@ export default function RiskAlerts({ positions }: RiskAlertsProps) {
   const openPositions = positions.filter(p => p.is_open);
 
   // Stop already crossed: current price below computed stop price
-  const stopCrossed = openPositions.filter(p => {
-    if (!p.stop_price || !p.current_price) return false;
-    return p.current_price < p.stop_price;
-  });
-
-  // Deep loss: >50% unrealized loss (for options this is common given high leverage)
-  const deepLoss = openPositions.filter(p => (p.unrealized_pnl_pct ?? 0) < -50);
-
-  // Near stop: within 20% of stop price but not yet crossed
-  // (distance_to_stop_pct < 20 means current price is < 20% above stop price)
-  const nearStop = openPositions.filter(
-    p =>
-      (p.distance_to_stop_pct ?? 100) < 20 &&
-      (p.distance_to_stop_pct ?? 100) >= 0 &&
-      !stopCrossed.includes(p)
-  );
+  // Deep loss: >50% unrealized loss
+  const deepLoss = openPositions.filter(p => (p.unrealized_pct ?? 0) < -50);
 
   // Near exit: 1–2 days remaining on the hold period (actionable — plan exit soon)
   const nearExit = openPositions.filter(p => {
@@ -39,33 +25,19 @@ export default function RiskAlerts({ positions }: RiskAlertsProps) {
   const overdue = openPositions.filter(p => (p.days_remaining ?? 99) === 0);
 
   const allAlerts = [
-    ...stopCrossed.map(p => ({
-      type: 'STOP CROSSED',
-      symbol: p.symbol,
-      detail: `Current $${p.current_price?.toFixed(2)} below stop $${p.stop_price?.toFixed(2)}`,
-      severity: 'critical' as const,
-      icon: <Target className="w-4 h-4" />,
-    })),
     ...overdue.map(p => ({
       type: 'EXIT OVERDUE',
       symbol: p.symbol,
-      detail: `Hold period of ${p.max_hold_days}d elapsed — position should be closed`,
+      detail: `Hold period elapsed — position should be closed`,
       severity: 'high' as const,
       icon: <TimerOff className="w-4 h-4" />,
     })),
-    ...deepLoss.filter(p => !stopCrossed.includes(p)).map(p => ({
+    ...deepLoss.map(p => ({
       type: 'DEEP LOSS',
       symbol: p.symbol,
-      detail: `Down ${(p.unrealized_pnl_pct ?? 0).toFixed(1)}% from entry`,
+      detail: `Down ${(p.unrealized_pct ?? 0).toFixed(1)}% from entry`,
       severity: 'high' as const,
       icon: <TrendingDown className="w-4 h-4" />,
-    })),
-    ...nearStop.map(p => ({
-      type: 'NEAR STOP',
-      symbol: p.symbol,
-      detail: `${(p.distance_to_stop_pct ?? 0).toFixed(1)}% above stop $${p.stop_price?.toFixed(2)}`,
-      severity: 'medium' as const,
-      icon: <AlertTriangle className="w-4 h-4" />,
     })),
     ...nearExit.map(p => ({
       type: 'EXIT SOON',

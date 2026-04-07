@@ -106,7 +106,7 @@ export function enrichPositionsWithPrices(
       ...pos,
       current_price: currentPrice,
       unrealized_pnl: unrealizedPnl,
-      unrealized_pnl_pct: unrealizedPct,
+      unrealized_pct: unrealizedPct,
     };
   });
 }
@@ -118,14 +118,11 @@ export function computeStopPrice(
   return signalDayLow - 3.0 * atr14;
 }
 
-export function getPositionStatus(pos: Position): 'profitable' | 'losing' | 'near_stop' | 'near_exit' | 'deep_loss' {
-  if (pos.distance_to_stop_pct !== undefined && pos.distance_to_stop_pct < 20) {
-    return 'near_stop';
-  }
+export function getPositionStatus(pos: Position): 'profitable' | 'losing' | 'near_exit' | 'deep_loss' {
   if (pos.days_remaining !== undefined && pos.days_remaining <= 2) {
     return 'near_exit';
   }
-  if (pos.unrealized_pnl_pct !== undefined && pos.unrealized_pnl_pct < -50) {
+  if (pos.unrealized_pct !== undefined && pos.unrealized_pct < -50) {
     return 'deep_loss';
   }
   if (pos.unrealized_pnl !== undefined && pos.unrealized_pnl > 0) {

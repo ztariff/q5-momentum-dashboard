@@ -130,12 +130,11 @@ export default function Dashboard() {
   }, [loadPositions]);
 
   // ── Risk badge counts ──────────────────────────────────────────────────────
-  const stopCrossed = positions.filter(p => p.is_open && p.stop_price != null && p.current_price != null && p.current_price < p.stop_price).length;
-  const overdue = positions.filter(p => p.is_open && (p.days_remaining ?? 99) === 0).length;
-  const deepLoss = positions.filter(p => p.is_open && (p.unrealized_pnl_pct ?? 0) < -50).length;
-  const nearStop = positions.filter(p => p.is_open && (p.distance_to_stop_pct ?? 100) < 20 && (p.distance_to_stop_pct ?? 100) >= 0).length;
-  const nearExit = positions.filter(p => { const rem = p.days_remaining ?? 99; return p.is_open && rem >= 1 && rem <= 2; }).length;
-  const riskCount = stopCrossed + overdue + deepLoss + nearStop + nearExit;
+  const active = positions.filter(p => p.status === 'active' || p.status === 'exit_today');
+  const overdue = active.filter(p => (p.days_remaining ?? 99) === 0).length;
+  const deepLoss = active.filter(p => (p.unrealized_pct ?? 0) < -50).length;
+  const nearExit = active.filter(p => { const rem = p.days_remaining ?? 99; return rem >= 1 && rem <= 2; }).length;
+  const riskCount = overdue + deepLoss + nearExit;
 
   const totalPositions = summary?.total_positions ?? 0;
   const totalUnrealized = summary?.total_unrealized ?? 0;
