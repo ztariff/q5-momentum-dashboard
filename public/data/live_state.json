@@ -871,429 +871,959 @@
   ],
   "signals": [
     {
-      "symbol": "AZN",
-      "z_score": 3.3343,
-      "slope": 0.06054,
-      "quintile": 5,
-      "body_pct": 0.726,
-      "atr_change": 0.15,
-      "tier": "A",
-      "sizing_rule": "$50K options (Tier A)",
-      "recommended_size": 50000,
-      "recommended_contracts": 1,
-      "is_new_signal": true
+      "symbol": "LNG",
+      "z_score": 3.0703,
+      "slope": 7.69654,
+      "quintile": 5
     },
     {
-      "symbol": "SEDG",
-      "z_score": 2.5459,
-      "slope": 0.04368,
-      "quintile": 5,
-      "body_pct": -0.3993,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$20K risk to stop (Tier C)",
-      "recommended_size": 20000,
-      "recommended_contracts": null,
-      "is_new_signal": true
-    },
-    {
-      "symbol": "OXY",
-      "z_score": 2.457,
-      "slope": 0.04178,
-      "quintile": 5,
-      "body_pct": -0.4454,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$20K risk to stop (Tier C)",
-      "recommended_size": 20000,
-      "recommended_contracts": null,
-      "is_new_signal": true
-    },
-    {
-      "symbol": "ARM",
-      "z_score": 2.0422,
-      "slope": 0.03291,
-      "quintile": 5,
-      "body_pct": -0.1056,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$20K risk to stop (Tier C)",
-      "recommended_size": 20000,
-      "recommended_contracts": null,
-      "is_new_signal": true
-    },
-    {
-      "symbol": "MPC",
-      "z_score": 2.0385,
-      "slope": 0.03283,
-      "quintile": 5,
-      "body_pct": -0.3658,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$20K risk to stop (Tier C)",
-      "recommended_size": 20000,
-      "recommended_contracts": null,
-      "is_new_signal": true
-    },
-    {
-      "symbol": "DVN",
-      "z_score": 1.9564,
-      "slope": 0.03107,
-      "quintile": 5,
-      "body_pct": -0.3885,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$20K risk to stop (Tier C)",
-      "recommended_size": 20000,
-      "recommended_contracts": null,
-      "is_new_signal": true
+      "symbol": "FSLY",
+      "z_score": 2.9744,
+      "slope": 26.51803,
+      "quintile": 5
     },
     {
       "symbol": "EOG",
-      "z_score": 1.9469,
-      "slope": 0.03087,
-      "quintile": 5,
-      "body_pct": -0.3443,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$20K risk to stop (Tier C)",
-      "recommended_size": 20000,
-      "recommended_contracts": null,
-      "is_new_signal": true
+      "z_score": 2.8003,
+      "slope": 6.27671,
+      "quintile": 5
+    },
+    {
+      "symbol": "OXY",
+      "z_score": 2.7202,
+      "slope": 8.19164,
+      "quintile": 5
+    },
+    {
+      "symbol": "XOP",
+      "z_score": 2.6209,
+      "slope": 6.81387,
+      "quintile": 5
+    },
+    {
+      "symbol": "OVV",
+      "z_score": 2.4989,
+      "slope": 8.36242,
+      "quintile": 5
+    },
+    {
+      "symbol": "DVN",
+      "z_score": 2.4972,
+      "slope": 6.39228,
+      "quintile": 5
     },
     {
       "symbol": "COP",
-      "z_score": 1.9065,
-      "slope": 0.03001,
-      "quintile": 5,
-      "body_pct": -0.1472,
-      "atr_change": 0.15,
-      "tier": "C",
-      "sizing_rule": "$20K risk to stop (Tier C)",
-      "recommended_size": 20000,
-      "recommended_contracts": null,
-      "is_new_signal": true
+      "z_score": 2.4855,
+      "slope": 6.10511,
+      "quintile": 5
+    },
+    {
+      "symbol": "RRC",
+      "z_score": 2.4802,
+      "slope": 5.74678,
+      "quintile": 5
+    },
+    {
+      "symbol": "AR",
+      "z_score": 2.4068,
+      "slope": 5.72068,
+      "quintile": 5
+    },
+    {
+      "symbol": "CNQ",
+      "z_score": 2.4065,
+      "slope": 7.23657,
+      "quintile": 5
+    },
+    {
+      "symbol": "FANG",
+      "z_score": 2.4022,
+      "slope": 5.47829,
+      "quintile": 5
+    },
+    {
+      "symbol": "CF",
+      "z_score": 2.2277,
+      "slope": 8.91178,
+      "quintile": 5
+    },
+    {
+      "symbol": "VZ",
+      "z_score": 2.2049,
+      "slope": 4.56515,
+      "quintile": 5
+    },
+    {
+      "symbol": "CVE",
+      "z_score": 2.1893,
+      "slope": 8.06357,
+      "quintile": 5
+    },
+    {
+      "symbol": "XLE",
+      "z_score": 2.1695,
+      "slope": 4.92612,
+      "quintile": 5
+    },
+    {
+      "symbol": "X",
+      "z_score": 2.1348,
+      "slope": 5.46281,
+      "quintile": 5
+    },
+    {
+      "symbol": "MPC",
+      "z_score": 2.0154,
+      "slope": 6.66367,
+      "quintile": 5
+    },
+    {
+      "symbol": "SU",
+      "z_score": 2.0104,
+      "slope": 6.10409,
+      "quintile": 5
+    },
+    {
+      "symbol": "XOM",
+      "z_score": 1.9943,
+      "slope": 5.06604,
+      "quintile": 5
+    },
+    {
+      "symbol": "T",
+      "z_score": 1.9725,
+      "slope": 3.80754,
+      "quintile": 5
+    },
+    {
+      "symbol": "EQT",
+      "z_score": 1.9628,
+      "slope": 4.25125,
+      "quintile": 5
+    },
+    {
+      "symbol": "PSX",
+      "z_score": 1.8673,
+      "slope": 5.25052,
+      "quintile": 5
+    },
+    {
+      "symbol": "KR",
+      "z_score": 1.8373,
+      "slope": 3.01983,
+      "quintile": 5
+    },
+    {
+      "symbol": "EQIX",
+      "z_score": 1.7695,
+      "slope": 4.14325,
+      "quintile": 5
+    },
+    {
+      "symbol": "WMB",
+      "z_score": 1.7021,
+      "slope": 3.41561,
+      "quintile": 5
+    },
+    {
+      "symbol": "CVX",
+      "z_score": 1.702,
+      "slope": 4.45913,
+      "quintile": 5
+    },
+    {
+      "symbol": "TRP",
+      "z_score": 1.6621,
+      "slope": 2.99151,
+      "quintile": 5
+    },
+    {
+      "symbol": "PXD",
+      "z_score": 1.6031,
+      "slope": 3.40813,
+      "quintile": 5
+    },
+    {
+      "symbol": "VLO",
+      "z_score": 1.5928,
+      "slope": 5.8332,
+      "quintile": 5
+    },
+    {
+      "symbol": "VXX",
+      "z_score": 1.5269,
+      "slope": 6.28814,
+      "quintile": 5
+    },
+    {
+      "symbol": "KEYS",
+      "z_score": 1.4525,
+      "slope": 6.03692,
+      "quintile": 5
+    },
+    {
+      "symbol": "ARM",
+      "z_score": 1.4201,
+      "slope": 6.22859,
+      "quintile": 5
+    },
+    {
+      "symbol": "DUK",
+      "z_score": 1.4074,
+      "slope": 1.889,
+      "quintile": 5
+    },
+    {
+      "symbol": "CMS",
+      "z_score": 1.4049,
+      "slope": 1.60383,
+      "quintile": 5
+    },
+    {
+      "symbol": "AZN",
+      "z_score": 1.3796,
+      "slope": 12.11148,
+      "quintile": 5
+    },
+    {
+      "symbol": "PBF",
+      "z_score": 1.2615,
+      "slope": 8.8895,
+      "quintile": 5
+    },
+    {
+      "symbol": "LB",
+      "z_score": 1.1893,
+      "slope": 4.49353,
+      "quintile": 5
+    },
+    {
+      "symbol": "LIN",
+      "z_score": 1.1717,
+      "slope": 2.19492,
+      "quintile": 5
+    },
+    {
+      "symbol": "DTE",
+      "z_score": 1.145,
+      "slope": 1.68883,
+      "quintile": 5
+    },
+    {
+      "symbol": "APD",
+      "z_score": 1.1413,
+      "slope": 1.83868,
+      "quintile": 5
+    },
+    {
+      "symbol": "LI",
+      "z_score": 1.0831,
+      "slope": 1.62536,
+      "quintile": 5
+    },
+    {
+      "symbol": "PFE",
+      "z_score": 0.9925,
+      "slope": 1.52911,
+      "quintile": 5
+    },
+    {
+      "symbol": "SEDG",
+      "z_score": 0.9303,
+      "slope": 8.56197,
+      "quintile": 5
+    },
+    {
+      "symbol": "MSI",
+      "z_score": 0.9023,
+      "slope": 2.37451,
+      "quintile": 5
+    },
+    {
+      "symbol": "BKR",
+      "z_score": 0.8977,
+      "slope": 3.69748,
+      "quintile": 5
+    },
+    {
+      "symbol": "BG",
+      "z_score": 0.884,
+      "slope": 3.5368,
+      "quintile": 5
+    },
+    {
+      "symbol": "FE",
+      "z_score": 0.8282,
+      "slope": 1.67806,
+      "quintile": 5
+    },
+    {
+      "symbol": "MRVL",
+      "z_score": 0.8139,
+      "slope": 3.98058,
+      "quintile": 5
+    },
+    {
+      "symbol": "VRT",
+      "z_score": 0.8088,
+      "slope": 7.67571,
+      "quintile": 5
+    },
+    {
+      "symbol": "XLU",
+      "z_score": 0.7993,
+      "slope": 1.23118,
+      "quintile": 5
+    },
+    {
+      "symbol": "PPL",
+      "z_score": 0.7642,
+      "slope": 1.10676,
+      "quintile": 5
+    },
+    {
+      "symbol": "UNP",
+      "z_score": 0.7241,
+      "slope": 1.02164,
+      "quintile": 5
+    },
+    {
+      "symbol": "TRV",
+      "z_score": 0.7167,
+      "slope": 1.13075,
+      "quintile": 5
+    },
+    {
+      "symbol": "HAL",
+      "z_score": 0.6979,
+      "slope": 3.42945,
+      "quintile": 5
+    },
+    {
+      "symbol": "CSX",
+      "z_score": 0.6945,
+      "slope": 2.20589,
+      "quintile": 5
+    },
+    {
+      "symbol": "PARA",
+      "z_score": 0.6869,
+      "slope": 1.27535,
+      "quintile": 5
+    },
+    {
+      "symbol": "DE",
+      "z_score": 0.6848,
+      "slope": 2.23303,
+      "quintile": 5
+    },
+    {
+      "symbol": "TGT",
+      "z_score": 0.6729,
+      "slope": 1.88585,
+      "quintile": 5
+    },
+    {
+      "symbol": "NIO",
+      "z_score": 0.6535,
+      "slope": 4.6924,
+      "quintile": 5
+    },
+    {
+      "symbol": "CHD",
+      "z_score": 0.6425,
+      "slope": 0.86997,
+      "quintile": 5
+    },
+    {
+      "symbol": "SNX",
+      "z_score": 0.6314,
+      "slope": 2.41481,
+      "quintile": 5
+    },
+    {
+      "symbol": "AWK",
+      "z_score": 0.6275,
+      "slope": 0.81335,
+      "quintile": 5
+    },
+    {
+      "symbol": "STM",
+      "z_score": 0.5912,
+      "slope": 3.24537,
+      "quintile": 5
+    },
+    {
+      "symbol": "COST",
+      "z_score": 0.5894,
+      "slope": 0.77676,
+      "quintile": 5
+    },
+    {
+      "symbol": "NFLX",
+      "z_score": 0.5604,
+      "slope": 1.49382,
+      "quintile": 5
+    },
+    {
+      "symbol": "SQ",
+      "z_score": 0.5498,
+      "slope": 3.17107,
+      "quintile": 5
+    },
+    {
+      "symbol": "RSG",
+      "z_score": 0.5483,
+      "slope": 0.61986,
+      "quintile": 5
+    },
+    {
+      "symbol": "ODFL",
+      "z_score": 0.5354,
+      "slope": 1.89709,
+      "quintile": 5
+    },
+    {
+      "symbol": "GME",
+      "z_score": 0.5253,
+      "slope": 1.19571,
+      "quintile": 5
+    },
+    {
+      "symbol": "ENPH",
+      "z_score": 0.5111,
+      "slope": 1.01097,
+      "quintile": 5
+    },
+    {
+      "symbol": "JD",
+      "z_score": 0.4978,
+      "slope": -0.59279,
+      "quintile": 5
+    },
+    {
+      "symbol": "GILD",
+      "z_score": 0.4964,
+      "slope": 1.97195,
+      "quintile": 5
     }
   ],
   "watchlist": [
     {
+      "symbol": "ACI",
+      "quintile": 4,
+      "z_score": 0.4901,
+      "sma50_slope": 0.00287,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "MRNA",
+      "quintile": 4,
+      "z_score": 0.4568,
+      "sma50_slope": 4.1763,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "BMY",
+      "quintile": 4,
+      "z_score": 0.4512,
+      "sma50_slope": 1.24134,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SENS",
+      "quintile": 4,
+      "z_score": 0.4426,
+      "sma50_slope": -1.71271,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "FDX",
+      "quintile": 4,
+      "z_score": 0.4203,
+      "sma50_slope": 2.56435,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "LCID",
+      "quintile": 4,
+      "z_score": 0.417,
+      "sma50_slope": -1.97638,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ADM",
+      "quintile": 4,
+      "z_score": 0.4116,
+      "sma50_slope": 2.17165,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CMCSA",
+      "quintile": 4,
+      "z_score": 0.4067,
+      "sma50_slope": 0.01787,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "JNJ",
+      "quintile": 4,
+      "z_score": 0.4014,
+      "sma50_slope": 2.22401,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "AIG",
+      "quintile": 4,
+      "z_score": 0.3901,
+      "sma50_slope": 0.32344,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "MDLZ",
+      "quintile": 4,
+      "z_score": 0.37,
+      "sma50_slope": 0.38658,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SLB",
+      "quintile": 4,
+      "z_score": 0.3624,
+      "sma50_slope": 1.82651,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CAR",
+      "quintile": 4,
+      "z_score": 0.3294,
+      "sma50_slope": 3.90001,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CLNE",
+      "quintile": 4,
+      "z_score": 0.3244,
+      "sma50_slope": 1.9244,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "NET",
+      "quintile": 4,
+      "z_score": 0.3159,
+      "sma50_slope": 2.90702,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "VTR",
+      "quintile": 4,
+      "z_score": 0.2645,
+      "sma50_slope": 1.3579,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "TER",
+      "quintile": 4,
+      "z_score": 0.2613,
+      "sma50_slope": 5.61373,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "HSY",
+      "quintile": 4,
+      "z_score": 0.2545,
+      "sma50_slope": 1.54103,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "MRK",
+      "quintile": 4,
+      "z_score": 0.2527,
+      "sma50_slope": 1.58075,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CSCO",
+      "quintile": 4,
+      "z_score": 0.2478,
+      "sma50_slope": 1.32977,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "BURL",
+      "quintile": 4,
+      "z_score": 0.2389,
+      "sma50_slope": 1.19338,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "HON",
+      "quintile": 4,
+      "z_score": 0.2103,
+      "sma50_slope": 1.02255,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "PGR",
+      "quintile": 4,
+      "z_score": 0.1959,
+      "sma50_slope": -0.72338,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "GWW",
+      "quintile": 4,
+      "z_score": 0.1781,
+      "sma50_slope": 0.59338,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "FAST",
+      "quintile": 4,
+      "z_score": 0.17,
+      "sma50_slope": 1.13462,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ALGN",
+      "quintile": 4,
+      "z_score": 0.1697,
+      "sma50_slope": 0.38121,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "AMGN",
+      "quintile": 4,
+      "z_score": 0.1399,
+      "sma50_slope": 1.01034,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "LMT",
+      "quintile": 4,
+      "z_score": 0.1292,
+      "sma50_slope": 1.64774,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ENTG",
+      "quintile": 4,
+      "z_score": 0.082,
+      "sma50_slope": 1.17729,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "EGHT",
+      "quintile": 4,
+      "z_score": 0.0456,
+      "sma50_slope": -0.59439,
+      "distance_to_q5": "approaching"
+    },
+    {
       "symbol": "SBUX",
       "quintile": 4,
-      "z_score": 0.0852,
-      "sma50_slope": -0.11662,
+      "z_score": 0.0301,
+      "sma50_slope": -0.26071,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "NOC",
+      "symbol": "NVAX",
       "quintile": 4,
-      "z_score": -0.0078,
-      "sma50_slope": 1.56839,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "AMT",
-      "quintile": 4,
-      "z_score": -0.0451,
-      "sma50_slope": -0.38824,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "TXN",
-      "quintile": 4,
-      "z_score": -0.0649,
-      "sma50_slope": 0.21875,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "XLP",
-      "quintile": 4,
-      "z_score": -0.0662,
-      "sma50_slope": 0.1907,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "BIIB",
-      "quintile": 4,
-      "z_score": -0.0903,
-      "sma50_slope": 0.87172,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "AMAT",
-      "quintile": 4,
-      "z_score": -0.1086,
-      "sma50_slope": 2.52861,
+      "z_score": -0.0034,
+      "sma50_slope": 0.60231,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "TWLO",
       "quintile": 4,
-      "z_score": -0.1124,
-      "sma50_slope": -0.35608,
+      "z_score": -0.0171,
+      "sma50_slope": 0.03603,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "STZ",
+      "quintile": 4,
+      "z_score": -0.0313,
+      "sma50_slope": -0.57062,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "DOV",
+      "quintile": 4,
+      "z_score": -0.0367,
+      "sma50_slope": 0.3805,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ITW",
+      "quintile": 4,
+      "z_score": -0.039,
+      "sma50_slope": 0.21637,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SAIA",
+      "quintile": 4,
+      "z_score": -0.0516,
+      "sma50_slope": -0.79522,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "TXN",
+      "quintile": 4,
+      "z_score": -0.0578,
+      "sma50_slope": 0.24743,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "BIIB",
+      "quintile": 4,
+      "z_score": -0.074,
+      "sma50_slope": 0.91553,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ONTO",
+      "quintile": 4,
+      "z_score": -0.0847,
+      "sma50_slope": 0.55105,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "AMT",
+      "quintile": 4,
+      "z_score": -0.0909,
+      "sma50_slope": -0.47776,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "PLUG",
       "quintile": 4,
-      "z_score": -0.1384,
-      "sma50_slope": -0.24186,
+      "z_score": -0.13,
+      "sma50_slope": -0.10237,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "EQR",
+      "quintile": 4,
+      "z_score": -0.1326,
+      "sma50_slope": -0.63599,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "DDOG",
       "quintile": 4,
-      "z_score": -0.1453,
-      "sma50_slope": -0.65954,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "O",
-      "quintile": 4,
-      "z_score": -0.1491,
-      "sma50_slope": 0.37687,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "SWKS",
-      "quintile": 4,
-      "z_score": -0.1838,
-      "sma50_slope": -1.53494,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "WMT",
-      "quintile": 4,
-      "z_score": -0.1845,
-      "sma50_slope": 0.85179,
+      "z_score": -0.1446,
+      "sma50_slope": -0.63499,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "ZTS",
       "quintile": 4,
-      "z_score": -0.1886,
-      "sma50_slope": -1.4514,
+      "z_score": -0.1456,
+      "sma50_slope": -1.39168,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "VRTX",
+      "symbol": "NOC",
       "quintile": 4,
-      "z_score": -0.2026,
-      "sma50_slope": -0.40306,
+      "z_score": -0.157,
+      "sma50_slope": 1.26385,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "MCD",
+      "symbol": "WMT",
       "quintile": 4,
-      "z_score": -0.2232,
-      "sma50_slope": 0.10077,
+      "z_score": -0.1581,
+      "sma50_slope": 0.89398,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "CAT",
+      "symbol": "AMAT",
       "quintile": 4,
-      "z_score": -0.2309,
-      "sma50_slope": 2.1382,
+      "z_score": -0.1697,
+      "sma50_slope": 2.33569,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "ADI",
+      "symbol": "XLP",
       "quintile": 4,
-      "z_score": -0.2418,
-      "sma50_slope": 1.0118,
+      "z_score": -0.1735,
+      "sma50_slope": 0.08996,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SWKS",
+      "quintile": 4,
+      "z_score": -0.1737,
+      "sma50_slope": -1.4801,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "CI",
       "quintile": 4,
-      "z_score": -0.2595,
-      "sma50_slope": -0.72135,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "ON",
-      "quintile": 4,
-      "z_score": -0.2655,
-      "sma50_slope": -0.05363,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "MAR",
-      "quintile": 4,
-      "z_score": -0.2679,
-      "sma50_slope": 0.16939,
+      "z_score": -0.196,
+      "sma50_slope": -0.63885,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "REGN",
       "quintile": 4,
-      "z_score": -0.2758,
-      "sma50_slope": -0.34607,
+      "z_score": -0.2015,
+      "sma50_slope": -0.11999,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "DXCM",
+      "symbol": "VRTX",
       "quintile": 4,
-      "z_score": -0.3025,
-      "sma50_slope": -1.5469,
+      "z_score": -0.2023,
+      "sma50_slope": -0.41594,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "KHC",
+      "quintile": 4,
+      "z_score": -0.214,
+      "sma50_slope": -1.16404,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "MCD",
+      "quintile": 4,
+      "z_score": -0.2241,
+      "sma50_slope": 0.09476,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "WDC",
+      "quintile": 4,
+      "z_score": -0.2265,
+      "sma50_slope": 5.16831,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "O",
+      "quintile": 4,
+      "z_score": -0.2283,
+      "sma50_slope": 0.29363,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "MAR",
+      "quintile": 4,
+      "z_score": -0.2312,
+      "sma50_slope": 0.26514,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "WELL",
+      "quintile": 4,
+      "z_score": -0.234,
+      "sma50_slope": 1.05069,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ADI",
+      "quintile": 4,
+      "z_score": -0.2403,
+      "sma50_slope": 1.02507,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ON",
+      "quintile": 4,
+      "z_score": -0.2491,
+      "sma50_slope": 0.04262,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CAT",
+      "quintile": 4,
+      "z_score": -0.2519,
+      "sma50_slope": 2.1,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "PLD",
       "quintile": 4,
-      "z_score": -0.3188,
-      "sma50_slope": 0.02438,
+      "z_score": -0.2775,
+      "sma50_slope": 0.09231,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "HLT",
       "quintile": 4,
-      "z_score": -0.3307,
-      "sma50_slope": 0.14926,
+      "z_score": -0.2934,
+      "sma50_slope": 0.22728,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "SPG",
       "quintile": 4,
-      "z_score": -0.3316,
-      "sma50_slope": -0.12252,
+      "z_score": -0.3022,
+      "sma50_slope": -0.07513,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "BYND",
+      "symbol": "YUM",
       "quintile": 4,
-      "z_score": -0.3412,
-      "sma50_slope": -7.90224,
+      "z_score": -0.3037,
+      "sma50_slope": 0.02726,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "MSTR",
+      "symbol": "STX",
       "quintile": 4,
-      "z_score": -0.3893,
-      "sma50_slope": -5.18082,
+      "z_score": -0.3269,
+      "sma50_slope": 4.44189,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SYY",
+      "quintile": 4,
+      "z_score": -0.3286,
+      "sma50_slope": 0.06904,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "AAPL",
       "quintile": 4,
-      "z_score": -0.4075,
-      "sma50_slope": -0.38787,
+      "z_score": -0.3293,
+      "sma50_slope": -0.21323,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "TLT",
+      "symbol": "WST",
       "quintile": 4,
-      "z_score": -0.429,
-      "sma50_slope": -0.3089,
+      "z_score": -0.3455,
+      "sma50_slope": -1.46027,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "DAL",
+      "symbol": "BYND",
       "quintile": 4,
-      "z_score": -0.4507,
-      "sma50_slope": -1.28646,
+      "z_score": -0.3489,
+      "sma50_slope": -7.96901,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "RCL",
+      "symbol": "HIG",
       "quintile": 4,
-      "z_score": -0.4893,
-      "sma50_slope": -1.11863,
+      "z_score": -0.3511,
+      "sma50_slope": 0.39346,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "SPOT",
+      "symbol": "DXCM",
       "quintile": 4,
-      "z_score": -0.5011,
-      "sma50_slope": -1.94804,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "UPS",
-      "quintile": 4,
-      "z_score": -0.5358,
-      "sma50_slope": -1.8495,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "MARA",
-      "quintile": 4,
-      "z_score": -0.5371,
-      "sma50_slope": -5.10044,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "ABNB",
-      "quintile": 4,
-      "z_score": -0.5791,
-      "sma50_slope": -1.19308,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "VALE",
-      "quintile": 4,
-      "z_score": -0.5899,
-      "sma50_slope": 0.93242,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "UNH",
-      "quintile": 4,
-      "z_score": -0.5925,
-      "sma50_slope": -4.66561,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "META",
-      "quintile": 4,
-      "z_score": -0.597,
-      "sma50_slope": -1.76169,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "CHPT",
-      "quintile": 4,
-      "z_score": -0.5986,
-      "sma50_slope": -6.15618,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "AA",
-      "quintile": 4,
-      "z_score": -0.6064,
-      "sma50_slope": -0.51567,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "TSM",
-      "quintile": 4,
-      "z_score": -0.642,
-      "sma50_slope": 0.33872,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "SOXL",
-      "quintile": 4,
-      "z_score": -0.6625,
-      "sma50_slope": -1.90557,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "NCLH",
-      "quintile": 4,
-      "z_score": -0.6735,
-      "sma50_slope": -3.49069,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "LULU",
-      "quintile": 4,
-      "z_score": -0.6758,
-      "sma50_slope": -5.29977,
+      "z_score": -0.3729,
+      "sma50_slope": -1.76298,
       "distance_to_q5": "approaching"
     }
   ],
   "as_of": "2026-04-07",
-  "total_scanned": 225,
+  "total_scanned": 366,
   "source": "pre_seeded_enriched_csv",
   "note": "Dual Ranking FINAL. R1(230 opt)+R2(366 all). $30.7M, PF 1.67, Sharpe 1.62, 7/7.",
   "yearly_pnl": [
