@@ -12,6 +12,9 @@ interface PositionsTableProps {
 type SortKey = 'symbol' | 'unrealized_pnl' | 'net_pnl' | 'return_pct' | 'days_remaining' | 'entry_date' | 'position_size' | 'exit_date' | 'status';
 
 function getRowClass(pos: Position): string {
+  // Skipped: signal matched but premium > $3
+  if (pos.status === 'skipped') return 'row-skipped';
+
   // Pending: signal fired, not yet entered
   if (pos.status === 'pending') return 'row-pending';
 
@@ -108,6 +111,13 @@ function formatOptionTicker(ticker: string): string {
 
 /** Render the status badge cell for a position */
 function StatusBadge({ pos }: { pos: Position }) {
+  if (pos.status === 'skipped') {
+    return (
+      <span className="badge badge-skipped" title={pos.skip_reason || 'Premium > $3'}>
+        SKIPPED
+      </span>
+    );
+  }
   if (pos.status === 'pending') {
     return (
       <span className="badge badge-pending">
@@ -142,10 +152,11 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
     }
   };
 
-  // Status sort order: pending first, then exit_today, then active
+  // Status sort order: pending first, then exit_today, then active, then skipped last
   function statusOrder(pos: Position): number {
     if (pos.status === 'pending') return 0;
     if (pos.status === 'exit_today') return 1;
+    if (pos.status === 'skipped') return 9;
     return 2;
   }
 
