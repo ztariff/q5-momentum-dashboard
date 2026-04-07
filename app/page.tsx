@@ -299,11 +299,40 @@ export default function Dashboard() {
         {/* Footer */}
         <div className="mt-4 flex items-center justify-between px-1">
           <span className="text-xs" style={{ color: '#374151' }}>
-            Q5 Momentum Dashboard — Data via Polygon.io — 230 symbols
+            Q5 Momentum — Dual Ranking (R1: 230 options, R2: 366 all) — Polygon.io
           </span>
-          <span className="text-xs" style={{ color: '#374151' }}>
-            Data engine runs daily at 4:05 PM ET — display refreshes every 60s
-          </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={async () => {
+                const btn = document.getElementById('engine-btn');
+                if (btn) {
+                  btn.textContent = 'Running...';
+                  (btn as HTMLButtonElement).disabled = true;
+                }
+                try {
+                  const resp = await fetch('/api/engine', { method: 'POST' });
+                  const data = await resp.json();
+                  if (data.success) {
+                    if (btn) btn.textContent = 'Done ✓';
+                    loadPositions();
+                    setTimeout(() => { if (btn) { btn.textContent = 'Run Engine'; (btn as HTMLButtonElement).disabled = false; } }, 3000);
+                  } else {
+                    if (btn) { btn.textContent = 'Error'; (btn as HTMLButtonElement).disabled = false; }
+                  }
+                } catch {
+                  if (btn) { btn.textContent = 'Error'; (btn as HTMLButtonElement).disabled = false; }
+                }
+              }}
+              id="engine-btn"
+              className="px-3 py-1 rounded text-xs font-semibold transition-all"
+              style={{ backgroundColor: '#1e3a5f', color: '#60a5fa', border: '1px solid #3b82f6' }}
+            >
+              Run Engine
+            </button>
+            <span className="text-xs" style={{ color: '#374151' }}>
+              Auto-runs at 4:17 PM ET
+            </span>
+          </div>
         </div>
       </main>
     </div>
