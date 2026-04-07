@@ -22,7 +22,7 @@ function getRowClass(pos: Position): string {
   if (pos.status === 'exit_today') return 'row-exit-today';
 
   // Active positions: standard color coding
-  const unrealPct = pos.unrealized_pnl_pct ?? 0;
+  const unrealPct = pos.unrealized_pct ?? 0;
   const stopDist = pos.distance_to_stop_pct ?? 100;
   const daysRem = pos.days_remaining ?? 99;
 
@@ -266,8 +266,6 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 <th onClick={() => handleSort('unrealized_pnl')}>Unreal P&L <SortIcon col="unrealized_pnl" /></th>
                 <th>Unreal %</th>
                 <th onClick={() => handleSort('position_size')}>Size <SortIcon col="position_size" /></th>
-                <th>Stop Price</th>
-                <th>Dist to Stop</th>
                 <th onClick={() => handleSort('days_remaining')}>Days Rem <SortIcon col="days_remaining" /></th>
                 <th>Exit Date</th>
               </tr>
@@ -278,7 +276,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 const isExitToday = pos.status === 'exit_today';
 
                 const pnlValue = pos.unrealized_pnl;
-                const pnlPct = pos.unrealized_pnl_pct ?? 0;
+                const pnlPct = pos.unrealized_pct ?? 0;
                 const daysRem = pos.days_remaining ?? 0;
                 const daysHeld = pos.days_held ?? pos.hold_days ?? 0;
                 const maxDays = pos.instrument === 'STOCK' ? 25 : 13;
@@ -390,19 +388,6 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                         : formatSize(pos.position_size)}
                     </td>
 
-                    {/* Stop Price */}
-                    <td style={{ color: '#f59e0b' }}>
-                      {pos.stop_price ? `$${(pos.stop_price || 0).toFixed(2)}` : '—'}
-                    </td>
-
-                    {/* Distance to Stop */}
-                    <td>
-                      {pos.distance_to_stop_pct != null ? (
-                        <span style={{ color: pos.distance_to_stop_pct < 20 ? '#f59e0b' : '#64748b' }}>
-                          {(pos.distance_to_stop_pct ?? 0).toFixed(1)}%
-                        </span>
-                      ) : '—'}
-                    </td>
 
                     {/* Days Remaining */}
                     <td>

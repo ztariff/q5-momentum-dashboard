@@ -36,14 +36,11 @@ export interface Position extends Trade {
   status?: PositionStatus;
   current_price?: number;
   unrealized_pnl?: number;
-  unrealized_pnl_pct?: number;
-  stop_price?: number;
+  unrealized_pct?: number;
   skip_reason?: string;
   days_held?: number;
   days_remaining?: number;
   scheduled_exit_date?: string;
-  distance_to_stop_pct?: number;
-  distance_to_stop_dollar?: number;
   max_hold_days: number;
   is_open: boolean;
 }
