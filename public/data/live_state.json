@@ -33,7 +33,7 @@
       "entry_date": "2026-03-03",
       "entry_price": 72.83,
       "current_price": 68.72,
-      "stop_price": null,
+      "stop_price": 61.32,
       "exit_date": "2026-04-07",
       "position_size": 158187,
       "shares_or_contracts": 2172,
@@ -43,7 +43,7 @@
       "days_remaining": 0,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 10.8,
       "source": "R2_366"
     },
     {
@@ -55,7 +55,7 @@
       "entry_date": "2026-03-03",
       "entry_price": 77.24,
       "current_price": 78.49,
-      "stop_price": null,
+      "stop_price": 74.07,
       "exit_date": "2026-04-07",
       "position_size": 486766,
       "shares_or_contracts": 6301,
@@ -65,7 +65,7 @@
       "days_remaining": 0,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 5.6,
       "source": "R2_366"
     },
     {
@@ -77,7 +77,7 @@
       "entry_date": "2026-03-04",
       "entry_price": 6.95,
       "current_price": 6.91,
-      "stop_price": null,
+      "stop_price": 5.1,
       "exit_date": "2026-04-08",
       "position_size": 93950,
       "shares_or_contracts": 13517,
@@ -87,7 +87,7 @@
       "days_remaining": 1,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 26.2,
       "source": "R2_366"
     },
     {
@@ -99,7 +99,7 @@
       "entry_date": "2026-03-05",
       "entry_price": 176.28,
       "current_price": 193.37,
-      "stop_price": null,
+      "stop_price": 154.07,
       "exit_date": "2026-04-09",
       "position_size": 198315,
       "shares_or_contracts": 1125,
@@ -109,7 +109,7 @@
       "days_remaining": 2,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 20.3,
       "source": "R2_366"
     },
     {
@@ -121,7 +121,7 @@
       "entry_date": "2026-03-06",
       "entry_price": 42.44,
       "current_price": 43.51,
-      "stop_price": null,
+      "stop_price": 37.01,
       "exit_date": "2026-04-10",
       "position_size": 78217,
       "shares_or_contracts": 1843,
@@ -131,7 +131,7 @@
       "days_remaining": 3,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 14.9,
       "source": "R2_366"
     },
     {
@@ -143,7 +143,7 @@
       "entry_date": "2026-03-09",
       "entry_price": 73.59,
       "current_price": 72.73,
-      "stop_price": null,
+      "stop_price": 65.02,
       "exit_date": "2026-04-13",
       "position_size": 343445,
       "shares_or_contracts": 4667,
@@ -153,7 +153,7 @@
       "days_remaining": 4,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 10.6,
       "source": "R2_366"
     },
     {
@@ -165,7 +165,7 @@
       "entry_date": "2026-03-09",
       "entry_price": 251.49,
       "current_price": 261.68,
-      "stop_price": null,
+      "stop_price": 196.39,
       "exit_date": "2026-04-13",
       "position_size": 113925,
       "shares_or_contracts": 453,
@@ -175,7 +175,7 @@
       "days_remaining": 4,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 24.9,
       "source": "R2_366"
     },
     {
@@ -187,7 +187,7 @@
       "entry_date": "2026-03-10",
       "entry_price": 162.0,
       "current_price": 177.33,
-      "stop_price": null,
+      "stop_price": 146.44,
       "exit_date": "2026-04-14",
       "position_size": 260334,
       "shares_or_contracts": 1607,
@@ -197,7 +197,7 @@
       "days_remaining": 5,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 17.4,
       "source": "R2_366"
     },
     {
@@ -209,7 +209,7 @@
       "entry_date": "2026-03-11",
       "entry_price": 62.05,
       "current_price": 60.25,
-      "stop_price": null,
+      "stop_price": 56.0,
       "exit_date": "2026-04-15",
       "position_size": 204951,
       "shares_or_contracts": 3302,
@@ -219,7 +219,7 @@
       "days_remaining": 6,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 7.1,
       "source": "R2_366"
     },
     {
@@ -231,7 +231,7 @@
       "entry_date": "2026-03-11",
       "entry_price": 41.0,
       "current_price": 45.7,
-      "stop_price": null,
+      "stop_price": 29.85,
       "exit_date": "2026-04-15",
       "position_size": 147067,
       "shares_or_contracts": 3587,
@@ -241,7 +241,7 @@
       "days_remaining": 6,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 34.7,
       "source": "R2_366"
     },
     {
@@ -253,7 +253,7 @@
       "entry_date": "2026-03-12",
       "entry_price": 39.75,
       "current_price": 40.12,
-      "stop_price": null,
+      "stop_price": 32.99,
       "exit_date": "2026-04-16",
       "position_size": 235320,
       "shares_or_contracts": 5920,
@@ -263,7 +263,7 @@
       "days_remaining": 7,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 17.8,
       "source": "R2_366"
     },
     {
@@ -275,7 +275,7 @@
       "entry_date": "2026-03-13",
       "entry_price": 73.5,
       "current_price": 72.91,
-      "stop_price": null,
+      "stop_price": 63.98,
       "exit_date": "2026-04-17",
       "position_size": 308920,
       "shares_or_contracts": 4202,
@@ -285,7 +285,7 @@
       "days_remaining": 8,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 12.2,
       "source": "R2_366"
     },
     {
@@ -297,7 +297,7 @@
       "entry_date": "2026-03-13",
       "entry_price": 244.21,
       "current_price": 240.97,
-      "stop_price": null,
+      "stop_price": 227.63,
       "exit_date": "2026-04-17",
       "position_size": 294517,
       "shares_or_contracts": 1205,
@@ -307,7 +307,7 @@
       "days_remaining": 8,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 5.5,
       "source": "R2_366"
     },
     {
@@ -319,7 +319,7 @@
       "entry_date": "2026-03-19",
       "entry_price": 315.99,
       "current_price": 309.76,
-      "stop_price": null,
+      "stop_price": 298.35,
       "exit_date": "2026-04-23",
       "position_size": 447758,
       "shares_or_contracts": 1417,
@@ -329,7 +329,7 @@
       "days_remaining": 12,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 3.7,
       "source": "R2_366"
     },
     {
@@ -341,7 +341,7 @@
       "entry_date": "2026-03-20",
       "entry_price": 37.24,
       "current_price": 37.82,
-      "stop_price": null,
+      "stop_price": 32.08,
       "exit_date": "2026-04-24",
       "position_size": 288461,
       "shares_or_contracts": 7745,
@@ -351,7 +351,7 @@
       "days_remaining": 13,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 15.2,
       "source": "R2_366"
     },
     {
@@ -363,7 +363,7 @@
       "entry_date": "2026-03-24",
       "entry_price": 152.78,
       "current_price": 153.14,
-      "stop_price": null,
+      "stop_price": 138.07,
       "exit_date": "2026-04-28",
       "position_size": 259573,
       "shares_or_contracts": 1698,
@@ -373,7 +373,7 @@
       "days_remaining": 15,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 9.8,
       "source": "R2_366"
     },
     {
@@ -385,7 +385,7 @@
       "entry_date": "2026-03-24",
       "entry_price": 353.06,
       "current_price": 358.84,
-      "stop_price": null,
+      "stop_price": 322.7,
       "exit_date": "2026-04-28",
       "position_size": 290568,
       "shares_or_contracts": 822,
@@ -395,7 +395,7 @@
       "days_remaining": 15,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 10.1,
       "source": "R2_366"
     },
     {
@@ -407,7 +407,7 @@
       "entry_date": "2026-03-25",
       "entry_price": 82.24,
       "current_price": 83.29,
-      "stop_price": null,
+      "stop_price": 75.85,
       "exit_date": "2026-04-29",
       "position_size": 514493,
       "shares_or_contracts": 6255,
@@ -417,7 +417,7 @@
       "days_remaining": 16,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 8.9,
       "source": "R2_366"
     },
     {
@@ -429,7 +429,7 @@
       "entry_date": "2026-03-25",
       "entry_price": 46.8,
       "current_price": 45.09,
-      "stop_price": null,
+      "stop_price": 35.15,
       "exit_date": "2026-04-29",
       "position_size": 160618,
       "shares_or_contracts": 3432,
@@ -439,7 +439,7 @@
       "days_remaining": 16,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 22.1,
       "source": "R2_366"
     },
     {
@@ -451,7 +451,7 @@
       "entry_date": "2026-03-25",
       "entry_price": 134.34,
       "current_price": 137.45,
-      "stop_price": null,
+      "stop_price": 123.55,
       "exit_date": "2026-04-29",
       "position_size": 124533,
       "shares_or_contracts": 926,
@@ -461,7 +461,7 @@
       "days_remaining": 16,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 10.1,
       "source": "R2_366"
     },
     {
@@ -473,7 +473,7 @@
       "entry_date": "2026-03-26",
       "entry_price": 157.35,
       "current_price": 148.77,
-      "stop_price": null,
+      "stop_price": 123.88,
       "exit_date": "2026-04-30",
       "position_size": 188033,
       "shares_or_contracts": 1194,
@@ -483,7 +483,7 @@
       "days_remaining": 17,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 16.7,
       "source": "R2_366"
     },
     {
@@ -495,7 +495,7 @@
       "entry_date": "2026-03-30",
       "entry_price": 58.63,
       "current_price": 58.09,
-      "stop_price": null,
+      "stop_price": 52.97,
       "exit_date": "2026-05-04",
       "position_size": 258851,
       "shares_or_contracts": 4414,
@@ -505,7 +505,7 @@
       "days_remaining": 19,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 8.8,
       "source": "R2_366"
     },
     {
@@ -517,7 +517,7 @@
       "entry_date": "2026-03-31",
       "entry_price": 17.43,
       "current_price": 17.88,
-      "stop_price": null,
+      "stop_price": 15.53,
       "exit_date": "2026-05-05",
       "position_size": 228978,
       "shares_or_contracts": 13137,
@@ -527,7 +527,7 @@
       "days_remaining": 20,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 13.2,
       "source": "R2_366"
     },
     {
@@ -539,7 +539,7 @@
       "entry_date": "2026-03-31",
       "entry_price": 221.27,
       "current_price": 221.07,
-      "stop_price": null,
+      "stop_price": 202.36,
       "exit_date": "2026-05-05",
       "position_size": 467986,
       "shares_or_contracts": 2114,
@@ -549,7 +549,7 @@
       "days_remaining": 20,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 8.5,
       "source": "R2_366"
     },
     {
@@ -561,7 +561,7 @@
       "entry_date": "2026-04-01",
       "entry_price": 100.82,
       "current_price": 109.51,
-      "stop_price": null,
+      "stop_price": 76.69,
       "exit_date": "2026-05-06",
       "position_size": 167160,
       "shares_or_contracts": 1658,
@@ -571,7 +571,7 @@
       "days_remaining": 21,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 30.0,
       "source": "R2_366"
     },
     {
@@ -583,7 +583,7 @@
       "entry_date": "2026-04-01",
       "entry_price": 41.33,
       "current_price": 41.3,
-      "stop_price": null,
+      "stop_price": 37.18,
       "exit_date": "2026-05-06",
       "position_size": 398380,
       "shares_or_contracts": 9639,
@@ -593,7 +593,7 @@
       "days_remaining": 21,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 10.0,
       "source": "R2_366"
     },
     {
@@ -605,7 +605,7 @@
       "entry_date": "2026-04-01",
       "entry_price": 243.13,
       "current_price": 245.66,
-      "stop_price": null,
+      "stop_price": 223.18,
       "exit_date": "2026-05-06",
       "position_size": 304642,
       "shares_or_contracts": 1253,
@@ -615,7 +615,7 @@
       "days_remaining": 21,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 9.2,
       "source": "R2_366"
     },
     {
@@ -627,7 +627,7 @@
       "entry_date": "2026-04-01",
       "entry_price": 6.2,
       "current_price": 6.24,
-      "stop_price": null,
+      "stop_price": 4.6,
       "exit_date": "2026-05-06",
       "position_size": 155198,
       "shares_or_contracts": 25031,
@@ -637,7 +637,7 @@
       "days_remaining": 21,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 26.2,
       "source": "R2_366"
     },
     {
@@ -649,7 +649,7 @@
       "entry_date": "2026-04-02",
       "entry_price": 9.38,
       "current_price": 9.33,
-      "stop_price": null,
+      "stop_price": 7.8,
       "exit_date": "2026-05-07",
       "position_size": 59238,
       "shares_or_contracts": 6311,
@@ -659,7 +659,7 @@
       "days_remaining": 22,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 16.4,
       "source": "R2_366"
     },
     {
@@ -671,7 +671,7 @@
       "entry_date": "2026-04-02",
       "entry_price": 291.08,
       "current_price": 294.63,
-      "stop_price": null,
+      "stop_price": 270.08,
       "exit_date": "2026-05-07",
       "position_size": 346385,
       "shares_or_contracts": 1189,
@@ -681,7 +681,7 @@
       "days_remaining": 22,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 8.3,
       "source": "R2_366"
     },
     {
@@ -693,7 +693,7 @@
       "entry_date": "2026-04-02",
       "entry_price": 197.98,
       "current_price": 200.86,
-      "stop_price": null,
+      "stop_price": 173.02,
       "exit_date": "2026-05-07",
       "position_size": 198178,
       "shares_or_contracts": 1001,
@@ -703,7 +703,7 @@
       "days_remaining": 22,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 13.9,
       "source": "R2_366"
     },
     {
@@ -715,7 +715,7 @@
       "entry_date": "2026-04-06",
       "entry_price": 34.54,
       "current_price": 35.92,
-      "stop_price": null,
+      "stop_price": 28.07,
       "exit_date": "2026-05-08",
       "position_size": 213492,
       "shares_or_contracts": 6181,
@@ -725,7 +725,7 @@
       "days_remaining": 23,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 21.9,
       "source": "R2_366"
     },
     {
@@ -737,7 +737,7 @@
       "entry_date": "2026-04-06",
       "entry_price": 28.45,
       "current_price": 28.51,
-      "stop_price": null,
+      "stop_price": 26.01,
       "exit_date": "2026-05-08",
       "position_size": 232863,
       "shares_or_contracts": 8184,
@@ -747,7 +747,7 @@
       "days_remaining": 23,
       "body_pct": null,
       "atr_change_3d": null,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 8.8,
       "source": "R2_366"
     }
   ],
