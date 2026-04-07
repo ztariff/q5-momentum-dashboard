@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-04-07T13:11:59Z",
+  "last_refresh": "2026-04-07T15:47:50Z",
   "market_date": "2026-04-07",
   "positions": [
     {
@@ -10,601 +10,125 @@
       "option_ticker": "O:CSCO260515C00085000",
       "entry_date": "2026-04-07",
       "entry_price": 1.41,
-      "current_price": 1.75,
+      "current_price": 1.78,
       "stop_price": null,
       "exit_date": "2026-04-23",
       "position_size": 25000,
       "shares_or_contracts": 177,
-      "unrealized_pnl": 6018,
-      "unrealized_pct": 24.11,
+      "unrealized_pnl": 6549,
+      "unrealized_pct": 26.24,
       "days_held": 1,
       "days_remaining": 12,
       "distance_to_stop_pct": null,
       "source": "LIVE"
-    },
-    {
-      "symbol": "CMS",
-      "status": "exit_today",
-      "instrument": "STOCK",
-      "tier": "C",
-      "option_ticker": null,
-      "entry_date": "2026-03-03",
-      "entry_price": 77.24,
-      "current_price": 78.49,
-      "stop_price": 74.07,
-      "exit_date": "2026-04-07",
-      "position_size": 486766,
-      "shares_or_contracts": 6301,
-      "unrealized_pnl": 7876,
-      "unrealized_pct": 1.62,
-      "days_held": 25,
-      "days_remaining": 0,
-      "distance_to_stop_pct": 5.6,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "RRC",
-      "status": "active",
-      "instrument": "STOCK",
-      "tier": "C",
-      "option_ticker": null,
-      "entry_date": "2026-03-06",
-      "entry_price": 42.44,
-      "current_price": 43.51,
-      "stop_price": 37.01,
-      "exit_date": "2026-04-10",
-      "position_size": 78217,
-      "shares_or_contracts": 1843,
-      "unrealized_pnl": 1972,
-      "unrealized_pct": 2.52,
-      "days_held": 22,
-      "days_remaining": 3,
-      "distance_to_stop_pct": 14.9,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "EQT",
-      "status": "active",
-      "instrument": "STOCK",
-      "tier": "C",
-      "option_ticker": null,
-      "entry_date": "2026-03-11",
-      "entry_price": 62.05,
-      "current_price": 60.25,
-      "stop_price": 56.0,
-      "exit_date": "2026-04-15",
-      "position_size": 204951,
-      "shares_or_contracts": 3302,
-      "unrealized_pnl": -5944,
-      "unrealized_pct": -2.9,
-      "days_held": 19,
-      "days_remaining": 6,
-      "distance_to_stop_pct": 7.1,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "JNJ",
-      "status": "active",
-      "instrument": "STOCK",
-      "tier": "C",
-      "option_ticker": null,
-      "entry_date": "2026-03-13",
-      "entry_price": 244.21,
-      "current_price": 240.97,
-      "stop_price": 227.63,
-      "exit_date": "2026-04-17",
-      "position_size": 294517,
-      "shares_or_contracts": 1205,
-      "unrealized_pnl": -3904,
-      "unrealized_pct": -1.33,
-      "days_held": 17,
-      "days_remaining": 8,
-      "distance_to_stop_pct": 5.5,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "HAL",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:HAL260417C00040000",
-      "entry_date": "2026-03-20",
-      "entry_price": 0.32,
-      "current_price": 0.36,
-      "stop_price": null,
-      "exit_date": "2026-04-08",
-      "position_size": 50000,
-      "shares_or_contracts": 1562,
-      "unrealized_pnl": 6248,
-      "unrealized_pct": 12.5,
-      "days_held": 12,
-      "days_remaining": 1,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "FDX",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:FDX260417C00380000",
-      "entry_date": "2026-03-24",
-      "entry_price": 8.25,
-      "current_price": 2.09,
-      "stop_price": null,
-      "exit_date": "2026-04-10",
-      "position_size": 25000,
-      "shares_or_contracts": 30,
-      "unrealized_pnl": -18480,
-      "unrealized_pct": -74.67,
-      "days_held": 10,
-      "days_remaining": 3,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "STZ",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:STZ260417C00160000",
-      "entry_date": "2026-03-24",
-      "entry_price": 3,
-      "current_price": 3,
-      "stop_price": null,
-      "exit_date": "2026-04-10",
-      "position_size": 25000,
-      "shares_or_contracts": 83,
-      "unrealized_pnl": 0,
-      "unrealized_pct": 0.0,
-      "days_held": 10,
-      "days_remaining": 3,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "VTR",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:VTR260417C00085000",
-      "entry_date": "2026-03-25",
-      "entry_price": 1,
-      "current_price": 1.05,
-      "stop_price": null,
-      "exit_date": "2026-04-13",
-      "position_size": 50000,
-      "shares_or_contracts": 500,
-      "unrealized_pnl": 2500,
-      "unrealized_pct": 5.0,
-      "days_held": 9,
-      "days_remaining": 4,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "SEDG",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:SEDG260417C00055000",
-      "entry_date": "2026-03-25",
-      "entry_price": 3.44,
-      "current_price": 0.5,
-      "stop_price": null,
-      "exit_date": "2026-04-13",
-      "position_size": 50000,
-      "shares_or_contracts": 145,
-      "unrealized_pnl": -42630,
-      "unrealized_pct": -85.47,
-      "days_held": 9,
-      "days_remaining": 4,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "AWK",
-      "status": "active",
-      "instrument": "STOCK",
-      "tier": "C",
-      "option_ticker": null,
-      "entry_date": "2026-03-25",
-      "entry_price": 134.34,
-      "current_price": 137.45,
-      "stop_price": 123.55,
-      "exit_date": "2026-04-29",
-      "position_size": 124533,
-      "shares_or_contracts": 926,
-      "unrealized_pnl": 2880,
-      "unrealized_pct": 2.32,
-      "days_held": 9,
-      "days_remaining": 16,
-      "distance_to_stop_pct": 10.1,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "ARM",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:ARM260417C00175000",
-      "entry_date": "2026-03-26",
-      "entry_price": 0.48,
-      "current_price": 0.47,
-      "stop_price": null,
-      "exit_date": "2026-04-14",
-      "position_size": 50000,
-      "shares_or_contracts": 1041,
-      "unrealized_pnl": -1041,
-      "unrealized_pct": -2.08,
-      "days_held": 8,
-      "days_remaining": 5,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "MDLZ",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:MDLZ260515C00060000",
-      "entry_date": "2026-03-30",
-      "entry_price": 1.8,
-      "current_price": 1.65,
-      "stop_price": null,
-      "exit_date": "2026-04-16",
-      "position_size": 25000,
-      "shares_or_contracts": 138,
-      "unrealized_pnl": -2070,
-      "unrealized_pct": -8.33,
-      "days_held": 6,
-      "days_remaining": 7,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "RSG",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:RSG260515C00230000",
-      "entry_date": "2026-03-31",
-      "entry_price": 2.9,
-      "current_price": 4.64,
-      "stop_price": null,
-      "exit_date": "2026-04-17",
-      "position_size": 50000,
-      "shares_or_contracts": 172,
-      "unrealized_pnl": 29928,
-      "unrealized_pct": 60.0,
-      "days_held": 5,
-      "days_remaining": 8,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "ACI",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:ACI260515C00020000",
-      "entry_date": "2026-03-31",
-      "entry_price": 0.15,
-      "current_price": 0.15,
-      "stop_price": null,
-      "exit_date": "2026-04-17",
-      "position_size": 25000,
-      "shares_or_contracts": 1666,
-      "unrealized_pnl": 0,
-      "unrealized_pct": 0.0,
-      "days_held": 5,
-      "days_remaining": 8,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "UNP",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:UNP260515C00255000",
-      "entry_date": "2026-04-01",
-      "entry_price": 4.8,
-      "current_price": 5.2,
-      "stop_price": null,
-      "exit_date": "2026-04-20",
-      "position_size": 25000,
-      "shares_or_contracts": 52,
-      "unrealized_pnl": 2080,
-      "unrealized_pct": 8.33,
-      "days_held": 4,
-      "days_remaining": 9,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "NIO",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:NIO260515C00007000",
-      "entry_date": "2026-04-01",
-      "entry_price": 0.13,
-      "current_price": 0.26,
-      "stop_price": null,
-      "exit_date": "2026-04-20",
-      "position_size": 50000,
-      "shares_or_contracts": 3846,
-      "unrealized_pnl": 49998,
-      "unrealized_pct": 100.0,
-      "days_held": 4,
-      "days_remaining": 9,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "CSX",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:CSX260515C00040000",
-      "entry_date": "2026-04-01",
-      "entry_price": 2.11,
-      "current_price": 2.75,
-      "stop_price": null,
-      "exit_date": "2026-04-20",
-      "position_size": 50000,
-      "shares_or_contracts": 236,
-      "unrealized_pnl": 15104,
-      "unrealized_pct": 30.33,
-      "days_held": 4,
-      "days_remaining": 9,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "MRVL",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:MRVL260515C00110000",
-      "entry_date": "2026-04-01",
-      "entry_price": 2.81,
-      "current_price": 8.55,
-      "stop_price": null,
-      "exit_date": "2026-04-20",
-      "position_size": 50000,
-      "shares_or_contracts": 177,
-      "unrealized_pnl": 101598,
-      "unrealized_pct": 204.27,
-      "days_held": 4,
-      "days_remaining": 9,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "TRV",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:TRV260515C00300000",
-      "entry_date": "2026-04-02",
-      "entry_price": 8,
-      "current_price": 8.7,
-      "stop_price": null,
-      "exit_date": "2026-04-21",
-      "position_size": 25000,
-      "shares_or_contracts": 31,
-      "unrealized_pnl": 2170,
-      "unrealized_pct": 8.75,
-      "days_held": 3,
-      "days_remaining": 10,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "ODFL",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:ODFL260515C00220000",
-      "entry_date": "2026-04-02",
-      "entry_price": 5.7,
-      "current_price": 5.1,
-      "stop_price": null,
-      "exit_date": "2026-04-21",
-      "position_size": 25000,
-      "shares_or_contracts": 43,
-      "unrealized_pnl": -2580,
-      "unrealized_pct": -10.53,
-      "days_held": 3,
-      "days_remaining": 10,
-      "distance_to_stop_pct": null,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "LCID",
-      "status": "active",
-      "instrument": "STOCK",
-      "tier": "C",
-      "option_ticker": null,
-      "entry_date": "2026-04-02",
-      "entry_price": 9.38,
-      "current_price": 9.33,
-      "stop_price": 7.8,
-      "exit_date": "2026-05-07",
-      "position_size": 59238,
-      "shares_or_contracts": 6311,
-      "unrealized_pnl": -347,
-      "unrealized_pct": -0.59,
-      "days_held": 3,
-      "days_remaining": 22,
-      "distance_to_stop_pct": 16.4,
-      "source": "R2_366"
-    },
-    {
-      "symbol": "JD",
-      "status": "active",
-      "instrument": "STOCK",
-      "tier": "C",
-      "option_ticker": null,
-      "entry_date": "2026-04-06",
-      "entry_price": 28.45,
-      "current_price": 28.51,
-      "stop_price": 26.01,
-      "exit_date": "2026-05-08",
-      "position_size": 232863,
-      "shares_or_contracts": 8184,
-      "unrealized_pnl": 491,
-      "unrealized_pct": 0.21,
-      "days_held": 2,
-      "days_remaining": 23,
-      "distance_to_stop_pct": 8.8,
-      "source": "R2_366"
     }
   ],
   "pending_signals": [],
   "recently_closed": [
     {
-      "symbol": "LB",
-      "exit_date": "2026-04-07",
-      "entry_price": 4.2,
-      "exit_price": 0.53,
-      "net_pnl": -21653,
-      "return_pct": -87.38,
+      "symbol": "LI",
+      "exit_date": "2026-04-01",
+      "entry_price": 0.68,
+      "exit_price": 0.39,
+      "net_pnl": -10663,
+      "return_pct": -42.65,
       "exit_type": "TIME"
     },
     {
-      "symbol": "SENS",
-      "exit_date": "2026-04-07",
-      "entry_price": 0.58,
+      "symbol": "VXX",
+      "exit_date": "2026-03-31",
+      "entry_price": 2.35,
+      "exit_price": 1.64,
+      "net_pnl": -15094,
+      "return_pct": -30.21,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "PFE",
+      "exit_date": "2026-03-30",
+      "entry_price": 0.45,
+      "exit_price": 0.59,
+      "net_pnl": 15496,
+      "return_pct": 31.11,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "GME",
+      "exit_date": "2026-03-30",
+      "entry_price": 1.28,
+      "exit_price": 0.2,
+      "net_pnl": -42149,
+      "return_pct": -84.38,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "SBUX",
+      "exit_date": "2026-03-20",
+      "entry_price": 1.6,
+      "exit_price": 0.3,
+      "net_pnl": -20295,
+      "return_pct": -81.25,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "HAL",
+      "exit_date": "2026-03-18",
+      "entry_price": 1.42,
+      "exit_price": 0.93,
+      "net_pnl": -8586,
+      "return_pct": -34.35,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "KEYS",
+      "exit_date": "2026-03-17",
+      "entry_price": 2.36,
+      "exit_price": 0.08,
+      "net_pnl": -23953,
+      "return_pct": -96.61,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "DUK",
+      "exit_date": "2026-03-17",
+      "entry_price": 0.5,
+      "exit_price": 0.75,
+      "net_pnl": 12469,
+      "return_pct": 50.0,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "FE",
+      "exit_date": "2026-03-16",
+      "entry_price": 1.62,
+      "exit_price": 1.88,
+      "net_pnl": 3977,
+      "return_pct": 16.05,
+      "exit_type": "TIME"
+    },
+    {
+      "symbol": "PPL",
+      "exit_date": "2026-03-16",
+      "entry_price": 0.19,
       "exit_price": 0.05,
-      "net_pnl": -22843,
-      "return_pct": -91.38,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "FANG",
-      "exit_date": "2026-04-07",
-      "entry_price": 5.8,
-      "exit_price": 8.3,
-      "net_pnl": 10750,
-      "return_pct": 43.1,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "VRT",
-      "exit_date": "2026-04-07",
-      "entry_price": 10.15,
-      "exit_price": 5.22,
-      "net_pnl": -11832,
-      "return_pct": -48.57,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "KR",
-      "exit_date": "2026-04-07",
-      "entry_price": 0.84,
-      "exit_price": 0.25,
-      "net_pnl": -35105,
-      "return_pct": -70.24,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "PSX",
-      "exit_date": "2026-04-07",
-      "entry_price": 5.13,
-      "exit_price": 6.35,
-      "net_pnl": 5856,
-      "return_pct": 23.78,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "STM",
-      "exit_date": "2026-04-07",
-      "entry_price": 1,
-      "exit_price": 0.8,
-      "net_pnl": -5000,
-      "return_pct": -20.0,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "PBF",
-      "exit_date": "2026-04-07",
-      "entry_price": 2.12,
-      "exit_price": 3.25,
-      "net_pnl": 26555,
-      "return_pct": 53.3,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "AR",
-      "exit_date": "2026-04-07",
-      "entry_price": 1.7,
-      "exit_price": 1.55,
-      "net_pnl": -4410,
-      "return_pct": -8.82,
-      "exit_type": "TIME"
-    },
-    {
-      "symbol": "ADM",
-      "exit_date": "2026-04-07",
-      "entry_price": 0.76,
-      "exit_price": 0.45,
-      "net_pnl": -20367,
-      "return_pct": -40.79,
+      "net_pnl": -36866,
+      "return_pct": -73.68,
       "exit_type": "TIME"
     }
   ],
   "summary": {
-    "total_positions": 23,
+    "total_positions": 1,
     "total_pending": 0,
-    "total_unrealized": 151867,
-    "realized_pnl": 30640911,
-    "month_realized": -121392,
-    "month_unrealized": 151867,
-    "win_rate": 42.9,
-    "profit_factor": 1.67,
-    "year_realized": 2690738,
-    "year_total": 2842605
+    "total_unrealized": 6549,
+    "realized_pnl": 27319043,
+    "month_realized": 0,
+    "month_unrealized": 6549,
+    "win_rate": 40.0,
+    "profit_factor": 2.17,
+    "year_realized": 2374808,
+    "year_total": 2381357
   },
-  "risk_alerts": [
-    {
-      "type": "exit_today",
-      "symbol": "CMS",
-      "days_remaining": 0
-    },
-    {
-      "type": "exit_soon",
-      "symbol": "RRC",
-      "days_remaining": 3
-    },
-    {
-      "type": "exit_soon",
-      "symbol": "HAL",
-      "days_remaining": 1
-    },
-    {
-      "type": "exit_soon",
-      "symbol": "FDX",
-      "days_remaining": 3
-    },
-    {
-      "type": "large_loss",
-      "symbol": "FDX",
-      "unrealized_pct": -74.67
-    },
-    {
-      "type": "exit_soon",
-      "symbol": "STZ",
-      "days_remaining": 3
-    },
-    {
-      "type": "large_loss",
-      "symbol": "SEDG",
-      "unrealized_pct": -85.47
-    }
-  ],
+  "risk_alerts": [],
   "signals": [
     {
       "symbol": "LNG",
@@ -1707,431 +1231,426 @@
   "as_of": "2026-04-07",
   "total_scanned": 366,
   "source": "dual_ranking_engine",
-  "note": "Dual Ranking FINAL. R1(230 opt)+R2(366 all). $30.7M, PF 1.67, Sharpe 1.62, 7/7.",
+  "note": "Lottery \u2264$3: Options only, Tier A/B, premium \u2264$3, dual ranking. $27.3M, PF 2.17, Sharpe 1.79, 7/7.",
   "yearly_pnl": [
     {
       "year": "2020",
-      "pnl": 5195739,
-      "win_rate": 43.7,
-      "trades": 661
+      "pnl": 4626858,
+      "win_rate": 40.6,
+      "trades": 288
     },
     {
       "year": "2021",
-      "pnl": 4154013,
-      "win_rate": 42.8,
-      "trades": 617
+      "pnl": 3079199,
+      "win_rate": 34.3,
+      "trades": 265
     },
     {
       "year": "2022",
-      "pnl": 983422,
-      "win_rate": 38.9,
-      "trades": 656
+      "pnl": 1131769,
+      "win_rate": 33.2,
+      "trades": 289
     },
     {
       "year": "2023",
-      "pnl": 8180437,
-      "win_rate": 43.4,
-      "trades": 678
+      "pnl": 7383174,
+      "win_rate": 40.6,
+      "trades": 357
     },
     {
       "year": "2024",
-      "pnl": 6937148,
-      "win_rate": 45.0,
-      "trades": 649
+      "pnl": 5432650,
+      "win_rate": 43.7,
+      "trades": 318
     },
     {
       "year": "2025",
-      "pnl": 2499414,
-      "win_rate": 41.3,
-      "trades": 652
+      "pnl": 3290586,
+      "win_rate": 42.3,
+      "trades": 300
     },
     {
       "year": "2026",
-      "pnl": 2690738,
-      "win_rate": 52.8,
-      "trades": 163
+      "pnl": 2374808,
+      "win_rate": 58.1,
+      "trades": 62
     }
   ],
   "monthly_equity": [
     {
       "date": "2020-01",
-      "pnl": 862145,
-      "equity": 862145
+      "pnl": 586325,
+      "equity": 586325
     },
     {
       "date": "2020-02",
-      "pnl": -509253,
-      "equity": 352891
+      "pnl": 39614,
+      "equity": 625939
     },
     {
       "date": "2020-03",
-      "pnl": 728196,
-      "equity": 1081087
+      "pnl": 1129555,
+      "equity": 1755494
     },
     {
       "date": "2020-04",
-      "pnl": 469323,
-      "equity": 1550410
+      "pnl": -82134,
+      "equity": 1673360
     },
     {
       "date": "2020-05",
-      "pnl": 287382,
-      "equity": 1837792
+      "pnl": 231728,
+      "equity": 1905088
     },
     {
       "date": "2020-06",
-      "pnl": 316139,
-      "equity": 2153930
+      "pnl": -16653,
+      "equity": 1888435
     },
     {
       "date": "2020-07",
-      "pnl": 2102930,
-      "equity": 4256860
+      "pnl": 1579249,
+      "equity": 3467684
     },
     {
       "date": "2020-08",
-      "pnl": -253219,
-      "equity": 4003642
+      "pnl": -14540,
+      "equity": 3453144
     },
     {
       "date": "2020-09",
-      "pnl": -552164,
-      "equity": 3451477
+      "pnl": -310663,
+      "equity": 3142481
     },
     {
       "date": "2020-10",
-      "pnl": 299668,
-      "equity": 3751145
+      "pnl": 259224,
+      "equity": 3401705
     },
     {
       "date": "2020-11",
-      "pnl": 1200061,
-      "equity": 4951206
+      "pnl": 1241002,
+      "equity": 4642707
     },
     {
       "date": "2020-12",
-      "pnl": 244533,
-      "equity": 5195739
+      "pnl": -15849,
+      "equity": 4626858
     },
     {
       "date": "2021-01",
-      "pnl": 1062212,
-      "equity": 6257951
+      "pnl": 831020,
+      "equity": 5457878
     },
     {
       "date": "2021-02",
-      "pnl": 5411,
-      "equity": 6263362
+      "pnl": 206242,
+      "equity": 5664120
     },
     {
       "date": "2021-03",
-      "pnl": 431539,
-      "equity": 6694901
+      "pnl": 443624,
+      "equity": 6107745
     },
     {
       "date": "2021-04",
-      "pnl": 988315,
-      "equity": 7683216
+      "pnl": 728521,
+      "equity": 6836265
     },
     {
       "date": "2021-05",
-      "pnl": -257492,
-      "equity": 7425724
+      "pnl": -284283,
+      "equity": 6551982
     },
     {
       "date": "2021-06",
-      "pnl": 132983,
-      "equity": 7558707
+      "pnl": -143933,
+      "equity": 6408049
     },
     {
       "date": "2021-07",
-      "pnl": 622716,
-      "equity": 8181423
+      "pnl": 144553,
+      "equity": 6552603
     },
     {
       "date": "2021-08",
-      "pnl": 848410,
-      "equity": 9029834
+      "pnl": 807129,
+      "equity": 7359732
     },
     {
       "date": "2021-09",
-      "pnl": -243411,
-      "equity": 8786423
+      "pnl": -38224,
+      "equity": 7321507
     },
     {
       "date": "2021-10",
-      "pnl": 351098,
-      "equity": 9137521
+      "pnl": 216935,
+      "equity": 7538443
     },
     {
       "date": "2021-11",
-      "pnl": 113135,
-      "equity": 9250656
+      "pnl": 60566,
+      "equity": 7599008
     },
     {
       "date": "2021-12",
-      "pnl": 99096,
-      "equity": 9349752
+      "pnl": 107048,
+      "equity": 7706056
     },
     {
       "date": "2022-01",
-      "pnl": 603645,
-      "equity": 9953397
+      "pnl": 536709,
+      "equity": 8242765
     },
     {
       "date": "2022-02",
-      "pnl": 255250,
-      "equity": 10208647
+      "pnl": 396033,
+      "equity": 8638799
     },
     {
       "date": "2022-03",
-      "pnl": 522969,
-      "equity": 10731616
+      "pnl": 205909,
+      "equity": 8844708
     },
     {
       "date": "2022-04",
-      "pnl": -820860,
-      "equity": 9910756
+      "pnl": -277634,
+      "equity": 8567074
     },
     {
       "date": "2022-05",
-      "pnl": -41870,
-      "equity": 9868887
+      "pnl": 149923,
+      "equity": 8716997
     },
     {
       "date": "2022-06",
-      "pnl": 230219,
-      "equity": 10099105
+      "pnl": 221298,
+      "equity": 8938295
     },
     {
       "date": "2022-07",
-      "pnl": 420323,
-      "equity": 10519428
+      "pnl": 143132,
+      "equity": 9081427
     },
     {
       "date": "2022-08",
-      "pnl": -639217,
-      "equity": 9880211
+      "pnl": -352258,
+      "equity": 8729170
     },
     {
       "date": "2022-09",
-      "pnl": -929161,
-      "equity": 8951050
+      "pnl": -449411,
+      "equity": 8279759
     },
     {
       "date": "2022-10",
-      "pnl": 1022865,
-      "equity": 9973915
+      "pnl": 543348,
+      "equity": 8823107
     },
     {
       "date": "2022-11",
-      "pnl": 147266,
-      "equity": 10121182
+      "pnl": 49254,
+      "equity": 8872361
     },
     {
       "date": "2022-12",
-      "pnl": 211992,
-      "equity": 10333174
+      "pnl": -34535,
+      "equity": 8837825
     },
     {
       "date": "2023-01",
-      "pnl": 1161726,
-      "equity": 11494900
+      "pnl": 684560,
+      "equity": 9522386
     },
     {
       "date": "2023-02",
-      "pnl": -951433,
-      "equity": 10543467
+      "pnl": -596005,
+      "equity": 8926381
     },
     {
       "date": "2023-03",
-      "pnl": -290265,
-      "equity": 10253202
+      "pnl": -241102,
+      "equity": 8685280
     },
     {
       "date": "2023-04",
-      "pnl": -185345,
-      "equity": 10067857
+      "pnl": -266099,
+      "equity": 8419181
     },
     {
       "date": "2023-05",
-      "pnl": 4103663,
-      "equity": 14171520
+      "pnl": 3815398,
+      "equity": 12234578
     },
     {
       "date": "2023-06",
-      "pnl": 842609,
-      "equity": 15014129
+      "pnl": 573626,
+      "equity": 12808204
     },
     {
       "date": "2023-07",
-      "pnl": 126701,
-      "equity": 15140831
+      "pnl": 147990,
+      "equity": 12956193
     },
     {
       "date": "2023-08",
-      "pnl": -870000,
-      "equity": 14270831
+      "pnl": -535304,
+      "equity": 12420889
     },
     {
       "date": "2023-09",
-      "pnl": -485103,
-      "equity": 13785728
+      "pnl": -291834,
+      "equity": 12129055
     },
     {
       "date": "2023-10",
-      "pnl": 277947,
-      "equity": 14063675
+      "pnl": 358683,
+      "equity": 12487738
     },
     {
       "date": "2023-11",
-      "pnl": 3398379,
-      "equity": 17462054
+      "pnl": 2847020,
+      "equity": 15334758
     },
     {
       "date": "2023-12",
-      "pnl": 1051557,
-      "equity": 18513611
+      "pnl": 886241,
+      "equity": 16220999
     },
     {
       "date": "2024-01",
-      "pnl": -37732,
-      "equity": 18475879
+      "pnl": -5256,
+      "equity": 16215742
     },
     {
       "date": "2024-02",
-      "pnl": 2118972,
-      "equity": 20594851
+      "pnl": 1506781,
+      "equity": 17722523
     },
     {
       "date": "2024-03",
-      "pnl": 696478,
-      "equity": 21291329
+      "pnl": 753371,
+      "equity": 18475894
     },
     {
       "date": "2024-04",
-      "pnl": 17579,
-      "equity": 21308909
+      "pnl": 65641,
+      "equity": 18541535
     },
     {
       "date": "2024-05",
-      "pnl": 420530,
-      "equity": 21729439
+      "pnl": 407889,
+      "equity": 18949424
     },
     {
       "date": "2024-06",
-      "pnl": 436116,
-      "equity": 22165555
+      "pnl": 293969,
+      "equity": 19243393
     },
     {
       "date": "2024-07",
-      "pnl": 110150,
-      "equity": 22275706
+      "pnl": 63711,
+      "equity": 19307105
     },
     {
       "date": "2024-08",
-      "pnl": 102064,
-      "equity": 22377770
+      "pnl": -32174,
+      "equity": 19274931
     },
     {
       "date": "2024-09",
-      "pnl": 920334,
-      "equity": 23298104
+      "pnl": 717852,
+      "equity": 19992783
     },
     {
       "date": "2024-10",
-      "pnl": 1505222,
-      "equity": 24803326
+      "pnl": 1079010,
+      "equity": 21071793
     },
     {
       "date": "2024-11",
-      "pnl": 911988,
-      "equity": 25715315
+      "pnl": 800468,
+      "equity": 21872261
     },
     {
       "date": "2024-12",
-      "pnl": -264556,
-      "equity": 25450758
+      "pnl": -218613,
+      "equity": 21653649
     },
     {
       "date": "2025-01",
-      "pnl": -41927,
-      "equity": 25408832
+      "pnl": 235886,
+      "equity": 21889535
     },
     {
       "date": "2025-02",
-      "pnl": 32924,
-      "equity": 25441756
+      "pnl": 266811,
+      "equity": 22156345
     },
     {
       "date": "2025-03",
-      "pnl": -684834,
-      "equity": 24756922
+      "pnl": -116680,
+      "equity": 22039665
     },
     {
       "date": "2025-04",
-      "pnl": 127197,
-      "equity": 24884119
+      "pnl": 985,
+      "equity": 22040650
     },
     {
       "date": "2025-05",
-      "pnl": 919043,
-      "equity": 25803162
+      "pnl": 598007,
+      "equity": 22638657
     },
     {
       "date": "2025-06",
-      "pnl": 1011006,
-      "equity": 26814168
+      "pnl": 818841,
+      "equity": 23457499
     },
     {
       "date": "2025-07",
-      "pnl": -445673,
-      "equity": 26368495
+      "pnl": -292896,
+      "equity": 23164603
     },
     {
       "date": "2025-08",
-      "pnl": 215730,
-      "equity": 26584225
+      "pnl": 349806,
+      "equity": 23514409
     },
     {
       "date": "2025-09",
-      "pnl": 905487,
-      "equity": 27489712
+      "pnl": 392393,
+      "equity": 23906803
     },
     {
       "date": "2025-10",
-      "pnl": -488566,
-      "equity": 27001145
+      "pnl": -225998,
+      "equity": 23680805
     },
     {
       "date": "2025-11",
-      "pnl": 514488,
-      "equity": 27515633
+      "pnl": 679300,
+      "equity": 24360105
     },
     {
       "date": "2025-12",
-      "pnl": 434539,
-      "equity": 27950173
+      "pnl": 584130,
+      "equity": 24944235
     },
     {
       "date": "2026-01",
-      "pnl": 2304915,
-      "equity": 30255087
+      "pnl": 1979916,
+      "equity": 26924152
     },
     {
       "date": "2026-02",
-      "pnl": 537944,
-      "equity": 30793031
+      "pnl": 476182,
+      "equity": 27400334
     },
     {
       "date": "2026-03",
-      "pnl": -73512,
-      "equity": 30719520
-    },
-    {
-      "date": "2026-04",
-      "pnl": -121392,
-      "equity": 30598128
+      "pnl": -81290,
+      "equity": 27319043
     }
   ]
 }
