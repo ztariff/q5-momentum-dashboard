@@ -3,27 +3,6 @@
   "market_date": "2026-04-02",
   "positions": [
     {
-      "symbol": "ARM",
-      "status": "exit_today",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:ARM260417C00125000",
-      "entry_date": "2026-03-19",
-      "entry_price": 8.42,
-      "current_price": 23.17,
-      "stop_price": null,
-      "exit_date": "2026-04-07",
-      "position_size": 25000,
-      "shares_or_contracts": 29,
-      "unrealized_pnl": 42775,
-      "unrealized_pct": 175.18,
-      "days_held": 13,
-      "days_remaining": 0,
-      "body_pct": 0.1497,
-      "atr_change_3d": 0.0484,
-      "distance_to_stop_pct": null
-    },
-    {
       "symbol": "NFLX",
       "status": "active",
       "instrument": "OPTION",
@@ -111,6 +90,15 @@
   "pending_signals": [],
   "recently_closed": [
     {
+      "symbol": "ARM",
+      "exit_date": "2026-04-07",
+      "entry_price": 8.42,
+      "exit_price": 23.17,
+      "net_pnl": 42775,
+      "return_pct": 175.18,
+      "exit_type": "TIME"
+    },
+    {
       "symbol": "MPC",
       "exit_date": "2026-04-02",
       "entry_price": 5.2,
@@ -175,22 +163,17 @@
     }
   ],
   "summary": {
-    "total_positions": 5,
+    "total_positions": 4,
     "total_pending": 0,
-    "total_unrealized": 39472,
-    "realized_pnl": 21872501,
-    "month_realized": 16283,
-    "month_unrealized": 39472,
+    "total_unrealized": -3303,
+    "realized_pnl": 21915276,
+    "month_realized": 59058,
+    "month_unrealized": -3303,
     "win_rate": 50.2,
     "profit_factor": 1.64,
     "year_realized": 1735017
   },
   "risk_alerts": [
-    {
-      "type": "exit_today",
-      "symbol": "ARM",
-      "days_remaining": 0
-    },
     {
       "type": "near_stop",
       "symbol": "JD",
