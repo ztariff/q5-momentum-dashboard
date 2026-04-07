@@ -29,7 +29,8 @@ export interface Trade {
 //   'pending'    — signal fired, awaiting entry at next open (amber highlight)
 //   'active'     — position is open and holding (normal green/red)
 //   'exit_today' — hold period expires today, exit at close (purple highlight)
-export type PositionStatus = 'pending' | 'active' | 'exit_today';
+//   'skipped'    — signal matched but option premium > $3 (greyed out)
+export type PositionStatus = 'pending' | 'active' | 'exit_today' | 'skipped';
 
 export interface Position extends Trade {
   status?: PositionStatus;
@@ -37,6 +38,7 @@ export interface Position extends Trade {
   unrealized_pnl?: number;
   unrealized_pnl_pct?: number;
   stop_price?: number;
+  skip_reason?: string;
   days_held?: number;
   days_remaining?: number;
   scheduled_exit_date?: string;
