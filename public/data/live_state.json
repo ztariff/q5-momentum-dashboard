@@ -560,12 +560,13 @@
     "total_positions": 23,
     "total_pending": 0,
     "total_unrealized": 151867,
-    "realized_pnl": 30640910,
+    "realized_pnl": 30640911,
     "month_realized": -121392,
     "month_unrealized": 151867,
     "win_rate": 42.9,
     "profit_factor": 1.67,
-    "year_realized": 2690738
+    "year_realized": 2690738,
+    "year_total": 2842605
   },
   "risk_alerts": [
     {
@@ -1746,7 +1747,7 @@
     },
     {
       "year": "2026",
-      "pnl": 2792961,
+      "pnl": 2690738,
       "win_rate": 52.8,
       "trades": 163
     }
@@ -2129,8 +2130,8 @@
     },
     {
       "date": "2026-04",
-      "pnl": 23614,
-      "equity": 30743133
+      "pnl": -121392,
+      "equity": 30598128
     }
   ]
 }
