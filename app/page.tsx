@@ -31,6 +31,7 @@ interface Summary {
   month_unrealized: number;
   month_realized: number;
   year_realized: number;
+  year_total: number;
   current_month: string;
 }
 
@@ -142,6 +143,7 @@ export default function Dashboard() {
   const monthUnrealized = summary?.month_unrealized ?? 0;
   const monthRealized = summary?.month_realized ?? 0;
   const yearRealized = summary?.year_realized ?? 0;
+  const yearTotal = summary?.year_total ?? yearRealized;
   const currentMonth = summary?.current_month ?? '';
   const monthLabel = formatMonthLabel(currentMonth);
 
@@ -214,13 +216,13 @@ export default function Dashboard() {
           </div>
 
           <div className="stat-card flex items-center gap-3">
-            <TrendingUp className="w-5 h-5 flex-shrink-0" style={{ color: yearRealized >= 0 ? '#22c55e' : '#ef4444' }} />
+            <TrendingUp className="w-5 h-5 flex-shrink-0" style={{ color: yearTotal >= 0 ? '#22c55e' : '#ef4444' }} />
             <div>
               <div className="text-xs uppercase tracking-wider mb-0.5" style={{ color: '#64748b' }}>
                 Total 2026 P&L
               </div>
-              <div className="text-2xl font-bold" style={{ color: yearRealized >= 0 ? '#22c55e' : '#ef4444' }}>
-                {formatPnlShort(yearRealized)}
+              <div className="text-2xl font-bold" style={{ color: yearTotal >= 0 ? '#22c55e' : '#ef4444' }}>
+                {formatPnlShort(yearTotal)}
               </div>
             </div>
           </div>
