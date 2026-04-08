@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-04-08T01:54:09Z",
+  "last_refresh": "2026-04-08T01:59:07Z",
   "market_date": "2026-04-08",
   "positions": [
     {
@@ -10,13 +10,13 @@
       "option_ticker": "O:CSCO260515C00085000",
       "entry_date": "2026-04-07",
       "entry_price": 1.41,
-      "current_price": 1.4,
+      "current_price": 1.92,
       "stop_price": null,
       "exit_date": "2026-04-23",
       "position_size": 25000,
       "shares_or_contracts": 177,
-      "unrealized_pnl": -177,
-      "unrealized_pct": -0.71,
+      "unrealized_pnl": 9027,
+      "unrealized_pct": 36.17,
       "days_held": 2,
       "days_remaining": 11,
       "distance_to_stop_pct": null,
@@ -224,22 +224,16 @@
   "summary": {
     "total_positions": 1,
     "total_pending": 0,
-    "total_unrealized": -177,
+    "total_unrealized": 9027,
     "realized_pnl": 24765741,
     "month_realized": -118137,
-    "month_unrealized": -177,
+    "month_unrealized": 9027,
     "win_rate": 37.8,
     "profit_factor": 1.93,
     "year_realized": 3050327,
-    "year_total": 3050150
+    "year_total": 3059354
   },
-  "risk_alerts": [
-    {
-      "type": "exit_today",
-      "symbol": "CSCO",
-      "days_remaining": 0
-    }
-  ],
+  "risk_alerts": [],
   "signals": [
     {
       "symbol": "LNG",
@@ -1341,7 +1335,7 @@
   ],
   "as_of": "2026-04-08",
   "total_scanned": 366,
-  "source": "polygon_v2_verified",
+  "source": "dual_ranking_engine",
   "note": "Polygon-verified Lottery \u2264$3. $24.8M, PF 1.93, Sharpe 1.65, 7/7. 2026-04-08.",
   "yearly_pnl": [
     {
