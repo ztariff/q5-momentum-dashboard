@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-04-08T09:44:37Z",
+  "last_refresh": "2026-04-08T09:51:24Z",
   "market_date": "2026-04-08",
   "positions": [
     {
@@ -19,7 +19,7 @@
       "unrealized_pct": 36.17,
       "days_held": 2,
       "days_remaining": 11,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "LIVE"
     },
     {
@@ -39,7 +39,7 @@
       "unrealized_pct": -15.52,
       "days_held": 7,
       "days_remaining": 6,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -59,7 +59,7 @@
       "unrealized_pct": 60.0,
       "days_held": 6,
       "days_remaining": 7,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -79,7 +79,7 @@
       "unrealized_pct": 0.0,
       "days_held": 5,
       "days_remaining": 8,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -99,7 +99,7 @@
       "unrealized_pct": -17.86,
       "days_held": 5,
       "days_remaining": 8,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
     {
@@ -116,10 +116,10 @@
       "position_size": 25000,
       "shares_or_contracts": 30,
       "unrealized_pnl": -18480,
-      "unrealized_pct": -74.67,
+      "unrealized_pct": -74.7,
       "days_held": 11,
       "days_remaining": 2,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $8.25 > $3.00"
     },
@@ -137,10 +137,10 @@
       "position_size": 50000,
       "shares_or_contracts": 145,
       "unrealized_pnl": -42630,
-      "unrealized_pct": -85.47,
+      "unrealized_pct": -85.5,
       "days_held": 10,
       "days_remaining": 3,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $3.44 > $3.00"
     },
@@ -158,10 +158,10 @@
       "position_size": 25000,
       "shares_or_contracts": 52,
       "unrealized_pnl": 2080,
-      "unrealized_pct": 8.33,
+      "unrealized_pct": 8.3,
       "days_held": 5,
       "days_remaining": 8,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $4.80 > $3.00"
     },
@@ -172,17 +172,17 @@
       "tier": "B",
       "option_ticker": "O:TRV260515C00300000",
       "entry_date": "2026-04-02",
-      "entry_price": 8.0,
+      "entry_price": 8,
       "current_price": 8.7,
       "stop_price": null,
       "exit_date": "2026-04-21",
       "position_size": 25000,
       "shares_or_contracts": 31,
       "unrealized_pnl": 2170,
-      "unrealized_pct": 8.75,
+      "unrealized_pct": 8.7,
       "days_held": 4,
       "days_remaining": 9,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $8.00 > $3.00"
     },
@@ -200,10 +200,10 @@
       "position_size": 25000,
       "shares_or_contracts": 43,
       "unrealized_pnl": -2580,
-      "unrealized_pct": -10.53,
+      "unrealized_pct": -10.5,
       "days_held": 4,
       "days_remaining": 9,
-      "distance_to_stop_pct": null,
+      "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $5.70 > $3.00"
     }
@@ -279,7 +279,7 @@
       "entry_price": 0.1,
       "exit_price": 0.07,
       "net_pnl": -15042,
-      "return_pct": -30.0,
+      "return_pct": -30,
       "exit_type": "13_trading_day"
     },
     {
@@ -1451,7 +1451,7 @@
     {
       "year": "2025",
       "pnl": 2401339,
-      "win_rate": 37.0,
+      "win_rate": 37,
       "trades": 327
     },
     {
