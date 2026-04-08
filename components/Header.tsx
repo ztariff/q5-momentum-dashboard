@@ -126,22 +126,6 @@ export default function Header({
             {isRefreshing ? 'Loading...' : 'Reload'}
           </button>
 
-          {/* Update Prices (calls /api/refresh — price update only, ~2-3s) */}
-          <button
-            onClick={handleUpdatePrices}
-            disabled={isPriceUpdating}
-            className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold transition-all"
-            style={{
-              backgroundColor: isPriceUpdating ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.1)',
-              color: '#22c55e',
-              border: `1px solid ${isPriceUpdating ? 'rgba(34,197,94,0.5)' : 'rgba(34,197,94,0.25)'}`,
-              opacity: isPriceUpdating ? 0.8 : 1,
-            }}
-            title="Fetch latest prices for open positions (2-3 seconds)"
-          >
-            <RefreshCw className={`w-3 h-3 ${isPriceUpdating ? 'animate-spin' : ''}`} />
-            {isPriceUpdating ? 'Updating...' : 'Update Prices'}
-          </button>
         </div>
       </div>
     </header>
