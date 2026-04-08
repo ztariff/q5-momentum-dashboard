@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-04-08T01:59:07Z",
+  "last_refresh": "2026-04-08T09:44:37Z",
   "market_date": "2026-04-08",
   "positions": [
     {
@@ -10,13 +10,13 @@
       "option_ticker": "O:CSCO260515C00085000",
       "entry_date": "2026-04-07",
       "entry_price": 1.41,
-      "current_price": 1.4,
+      "current_price": 1.92,
       "stop_price": null,
       "exit_date": "2026-04-23",
       "position_size": 25000,
       "shares_or_contracts": 177,
-      "unrealized_pnl": -177,
-      "unrealized_pct": -0.71,
+      "unrealized_pnl": 9027,
+      "unrealized_pct": 36.17,
       "days_held": 2,
       "days_remaining": 11,
       "distance_to_stop_pct": null,
@@ -304,14 +304,14 @@
   "summary": {
     "total_positions": 5,
     "total_pending": 0,
-    "total_unrealized": 2028,
+    "total_unrealized": 11232,
     "realized_pnl": 24765741,
     "month_realized": -118137,
-    "month_unrealized": 5073,
+    "month_unrealized": 11232,
     "win_rate": 37.8,
     "profit_factor": 1.93,
     "year_realized": 3050327,
-    "year_total": 3052355
+    "year_total": 3061559
   },
   "risk_alerts": [],
   "signals": [
