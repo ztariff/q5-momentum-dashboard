@@ -260,6 +260,7 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                 <th>Tier</th>
                 <th onClick={() => handleSort('entry_date')}>Entry Date <SortIcon col="entry_date" /></th>
                 <th>Entry Price</th>
+                <th title="Max price you can pay before edge dies (entry × 1.30, from backtest payup tolerance)">Max Payup</th>
                 <th>Current Price</th>
                 <th onClick={() => handleSort('unrealized_pnl')}>Unreal P&L <SortIcon col="unrealized_pnl" /></th>
                 <th>Unreal %</th>
@@ -337,6 +338,17 @@ export default function PositionsTable({ positions, isLoading }: PositionsTableP
                         </span>
                       ) : (
                         `$${((pos.entry_price || 0).toFixed(2))}`
+                      )}
+                    </td>
+
+                    {/* Max Payup (entry × 1.30) */}
+                    <td>
+                      {(pos.entry_price || 0) > 0 ? (
+                        <span style={{ color: '#fbbf24' }}>
+                          ${((pos.entry_price || 0) * 1.30).toFixed(2)}
+                        </span>
+                      ) : (
+                        <span style={{ color: '#475569' }}>—</span>
                       )}
                     </td>
 
