@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-04-10T01:14:50Z",
+  "last_refresh": "2026-04-10T01:16:33Z",
   "market_date": "2026-04-10",
   "positions": [
     {
@@ -218,7 +218,7 @@
       "instrument": "OPTION",
       "sizing_rule": "$50K options (Tier A) \u2014 premium \u2264$3",
       "recommended_size": 50000,
-      "entry_date": "2026-04-13",
+      "entry_date": "2026-04-10",
       "source": "R1_230"
     },
     {
@@ -230,7 +230,7 @@
       "instrument": "OPTION",
       "sizing_rule": "$25K options (Tier B) \u2014 premium \u2264$3",
       "recommended_size": 25000,
-      "entry_date": "2026-04-13",
+      "entry_date": "2026-04-10",
       "source": "R2_366"
     },
     {
@@ -242,7 +242,7 @@
       "instrument": "OPTION",
       "sizing_rule": "$50K options (Tier A) \u2014 premium \u2264$3",
       "recommended_size": 50000,
-      "entry_date": "2026-04-13",
+      "entry_date": "2026-04-10",
       "source": "R2_366"
     },
     {
@@ -254,7 +254,7 @@
       "instrument": "OPTION",
       "sizing_rule": "$50K options (Tier A) \u2014 premium \u2264$3",
       "recommended_size": 50000,
-      "entry_date": "2026-04-13",
+      "entry_date": "2026-04-10",
       "source": "R2_366"
     }
   ],
