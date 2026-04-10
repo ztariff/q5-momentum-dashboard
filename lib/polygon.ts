@@ -109,6 +109,56 @@ export async function fetchCurrentPrice(symbol: string): Promise<number | null> 
   }
 }
 
+/**
+ * Fetch current option prices via Polygon snapshot endpoint.
+ * Uses ticker.any_of which accepts up to 250 option tickers per call.
+ * Returns mid (bid+ask)/2 preferred, falls back to session close or last trade.
+ */
+export async function fetchOptionSnapshots(
+  optionTickers: string[]
+): Promise<Map<string, number>> {
+  const result = new Map<string, number>();
+  if (optionTickers.length === 0) return result;
+
+  // Batch into groups of 250 (Polygon limit for ticker.any_of)
+  for (let i = 0; i < optionTickers.length; i += 250) {
+    const chunk = optionTickers.slice(i, i + 250);
+    try {
+      const url = `${BASE_URL}/v3/snapshot?ticker.any_of=${chunk.join(',')}&limit=250&apiKey=${POLYGON_API_KEY}`;
+      const resp = await fetch(url, { cache: 'no-store' });
+      if (!resp.ok) continue;
+      const json = await resp.json();
+      const results = json.results || [];
+      for (const r of results) {
+        const ticker = r.ticker;
+        if (!ticker) continue;
+        let price: number | null = null;
+        // Prefer mid of NBBO
+        const bid = r.last_quote?.bid;
+        const ask = r.last_quote?.ask;
+        if (bid && ask && bid > 0 && ask > 0) {
+          price = (bid + ask) / 2;
+        }
+        // Fallback to session data
+        if (!price && r.session) {
+          price = r.session.close || r.session.vwap || r.session.open;
+        }
+        // Fallback to last trade
+        if (!price && r.last_trade?.price) {
+          price = r.last_trade.price;
+        }
+        if (price && price > 0) {
+          result.set(ticker, price);
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching option snapshots:', err);
+    }
+  }
+
+  return result;
+}
+
 export async function fetchMultiplePrices(
   symbols: string[]
 ): Promise<Map<string, number>> {

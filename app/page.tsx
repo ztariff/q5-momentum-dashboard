@@ -60,10 +60,20 @@ export default function Dashboard() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoRefreshTriggered = useRef(false);
 
-  // ── Display refresh: reads live_state.json via /api/positions ─────────────
+  // ── Display refresh: fetch fresh option prices, then re-read live_state ────
   const loadPositions = useCallback(async () => {
     setIsRefreshing(true);
     try {
+      // Step 1: refresh prices from Polygon (updates live_state.json)
+      // This pulls current option snapshots and recomputes unrealized P&L.
+      // Safe to run during market hours — does NOT touch CSVs or signals.
+      try {
+        await fetch('/api/refresh');
+      } catch {
+        // non-fatal: fall back to cached prices
+      }
+
+      // Step 2: read the updated live_state
       const resp = await fetch('/api/positions');
       if (!resp.ok) throw new Error(`API error: ${resp.status}`);
       const data = await resp.json();
