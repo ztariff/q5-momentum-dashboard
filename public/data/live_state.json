@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-04-10T01:16:33Z",
+  "last_refresh": "2026-04-10T01:50:27Z",
   "market_date": "2026-04-10",
   "positions": [
     {
@@ -101,6 +101,48 @@
       "days_remaining": 6,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
+    },
+    {
+      "symbol": "AIG",
+      "status": "active",
+      "instrument": "OPTION",
+      "tier": "B",
+      "option_ticker": "O:AIG260515C00080000",
+      "entry_date": "2026-04-08",
+      "entry_price": 1.54,
+      "current_price": 1.92,
+      "stop_price": null,
+      "exit_date": "2026-04-27",
+      "position_size": 25000,
+      "shares_or_contracts": 162,
+      "unrealized_pnl": 6156,
+      "unrealized_pct": 24.68,
+      "days_held": 3,
+      "days_remaining": 10,
+      "body_pct": 0.4985,
+      "atr_change_3d": -0.0012,
+      "distance_to_stop_pct": null
+    },
+    {
+      "symbol": "BMY",
+      "status": "active",
+      "instrument": "OPTION",
+      "tier": "A",
+      "option_ticker": "O:BMY260515C00062500",
+      "entry_date": "2026-04-09",
+      "entry_price": 0.94,
+      "current_price": 1.04,
+      "stop_price": null,
+      "exit_date": "2026-04-28",
+      "position_size": 50000,
+      "shares_or_contracts": 531,
+      "unrealized_pnl": 5310,
+      "unrealized_pct": 10.64,
+      "days_held": 2,
+      "days_remaining": 11,
+      "body_pct": 0.6696,
+      "atr_change_3d": 0.0064,
+      "distance_to_stop_pct": null
     },
     {
       "symbol": "FDX",
@@ -206,48 +248,6 @@
       "distance_to_stop_pct": 100,
       "source": "R2_366",
       "skip_reason": "Premium $5.70 > $3.00"
-    },
-    {
-      "symbol": "AIG",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "B",
-      "option_ticker": "O:AIG260515C00080000",
-      "entry_date": "2026-04-08",
-      "entry_price": 1.54,
-      "current_price": 1.54,
-      "stop_price": null,
-      "exit_date": "2026-04-27",
-      "position_size": 25000,
-      "shares_or_contracts": 162,
-      "unrealized_pnl": 0,
-      "unrealized_pct": 0.0,
-      "days_held": 3,
-      "days_remaining": 11,
-      "body_pct": 0.4985,
-      "atr_change_3d": -0.0012,
-      "distance_to_stop_pct": null
-    },
-    {
-      "symbol": "BMY",
-      "status": "active",
-      "instrument": "OPTION",
-      "tier": "A",
-      "option_ticker": "O:BMY260515C00062500",
-      "entry_date": "2026-04-09",
-      "entry_price": 0.94,
-      "current_price": 0.94,
-      "stop_price": null,
-      "exit_date": "2026-04-28",
-      "position_size": 50000,
-      "shares_or_contracts": 531,
-      "unrealized_pnl": 0,
-      "unrealized_pct": 0.0,
-      "days_held": 2,
-      "days_remaining": 12,
-      "body_pct": 0.6696,
-      "atr_change_3d": 0.0064,
-      "distance_to_stop_pct": null
     },
     {
       "symbol": "CAR",
@@ -382,14 +382,14 @@
   "summary": {
     "total_positions": 7,
     "total_pending": 1,
-    "total_unrealized": 21342,
+    "total_unrealized": 32808,
     "realized_pnl": 24765741,
     "month_realized": -118137,
-    "month_unrealized": 21342,
+    "month_unrealized": 32808,
     "win_rate": 37.8,
     "profit_factor": 1.93,
     "year_realized": 3050327,
-    "year_total": 3071669
+    "year_total": 3083135
   },
   "risk_alerts": [
     {
