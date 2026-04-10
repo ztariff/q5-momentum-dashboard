@@ -32,7 +32,7 @@ export async function GET() {
       entry_price: 0,
       current_price: 0,
       stop_price: null,
-      exit_date: null,
+      exit_date: s.exit_date ?? null,
       position_size: s.recommended_size ?? 0,
       shares_or_contracts: s.recommended_contracts ?? 0,
       unrealized_pnl: 0,
