@@ -293,32 +293,7 @@
       "skip_reason": "Premium $38.04 > $3.00"
     }
   ],
-  "pending_signals": [
-    {
-      "symbol": "SPG",
-      "z_score": 0.1088,
-      "body_pct": 0.3319,
-      "atr_change": 0.0214,
-      "tier": "A",
-      "instrument": "OPTION",
-      "sizing_rule": "$50K options (Tier A) \u2014 premium \u2264$3",
-      "recommended_size": 50000,
-      "entry_date": "2026-04-13",
-      "source": "R1_230"
-    },
-    {
-      "symbol": "BURL",
-      "z_score": 0.542,
-      "body_pct": -0.3239,
-      "atr_change": 0.0067,
-      "tier": "B",
-      "instrument": "OPTION",
-      "sizing_rule": "$25K options (Tier B) \u2014 premium \u2264$3",
-      "recommended_size": 25000,
-      "entry_date": "2026-04-13",
-      "source": "R2_366"
-    }
-  ],
+  "pending_signals": [],
   "recently_closed": [
     {
       "symbol": "HAL",
@@ -413,7 +388,7 @@
   ],
   "summary": {
     "total_positions": 8,
-    "total_pending": 2,
+    "total_pending": 0,
     "total_unrealized": 30824,
     "realized_pnl": 24765741,
     "month_realized": -118137,
