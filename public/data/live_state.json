@@ -1,6 +1,6 @@
 {
-  "last_refresh": "2026-04-10T23:45:56Z",
-  "market_date": "2026-04-10",
+  "last_refresh": "2026-04-11T17:26:00Z",
+  "market_date": "2026-04-11",
   "positions": [
     {
       "symbol": "CSCO",
@@ -18,7 +18,7 @@
       "unrealized_pnl": 16284,
       "unrealized_pct": 65.25,
       "days_held": 4,
-      "days_remaining": 9,
+      "days_remaining": 8,
       "distance_to_stop_pct": 100,
       "source": "LIVE"
     },
@@ -38,7 +38,7 @@
       "unrealized_pnl": 1892,
       "unrealized_pct": 7.59,
       "days_held": 9,
-      "days_remaining": 4,
+      "days_remaining": 3,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -58,7 +58,7 @@
       "unrealized_pnl": -5000,
       "unrealized_pct": -20.0,
       "days_held": 8,
-      "days_remaining": 5,
+      "days_remaining": 4,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -78,7 +78,7 @@
       "unrealized_pnl": 6580,
       "unrealized_pct": 13.21,
       "days_held": 7,
-      "days_remaining": 6,
+      "days_remaining": 5,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -98,7 +98,7 @@
       "unrealized_pnl": 3570,
       "unrealized_pct": 7.14,
       "days_held": 7,
-      "days_remaining": 6,
+      "days_remaining": 5,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -118,7 +118,7 @@
       "unrealized_pnl": -972,
       "unrealized_pct": -3.9,
       "days_held": 3,
-      "days_remaining": 10,
+      "days_remaining": 9,
       "body_pct": 0.4985,
       "atr_change_3d": -0.0012,
       "distance_to_stop_pct": null
@@ -139,7 +139,7 @@
       "unrealized_pnl": -7965,
       "unrealized_pct": -15.96,
       "days_held": 2,
-      "days_remaining": 11,
+      "days_remaining": 10,
       "body_pct": 0.6696,
       "atr_change_3d": 0.0064,
       "distance_to_stop_pct": null
@@ -152,15 +152,15 @@
       "option_ticker": "O:HON260515C00250000",
       "entry_date": "2026-04-10",
       "entry_price": 2.1,
-      "current_price": 2.58,
+      "current_price": 9.5,
       "stop_price": null,
       "exit_date": "2026-04-29",
       "position_size": 50000,
       "shares_or_contracts": 238,
-      "unrealized_pnl": 11424,
-      "unrealized_pct": 22.86,
+      "unrealized_pnl": 176120,
+      "unrealized_pct": 352.38,
       "days_held": 1,
-      "days_remaining": 12,
+      "days_remaining": 11,
       "body_pct": 0.7051,
       "atr_change_3d": 0.1161,
       "distance_to_stop_pct": null
@@ -426,16 +426,22 @@
   "summary": {
     "total_positions": 8,
     "total_pending": 3,
-    "total_unrealized": 25813,
+    "total_unrealized": 190509,
     "realized_pnl": 24765741,
     "month_realized": -118137,
-    "month_unrealized": 25813,
+    "month_unrealized": 190509,
     "win_rate": 37.8,
     "profit_factor": 1.93,
     "year_realized": 3050327,
-    "year_total": 3076140
+    "year_total": 3240836
   },
-  "risk_alerts": [],
+  "risk_alerts": [
+    {
+      "type": "exit_soon",
+      "symbol": "MDLZ",
+      "days_remaining": 3
+    }
+  ],
   "signals": [
     {
       "symbol": "FSLY",
@@ -1535,7 +1541,7 @@
       "distance_to_q5": "approaching"
     }
   ],
-  "as_of": "2026-04-10",
+  "as_of": "2026-04-11",
   "total_scanned": 366,
   "source": "dual_ranking_engine",
   "note": "Polygon-verified Lottery \u2264$3. $24.8M, PF 1.93, Sharpe 1.65, 7/7. 2026-04-08.",
