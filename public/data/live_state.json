@@ -1,6 +1,6 @@
 {
-  "last_refresh": "2026-04-14T20:20:07Z",
-  "market_date": "2026-04-14",
+  "last_refresh": "2026-04-15T10:11:09Z",
+  "market_date": "2026-04-15",
   "positions": [
     {
       "symbol": "CSCO",
@@ -17,8 +17,8 @@
       "shares_or_contracts": 177,
       "unrealized_pnl": 15753,
       "unrealized_pct": 63.12,
-      "days_held": 6,
-      "days_remaining": 7,
+      "days_held": 7,
+      "days_remaining": 6,
       "distance_to_stop_pct": 100,
       "source": "LIVE"
     },
@@ -37,8 +37,8 @@
       "shares_or_contracts": 86,
       "unrealized_pnl": -6880,
       "unrealized_pct": -27.59,
-      "days_held": 11,
-      "days_remaining": 2,
+      "days_held": 12,
+      "days_remaining": 1,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -57,8 +57,8 @@
       "shares_or_contracts": 500,
       "unrealized_pnl": -17500,
       "unrealized_pct": -70.0,
-      "days_held": 10,
-      "days_remaining": 3,
+      "days_held": 11,
+      "days_remaining": 2,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -77,8 +77,8 @@
       "shares_or_contracts": 188,
       "unrealized_pnl": 10340,
       "unrealized_pct": 20.75,
-      "days_held": 9,
-      "days_remaining": 4,
+      "days_held": 10,
+      "days_remaining": 3,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -97,8 +97,8 @@
       "shares_or_contracts": 1785,
       "unrealized_pnl": 5355,
       "unrealized_pct": 10.71,
-      "days_held": 9,
-      "days_remaining": 4,
+      "days_held": 10,
+      "days_remaining": 3,
       "distance_to_stop_pct": 100,
       "source": "R2_366"
     },
@@ -117,8 +117,8 @@
       "shares_or_contracts": 162,
       "unrealized_pnl": -3564,
       "unrealized_pct": -14.29,
-      "days_held": 5,
-      "days_remaining": 8,
+      "days_held": 6,
+      "days_remaining": 7,
       "body_pct": 0.4985,
       "atr_change_3d": -0.0012,
       "distance_to_stop_pct": null
@@ -138,8 +138,8 @@
       "shares_or_contracts": 531,
       "unrealized_pnl": -19116,
       "unrealized_pct": -38.3,
-      "days_held": 4,
-      "days_remaining": 9,
+      "days_held": 5,
+      "days_remaining": 8,
       "body_pct": 0.6696,
       "atr_change_3d": 0.0064,
       "distance_to_stop_pct": null
@@ -159,8 +159,8 @@
       "shares_or_contracts": 238,
       "unrealized_pnl": -9520,
       "unrealized_pct": -19.05,
-      "days_held": 3,
-      "days_remaining": 10,
+      "days_held": 4,
+      "days_remaining": 9,
       "body_pct": 0.7051,
       "atr_change_3d": 0.1161,
       "distance_to_stop_pct": null
@@ -180,8 +180,8 @@
       "shares_or_contracts": 238,
       "unrealized_pnl": 25466,
       "unrealized_pct": 50.95,
-      "days_held": 2,
-      "days_remaining": 11,
+      "days_held": 3,
+      "days_remaining": 10,
       "body_pct": 0.3642,
       "atr_change_3d": 0.0219,
       "distance_to_stop_pct": null
@@ -201,8 +201,8 @@
       "shares_or_contracts": 354,
       "unrealized_pnl": 34338,
       "unrealized_pct": 68.79,
-      "days_held": 1,
-      "days_remaining": 12,
+      "days_held": 2,
+      "days_remaining": 11,
       "body_pct": 0.8926,
       "atr_change_3d": 0.0097,
       "distance_to_stop_pct": null
@@ -222,8 +222,8 @@
       "shares_or_contracts": 308,
       "unrealized_pnl": -3388,
       "unrealized_pct": -13.58,
-      "days_held": 1,
-      "days_remaining": 12,
+      "days_held": 2,
+      "days_remaining": 11,
       "body_pct": -0.6286,
       "atr_change_3d": 0.0507,
       "distance_to_stop_pct": null
@@ -580,17 +580,27 @@
     {
       "type": "exit_soon",
       "symbol": "MDLZ",
-      "days_remaining": 2
+      "days_remaining": 1
     },
     {
       "type": "exit_soon",
       "symbol": "ACI",
-      "days_remaining": 3
+      "days_remaining": 2
     },
     {
       "type": "large_loss",
       "symbol": "ACI",
       "unrealized_pct": -70.0
+    },
+    {
+      "type": "exit_soon",
+      "symbol": "CSX",
+      "days_remaining": 3
+    },
+    {
+      "type": "exit_soon",
+      "symbol": "NIO",
+      "days_remaining": 3
     },
     {
       "type": "large_loss",
@@ -1697,7 +1707,7 @@
       "distance_to_q5": "approaching"
     }
   ],
-  "as_of": "2026-04-14",
+  "as_of": "2026-04-15",
   "total_scanned": 366,
   "source": "dual_ranking_engine",
   "note": "Polygon-verified Lottery \u2264$3. $24.8M, PF 1.93, Sharpe 1.65, 7/7. 2026-04-08.",
