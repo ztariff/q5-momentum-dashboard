@@ -1,6 +1,6 @@
 {
-  "last_refresh": "2026-04-21T13:35:01Z",
-  "market_date": "2026-04-20",
+  "last_refresh": "2026-04-21T20:18:08Z",
+  "market_date": "2026-04-21",
   "positions": [
     {
       "symbol": "CSCO",
@@ -10,14 +10,14 @@
       "option_ticker": "O:CSCO260515C00085000",
       "entry_date": "2026-04-07",
       "entry_price": 1.41,
-      "current_price": 4.8,
+      "current_price": 6.45,
       "stop_price": null,
       "exit_date": "2026-04-23",
       "position_size": 25000,
       "shares_or_contracts": 177,
-      "unrealized_pnl": 60003,
-      "unrealized_pct": 240.43,
-      "days_held": 10,
+      "unrealized_pnl": 89208,
+      "unrealized_pct": 357.45,
+      "days_held": 11,
       "days_remaining": 2,
       "distance_to_stop_pct": 100,
       "source": "LIVE"
@@ -30,15 +30,15 @@
       "option_ticker": "O:AIG260515C00080000",
       "entry_date": "2026-04-08",
       "entry_price": 1.54,
-      "current_price": 1.7,
+      "current_price": 1.65,
       "stop_price": null,
       "exit_date": "2026-04-27",
       "position_size": 25000,
       "shares_or_contracts": 162,
-      "unrealized_pnl": 2592,
-      "unrealized_pct": 10.39,
-      "days_held": 9,
-      "days_remaining": 4,
+      "unrealized_pnl": 1782,
+      "unrealized_pct": 7.14,
+      "days_held": 10,
+      "days_remaining": 3,
       "body_pct": 0.4985,
       "atr_change_3d": -0.0012,
       "distance_to_stop_pct": null
@@ -51,15 +51,15 @@
       "option_ticker": "O:BMY260515C00062500",
       "entry_date": "2026-04-09",
       "entry_price": 0.94,
-      "current_price": 0.71,
+      "current_price": 0.94,
       "stop_price": null,
       "exit_date": "2026-04-28",
       "position_size": 50000,
       "shares_or_contracts": 531,
-      "unrealized_pnl": -12213,
-      "unrealized_pct": -24.47,
-      "days_held": 8,
-      "days_remaining": 5,
+      "unrealized_pnl": 0,
+      "unrealized_pct": 0.0,
+      "days_held": 9,
+      "days_remaining": 4,
       "body_pct": 0.6696,
       "atr_change_3d": 0.0064,
       "distance_to_stop_pct": null
@@ -72,15 +72,15 @@
       "option_ticker": "O:HON260515C00250000",
       "entry_date": "2026-04-10",
       "entry_price": 2.1,
-      "current_price": 1.2,
+      "current_price": 0.55,
       "stop_price": null,
       "exit_date": "2026-04-29",
       "position_size": 50000,
       "shares_or_contracts": 238,
-      "unrealized_pnl": -21420,
-      "unrealized_pct": -42.86,
-      "days_held": 7,
-      "days_remaining": 6,
+      "unrealized_pnl": -36890,
+      "unrealized_pct": -73.81,
+      "days_held": 8,
+      "days_remaining": 5,
       "body_pct": 0.7051,
       "atr_change_3d": 0.1161,
       "distance_to_stop_pct": null
@@ -93,15 +93,15 @@
       "option_ticker": "O:SPG260515C00210000",
       "entry_date": "2026-04-13",
       "entry_price": 2.1,
-      "current_price": 4.5,
+      "current_price": 3.65,
       "stop_price": null,
       "exit_date": "2026-04-30",
       "position_size": 50000,
       "shares_or_contracts": 238,
-      "unrealized_pnl": 57120,
-      "unrealized_pct": 114.29,
-      "days_held": 6,
-      "days_remaining": 7,
+      "unrealized_pnl": 36890,
+      "unrealized_pct": 73.81,
+      "days_held": 7,
+      "days_remaining": 6,
       "body_pct": 0.3642,
       "atr_change_3d": 0.0219,
       "distance_to_stop_pct": null
@@ -114,15 +114,15 @@
       "option_ticker": "O:ZTS260515C00130000",
       "entry_date": "2026-04-14",
       "entry_price": 1.41,
-      "current_price": 2.17,
+      "current_price": 1.45,
       "stop_price": null,
       "exit_date": "2026-05-01",
       "position_size": 50000,
       "shares_or_contracts": 354,
-      "unrealized_pnl": 27081,
-      "unrealized_pct": 54.26,
-      "days_held": 5,
-      "days_remaining": 8,
+      "unrealized_pnl": 1416,
+      "unrealized_pct": 2.84,
+      "days_held": 6,
+      "days_remaining": 7,
       "body_pct": 0.8926,
       "atr_change_3d": 0.0097,
       "distance_to_stop_pct": null
@@ -135,15 +135,15 @@
       "option_ticker": "O:KHC260515C00022500",
       "entry_date": "2026-04-14",
       "entry_price": 0.81,
-      "current_price": 0.54,
+      "current_price": 0.52,
       "stop_price": null,
       "exit_date": "2026-05-01",
       "position_size": 25000,
       "shares_or_contracts": 308,
-      "unrealized_pnl": -8316,
-      "unrealized_pct": -33.33,
-      "days_held": 5,
-      "days_remaining": 8,
+      "unrealized_pnl": -8932,
+      "unrealized_pct": -35.8,
+      "days_held": 6,
+      "days_remaining": 7,
       "body_pct": -0.6286,
       "atr_change_3d": 0.0507,
       "distance_to_stop_pct": null
@@ -156,15 +156,15 @@
       "option_ticker": "O:PLD260515C00145000",
       "entry_date": "2026-04-15",
       "entry_price": 1.55,
-      "current_price": 3.6,
+      "current_price": 2.38,
       "stop_price": null,
       "exit_date": "2026-05-04",
       "position_size": 25000,
       "shares_or_contracts": 161,
-      "unrealized_pnl": 33005,
-      "unrealized_pct": 132.26,
-      "days_held": 4,
-      "days_remaining": 9,
+      "unrealized_pnl": 13363,
+      "unrealized_pct": 53.55,
+      "days_held": 5,
+      "days_remaining": 8,
       "body_pct": 0.6286,
       "atr_change_3d": -0.0578,
       "distance_to_stop_pct": null
@@ -177,15 +177,15 @@
       "option_ticker": "O:SBUX260515C00105000",
       "entry_date": "2026-04-15",
       "entry_price": 1.72,
-      "current_price": 1.69,
+      "current_price": 1.53,
       "stop_price": null,
       "exit_date": "2026-05-04",
       "position_size": 25000,
       "shares_or_contracts": 145,
-      "unrealized_pnl": -435,
-      "unrealized_pct": -1.74,
-      "days_held": 4,
-      "days_remaining": 9,
+      "unrealized_pnl": -2755,
+      "unrealized_pct": -11.05,
+      "days_held": 5,
+      "days_remaining": 8,
       "body_pct": 0.4111,
       "atr_change_3d": -0.0798,
       "distance_to_stop_pct": null
@@ -198,15 +198,15 @@
       "option_ticker": "O:WELL260515C00220000",
       "entry_date": "2026-04-15",
       "entry_price": 1.8,
-      "current_price": 2.23,
+      "current_price": 1.35,
       "stop_price": null,
       "exit_date": "2026-05-04",
       "position_size": 25000,
       "shares_or_contracts": 138,
-      "unrealized_pnl": 5865,
-      "unrealized_pct": 23.61,
-      "days_held": 4,
-      "days_remaining": 9,
+      "unrealized_pnl": -6210,
+      "unrealized_pct": -25.0,
+      "days_held": 5,
+      "days_remaining": 8,
       "body_pct": 0.792,
       "atr_change_3d": -0.0162,
       "distance_to_stop_pct": null
@@ -219,15 +219,15 @@
       "option_ticker": "O:AMC260515C00002000",
       "entry_date": "2026-04-16",
       "entry_price": 0.14,
-      "current_price": 0.19,
+      "current_price": 0.15,
       "stop_price": null,
       "exit_date": "2026-05-05",
       "position_size": 50000,
       "shares_or_contracts": 3571,
-      "unrealized_pnl": 17855,
-      "unrealized_pct": 35.71,
-      "days_held": 3,
-      "days_remaining": 10,
+      "unrealized_pnl": 3571,
+      "unrealized_pct": 7.14,
+      "days_held": 4,
+      "days_remaining": 9,
       "body_pct": 0.6667,
       "atr_change_3d": 0.1262,
       "distance_to_stop_pct": null
@@ -240,15 +240,15 @@
       "option_ticker": "O:INTC260515C00075000",
       "entry_date": "2026-04-16",
       "entry_price": 2.36,
-      "current_price": 2.54,
+      "current_price": 2.35,
       "stop_price": null,
       "exit_date": "2026-05-05",
       "position_size": 50000,
       "shares_or_contracts": 211,
-      "unrealized_pnl": 3693,
-      "unrealized_pct": 7.42,
-      "days_held": 3,
-      "days_remaining": 10,
+      "unrealized_pnl": -211,
+      "unrealized_pct": -0.42,
+      "days_held": 4,
+      "days_remaining": 9,
       "body_pct": 0.3946,
       "atr_change_3d": 0.0056,
       "distance_to_stop_pct": null
@@ -261,15 +261,15 @@
       "option_ticker": "O:VTR260515C00087500",
       "entry_date": "2026-04-16",
       "entry_price": 1.15,
-      "current_price": 1.2,
+      "current_price": 0.62,
       "stop_price": null,
       "exit_date": "2026-05-05",
       "position_size": 25000,
       "shares_or_contracts": 217,
-      "unrealized_pnl": 1085,
-      "unrealized_pct": 4.35,
-      "days_held": 3,
-      "days_remaining": 10,
+      "unrealized_pnl": -11501,
+      "unrealized_pct": -46.09,
+      "days_held": 4,
+      "days_remaining": 9,
       "body_pct": -0.1724,
       "atr_change_3d": 0.0074,
       "distance_to_stop_pct": null
@@ -282,15 +282,15 @@
       "option_ticker": "O:SENS260515C00007500",
       "entry_date": "2026-04-16",
       "entry_price": 0.5,
-      "current_price": 0.65,
+      "current_price": 0.33,
       "stop_price": null,
       "exit_date": "2026-05-05",
       "position_size": 25000,
       "shares_or_contracts": 500,
-      "unrealized_pnl": 7500,
-      "unrealized_pct": 30,
-      "days_held": 3,
-      "days_remaining": 10,
+      "unrealized_pnl": -8500,
+      "unrealized_pct": -34.0,
+      "days_held": 4,
+      "days_remaining": 9,
       "body_pct": 0.4783,
       "atr_change_3d": -0.0921,
       "distance_to_stop_pct": null
@@ -303,15 +303,15 @@
       "option_ticker": "O:MARA260515C00014000",
       "entry_date": "2026-04-17",
       "entry_price": 0.58,
-      "current_price": 0.5,
+      "current_price": 0.39,
       "stop_price": null,
       "exit_date": "2026-05-06",
       "position_size": 50000,
       "shares_or_contracts": 862,
-      "unrealized_pnl": -6896,
-      "unrealized_pct": -13.79,
-      "days_held": 2,
-      "days_remaining": 11,
+      "unrealized_pnl": -16378,
+      "unrealized_pct": -32.76,
+      "days_held": 3,
+      "days_remaining": 10,
       "body_pct": 0.7102,
       "atr_change_3d": 0.026,
       "distance_to_stop_pct": null
@@ -324,15 +324,15 @@
       "option_ticker": "O:SPCE260515C00003500",
       "entry_date": "2026-04-17",
       "entry_price": 0.3,
-      "current_price": 0.13,
+      "current_price": 0.2,
       "stop_price": null,
       "exit_date": "2026-05-06",
       "position_size": 50000,
       "shares_or_contracts": 1666,
-      "unrealized_pnl": -28322,
-      "unrealized_pct": -56.67,
-      "days_held": 2,
-      "days_remaining": 11,
+      "unrealized_pnl": -16660,
+      "unrealized_pct": -33.33,
+      "days_held": 3,
+      "days_remaining": 10,
       "body_pct": 0.7228,
       "atr_change_3d": 0.0002,
       "distance_to_stop_pct": null
@@ -345,15 +345,15 @@
       "option_ticker": "O:AMT260515C00190000",
       "entry_date": "2026-04-20",
       "entry_price": 2.8,
-      "current_price": 2.7,
+      "current_price": 1.6,
       "stop_price": null,
       "exit_date": "2026-05-07",
       "position_size": 25000,
       "shares_or_contracts": 89,
-      "unrealized_pnl": -890,
-      "unrealized_pct": -3.57,
-      "days_held": 1,
-      "days_remaining": 12,
+      "unrealized_pnl": -10680,
+      "unrealized_pct": -42.86,
+      "days_held": 2,
+      "days_remaining": 11,
       "body_pct": 0.7191,
       "atr_change_3d": -0.0572,
       "distance_to_stop_pct": null
@@ -366,15 +366,15 @@
       "option_ticker": "O:ON260515C00092000",
       "entry_date": "2026-04-20",
       "entry_price": 2.31,
-      "current_price": 3.33,
+      "current_price": 4.12,
       "stop_price": null,
       "exit_date": "2026-05-07",
       "position_size": 50000,
       "shares_or_contracts": 216,
-      "unrealized_pnl": 22032,
-      "unrealized_pct": 44.16,
-      "days_held": 1,
-      "days_remaining": 12,
+      "unrealized_pnl": 39096,
+      "unrealized_pct": 78.35,
+      "days_held": 2,
+      "days_remaining": 11,
       "body_pct": 0.7139,
       "atr_change_3d": 0.133,
       "distance_to_stop_pct": null
@@ -387,15 +387,15 @@
       "option_ticker": "O:BYND260515C00001000",
       "entry_date": "2026-04-20",
       "entry_price": 0.14,
-      "current_price": 0.51,
+      "current_price": 0.3,
       "stop_price": null,
       "exit_date": "2026-05-07",
       "position_size": 25000,
       "shares_or_contracts": 1785,
-      "unrealized_pnl": 66045,
-      "unrealized_pct": 264.29,
-      "days_held": 1,
-      "days_remaining": 12,
+      "unrealized_pnl": 28560,
+      "unrealized_pct": 114.29,
+      "days_held": 2,
+      "days_remaining": 11,
       "body_pct": -0.5767,
       "atr_change_3d": 0.1566,
       "distance_to_stop_pct": null
@@ -408,15 +408,15 @@
       "option_ticker": "O:BB260515C00005500",
       "entry_date": "2026-04-20",
       "entry_price": 0.17,
-      "current_price": 0.39,
+      "current_price": 0.46,
       "stop_price": null,
       "exit_date": "2026-05-07",
       "position_size": 50000,
       "shares_or_contracts": 2941,
-      "unrealized_pnl": 64702,
-      "unrealized_pct": 129.41,
-      "days_held": 1,
-      "days_remaining": 12,
+      "unrealized_pnl": 85289,
+      "unrealized_pct": 170.59,
+      "days_held": 2,
+      "days_remaining": 11,
       "body_pct": 0.6792,
       "atr_change_3d": 0.2405,
       "distance_to_stop_pct": null
@@ -729,6 +729,54 @@
       "recommended_size": 25000,
       "entry_date": "2026-04-21",
       "source": "R1_230"
+    },
+    {
+      "symbol": "CLOV",
+      "z_score": 0.4622,
+      "body_pct": 0.5,
+      "atr_change": 0.076,
+      "tier": "A",
+      "instrument": "OPTION",
+      "sizing_rule": "$50K options (Tier A) \u2014 premium \u2264$3",
+      "recommended_size": 50000,
+      "entry_date": "2026-04-22",
+      "source": "R1_230"
+    },
+    {
+      "symbol": "ROKU",
+      "z_score": 0.4967,
+      "body_pct": -0.8746,
+      "atr_change": 0.0363,
+      "tier": "B",
+      "instrument": "OPTION",
+      "sizing_rule": "$25K options (Tier B) \u2014 premium \u2264$3",
+      "recommended_size": 25000,
+      "entry_date": "2026-04-22",
+      "source": "R1_230"
+    },
+    {
+      "symbol": "AVGO",
+      "z_score": 0.4147,
+      "body_pct": 0.3056,
+      "atr_change": -0.0517,
+      "tier": "B",
+      "instrument": "OPTION",
+      "sizing_rule": "$25K options (Tier B) \u2014 premium \u2264$3",
+      "recommended_size": 25000,
+      "entry_date": "2026-04-22",
+      "source": "R1_230"
+    },
+    {
+      "symbol": "ENTG",
+      "z_score": 0.5657,
+      "body_pct": -0.5055,
+      "atr_change": 0.0403,
+      "tier": "B",
+      "instrument": "OPTION",
+      "sizing_rule": "$25K options (Tier B) \u2014 premium \u2264$3",
+      "recommended_size": 25000,
+      "entry_date": "2026-04-22",
+      "source": "R2_366"
     }
   ],
   "recently_closed": [
@@ -824,44 +872,79 @@
     }
   ],
   "summary": {
-    "total_positions": 32,
-    "total_pending": 4,
-    "total_unrealized": 230646,
+    "total_positions": 20,
+    "total_pending": 8,
+    "total_unrealized": 180458,
     "realized_pnl": 24774011,
     "month_realized": -109867,
-    "month_unrealized": 230646,
+    "month_unrealized": 180458,
     "win_rate": 37.8,
     "profit_factor": 1.93,
     "year_realized": 3058597,
-    "year_total": 3348683
+    "year_total": 3239055
   },
   "risk_alerts": [
     {
       "type": "exit_soon",
       "symbol": "CSCO",
+      "days_remaining": 2
+    },
+    {
+      "type": "exit_soon",
+      "symbol": "AIG",
       "days_remaining": 3
     },
     {
       "type": "large_loss",
+      "symbol": "HON",
+      "unrealized_pct": -73.81
+    },
+    {
+      "type": "large_loss",
+      "symbol": "KHC",
+      "unrealized_pct": -35.8
+    },
+    {
+      "type": "large_loss",
+      "symbol": "VTR",
+      "unrealized_pct": -46.09
+    },
+    {
+      "type": "large_loss",
+      "symbol": "SENS",
+      "unrealized_pct": -34.0
+    },
+    {
+      "type": "large_loss",
+      "symbol": "MARA",
+      "unrealized_pct": -32.76
+    },
+    {
+      "type": "large_loss",
       "symbol": "SPCE",
-      "unrealized_pct": -50
+      "unrealized_pct": -33.33
+    },
+    {
+      "type": "large_loss",
+      "symbol": "AMT",
+      "unrealized_pct": -42.86
     }
   ],
   "signals": [
     {
       "symbol": "CAR",
-      "z_score": 5.061,
-      "slope": 46.46183,
+      "z_score": 5.4674,
+      "slope": 53.24144,
       "quintile": 5,
       "tier": "A",
       "in_r1": false
     },
     {
       "symbol": "MRVL",
-      "z_score": 2.257,
-      "slope": 11.74968,
+      "z_score": 2.4229,
+      "slope": 12.64336,
       "quintile": 5,
-      "tier": "B",
+      "tier": "A",
       "in_r1": true
     },
     {
@@ -874,42 +957,42 @@
     },
     {
       "symbol": "EQIX",
-      "z_score": 2.0357,
-      "slope": 5.24354,
+      "z_score": 2.0311,
+      "slope": 5.2842,
       "quintile": 5,
-      "tier": "B",
+      "tier": "C",
       "in_r1": true
     },
     {
       "symbol": "KEYS",
-      "z_score": 2.004,
-      "slope": 7.99128,
+      "z_score": 2.0291,
+      "slope": 8.09419,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "SNX",
+      "z_score": 1.754,
+      "slope": 5.62792,
       "quintile": 5,
       "tier": "C",
       "in_r1": false
     },
     {
-      "symbol": "SNX",
-      "z_score": 1.7611,
-      "slope": 5.6395,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": false
-    },
-    {
-      "symbol": "CMS",
-      "z_score": 1.6495,
-      "slope": 1.83286,
+      "symbol": "STM",
+      "z_score": 1.6945,
+      "slope": 7.60665,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
       "symbol": "ARM",
-      "z_score": 1.6038,
-      "slope": 7.58504,
+      "z_score": 1.6669,
+      "slope": 7.93135,
       "quintile": 5,
-      "tier": "A",
+      "tier": "C",
       "in_r1": true
     },
     {
@@ -921,372 +1004,388 @@
       "in_r1": true
     },
     {
-      "symbol": "STM",
-      "z_score": 1.5853,
-      "slope": 7.1546,
+      "symbol": "JD",
+      "z_score": 1.5532,
+      "slope": 1.23539,
       "quintile": 5,
-      "tier": "A",
-      "in_r1": false
+      "tier": "C",
+      "in_r1": true
     },
     {
-      "symbol": "FSLY",
-      "z_score": 1.56,
-      "slope": 17.37586,
+      "symbol": "CMS",
+      "z_score": 1.5016,
+      "slope": 1.69288,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
+      "symbol": "FSLY",
+      "z_score": 1.452,
+      "slope": 16.54612,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "BB",
+      "z_score": 1.4273,
+      "slope": 4.63273,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": false
+    },
+    {
       "symbol": "EOG",
-      "z_score": 1.498,
-      "slope": 3.86025,
+      "z_score": 1.3694,
+      "slope": 3.5692,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": true
+    },
+    {
+      "symbol": "AMC",
+      "z_score": 1.3633,
+      "slope": 2.38015,
       "quintile": 5,
       "tier": "B",
       "in_r1": true
     },
     {
       "symbol": "LNG",
-      "z_score": 1.4779,
-      "slope": 4.43646,
+      "z_score": 1.3562,
+      "slope": 4.14439,
       "quintile": 5,
-      "tier": "A",
+      "tier": "B",
       "in_r1": false
     },
     {
-      "symbol": "JD",
-      "z_score": 1.4093,
-      "slope": 0.95999,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
-    },
-    {
       "symbol": "PPL",
-      "z_score": 1.3815,
-      "slope": 1.72489,
+      "z_score": 1.3515,
+      "slope": 1.70322,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
       "symbol": "NFLX",
-      "z_score": 1.3429,
-      "slope": 4.24394,
+      "z_score": 1.3127,
+      "slope": 4.1795,
       "quintile": 5,
       "tier": "B",
       "in_r1": true
     },
     {
+      "symbol": "DTE",
+      "z_score": 1.1883,
+      "slope": 1.70068,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
       "symbol": "OXY",
-      "z_score": 1.3054,
-      "slope": 4.68982,
+      "z_score": 1.1801,
+      "slope": 4.32737,
       "quintile": 5,
       "tier": "A",
       "in_r1": true
     },
     {
-      "symbol": "DTE",
-      "z_score": 1.2596,
-      "slope": 1.77779,
+      "symbol": "VRT",
+      "z_score": 1.1706,
+      "slope": 9.36761,
       "quintile": 5,
       "tier": "C",
       "in_r1": false
     },
     {
       "symbol": "OVV",
-      "z_score": 1.2013,
-      "slope": 4.88295,
+      "z_score": 1.0467,
+      "slope": 4.40789,
       "quintile": 5,
-      "tier": "B",
-      "in_r1": false
-    },
-    {
-      "symbol": "AMC",
-      "z_score": 1.1901,
-      "slope": 1.58212,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
-    },
-    {
-      "symbol": "XOP",
-      "z_score": 1.1413,
-      "slope": 3.67337,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
-    },
-    {
-      "symbol": "CVE",
-      "z_score": 1.1244,
-      "slope": 5.36131,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": false
-    },
-    {
-      "symbol": "VRT",
-      "z_score": 1.1116,
-      "slope": 9.11913,
-      "quintile": 5,
-      "tier": "B",
+      "tier": "A",
       "in_r1": false
     },
     {
       "symbol": "APD",
-      "z_score": 1.1054,
-      "slope": 1.95689,
+      "z_score": 1.0284,
+      "slope": 1.8147,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
+      "symbol": "INTC",
+      "z_score": 1.0252,
+      "slope": 7.37084,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": true
+    },
+    {
       "symbol": "LI",
-      "z_score": 1.1029,
-      "slope": 1.76888,
+      "z_score": 1.0131,
+      "slope": 1.52041,
       "quintile": 5,
       "tier": "C",
       "in_r1": true
     },
     {
       "symbol": "CF",
-      "z_score": 1.0895,
-      "slope": 5.34021,
+      "z_score": 1.0067,
+      "slope": 5.06747,
       "quintile": 5,
       "tier": "A",
       "in_r1": false
+    },
+    {
+      "symbol": "CVE",
+      "z_score": 1.0029,
+      "slope": 5.02603,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": false
+    },
+    {
+      "symbol": "BURL",
+      "z_score": 0.999,
+      "slope": 2.6733,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": false
+    },
+    {
+      "symbol": "AIG",
+      "z_score": 0.9978,
+      "slope": 0.78513,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": false
+    },
+    {
+      "symbol": "XOP",
+      "z_score": 0.9896,
+      "slope": 3.31903,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": true
+    },
+    {
+      "symbol": "RRC",
+      "z_score": 0.9815,
+      "slope": 2.68553,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "NIO",
+      "z_score": 0.9806,
+      "slope": 7.10658,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": true
     },
     {
       "symbol": "FANG",
-      "z_score": 1.0842,
-      "slope": 2.91236,
+      "z_score": 0.9756,
+      "slope": 2.68963,
       "quintile": 5,
       "tier": "A",
       "in_r1": false
     },
     {
-      "symbol": "COP",
-      "z_score": 1.0837,
-      "slope": 3.34578,
+      "symbol": "AWK",
+      "z_score": 0.9603,
+      "slope": 0.98087,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "BYND",
+      "z_score": 0.9587,
+      "slope": 0.11697,
       "quintile": 5,
       "tier": "B",
       "in_r1": true
     },
     {
-      "symbol": "BB",
-      "z_score": 1.0657,
-      "slope": 3.17359,
+      "symbol": "MARA",
+      "z_score": 0.9486,
+      "slope": 3.35985,
       "quintile": 5,
-      "tier": "A",
-      "in_r1": false
+      "tier": "C",
+      "in_r1": true
     },
     {
-      "symbol": "AIG",
-      "z_score": 1.064,
-      "slope": 0.85478,
+      "symbol": "UNH",
+      "z_score": 0.9476,
+      "slope": 1.91322,
       "quintile": 5,
       "tier": "B",
-      "in_r1": false
+      "in_r1": true
     },
     {
-      "symbol": "RRC",
-      "z_score": 1.0525,
-      "slope": 2.8347,
+      "symbol": "COP",
+      "z_score": 0.9172,
+      "slope": 2.9693,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": true
+    },
+    {
+      "symbol": "TGT",
+      "z_score": 0.9138,
+      "slope": 2.83791,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": true
+    },
+    {
+      "symbol": "WST",
+      "z_score": 0.9096,
+      "slope": 2.49509,
       "quintile": 5,
       "tier": "C",
       "in_r1": false
     },
     {
       "symbol": "VLO",
-      "z_score": 1.0411,
-      "slope": 4.68238,
+      "z_score": 0.8989,
+      "slope": 4.34285,
       "quintile": 5,
       "tier": "A",
+      "in_r1": true
+    },
+    {
+      "symbol": "XLU",
+      "z_score": 0.8912,
+      "slope": 1.37697,
+      "quintile": 5,
+      "tier": "B",
       "in_r1": true
     },
     {
       "symbol": "DUK",
-      "z_score": 1.0258,
-      "slope": 1.49698,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": false
-    },
-    {
-      "symbol": "XLU",
-      "z_score": 1.0141,
-      "slope": 1.47193,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": true
-    },
-    {
-      "symbol": "NIO",
-      "z_score": 1.002,
-      "slope": 7.18977,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": true
-    },
-    {
-      "symbol": "BURL",
-      "z_score": 1.0011,
-      "slope": 2.67632,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": false
-    },
-    {
-      "symbol": "MPC",
-      "z_score": 0.9713,
-      "slope": 4.24664,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": true
-    },
-    {
-      "symbol": "INTC",
-      "z_score": 0.9563,
-      "slope": 7.05618,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
-    },
-    {
-      "symbol": "CNQ",
-      "z_score": 0.9318,
-      "slope": 3.98699,
+      "z_score": 0.8678,
+      "slope": 1.32792,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
-      "symbol": "AWK",
-      "z_score": 0.9136,
-      "slope": 0.95072,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": false
-    },
-    {
-      "symbol": "WELL",
-      "z_score": 0.9057,
-      "slope": 2.22161,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": false
-    },
-    {
-      "symbol": "WST",
-      "z_score": 0.8937,
-      "slope": 2.47442,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": false
-    },
-    {
-      "symbol": "TGT",
-      "z_score": 0.8899,
-      "slope": 2.75433,
-      "quintile": 5,
-      "tier": "A",
-      "in_r1": true
-    },
-    {
-      "symbol": "SU",
-      "z_score": 0.88,
-      "slope": 3.82506,
+      "symbol": "ONTO",
+      "z_score": 0.8645,
+      "slope": 6.06374,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
       "symbol": "LIN",
-      "z_score": 0.8446,
-      "slope": 1.72908,
+      "z_score": 0.8458,
+      "slope": 1.74081,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": false
+    },
+    {
+      "symbol": "WELL",
+      "z_score": 0.8246,
+      "slope": 2.14382,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
       "symbol": "LB",
-      "z_score": 0.8246,
-      "slope": 3.27851,
+      "z_score": 0.8104,
+      "slope": 3.24249,
       "quintile": 5,
       "tier": "C",
       "in_r1": false
-    },
-    {
-      "symbol": "KR",
-      "z_score": 0.7862,
-      "slope": 1.45142,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": false
-    },
-    {
-      "symbol": "ODFL",
-      "z_score": 0.7793,
-      "slope": 2.86977,
-      "quintile": 5,
-      "tier": "A",
-      "in_r1": false
-    },
-    {
-      "symbol": "VXX",
-      "z_score": 0.7739,
-      "slope": 2.04356,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": true
-    },
-    {
-      "symbol": "MARA",
-      "z_score": 0.7601,
-      "slope": 2.29466,
-      "quintile": 5,
-      "tier": "A",
-      "in_r1": true
-    },
-    {
-      "symbol": "UNH",
-      "z_score": 0.7569,
-      "slope": 1.07758,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": true
-    },
-    {
-      "symbol": "ONTO",
-      "z_score": 0.7324,
-      "slope": 5.35108,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": false
-    },
-    {
-      "symbol": "DVN",
-      "z_score": 0.7152,
-      "slope": 2.7452,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
     },
     {
       "symbol": "MAR",
-      "z_score": 0.7117,
-      "slope": 2.46892,
+      "z_score": 0.7993,
+      "slope": 2.65403,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": true
+    },
+    {
+      "symbol": "CNQ",
+      "z_score": 0.7716,
+      "slope": 3.60651,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": false
+    },
+    {
+      "symbol": "MPC",
+      "z_score": 0.7705,
+      "slope": 3.72437,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": true
+    },
+    {
+      "symbol": "CHPT",
+      "z_score": 0.765,
+      "slope": -0.63933,
       "quintile": 5,
       "tier": "B",
       "in_r1": true
     },
     {
-      "symbol": "UNP",
-      "z_score": 0.7081,
-      "slope": 1.08341,
+      "symbol": "ODFL",
+      "z_score": 0.7615,
+      "slope": 2.83449,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": false
+    },
+    {
+      "symbol": "SU",
+      "z_score": 0.755,
+      "slope": 3.55846,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": false
+    },
+    {
+      "symbol": "ABNB",
+      "z_score": 0.73,
+      "slope": 1.1951,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": true
+    },
+    {
+      "symbol": "ON",
+      "z_score": 0.7222,
+      "slope": 4.23841,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": true
+    },
+    {
+      "symbol": "VXX",
+      "z_score": 0.7111,
+      "slope": 1.63203,
       "quintile": 5,
       "tier": "B",
-      "in_r1": false
+      "in_r1": true
+    },
+    {
+      "symbol": "SPOT",
+      "z_score": 0.6972,
+      "slope": 1.31715,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": true
     },
     {
       "symbol": "PARA",
@@ -1297,124 +1396,68 @@
       "in_r1": true
     },
     {
-      "symbol": "BYND",
-      "z_score": 0.6808,
-      "slope": -1.63946,
-      "quintile": 5,
-      "tier": "A",
-      "in_r1": true
-    },
-    {
-      "symbol": "SAIA",
-      "z_score": 0.6528,
-      "slope": 2.47716,
-      "quintile": 5,
-      "tier": "A",
-      "in_r1": false
-    },
-    {
-      "symbol": "FE",
-      "z_score": 0.6446,
-      "slope": 1.55203,
+      "symbol": "CCI",
+      "z_score": 0.6771,
+      "slope": 0.42318,
       "quintile": 5,
       "tier": "B",
-      "in_r1": false
-    },
-    {
-      "symbol": "XLE",
-      "z_score": 0.6343,
-      "slope": 2.20181,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
-    },
-    {
-      "symbol": "VTR",
-      "z_score": 0.6333,
-      "slope": 1.79391,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": false
-    },
-    {
-      "symbol": "AR",
-      "z_score": 0.6234,
-      "slope": 1.61318,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": false
-    },
-    {
-      "symbol": "AZN",
-      "z_score": 0.595,
-      "slope": 7.8245,
-      "quintile": 5,
-      "tier": "C",
-      "in_r1": true
-    },
-    {
-      "symbol": "CSX",
-      "z_score": 0.5894,
-      "slope": 2.12823,
-      "quintile": 5,
-      "tier": "A",
       "in_r1": false
     },
     {
       "symbol": "SPCE",
-      "z_score": 0.5712,
-      "slope": 0.97827,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
-    },
-    {
-      "symbol": "DE",
-      "z_score": 0.5695,
-      "slope": 2.08765,
-      "quintile": 5,
-      "tier": "B",
-      "in_r1": true
-    },
-    {
-      "symbol": "ON",
-      "z_score": 0.5663,
-      "slope": 3.61279,
-      "quintile": 5,
-      "tier": "A",
-      "in_r1": true
-    },
-    {
-      "symbol": "CCI",
-      "z_score": 0.5658,
-      "slope": 0.28925,
+      "z_score": 0.6554,
+      "slope": 1.34257,
       "quintile": 5,
       "tier": "C",
-      "in_r1": false
+      "in_r1": true
     },
     {
-      "symbol": "SENS",
-      "z_score": 0.5639,
-      "slope": -1.08662,
+      "symbol": "SAIA",
+      "z_score": 0.6485,
+      "slope": 2.48505,
       "quintile": 5,
       "tier": "B",
       "in_r1": false
     },
     {
-      "symbol": "VZ",
-      "z_score": 0.5607,
-      "slope": 1.61512,
+      "symbol": "KR",
+      "z_score": 0.6477,
+      "slope": 1.2436,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "PYPL",
+      "z_score": 0.6276,
+      "slope": -0.09943,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": true
+    },
+    {
+      "symbol": "MSTR",
+      "z_score": 0.6214,
+      "slope": 0.47619,
       "quintile": 5,
       "tier": "B",
       "in_r1": true
     },
     {
-      "symbol": "CHPT",
-      "z_score": 0.5528,
-      "slope": -1.45618,
+      "symbol": "UNP",
+      "z_score": 0.5876,
+      "slope": 0.93909,
       "quintile": 5,
-      "tier": "A",
-      "in_r1": true
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "ENTG",
+      "z_score": 0.5657,
+      "slope": 3.4885,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
     },
     {
       "symbol": "SQ",
@@ -1425,528 +1468,568 @@
       "in_r1": true
     },
     {
-      "symbol": "TER",
-      "z_score": 0.5468,
-      "slope": 7.54447,
+      "symbol": "SENS",
+      "z_score": 0.5459,
+      "slope": -1.13088,
       "quintile": 5,
       "tier": "C",
       "in_r1": false
+    },
+    {
+      "symbol": "AR",
+      "z_score": 0.5407,
+      "slope": 1.41892,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "FE",
+      "z_score": 0.536,
+      "slope": 1.44584,
+      "quintile": 5,
+      "tier": "B",
+      "in_r1": false
+    },
+    {
+      "symbol": "CSX",
+      "z_score": 0.5226,
+      "slope": 2.0231,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": false
+    },
+    {
+      "symbol": "TER",
+      "z_score": 0.5173,
+      "slope": 7.42116,
+      "quintile": 5,
+      "tier": "C",
+      "in_r1": false
+    },
+    {
+      "symbol": "DVN",
+      "z_score": 0.5167,
+      "slope": 2.31081,
+      "quintile": 5,
+      "tier": "A",
+      "in_r1": true
     }
   ],
   "watchlist": [
     {
-      "symbol": "MSI",
-      "quintile": 4,
-      "z_score": 0.5467,
-      "sma50_slope": 1.58769,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "SPOT",
-      "quintile": 4,
-      "z_score": 0.5099,
-      "sma50_slope": 0.78627,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "ACI",
-      "quintile": 4,
-      "z_score": 0.4927,
-      "sma50_slope": -0.08658,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "ENTG",
-      "quintile": 4,
-      "z_score": 0.4917,
-      "sma50_slope": 3.14937,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "ABNB",
-      "quintile": 4,
-      "z_score": 0.4889,
-      "sma50_slope": 0.76277,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "SPG",
-      "quintile": 4,
-      "z_score": 0.4808,
-      "sma50_slope": 1.15639,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "ALGN",
-      "quintile": 4,
-      "z_score": 0.4636,
-      "sma50_slope": 1.77793,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "MSTR",
-      "quintile": 4,
-      "z_score": 0.4438,
-      "sma50_slope": -0.53581,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "COST",
-      "quintile": 4,
-      "z_score": 0.4295,
-      "sma50_slope": 0.60326,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "PLD",
-      "quintile": 4,
-      "z_score": 0.4225,
-      "sma50_slope": 1.33539,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "AMT",
-      "quintile": 4,
-      "z_score": 0.4205,
-      "sma50_slope": 0.1605,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "YUM",
-      "quintile": 4,
-      "z_score": 0.4179,
-      "sma50_slope": 0.60693,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "EQR",
-      "quintile": 4,
-      "z_score": 0.415,
-      "sma50_slope": -0.226,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "HLT",
-      "quintile": 4,
-      "z_score": 0.4137,
-      "sma50_slope": 1.67745,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "PLUG",
-      "quintile": 4,
-      "z_score": 0.4047,
-      "sma50_slope": 5.54313,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "PFE",
-      "quintile": 4,
-      "z_score": 0.3873,
-      "sma50_slope": 0.7734,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "TRV",
-      "quintile": 4,
-      "z_score": 0.387,
-      "sma50_slope": 0.92915,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "CVX",
-      "quintile": 4,
-      "z_score": 0.3762,
-      "sma50_slope": 1.67232,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "WMB",
-      "quintile": 4,
-      "z_score": 0.3751,
-      "sma50_slope": 1.51975,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "PSX",
-      "quintile": 4,
-      "z_score": 0.3708,
-      "sma50_slope": 2.05894,
-      "distance_to_q5": "approaching"
-    },
-    {
       "symbol": "PGR",
       "quintile": 4,
-      "z_score": 0.3677,
-      "sma50_slope": -0.70066,
+      "z_score": 0.5108,
+      "sma50_slope": -0.56082,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "FDX",
+      "symbol": "MSI",
       "quintile": 4,
-      "z_score": 0.3563,
-      "sma50_slope": 2.57356,
+      "z_score": 0.5103,
+      "sma50_slope": 1.50648,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "SBUX",
+      "symbol": "VTR",
       "quintile": 4,
-      "z_score": 0.3511,
-      "sma50_slope": 0.60357,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "CI",
-      "quintile": 4,
-      "z_score": 0.3505,
-      "sma50_slope": 0.01912,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "T",
-      "quintile": 4,
-      "z_score": 0.3432,
-      "sma50_slope": 0.81899,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "EXR",
-      "quintile": 4,
-      "z_score": 0.3356,
-      "sma50_slope": 0.22542,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "BMY",
-      "quintile": 4,
-      "z_score": 0.3301,
-      "sma50_slope": 0.99331,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "AVGO",
-      "quintile": 4,
-      "z_score": 0.3274,
-      "sma50_slope": 3.26718,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "ZTS",
-      "quintile": 4,
-      "z_score": 0.3208,
-      "sma50_slope": -0.68504,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "DEI",
-      "quintile": 4,
-      "z_score": 0.3122,
-      "sma50_slope": -1.19805,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "BK",
-      "quintile": 4,
-      "z_score": 0.2842,
-      "sma50_slope": 1.80834,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "O",
-      "quintile": 4,
-      "z_score": 0.2833,
-      "sma50_slope": 0.80724,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "GWW",
-      "quintile": 4,
-      "z_score": 0.2831,
-      "sma50_slope": 0.88887,
+      "z_score": 0.5,
+      "sma50_slope": 1.62125,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "ROKU",
       "quintile": 4,
-      "z_score": 0.2815,
-      "sma50_slope": 1.81458,
+      "z_score": 0.4967,
+      "sma50_slope": 2.58176,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "STZ",
+      "symbol": "PLUG",
       "quintile": 4,
-      "z_score": 0.2789,
-      "sma50_slope": 0.16716,
+      "z_score": 0.4955,
+      "sma50_slope": 6.45958,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "PYPL",
+      "symbol": "AMT",
       "quintile": 4,
-      "z_score": 0.2751,
-      "sma50_slope": -1.07533,
+      "z_score": 0.4928,
+      "sma50_slope": 0.25088,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "ADI",
+      "symbol": "HLT",
       "quintile": 4,
-      "z_score": 0.2697,
-      "sma50_slope": 2.4452,
+      "z_score": 0.4859,
+      "sma50_slope": 1.81967,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "TWLO",
+      "symbol": "ALGN",
       "quintile": 4,
-      "z_score": 0.2687,
-      "sma50_slope": 1.36745,
+      "z_score": 0.4853,
+      "sma50_slope": 1.88526,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "HAL",
+      "symbol": "XLE",
       "quintile": 4,
-      "z_score": 0.2567,
-      "sma50_slope": 2.25387,
+      "z_score": 0.4701,
+      "sma50_slope": 1.89525,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "AA",
+      "symbol": "SPG",
       "quintile": 4,
-      "z_score": 0.25,
-      "sma50_slope": 3.80421,
+      "z_score": 0.4693,
+      "sma50_slope": 1.14862,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "MRNA",
+      "symbol": "DE",
       "quintile": 4,
-      "z_score": 0.2416,
-      "sma50_slope": 3.20257,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "SOXL",
-      "quintile": 4,
-      "z_score": 0.2229,
-      "sma50_slope": 6.20638,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "PBF",
-      "quintile": 4,
-      "z_score": 0.2206,
-      "sma50_slope": 3.67399,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "AMAT",
-      "quintile": 4,
-      "z_score": 0.2116,
-      "sma50_slope": 3.92279,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "LULU",
-      "quintile": 4,
-      "z_score": 0.199,
-      "sma50_slope": -2.01052,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "SOXX",
-      "quintile": 4,
-      "z_score": 0.1964,
-      "sma50_slope": 2.63606,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "SWKS",
-      "quintile": 4,
-      "z_score": 0.1865,
-      "sma50_slope": -0.16062,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "AFL",
-      "quintile": 4,
-      "z_score": 0.1859,
-      "sma50_slope": 0.31702,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "KLAC",
-      "quintile": 4,
-      "z_score": 0.1792,
-      "sma50_slope": 3.41981,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "BLDP",
-      "quintile": 4,
-      "z_score": 0.1711,
-      "sma50_slope": 3.6054,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "CHD",
-      "quintile": 4,
-      "z_score": 0.1545,
-      "sma50_slope": -0.04519,
-      "distance_to_q5": "approaching"
-    },
-    {
-      "symbol": "XOM",
-      "quintile": 4,
-      "z_score": 0.138,
-      "sma50_slope": 1.60949,
+      "z_score": 0.4677,
+      "sma50_slope": 1.88689,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "CLOV",
       "quintile": 4,
-      "z_score": 0.1355,
-      "sma50_slope": -2.27946,
+      "z_score": 0.4622,
+      "sma50_slope": -1.35122,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "C",
+      "symbol": "EXR",
       "quintile": 4,
-      "z_score": 0.125,
-      "sma50_slope": 2.06616,
+      "z_score": 0.4524,
+      "sma50_slope": 0.3993,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "DEI",
+      "quintile": 4,
+      "z_score": 0.4205,
+      "sma50_slope": -0.92464,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "AVGO",
+      "quintile": 4,
+      "z_score": 0.4147,
+      "sma50_slope": 3.60499,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "HUM",
       "quintile": 4,
-      "z_score": 0.1235,
-      "sma50_slope": -1.02877,
+      "z_score": 0.4104,
+      "sma50_slope": -0.02107,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "RIVN",
+      "symbol": "PLD",
       "quintile": 4,
-      "z_score": 0.1051,
-      "sma50_slope": 1.41262,
+      "z_score": 0.4049,
+      "sma50_slope": 1.31787,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "MRK",
+      "symbol": "EQR",
       "quintile": 4,
-      "z_score": 0.0924,
-      "sma50_slope": 1.35664,
+      "z_score": 0.4031,
+      "sma50_slope": -0.23133,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "EQT",
+      "symbol": "SOXL",
       "quintile": 4,
-      "z_score": 0.0916,
-      "sma50_slope": 0.88024,
+      "z_score": 0.3966,
+      "sma50_slope": 7.63571,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "BKR",
+      "symbol": "AZN",
       "quintile": 4,
-      "z_score": 0.0851,
-      "sma50_slope": 1.57218,
+      "z_score": 0.3957,
+      "sma50_slope": 6.60382,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "CAT",
+      "symbol": "COST",
       "quintile": 4,
-      "z_score": 0.0826,
-      "sma50_slope": 3.26976,
+      "z_score": 0.3868,
+      "sma50_slope": 0.55175,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "PDD",
+      "symbol": "TWLO",
       "quintile": 4,
-      "z_score": 0.0824,
-      "sma50_slope": -0.30348,
+      "z_score": 0.3718,
+      "sma50_slope": 1.79413,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "KHC",
+      "symbol": "VZ",
       "quintile": 4,
-      "z_score": 0.0811,
-      "sma50_slope": -0.90004,
+      "z_score": 0.3599,
+      "sma50_slope": 1.2325,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "DOV",
+      "symbol": "SOXX",
       "quintile": 4,
-      "z_score": 0.0683,
-      "sma50_slope": 0.74415,
+      "z_score": 0.3584,
+      "sma50_slope": 3.03745,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "SLB",
+      "symbol": "KLAC",
       "quintile": 4,
-      "z_score": 0.0535,
-      "sma50_slope": 1.02052,
+      "z_score": 0.3559,
+      "sma50_slope": 3.83309,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "TRP",
+      "symbol": "BK",
       "quintile": 4,
-      "z_score": 0.0513,
-      "sma50_slope": 1.24748,
+      "z_score": 0.3549,
+      "sma50_slope": 1.91725,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "XPEV",
+      "symbol": "SBUX",
       "quintile": 4,
-      "z_score": 0.049,
-      "sma50_slope": -0.25547,
+      "z_score": 0.3516,
+      "sma50_slope": 0.61978,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "ETSY",
+      "symbol": "ADI",
       "quintile": 4,
-      "z_score": 0.0413,
-      "sma50_slope": 0.4097,
+      "z_score": 0.3471,
+      "sma50_slope": 2.64492,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "CSCO",
+      "symbol": "BLDP",
       "quintile": 4,
-      "z_score": 0.0131,
-      "sma50_slope": 1.06631,
+      "z_score": 0.3361,
+      "sma50_slope": 4.65171,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "MDLZ",
+      "symbol": "YUM",
       "quintile": 4,
-      "z_score": 0.0083,
-      "sma50_slope": -0.31476,
+      "z_score": 0.3335,
+      "sma50_slope": 0.52442,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "SEDG",
+      "symbol": "ACI",
       "quintile": 4,
-      "z_score": -0.0043,
-      "sma50_slope": 3.91949,
+      "z_score": 0.3245,
+      "sma50_slope": -0.31327,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "NET",
+      "symbol": "MRNA",
       "quintile": 4,
-      "z_score": -0.0104,
-      "sma50_slope": 1.55403,
+      "z_score": 0.3201,
+      "sma50_slope": 3.68266,
       "distance_to_q5": "approaching"
     },
     {
-      "symbol": "EGHT",
+      "symbol": "PFE",
       "quintile": 4,
-      "z_score": -0.0184,
-      "sma50_slope": -0.57565,
+      "z_score": 0.3052,
+      "sma50_slope": 0.67208,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CI",
+      "quintile": 4,
+      "z_score": 0.3022,
+      "sma50_slope": -0.0563,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ZTS",
+      "quintile": 4,
+      "z_score": 0.2936,
+      "sma50_slope": -0.71833,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "LULU",
+      "quintile": 4,
+      "z_score": 0.2925,
+      "sma50_slope": -1.6516,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "FDX",
+      "quintile": 4,
+      "z_score": 0.2915,
+      "sma50_slope": 2.41368,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "AMAT",
+      "quintile": 4,
+      "z_score": 0.2736,
+      "sma50_slope": 4.14536,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "WMB",
+      "quintile": 4,
+      "z_score": 0.2677,
+      "sma50_slope": 1.36094,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "STZ",
+      "quintile": 4,
+      "z_score": 0.2658,
+      "sma50_slope": 0.1359,
       "distance_to_q5": "approaching"
     },
     {
       "symbol": "AMZN",
       "quintile": 4,
-      "z_score": -0.0193,
-      "sma50_slope": 0.08468,
+      "z_score": 0.2616,
+      "sma50_slope": 0.692,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "O",
+      "quintile": 4,
+      "z_score": 0.2583,
+      "sma50_slope": 0.78418,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "BMY",
+      "quintile": 4,
+      "z_score": 0.2528,
+      "sma50_slope": 0.80282,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "RIVN",
+      "quintile": 4,
+      "z_score": 0.2302,
+      "sma50_slope": 1.88769,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CVX",
+      "quintile": 4,
+      "z_score": 0.2286,
+      "sma50_slope": 1.35274,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "AA",
+      "quintile": 4,
+      "z_score": 0.2198,
+      "sma50_slope": 3.70165,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "HAL",
+      "quintile": 4,
+      "z_score": 0.2176,
+      "sma50_slope": 2.15794,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SWKS",
+      "quintile": 4,
+      "z_score": 0.2,
+      "sma50_slope": -0.10013,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ETSY",
+      "quintile": 4,
+      "z_score": 0.1997,
+      "sma50_slope": 0.92781,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "TRV",
+      "quintile": 4,
+      "z_score": 0.1981,
+      "sma50_slope": 0.81108,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "GWW",
+      "quintile": 4,
+      "z_score": 0.1894,
+      "sma50_slope": 0.74949,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "PSX",
+      "quintile": 4,
+      "z_score": 0.1884,
+      "sma50_slope": 1.66411,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "C",
+      "quintile": 4,
+      "z_score": 0.1536,
+      "sma50_slope": 2.1614,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "PBF",
+      "quintile": 4,
+      "z_score": 0.1296,
+      "sma50_slope": 3.27136,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "XPEV",
+      "quintile": 4,
+      "z_score": 0.1218,
+      "sma50_slope": -0.08647,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "T",
+      "quintile": 4,
+      "z_score": 0.1071,
+      "sma50_slope": 0.40475,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "PDD",
+      "quintile": 4,
+      "z_score": 0.0832,
+      "sma50_slope": -0.29216,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "COIN",
+      "quintile": 4,
+      "z_score": 0.083,
+      "sma50_slope": 0.0589,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "AFL",
+      "quintile": 4,
+      "z_score": 0.0763,
+      "sma50_slope": 0.23388,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CHD",
+      "quintile": 4,
+      "z_score": 0.074,
+      "sma50_slope": -0.19665,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "MET",
+      "quintile": 4,
+      "z_score": 0.0733,
+      "sma50_slope": -0.31074,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SLB",
+      "quintile": 4,
+      "z_score": 0.0594,
+      "sma50_slope": 1.05517,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "DOV",
+      "quintile": 4,
+      "z_score": 0.0408,
+      "sma50_slope": 0.70515,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CAT",
+      "quintile": 4,
+      "z_score": 0.0373,
+      "sma50_slope": 3.19485,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "PAYC",
+      "quintile": 4,
+      "z_score": 0.0337,
+      "sma50_slope": -1.95021,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "RIOT",
+      "quintile": 4,
+      "z_score": 0.0325,
+      "sma50_slope": 2.39998,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "ORCL",
+      "quintile": 4,
+      "z_score": 0.0267,
+      "sma50_slope": 0.20335,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "SMH",
+      "quintile": 4,
+      "z_score": 0.0265,
+      "sma50_slope": 2.37077,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "BKR",
+      "quintile": 4,
+      "z_score": 0.0042,
+      "sma50_slope": 1.36903,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "EQT",
+      "quintile": 4,
+      "z_score": -0.0003,
+      "sma50_slope": 0.71422,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "HUT",
+      "quintile": 4,
+      "z_score": -0.0063,
+      "sma50_slope": 5.26005,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "DOCU",
+      "quintile": 4,
+      "z_score": -0.0129,
+      "sma50_slope": -2.32234,
+      "distance_to_q5": "approaching"
+    },
+    {
+      "symbol": "CSCO",
+      "quintile": 4,
+      "z_score": -0.0175,
+      "sma50_slope": 1.03423,
       "distance_to_q5": "approaching"
     }
   ],
-  "as_of": "2026-04-20",
+  "as_of": "2026-04-21",
   "total_scanned": 366,
   "source": "dual_ranking_engine",
   "note": "Polygon-verified Lottery \u2264$3. $24.8M, PF 1.93, Sharpe 1.65, 7/7. 2026-04-08.",
