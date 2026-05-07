@@ -1,5 +1,5 @@
 {
-  "last_refresh": "2026-05-06T20:19:35Z",
+  "last_refresh": "2026-05-07T13:35:10Z",
   "market_date": "2026-05-06",
   "positions": [
     {
@@ -905,12 +905,12 @@
     }
   ],
   "summary": {
-    "total_positions": 4,
+    "total_positions": 18,
     "total_pending": 35,
-    "total_unrealized": -11718,
+    "total_unrealized": -71158,
     "realized_pnl": 25358426,
     "month_realized": 474548,
-    "month_unrealized": -11718,
+    "month_unrealized": -71158,
     "win_rate": 37.8,
     "profit_factor": 1.93,
     "year_realized": 3643012,
